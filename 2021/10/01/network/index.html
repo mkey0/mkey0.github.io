@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>计算机网络 | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="计算机网络 第二天12345678910111213141516通讯最终是根据MAC地址（网卡地址），输送数据到网卡，被网卡接收如果mac地址是自己，就会将数据传递给上一层进行处理如果mac地址不是自己，则会将数据丢弃不在同一网段无法直接ping通，需要路由器路由器负责连接不同网段ping使用ICMP协议用ARP协议(广播)获取mac地址广播只能在同一网段内传播广播目的是获取mac地址mac地址F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2021/10/01/network/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="计算机网络 第二天12345678910111213141516通讯最终是根据MAC地址（网卡地址），输送数据到网卡，被网卡接收如果mac地址是自己，就会将数据传递给上一层进行处理如果mac地址不是自己，则会将数据丢弃不在同一网段无法直接ping通，需要路由器路由器负责连接不同网段ping使用ICMP协议用ARP协议(广播)获取mac地址广播只能在同一网段内传播广播目的是获取mac地址mac地址F">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013154839748.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20210928102822246.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20210928133659174.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20210928134113841.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20210928134434095.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20210928134610633.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20210929104717574.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/%E6%88%AA%E5%B1%8F2021-10-01%20%E4%B8%8A%E5%8D%888.14.53.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211001082722312.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211006132547117.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211006133104202.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211006133318561.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211006135540183.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211006142853130.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211006142800861.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211006143733554.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211006145005092.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211007110854361.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211007111056369.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211007114657538.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211007134337250.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211007134519107.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211007135420459.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211007141244762.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211007141423436.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211008152914381.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211008160415040.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211008200142051.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211008200542529.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211008201111069.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211008204018654.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/TCP01_%E5%BA%8F%E5%8F%B7_%E7%A1%AE%E8%AE%A4%E5%8F%B7.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/TCP02_%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211009155603835.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211009160052789.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211009161452792.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211009162033482.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/TCP04_%E5%BA%8F%E5%8F%B7%E7%A1%AE%E8%AE%A4%E5%8F%B701_%E7%9B%B8%E5%AF%B9.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/TCP05_%E5%BA%8F%E5%8F%B7%E7%A1%AE%E8%AE%A4%E5%8F%B702_%E5%8E%9F%E7%94%9F.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211011094430415.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211011094452376.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211011101643440.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211011101652915.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211011105309187.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211011105644914.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211011110403690.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211011141737740.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/TCP%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B01.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/TCP%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B02.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211012103557557.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013092500558.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013101603698.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013101611795.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013154953046.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013160557396.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013160609819.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013160646998.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013160718081.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013160730182.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013160740837.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211014102614093.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211014153728493.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015105931970.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015105947376.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015110122670.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015110213967.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015110230604.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015110250293.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015110302027.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015110313676.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015110609783.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015111412458.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015155127417.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015155150330.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015155201747.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015155320057.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015155409248.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015155602641.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211015155622013.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211017193345015.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211017194201253.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211017195301134.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018105140694.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018111413155.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018132103802.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018132139318.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018135835639.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018140207988.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018144051003.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018144205018.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018144453330.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018144531186.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018144801687.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018144810681.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018145254915.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018145757824.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211018145820316.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211019155103302.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211019160845343.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211019160909958.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211019201856588.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211019203420706.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211019210053900.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211019210128505.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211020093916196.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211020093942989.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211020100456346.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211020105359301.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211020111032419.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211020111103491.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211020111243067.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211020111312594.png">
+<meta property="article:published_time" content="2021-09-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-26T13:06:18.062Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2021/10/01/network/image-20211013154839748.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-network" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/01/network/" class="article-date">
+  <time class="dt-published" datetime="2021-09-30T16:00:00.000Z" itemprop="datePublished">2021-10-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      计算机网络
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><p><img src="/2021/10/01/network/image-20211013154839748.png" alt="image-20211013154839748"></p>
+<h2 id="第二天"><a href="#第二天" class="headerlink" title="第二天"></a>第二天</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">通讯最终是根据MAC地址（网卡地址），输送数据到网卡，被网卡接收</span><br><span class="line">如果mac地址是自己，就会将数据传递给上一层进行处理</span><br><span class="line">如果mac地址不是自己，则会将数据丢弃</span><br><span class="line"></span><br><span class="line">不在同一网段无法直接ping通，需要路由器</span><br><span class="line">路由器负责连接不同网段</span><br><span class="line">ping使用ICMP协议</span><br><span class="line"></span><br><span class="line">用ARP协议(广播)获取mac地址</span><br><span class="line">广播只能在同一网段内传播</span><br><span class="line">广播目的是获取mac地址</span><br><span class="line">mac地址FFFF.FFFF.FFFF代表广播，同网段所有主机接收</span><br><span class="line">ARP协议有缓存</span><br><span class="line"></span><br><span class="line">半双工：同时只有一个源发信号</span><br><span class="line">全双工：都可以发信号</span><br></pre></td></tr></table></figure>
+
+<p>计算机连接模式</p>
+<ul>
+<li>网线直连<ul>
+<li>需要交叉线，不是直通线</li>
+</ul>
+</li>
+<li>同轴电缆<ul>
+<li>半双工通信</li>
+<li>容易冲突</li>
+<li>不安全</li>
+<li>中间断了，整个瘫痪</li>
+</ul>
+</li>
+<li>集线器（Hub）<ul>
+<li>半双工通信</li>
+<li>容易冲突</li>
+<li>不安全</li>
+<li>没智商，会将所有收到的数据转发给全部连接主机</li>
+<li>一条线出问题，不影响其他线路</li>
+<li>需要在同一网段</li>
+</ul>
+</li>
+<li>网桥<ul>
+<li>连接同一网段</li>
+<li>通过自学习得知每个接口那侧的mac地址</li>
+<li>起到隔绝冲突域的作用</li>
+</ul>
+</li>
+<li>交换机<ul>
+<li>相当于接口更多的网桥</li>
+<li>全双工通信</li>
+<li>记录每个接口的mac地址</li>
+<li>比集线器安全</li>
+<li>同一网段</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">全球都用交换机连接</span><br><span class="line">1.交换机连接同一网段，IP地址不够</span><br><span class="line">2.数据包太多（如：广播）</span><br></pre></td></tr></table></figure>
+
+<h2 id="第三天"><a href="#第三天" class="headerlink" title="第三天"></a>第三天</h2><p><strong>网线直连、同轴电缆、集线器、网桥、交换机</strong></p>
+<ul>
+<li><p>同一网段</p>
+</li>
+<li><p>同一广播域</p>
+</li>
+</ul>
+<p><strong>路由器</strong></p>
+<ul>
+<li>可以在不同网段之间转发数据</li>
+<li>隔绝广播域</li>
+</ul>
+<hr>
+<p>跨网段需要设置<strong>网关</strong>，路由器在该网段的IP地址</p>
+<p>ping不同网段的主机</p>
+<ol>
+<li>源主机用ARP协议查找路由器mac地址</li>
+<li>源主机将ICMP发送给路由器</li>
+<li>路由器使用ARP协议查找目的地址的mac地址</li>
+<li>路由器发送ICMP给目的主机</li>
+<li>目的主机返回ICMP给源主机</li>
+</ol>
+<p><img src="/2021/10/01/network/image-20210928102822246.png" alt="image-20210928102822246"> </p>
+<blockquote>
+<p><strong>如果同一网段的两个主机中间用路由器连接，能否通信？</strong></p>
+<p>不能通信</p>
+<p>因为在同一网段，源主机想要ping目标主机就不需要经过路由器走网关，即直接发送ARP广播查找目的主机的mac地址，ARP广播会被路由器丢弃，不会发送给目的主机，即ARP协议广播发送后无响应，则无法实现通信。路由器两边的网段必须不一样。</p>
+</blockquote>
+<h3 id="mac地址"><a href="#mac地址" class="headerlink" title="mac地址"></a>mac地址</h3><p>每一个网卡都有一个6字节的mac地址</p>
+<p>mac地址全球唯一，固化在了网卡的ROM中，由IEEE802标准规定</p>
+<p>前三个字节：OUI，组织唯一标识符</p>
+<p>后三个字节：网络接口标识符</p>
+<p>mac地址可以自己设置</p>
+<h3 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h3><p>IPv4（4字节）</p>
+<p>IPv6（16字节）</p>
+<p>IP地址&#x3D;网络ID+主机ID</p>
+<p>主机ID全0：主机所在网段</p>
+<p>主机ID全1：主机所在网段的全部主机（广播）</p>
+<ul>
+<li>A类地址</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20210928133659174.png" alt="image-20210928133659174"> </p>
+<blockquote>
+<p>网络ID不能是全0</p>
+</blockquote>
+<ul>
+<li>B类地址</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20210928134113841.png" alt="image-20210928134113841"> </p>
+<ul>
+<li>C类地址</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20210928134434095.png" alt="image-20210928134434095"> </p>
+<ul>
+<li>D类地址、E类地址</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20210928134610633.png" alt="image-20210928134610633"> </p>
+<h3 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h3><p>子网划分：借用主机位作为子网位，划分出多个子网</p>
+<ul>
+<li>等长子网划分</li>
+<li>变长子网划分</li>
+</ul>
+<blockquote>
+<p>判断网络地址类型，不看子网掩码，看地址开头</p>
+</blockquote>
+<h2 id="第四天"><a href="#第四天" class="headerlink" title="第四天"></a>第四天</h2><p><img src="/2021/10/01/network/image-20210929104717574.png" alt="image-20210929104717574"> </p>
+<blockquote>
+<p><strong>无法正常通信</strong></p>
+<p>发送数据时，只知道目标主机的ip，不知道子网掩码，所以通过将目标主机的IP地址与自己的子网掩码做与运算，判断是否与自己在同一网段</p>
+<p>计算机1的网络ID为192.168.0.0，他用自己的子网掩码计算计算机0的网络ID为192.168.0.0，在同一网段，可以通信。但是计算机0用自己的子网掩码计算发现，计算机1和自己不在同一网段，所以计算机0无法给计算机1发送数据。</p>
+</blockquote>
+<h3 id="超网"><a href="#超网" class="headerlink" title="超网"></a>超网</h3><p>与子网相反，将多个连续网段合并成一个更大的网段</p>
+<h3 id="如何判断子网和超网"><a href="#如何判断子网和超网" class="headerlink" title="如何判断子网和超网"></a>如何判断子网和超网</h3><ol>
+<li>看网段类型</li>
+<li>比较子网掩码和默认子网掩码的位数多少</li>
+<li>位数多-子网，位数少-超网</li>
+</ol>
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><p>默认情况下，路由器只知道跟他直连的网段，非直连的网段需要通过静态路由，动态路由告诉他</p>
+<ul>
+<li>静态路由<ul>
+<li>管理员手动添加</li>
+</ul>
+</li>
+<li>动态路由<ul>
+<li>路由选择协议（RIP，OSPF）</li>
+</ul>
+</li>
+</ul>
+<h2 id="第五天"><a href="#第五天" class="headerlink" title="第五天"></a>第五天</h2><h4 id="数据包的传输过程"><a href="#数据包的传输过程" class="headerlink" title="数据包的传输过程"></a>数据包的传输过程</h4><p><img src="/2021/10/01/network/%E6%88%AA%E5%B1%8F2021-10-01%20%E4%B8%8A%E5%8D%888.14.53.png" alt="截屏2021-10-01 上午8.14.53"> </p>
+<p>源IP和目标IP不变，mac地址改变</p>
+<h4 id="网络、互联网、因特网"><a href="#网络、互联网、因特网" class="headerlink" title="网络、互联网、因特网"></a>网络、互联网、因特网</h4><p>全球最大的互联网：因特网</p>
+<p>网络：同一网段的连接</p>
+<p>互联网：不同网段连接在一起</p>
+<h4 id="网络分类"><a href="#网络分类" class="headerlink" title="网络分类"></a>网络分类</h4><p><img src="/2021/10/01/network/image-20211001082722312.png" alt="image-20211001082722312"> </p>
+<h4 id="网口"><a href="#网口" class="headerlink" title="网口"></a>网口</h4><ul>
+<li><p>以太网口（FastEthernet）</p>
+<ul>
+<li>百兆</li>
+<li>GigabitEthernet    千兆</li>
+</ul>
+</li>
+<li><p>串口</p>
+</li>
+</ul>
+<h4 id="上网方式"><a href="#上网方式" class="headerlink" title="上网方式"></a>上网方式</h4><ul>
+<li>电话线入户</li>
+<li>光线入户</li>
+<li>网线入户</li>
+</ul>
+<h4 id="公网IP、私网IP"><a href="#公网IP、私网IP" class="headerlink" title="公网IP、私网IP"></a>公网IP、私网IP</h4><p>公网IP：</p>
+<ul>
+<li>Internet上的路由器只有到达公网的路由表，没有到达私网的路由表</li>
+<li>公网IP统一分配</li>
+</ul>
+<p>私网IP</p>
+<ul>
+<li>A类：10.0.0.0&#x2F;8</li>
+<li>B类：172.</li>
+<li>C类：192.168.0.0-192.168.255.0</li>
+</ul>
+<h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><p>私网IP访问公网IP时，将私网IP地址换为公网IP地址</p>
+<blockquote>
+<p>可能会多次NAT转换</p>
+</blockquote>
+<p>特点</p>
+<ul>
+<li>节约公网IP</li>
+</ul>
+<p>分类</p>
+<ul>
+<li>静态转换</li>
+<li>动态转换</li>
+<li>PAT</li>
+</ul>
+<h2 id="第六天"><a href="#第六天" class="headerlink" title="第六天"></a>第六天</h2><h4 id="ping的第一次不通的原因"><a href="#ping的第一次不通的原因" class="headerlink" title="ping的第一次不通的原因"></a>ping的第一次不通的原因</h4><p>第一次ping不知道mac地址，且在不同的网段，中间需要经过路由器。</p>
+<p>ICMP发送到路由器后，路由器也不知道对应IP主机的mac地址，路由器需要发送ARP广播，查询IP主机的mac地址，路由器由于忙不过来，会将ICMP数据包丢掉，即第一次ICMP无法抵达。</p>
+<h4 id="网络互联模型"><a href="#网络互联模型" class="headerlink" title="网络互联模型"></a>网络互联模型</h4><p><img src="/2021/10/01/network/image-20211006132547117.png" alt="image-20211006132547117"> </p>
+<p><img src="/2021/10/01/network/image-20211006133104202.png" alt="image-20211006133104202"> </p>
+<p><img src="/2021/10/01/network/image-20211006133318561.png" alt="image-20211006133318561"></p>
+<h4 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h4><ul>
+<li>模拟信号<ul>
+<li>连续信号</li>
+<li>适合长距离传输</li>
+<li>抗干扰差</li>
+</ul>
+</li>
+<li>数字信号<ul>
+<li>不连续信号</li>
+<li>不适合长距离传输</li>
+<li>抗干扰强</li>
+</ul>
+</li>
+</ul>
+<p>信道：信息传输的通道</p>
+<ul>
+<li>单工通信</li>
+<li>半双工通信</li>
+<li>全双工通信</li>
+</ul>
+<h4 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h4><p>链路：从一个节点到相邻节点的一段物理线路，没有中间节点</p>
+<p>数据链路：在一条链路上传输数据时，需要有通信协议控制数据的传输</p>
+<ul>
+<li>广播通信：CSMA&#x2F;CD协议（集线器，以太网帧）<ul>
+<li>为检测冲突，以太网帧至少有64位</li>
+<li>以太网帧64-1518</li>
+</ul>
+</li>
+<li>点对点通信：PPP协议（PPP帧）</li>
+</ul>
+<blockquote>
+<p>PPP帧和以太网帧的网络层数据相同</p>
+</blockquote>
+<p><strong>三个基本问题</strong></p>
+<ul>
+<li>封装成帧</li>
+<li>透明传输</li>
+<li>差错检验</li>
+</ul>
+<p><strong>封装成帧</strong></p>
+<ul>
+<li>帧：数据部分</li>
+<li>MTU：最大传输单元</li>
+</ul>
+<p><strong>透明传输</strong></p>
+<p><img src="/2021/10/01/network/image-20211006135540183.png" alt="image-20211006135540183"> </p>
+<p><strong>差错检验</strong></p>
+<p>FCS：数据部分和首部经过计算得出，收到帧后，将数据部分和首部进行计算发现与FCS不同则丢弃帧</p>
+<p><strong>CSMA&#x2F;CD</strong></p>
+<p><img src="/2021/10/01/network/image-20211006142853130.png" alt="image-20211006142853130"> </p>
+<p><strong>PPP协议</strong></p>
+<p><img src="/2021/10/01/network/image-20211006142800861.png" alt="image-20211006142800861"> </p>
+<p><strong>网卡</strong></p>
+<p><img src="/2021/10/01/network/image-20211006143733554.png" alt="image-20211006143733554"> </p>
+<p>网卡工作在物理层、数据链路层</p>
+<p>交换机工作在物理层、数据链路层</p>
+<p>集线器工作在物理层</p>
+<p>路由器工作在物理层、数据链路层、网络层</p>
+<h4 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h4><p>网络层数据包（IP数据包）由首部和数据组成</p>
+<p>数据很多时候是由传输层传递下来的数据段</p>
+<p><img src="/2021/10/01/network/image-20211006145005092.png" alt="image-20211006145005092"> </p>
+<p>首部长度有四位，首部长度最长60字节，首部固定部分20个字节，可变部分40字节</p>
+<h2 id="第七天"><a href="#第七天" class="headerlink" title="第七天"></a>第七天</h2><ul>
+<li>版本<ul>
+<li>占4位</li>
+<li>IPv4</li>
+<li>IPv6</li>
+</ul>
+</li>
+<li>总部长度<ul>
+<li>占4位</li>
+<li>最小：0b0101：20</li>
+<li>最大：0b1111：60</li>
+</ul>
+</li>
+<li>区分服务<ul>
+<li>占8位</li>
+<li>提升网络服务质量<ul>
+<li>将特定标记的数据包优先放行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>总长度<ul>
+<li>占16位</li>
+<li>首部+数据长度之和最大值65535</li>
+<li>帧的数据不能超过1500字节，每片数据部分最大长度1460</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211007110854361.png" alt="image-20211007110854361"> </p>
+<ul>
+<li>标识<ul>
+<li>占16位</li>
+<li>数据包的ID，当数据包过大进行分片时，同一个数据包的所有片的标识都是一样的</li>
+<li>有一个计数器专门管理数据包的ID，每发出一个数据包，ID就加1</li>
+</ul>
+</li>
+<li>标志<ul>
+<li>占3位</li>
+<li>第1位（Reserved Bit）：保留</li>
+<li>第2位（Don’t Fragment）：1代表不允许分片，0代表允许分片 </li>
+<li>第3位（More Fragments）：1代表不是最后一片，0代表是最后一片</li>
+</ul>
+</li>
+<li>位偏移<ul>
+<li>占13位</li>
+<li>片偏移乘以8：字节偏移 </li>
+<li>每一片的长度一定是8的整数倍</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211007111056369.png" alt="image-20211007111056369"> </p>
+<p><img src="/2021/10/01/network/image-20211007114657538.png" alt="image-20211007114657538"> </p>
+<ul>
+<li>生存时间<ul>
+<li>占8位</li>
+<li>每个路由器转发前会将TTL减1，一旦TTL为0，路由器会返回错误报告</li>
+<li>观察使用ping命令后的TTL，能够推测出对方的操作系统、中间经过了多少个路由器</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211007134337250.png" alt="image-20211007134337250"> </p>
+<ul>
+<li>协议<ul>
+<li>占8位</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211007134519107.png" alt="image-20211007134519107"> </p>
+<hr>
+<h3 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h3><p><img src="/2021/10/01/network/image-20211007135420459.png" alt="image-20211007135420459"> </p>
+<h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><p>数据格式</p>
+<ul>
+<li>无连接，减少建立和释放连接的开销</li>
+<li>尽可能交付，不保证可靠交付</li>
+<li>首部只有8个字节</li>
+<li>UDP长度，占16位，首部的长度+数据的长度</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211007141244762.png" alt="image-20211007141244762"> </p>
+<ul>
+<li>校验和<ul>
+<li>检验和的计算内容：伪首部 + 首部 + 数据 </li>
+<li>伪首部：仅在计算检验和时起作用，并不会传递给网络层</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211007141423436.png" alt="image-20211007141423436"> </p>
+<ul>
+<li>端口<ul>
+<li>UDP首部端口占2字节</li>
+<li>客户端的源端口是临时开启的随机端口</li>
+</ul>
+</li>
+<li>常见命令<ul>
+<li>netstat -an：查看被占用的端口</li>
+<li>netstat -anb：查看被占用的端口、占用端口的应用程序</li>
+<li>telnet 主机 端口：查看是否可以访问主机的某端口</li>
+</ul>
+</li>
+</ul>
+<h2 id="第八天"><a href="#第八天" class="headerlink" title="第八天"></a>第八天</h2><h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><p><img src="/2021/10/01/network/image-20211008152914381.png" alt="image-20211008152914381"></p>
+<ul>
+<li>数据偏移<ul>
+<li>占4位</li>
+<li>乘以 4&#x3D;首部长度</li>
+<li>首部长度为20-60字节</li>
+</ul>
+</li>
+<li>保留<ul>
+<li>占6位，目前全为0</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>有些资料：保留位3位；标志位9位。</p>
+<p>由于9位标志位情况下，前3位不使用，依旧为0，所以无区别。</p>
+<p>wireshark同上。</p>
+</blockquote>
+<hr>
+<p><strong>TCP的一个细节</strong></p>
+<p><strong>UDP</strong>首部有<strong>16</strong>位记录UDP报文段的长度（首部+数据）</p>
+<p><strong>TCP</strong>首部只有<strong>4</strong>位记录TCP报文长度，没记录数据长度</p>
+<p><strong>分析</strong></p>
+<p>UDP首部16位长度字段是冗余的，纯粹为保证首部是32bit对齐</p>
+<p>TCP&#x2F;UDP的数据长度，完全可以由IP数据包的首部推测出来</p>
+<ul>
+<li>传输层的数据长度 &#x3D; 网络层的总长度 – 网络层的首部长度 –传输层的首部长度</li>
+</ul>
+<hr>
+<ul>
+<li>校验和<ul>
+<li>伪首部：占用 12 字节，仅在计算检验和时起作用并不会传递给网络层</li>
+<li>跟UDP 一样，TCP检验和的计算内容：伪首部 + 首部 + 数据</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211008160415040.png" alt="image-20211008160415040"></p>
+<ul>
+<li>标志位<ul>
+<li>URG<ul>
+<li>当URG为1时，紧急指针字段才有效。表明当前报文中数据应优先尽快传送</li>
+</ul>
+</li>
+<li>ACK（Acknowledgment ）</li>
+<li>当ACK&#x3D;1 时，确认号字段才有效</li>
+<li>PSH （Push ）</li>
+<li>RST （ResetReset）<ul>
+<li>当RST&#x3D;1 时，表明连接中出现严重差错必须释放然后再新建立连接</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>序号<ul>
+<li>占4位</li>
+<li>首先，在传输过程的每一个字节都会有编号</li>
+<li>在建立连接后，序号代表：这一次传给对方的 TCP 数据部分的第一个字节编号</li>
+<li>从1开始</li>
+</ul>
+</li>
+<li>确认号（ Acknowledgment Number Number）<ul>
+<li>占4字节</li>
+<li>在建立连接后，确认号代表：期望对方下一次传过来的 TCP 数据部分的第一个字节编号</li>
+</ul>
+</li>
+<li>窗口（ Window ）<ul>
+<li>占2字节</li>
+<li>这个字段有流量控制功能，用以告知对方下一次允许发送的数据大小（字节为单位）</li>
+</ul>
+</li>
+</ul>
+<p><strong>tcp的几个要点</strong></p>
+<ul>
+<li>可靠传输</li>
+<li>流量传输</li>
+<li>拥塞控制</li>
+<li>连接管理<ul>
+<li>建立连接</li>
+<li>释放连接</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h4><ul>
+<li>ARQ自动重传请求<ul>
+<li>停止等待ARQ协议</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211008200142051.png" alt="image-20211008200142051"></p>
+<p><img src="/2021/10/01/network/image-20211008200542529.png" alt="image-20211008200542529"></p>
+<ul>
+<li>连续ARQ协议+活动窗口协议</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211008201111069.png" alt="image-20211008201111069"></p>
+<p>ACK返回期待的下一个序号，该序号之前的数据都已经收到</p>
+<ul>
+<li>SACK（选择性确认）<ul>
+<li>在无选择性确认的情况下：TCP会重传最后确认分组后续的分组们<ul>
+<li>例如：发送1.2.3.4.5，丢失3，则会重传3.4.5</li>
+</ul>
+</li>
+<li>在选择性确认的情况下：TCP只会重传最后确认的分组<ul>
+<li>例如：发送1.2.3.4.5，丢失3，则只会重传3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211008204018654.png" alt="image-20211008204018654"></p>
+<p>左边界会记录已经收到的数据块的起始字节</p>
+<p>右边界会记录下一个未收到数据块的起始字节</p>
+<p><img src="/2021/10/01/network/TCP01_%E5%BA%8F%E5%8F%B7_%E7%A1%AE%E8%AE%A4%E5%8F%B7.png" alt="TCP01_序号_确认号"></p>
+<p>序号的数字，记录这个数据包的第几个字节大多是经过计算</p>
+<p>初始序号来自SYN建立连接时发送的真实序号</p>
+<p>其他序号由收到的真实序号减去SYN建立连接时的真实序号</p>
+<blockquote>
+<p>传输层就会将数据分为多个TCP，将数据大卸八块。</p>
+</blockquote>
+<h2 id="第九天"><a href="#第九天" class="headerlink" title="第九天"></a>第九天</h2><blockquote>
+<p><strong>如果一个包多次重传失败，会如何？</strong></p>
+<p>根据系统设置，重传规定次数后还是重传失败则会发送reset报文，断开TCP连接</p>
+<p><strong>如果发送到的数据不足接收窗口大小，如何确定有没有后续包？</strong></p>
+<p>等待一定时间后，没有收到后续包，则会返回确认到已经收到的包</p>
+<p><strong>为什么数据会在传输层进行切割，分成小块传递给网络层？</strong></p>
+<p>传输层有重传功能（如TCP），网络层、数据链路层、物理层没有重传功能。</p>
+<p>如果传输层没有将数据进行切割，则大块的数据会传递给网络层，进行拆分。</p>
+<p>正常传输，没有问题。一旦发生丢包现象，网络层收到数据，传递给传输层，由于传输层没有将数据包进行切割，故传输层收到的数据包不完整，没法判断那个包传输失败，则不会返回ACK，长时间没有收到ACK则另一边会重传所有数据，造成大量浪费。</p>
+<p>如果在传输层不分段，一旦出现数据丢失整个的都得重</p>
+<p>如果在传输层分了段，一旦出现数据丢失只需要重的那些即可</p>
+</blockquote>
+<h4 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h4><p><strong>原理</strong></p>
+<ul>
+<li>通过确认报文中窗口字段来控制发送方的速率</li>
+<li>发送方的窗口大小不能超过接收给出</li>
+<li>当发送方收到接窗口的大小为 0时，发送方就会停止数据</li>
+</ul>
+<p><img src="/2021/10/01/network/TCP02_%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6.png" alt="TCP02_流量控制"></p>
+<hr>
+<p><strong>有一种特殊情况</strong></p>
+<ul>
+<li>一开始,接收方给发送方发送了0窗口的报文段</li>
+<li>后面,接收方又有了一些存储空间,给发送方发送的非0窗口的报文段丢失了</li>
+<li>发送方的发送窗口一直为零,双方陷入僵局</li>
+</ul>
+<p><strong>解决方案</strong></p>
+<ul>
+<li>当发送方收到0窗口通知时,这时发送方停止发送报文</li>
+<li>并且同时开启一个定时器,隔一段时间就发个测试报文去询问接收方最新的窗口大小</li>
+<li>如果接收的窗口大小还是为0,则发送方再次刷新启动定时器</li>
+</ul>
+<hr>
+<h4 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h4><ul>
+<li>防止过多的数据注入到网络中</li>
+<li>避免网络中的路由器或链路过载</li>
+<li>拥塞控制是一个全局性的过程<ul>
+<li>涉及到所有的主机、路由器</li>
+<li>以及与降低网络传输性能有关的所有因素</li>
+<li>是大家共同努力的结果</li>
+</ul>
+</li>
+<li>相比而言,流量控制是点对点通信的控制</li>
+</ul>
+<hr>
+<p>控制方法</p>
+<ul>
+<li>慢启动</li>
+<li>拥塞避免</li>
+<li>快速启动</li>
+<li>快速恢复</li>
+</ul>
+<hr>
+<blockquote>
+<ul>
+<li><p>MMS（Maximum Segment Size Size）：每段最大的数据部分大小</p>
+<ul>
+<li>在建立连接时确认，SYN数据段首部的选项中会规定MMS，TCP通信双方取最小的MMS。</li>
+<li>MMS大小随机，不一定都是1460（最大）</li>
+</ul>
+</li>
+<li><p>cwnd( congestion window):拥塞窗口</p>
+</li>
+<li><p>rwnd( receive window):接收窗口</p>
+</li>
+<li><p>swnd( send window):发送窗口</p>
+<ul>
+<li>swnd min(cwnd, rwnd)</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h5 id="慢开始"><a href="#慢开始" class="headerlink" title="慢开始"></a>慢开始</h5><p>指数增长，发送的数据包都被正常接收，则拥塞窗口翻倍</p>
+<p><img src="/2021/10/01/network/image-20211009155603835.png" alt="image-20211009155603835"></p>
+<h5 id="拥塞避免"><a href="#拥塞避免" class="headerlink" title="拥塞避免"></a>拥塞避免</h5><ul>
+<li>ssthresh（slow start threshold threshold）：慢开始阈值， cwnd 达到阈值后，以线性方式增加</li>
+<li>拥塞避免（加法增大）：窗口缓慢，以防止网络过早出现</li>
+<li>乘法减小：只要网络出现拥塞，把 ssthresh 减为拥塞峰值的一半，同时执行慢开始算法（ cwnd 又恢复到初始值）</li>
+<li>当网络出现频繁拥塞时， ssthresh</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211009160052789.png" alt="image-20211009160052789"></p>
+<h5 id="快重传"><a href="#快重传" class="headerlink" title="快重传"></a>快重传</h5><ul>
+<li>接收方<ul>
+<li>每收到一个失序的分组后就立即发出重复确认</li>
+<li>使发送方及时知道有分组没到达</li>
+<li>而不要等待自己发送数据时才进行确认</li>
+</ul>
+</li>
+<li>发送方<ul>
+<li>只要连续收到三个重复确认（总共 4个相同的确认），就应当立即重传对方尚未收到报文段</li>
+<li>而不必继续等待重传计时器到期后再重传</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211009161452792.png" alt="image-20211009161452792"></p>
+<h5 id="快恢复"><a href="#快恢复" class="headerlink" title="快恢复"></a>快恢复</h5><ul>
+<li>当发送方连续收到三个重复确认，说明网络出现拥塞<ul>
+<li>就执行“乘法减小”算，把 ssthresh 减为拥塞峰值的一半</li>
+</ul>
+</li>
+<li>与慢开始不同之处是现在执行算法，即 cwnd 现在不恢复到初始值<ul>
+<li>而是把 cwnd 值设置为新的 ssthresh 值（减小后的值）</li>
+<li>然后开始执行拥塞避免算法（“加增大”），使窗口缓慢地线性增大</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211009162033482.png" alt="image-20211009162033482"></p>
+<h5 id="发送窗口的最大值"><a href="#发送窗口的最大值" class="headerlink" title="发送窗口的最大值"></a>发送窗口的最大值</h5><ul>
+<li>发送窗口的最大值： swnd &#x3D; min(cwnd, rwnd)</li>
+<li>当rwnd &lt; cwnd 时，是接收方的能力限制发送窗口最大值</li>
+<li>当cwnd &lt; rwnd 时，则是网络的拥塞限制发送窗口最大值</li>
+</ul>
+<h2 id="第十天"><a href="#第十天" class="headerlink" title="第十天"></a>第十天</h2><h3 id="序号、确认号"><a href="#序号、确认号" class="headerlink" title="序号、确认号"></a>序号、确认号</h3><p><img src="/2021/10/01/network/TCP04_%E5%BA%8F%E5%8F%B7%E7%A1%AE%E8%AE%A4%E5%8F%B701_%E7%9B%B8%E5%AF%B9.png" alt="TCP04_序号确认号01_相对"></p>
+<p>ACK返回的字节数是由序号+长度决定，即ACK是期望收到的下一个包的第一个字节</p>
+<p><img src="/2021/10/01/network/TCP05_%E5%BA%8F%E5%8F%B7%E7%A1%AE%E8%AE%A4%E5%8F%B702_%E5%8E%9F%E7%94%9F.png" alt="TCP05_序号确认号02_原生"></p>
+<p>相对序号：发送的第一个字节相对于这次数据传输的位置，由真实序号减去真实序号的初始值得到</p>
+<p>真实序号：发送的序号会是一个很大的值，不会从1开始，初始值为随机生成</p>
+<p><img src="/2021/10/01/network/image-20211011094430415.png" alt="image-20211011094430415"></p>
+<p><img src="/2021/10/01/network/image-20211011094452376.png" alt="image-20211011094452376"></p>
+<p><img src="/2021/10/01/network/image-20211011101643440.png" alt="image-20211011101643440"></p>
+<p><img src="/2021/10/01/network/image-20211011101652915.png" alt="image-20211011101652915"></p>
+<p><img src="/2021/10/01/network/image-20211011105309187.png" alt="image-20211011105309187"></p>
+<h3 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h3><h4 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h4><p>三次握手</p>
+<p><img src="/2021/10/01/network/image-20211011105644914.png" alt="image-20211011105644914"></p>
+<ul>
+<li>前两次握手的特点<ul>
+<li>SYN都设为1</li>
+<li>数据部分长度都为0</li>
+<li>TCO头部一般是32字节<ul>
+<li>固定头部：20字节</li>
+<li>选项部分：12字节</li>
+<li><img src="/2021/10/01/network/image-20211011110403690.png" alt="image-20211011110403690"></li>
+<li>选项部分：规定MMS，是否SACK，windows窗口缩放系数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>为什么建立连接的时候,要进行3次握手?2次不行么?<ul>
+<li>主要目的:防止 server端一直等待,浪费资源如果建立连接</li>
+</ul>
+</li>
+<li>只需要2次握手,可能会出现的情况<ul>
+<li>假设 client发出的第一个连接请求报文段,因为网络延迟,在连接释放以后的某个时间才到达 serve</li>
+<li>本来这是一个早已失效的连接请求,但 server收到此失效的请求后,误认为是 client再次发出的一个新的连接请求</li>
+<li>于是 server就向 client发出确认报文段,同意建立连接</li>
+<li>如果不采用“3次握手”,那么只要 server发出确认,新的连接就建立了，由于现在 client并没有真正想连接服务器的意愿,因此不会理睬 server的确认,也不会冋 server发送数据</li>
+<li>但 server却以为新的连接已经建立,并一直等待client发来数据,这样, server的很多资源就白白浪费掉了</li>
+</ul>
+</li>
+<li>采用“三次握手”的办法可以防止上述现象发生<ul>
+<li>例如上述情况, client没有冋 server的确认发岀确认,serνer由于收不到确认,就知道 client并没有要求建立连接</li>
+</ul>
+</li>
+</ul>
+<h2 id="第十一天"><a href="#第十一天" class="headerlink" title="第十一天"></a>第十一天</h2><h4 id="释放连接"><a href="#释放连接" class="headerlink" title="释放连接"></a>释放连接</h4><p>四次握手</p>
+<p><img src="/2021/10/01/network/image-20211011141737740.png" alt="image-20211011141737740"></p>
+<p>由客服端发起的主动断开，主动断开可以由任意一方断开</p>
+<hr>
+<p><strong>状态</strong></p>
+<ul>
+<li>FIN -WAITWAIT-1：表示想主动关闭连接<ul>
+<li>向对方发送了 FIN 报文，此时进入到 FIN -WAITWAIT-1状态</li>
+</ul>
+</li>
+<li>CLOSECLOSE-WAITWAIT：表示在等待关闭<ul>
+<li>当对方发送 FIN 给自己，会回应一个 ACK 报文给对方，此时则进入到 CLOSECLOSE-WAIT 状态</li>
+<li>在此状态下，需要考虑自己是否还有数据发送 给对方如果没FIN 报文给对方</li>
+</ul>
+</li>
+<li>FIN -WAITWAIT-2：只要对方发送 ACK 确认后，主动方就会处于 FIN -WAITWAIT-2状态，然后等待对方发送 FIN 报文</li>
+<li>CLOSINGCLOSING：一种比较罕见的例外状态<ul>
+<li>表示你发送 FIN 报文后，并没有收到对方的 ACK 报文，反而却也收到了对方的 FIN 报文</li>
+<li>如果双方几乎在同时准备关闭连接的话，那么就出现了发送FIN 报文的情况，也即会出现 CLOSING 状态</li>
+<li>表示双方都正在关闭连接</li>
+</ul>
+</li>
+<li>LAST-ACKACK：被动关闭一方在发送 FIN 报文后，最等待对方的 ACK 报文<ul>
+<li>当收到 ACK 报文后，即可进入 CLOSED 状态了</li>
+</ul>
+</li>
+<li>TIME -WAITWAIT：表示收到了对方的 FIN 报文，并发送出了 ACK 报文，就等 2MSL 后即可进入 CLOSED 状态了<ul>
+<li>如果 FIN -WAITWAIT-1状态下，收到了对方同时带 FIN 标志和 ACK 标志的报文时</li>
+<li>可以直接进入到 TIME -WAIT 状态，而无须经过 FIN -WAITWAIT-2状态</li>
+</ul>
+</li>
+<li>CLOSEDCLOSED：关闭状态</li>
+</ul>
+<blockquote>
+<p>由于有些状态的时间比较短暂，所以很难用 netstat 命令看到，比如 SYN -RCVD 、FIN -WAITWAIT-1等</p>
+</blockquote>
+<hr>
+<p><strong>细节</strong></p>
+<ul>
+<li><p>TCP&#x2F;IP 协议栈在设计上，允许任何一方先发起断开请求。这里演示的是 client 主动要求断开</p>
+</li>
+<li><p>client 发送 ACK 后，需要有个 TIME -WAIT 阶段，等待一时间后再真正关闭连接</p>
+<ul>
+<li>一般是等待 <strong>2倍的 MSL</strong> （Maximum Segment Lifetime Lifetime，最大分段生存期）</li>
+<li>MSL 是TCP 报文在 Internet 上的最长生存时间</li>
+<li>每个具体的 TCP 实现都必须选择一个确定的 MSL 值， RFC 1122 建议是 2分钟</li>
+<li>可以防止本次连接中产生的数据包误传到下一（因为都会在 2MSL 时间内消失了）</li>
+</ul>
+</li>
+<li><p>如果 client 发送 ACK 后马上释放了， 然又因为网络原server 没有收到 client 的ACKACK，server 就会重发 FIN</p>
+</li>
+<li><p>这时可能出现的情况是<br>① client 没有任何响应，服务器那边会干等甚至多次重发 FIN ，浪费资源<br>② client 有个新的应用程序刚好分配了同一端口号，收到 FIN 后马上开始执行断连接的操作，本来 它可能是想跟 server 建</p>
+</li>
+<li><p><strong>为什么释放连接的时候，要进行 4次挥手？</strong></p>
+<ul>
+<li>TCP 是全双工模式</li>
+<li>第1次挥手：当 主机 1发出 FIN 报文段时<ul>
+<li>表示 主机 1告诉 主机 2，主机 1已经没有数据要发送了，但是此时 主机 1还是可以接受来自 主机 2的数据</li>
+</ul>
+</li>
+<li>第2次挥手：当 主机 2返回 ACK 报文段时<ul>
+<li>表示 主机 2已经知道 主机 1没有数据发送了，但是 主机 2还是可以发送数据到 主机 1的</li>
+</ul>
+</li>
+<li>第3次挥手：当 主机 2也发送了 FIN 报文段时<ul>
+<li>表示 主机 2告诉 主机 1，主机 2已经没有数据要发送了</li>
+</ul>
+</li>
+<li>第4次挥手：当 主机 1返回 ACK 报文段时<ul>
+<li>表示 主机 1已经知道 主机 2没有数据发送了。随后正式断开整个 TCP 连接</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>有时候在使用抓包工具的，可能只会看到“ 3次“挥手</p>
+<ul>
+<li>这其实是将第 2、3次挥手合并了</li>
+</ul>
+</li>
+<li><p>当server接收到client的FIN时，如果server后面也没有数据要发送给client了</p>
+<ul>
+<li>这时，server 就可以将第 2、3次挥手合并，同时告诉client两件事</li>
+<li>已经知道client没有数据要发</li>
+<li>server已经没有数据要发了</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>当程序被强制终止时，程序会发送RST强制关闭。</p>
+<p>为节省资源，服务器可能会由于在规定时间内没有收到客户端发来的数据包而发起主动断开。为了确保TCP连接，客户端会每隔一定时间发送一个心跳包</p>
+</blockquote>
+<p><img src="/2021/10/01/network/TCP%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B01.png" alt="TCP完整流程01"></p>
+<p><img src="/2021/10/01/network/TCP%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B02.png" alt="TCP完整流程02"></p>
+<h2 id="第十二天"><a href="#第十二天" class="headerlink" title="第十二天"></a>第十二天</h2><blockquote>
+<ul>
+<li><p>长连接和短连接？</p>
+<ul>
+<li>短连接：收到数据即断开连接就是短连接</li>
+<li>长连接：收到数据后不断开连接</li>
+</ul>
+</li>
+<li><p>连接没有断开：则会在内存中保存Socket通信，不发数据不会对网卡有影响</p>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><strong>socket连接</strong></p>
+<p>客户端与服务器的连接是独立的。</p>
+<p>服务器运行serversocket，收到客户端发送的socket请求后会创建一个socket对象负责与客户端的连接</p>
+<h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><h4 id="常见协议"><a href="#常见协议" class="headerlink" title="常见协议"></a>常见协议</h4><ul>
+<li>超文本传输：HTTP、HTTPS</li>
+<li>文本传输：FTP</li>
+<li>电子邮件：SMTP、POP3、IMAP</li>
+<li>动态主机配置：DHCP</li>
+<li>域名系统：DNS</li>
+</ul>
+<h4 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h4><ul>
+<li>由于 IP 地址不方便记忆，并且能表达组织的名称和性质人们设计出了域（比如 baidu.com com）<ul>
+<li>但实际上，为了能够访问到具体的 主机最终还是得知道目标IP地址</li>
+</ul>
+</li>
+<li>为啥部直接用域名，放弃IP地址<ul>
+<li>IP 地址固定 4个字节，域名随便都至少 10 几个字节，这无疑会增加路由器的负担浪费流量</li>
+</ul>
+</li>
+<li>根据级别不同，域名可以分为<ul>
+<li>顶级域名（ TopTop-level Domain Domain，简称 TLD ）<ul>
+<li>通用顶级域名（ General Top Top-level Domain Domain，简称 gTLD ）<ul>
+<li>.com （公司）， .net （网络机构）， .org org（组织机构）， .edu （教育）</li>
+<li>.gov （政府部门）， .int （国际组织）等</li>
+</ul>
+</li>
+<li>国家及地区顶级域名（ Country Code Top Top-level Domain Domain，简称 ccTLDccTLD）<ul>
+<li>.cn （中国）、 .jp （日本）、 .uk （英国）</li>
+</ul>
+</li>
+<li>新通用顶级域名（ New Generic Top Top-level Domain Domain，简称： New gTLD gTLD）<ul>
+<li>.vip 、.xyz 、.top 、.club 、.shop 等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>二级域名</li>
+<li>三级域名</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>域名级别与域名内容无关，与域名位置有关。最末尾的域名为顶级域名。</p>
+</blockquote>
+<h4 id="DNS（Domain-Name-System-x2F-域名系统）"><a href="#DNS（Domain-Name-System-x2F-域名系统）" class="headerlink" title="DNS（Domain Name System&#x2F;域名系统）"></a>DNS（Domain Name System&#x2F;域名系统）</h4><ul>
+<li>利用DNS协议，可以将域名（比如baidu.com）解析成对应的IP地址（比如220.181.38.148）</li>
+<li>DNS可以基于UDP协议，也可以基于TCP协议，服务器占用53端口</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211012103557557.png" alt="image-20211012103557557"></p>
+<ul>
+<li>客户端首先会访问最近的一台DNS服务器（也就是客户端自己配置的DNS服务器）</li>
+<li>所有的DNS服务器都记录了DNS根域名服务器的IP地址</li>
+<li>上级DNS服务器记录了下一级DNS服务器的IP地址</li>
+<li>全球一共13台IPv4的DNS根域名服务器、25台IPv6的DNS根域名服务器</li>
+</ul>
+<p><strong>查询一个域名的IP地址流程</strong></p>
+<ol>
+<li>首先访问最近的DNS服务器，如果该服务器有域名的IP地址则直接返回IP地址</li>
+<li>该服务器没有域名的IP地址，则由该DNS服务器向DNS根域名服务器发出请求，DNS服务器返回顶级域名服务器的IP地址</li>
+<li>离用户最近的服务向顶级域名服务器发出请求，顶级域名DNS服务器如果知道该域名的IP地址则返回IP地址，不知道则返回下一级域名的DNS服务器的IP地址给离用户最近的服务器</li>
+<li>同上，直到找到域名的IP地址，返回给离用户最近的服务器后，再由该服务器将IP地址返回给用户</li>
+</ol>
+<hr>
+<h2 id="第十三天"><a href="#第十三天" class="headerlink" title="第十三天"></a>第十三天</h2><h4 id="IP地址的分配"><a href="#IP地址的分配" class="headerlink" title="IP地址的分配"></a><strong>IP地址的分配</strong></h4><ul>
+<li>静态IP地址<ul>
+<li>手动设置</li>
+</ul>
+</li>
+<li>动态IP地址<ul>
+<li>从DHCP服务器自动获取IP地址</li>
+</ul>
+</li>
+</ul>
+<h4 id="DHCP（Dynamic-Host-Configuration-Protocol）动态主机配置协议"><a href="#DHCP（Dynamic-Host-Configuration-Protocol）动态主机配置协议" class="headerlink" title="DHCP（Dynamic Host Configuration Protocol）动态主机配置协议"></a>DHCP（Dynamic Host Configuration Protocol）动态主机配置协议</h4><p>DHCP 协议基于 UDP 协议，客户端是 68 端口，服务器是 67端口</p>
+<p>DHCP服务器会从地址池中,挑选一个地址“出租“给客户端一段时间,时间到期就回收它们家里上网的路由器就可以充当DHCP服务器</p>
+<p><strong>DHCP分配IP地址的4个阶段</strong></p>
+<ul>
+<li>DISCOVER:发现服务器<ul>
+<li>发广播包(源P是0.0.0.0,目标P是255.255255255,目标MAC<br>FF: FF: FF:FF</li>
+</ul>
+</li>
+<li>OFFER:提供租约<ul>
+<li>服务器返回可以租用的P地址,以及租用期限、子网掩码、网关、DNS等信息</li>
+<li>注意:这里可能会有多个服务器提供租约</li>
+</ul>
+</li>
+<li>REQUEST:选择|地址<ul>
+<li>客户端选择一个OFFER,发送广播包进行回应</li>
+</ul>
+</li>
+<li>ACKNOWLEDGE:确认<ul>
+<li>被选中的服务器发送ACK数据包给客户端</li>
+<li>至此,地址分配完</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211013092500558.png" alt="image-20211013092500558"></p>
+<p><strong>细节</strong></p>
+<ul>
+<li>DHCP服务器可以跨网段分配地址么?(DHCP服务器、客户端不在同一个网段)<ul>
+<li>以借助DHCP中继代理( DHCP Relay Agent)实现跨网段分配地址</li>
+</ul>
+</li>
+<li>自动续约<ul>
+<li>客户端会在租期不足的时候,自动向DHCP服务器发送 REQUEST信息申请续约</li>
+</ul>
+</li>
+</ul>
+<h4 id="HTTP（超文本传输协议）"><a href="#HTTP（超文本传输协议）" class="headerlink" title="HTTP（超文本传输协议）"></a>HTTP（超文本传输协议）</h4><ul>
+<li>HTTP<ul>
+<li>是互联网中应用最广泛的层协议之一。<br>设计 HTTP 最初的目是：提供一种发布和接收 HTML 页面的方法，由 URI 来标识具体的资源<br>后面用 HTTP 来传递的数据格式不仅是 HTML ，应用非常广泛</li>
+</ul>
+</li>
+<li>HTML （ Hyper Text Markup Language）：超文本标记语言<ul>
+<li>用以编写网页</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211013101603698.png" alt="image-20211013101603698"></p>
+<p><img src="/2021/10/01/network/image-20211013101611795.png" alt="image-20211013101611795"></p>
+<h2 id="第十四天"><a href="#第十四天" class="headerlink" title="第十四天"></a>第十四天</h2><h4 id="ABNF"><a href="#ABNF" class="headerlink" title="ABNF"></a>ABNF</h4><ul>
+<li>ABNF是BNF （Backus -Naur Form Form，译为：巴科斯 -瑙尔范式）的修改、增强版</li>
+<li>在RFC 5234 中表明： ABNF 用作 internet 中通信协议的定义语言</li>
+<li>ABNF 是最严谨的 HTTP 报文格式描述形，脱离 ABNF 谈论 HTTP 报</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211013154953046.png" alt="image-20211013154953046"></p>
+<hr>
+<h5 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h5><p>HTTP-messagemessage&#x3D;    startstart-line<br>                                                *(header -fieldfieldCRLF )<br>                                                CRLF<br>                                                [message -body ]</p>
+<p>start-line &#x3D; request-line &#x2F;status-line</p>
+<hr>
+<p><strong>request-line,status-line</strong></p>
+<p>request-line&#x3D; method SP request-target SP HTTP-version CRLF</p>
+<p>HTTP-version &#x3D; HTTP-name “&#x2F;“ DIGIT “.” DIGIT</p>
+<p>HTTP-name&#x3D;%×48.54.54.50; HTTP</p>
+<p>GET &#x2F;hello&#x2F; HTTP&#x2F;1.1</p>
+<p>status-line&#x3D;HTTP-version SP status-code SP reason-phrase CRLF</p>
+<p>status-code&#x3D; 3DIGIT</p>
+<p>eason-phrase&#x3D;*( HTAB&#x2F;SP&#x2F;VCHAR &#x2F;obs-text)</p>
+<p>HTTP&#x2F;1.1 200</p>
+<p>HTTP&#x2F;1.1 200 OK</p>
+<hr>
+<p><strong>header-filed,message-body</strong></p>
+<p>header-field &#x3D; field-name “:” OWS field-value OWS</p>
+<p>field-name &#x3D; token</p>
+<p>field-value &#x3D; * (field-content &#x2F; obs-fold)</p>
+<p>OWS &#x3D; * (SP&#x2F; HTAB)</p>
+<p>message-body&#x3D;*OCTET</p>
+<p><strong>URL编码</strong></p>
+<p>URL 中一旦出现了些特殊字符（比如文、空格），需要进行 编码<br>在浏览器地址栏输入 URL 时，是采用 UTF -8进行编码</p>
+<h5 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h5><p>GET 、HEAD 、POST 、PUT 、DELETE 、CONNECT 、OPTIONS 、TRACE</p>
+<ul>
+<li>GET ：常用于读取的操作，请求参数直接拼在 URL 的后面（浏览器对 URL 是有长度限制的）</li>
+<li>POST ：常用于添加、修改删除的操作，请求参数可以放到体中（没有大小限制）</li>
+<li>HEAD：请求得到与 GET 请求相同的响应，但没有体<ul>
+<li>使用场景举例：在下载一个大文件前，先获取其小再决定是否要。以此可节约带宽资源</li>
+</ul>
+</li>
+<li>OPTIONS ：用于获取目的资源所支持通信选项，比如服务器请求方法<ul>
+<li>OPTIONS * HTTP&#x2F;1.1</li>
+</ul>
+</li>
+<li>PUT ：用于对已存在的资源进行整体覆盖</li>
+<li>PATCH：用于对资源进行部分修改（不存在，会创建新的）</li>
+<li>DELETE ：用于删除指定的资源</li>
+<li>TRACE：请求服务器回显其收到的信息，主要用于 HTTP 请求的测试或诊断</li>
+<li>CONNECT：可以开启一个客户端与所请求资源之间的双向沟通道，它用来创建隧（ tunnel ）<ul>
+<li>可以用来访问采了 SSL (HTTPS) 协议的站点</li>
+</ul>
+</li>
+</ul>
+<h5 id="头部字段"><a href="#头部字段" class="headerlink" title="头部字段"></a>头部字段</h5><p>头部字段可以分为 4种类型</p>
+<ul>
+<li>请求头字段（ Request Header Fields Fields）<ul>
+<li>有关要获取的资源或客户端本身信息消头</li>
+</ul>
+</li>
+<li>响应头字段（ Response Header Fields Fields）<ul>
+<li>有关响应的补充信息，比如服务器本身（名称和版等）消头</li>
+</ul>
+</li>
+<li>实体头字段（ Entity Header Fields Fields）<ul>
+<li>有关实体主的更多信息，比如长度（ ContentContent-Length ）或其 MIME 类型</li>
+</ul>
+</li>
+<li>通用头字段（ General Header Fields Fields）<ul>
+<li>同时适用于请求和响应消息，但与主体无关的头</li>
+</ul>
+</li>
+</ul>
+<p><strong>请求头字段</strong></p>
+<p><img src="/2021/10/01/network/image-20211013160557396.png" alt="image-20211013160557396"></p>
+<p><img src="/2021/10/01/network/image-20211013160609819.png" alt="image-20211013160609819"></p>
+<blockquote>
+<p>q值越大，表示优先级高<br>如果不指定 q值，默认是 1.0 （1.0）</p>
+</blockquote>
+<p><img src="/2021/10/01/network/image-20211013160646998.png" alt="image-20211013160646998"></p>
+<p><strong>响应头字段</strong></p>
+<p><img src="/2021/10/01/network/image-20211013160718081.png" alt="image-20211013160718081"></p>
+<p><img src="/2021/10/01/network/image-20211013160730182.png" alt="image-20211013160730182"></p>
+<p><img src="/2021/10/01/network/image-20211013160740837.png" alt="image-20211013160740837"></p>
+<blockquote>
+<p>下载文件时，首先使用HEAD方法，获得下载文件的大小，可以使用Range选取请求的字节序列，实现多线程下载，提高下载速率。</p>
+</blockquote>
+<h2 id="第十五天"><a href="#第十五天" class="headerlink" title="第十五天"></a>第十五天</h2><h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><ul>
+<li>信息响应： 100~199</li>
+<li>成功响应： 200~299</li>
+<li>重定向： 300~399</li>
+<li>客户端错误： 400~499</li>
+<li>服务器错误 ：500~599</li>
+</ul>
+<p>常见状态码</p>
+<ul>
+<li><p>100 Continue</p>
+<ul>
+<li>请求的初始部分已经被服务器收到，并且没有拒绝。客户端应该继续发送剩余如果完成，就忽略这个响应</li>
+<li>允许客户端发送带请求体的前，判断服务器是否愿意接收（通过头）</li>
+<li>在某些情况下，如果服务器不看请求体就拒绝时客户端发送是恰当的或低效的</li>
+</ul>
+</li>
+<li><p>200 OK ：请求成功</p>
+</li>
+<li><p>302 Found：请求的资源被暂时移动到了由 Location 头部指定的 URL 上</p>
+</li>
+<li><p>304 Not Modified：说明无需再次传输请求的内容，也就是可以使用缓存的内容</p>
+</li>
+<li><p>400 Bad Request：由于语法无效，服务器理解该请求</p>
+</li>
+<li><p>401 Unauthorized：由于缺乏目标资源要求的身份验证凭</p>
+</li>
+<li><p>403 Forbidden：服务器端有能力处理该请求，但是拒绝授权访问</p>
+</li>
+<li><p>404 Not Found：服务器端无法找到所请求的资源</p>
+</li>
+<li><p>405 Method Not Allowed：服务器禁止了使用当前 HTTP 方法的请求</p>
+</li>
+<li><p>406 Not Acceptable：服务器端无法提供与 Accept -Charset 以及 Accept -Language 指定的值相匹配响应</p>
+</li>
+<li><p>408 Request Timeout：服务器想要将没有在使用的连接关闭</p>
+<ul>
+<li>一些服务器会在空闲连接上发送此信息，即便是客户端没有任何请求的情况下</li>
+</ul>
+</li>
+<li><p>500 Internal Server Error：所请求的服务器遇到意外情况并阻止其执行</p>
+</li>
+<li><p>501 Not Implemented：请求的方法不被服务器支持，因此无处理</p>
+<ul>
+<li>服务器必须支持的方法（即不会返回这个状态码）只有 GET 和 HEAD</li>
+</ul>
+</li>
+<li><p>502 Bad Gateway：作为网关或代理角色的服务器，从上游（如 tomcattomcat）中接收到的响应是无效</p>
+</li>
+<li><p>503 Service Unavailable：服务器尚未处于可以接受请求的状态</p>
+<ul>
+<li>通常造成这种情况的原因是由于服务器停机维护或者已超载</li>
+</ul>
+</li>
+</ul>
+<h4 id="form提交"><a href="#form提交" class="headerlink" title="form提交"></a>form提交</h4><ul>
+<li>action ：请求的 URI</li>
+<li>method ：请求方法（ GET 、POST ）</li>
+<li>encodetype ：POST 请求时，体的编码方式</li>
+<li>application&#x2F;x x-www -form -urlencoded （默认值）</li>
+<li>用&amp;分隔参数，用 &#x3D;分隔键和值，字符用 URL 编码方式进行</li>
+<li>Content-Type：multipart&#x2F;form form-data</li>
+<li>文件上传时必须使用这种编码方式</li>
+</ul>
+<p><strong>请求头</strong></p>
+<p><img src="/2021/10/01/network/image-20211014102614093.png" alt="image-20211014102614093"></p>
+<h2 id="第十六天"><a href="#第十六天" class="headerlink" title="第十六天"></a>第十六天</h2><h4 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h4><p><strong>同源策略</strong></p>
+<p>同源指：协议、域名、端口，相同</p>
+<p>同源策略规定：在默认情况下，AJAX请求只能发送给同源的URL</p>
+<blockquote>
+<p>img、script、link、iframe、video、audio等标签不受同源策略的约束</p>
+</blockquote>
+<p>由不同源的网站发起的请求则为跨域，服务器默认是不允许跨域请求的。</p>
+<p><strong>跨域资源共享</strong></p>
+<ul>
+<li>解决AJAX跨域请求的常用方法<ul>
+<li>CORS( Cross- Origin Resource Sharing),跨域资源共享</li>
+</ul>
+</li>
+<li>CORS的实现需要客户端和服务器同时支持<ul>
+<li>客户端<ul>
+<li>所有的浏览器都支持(IE至少是IE10版本)</li>
+</ul>
+</li>
+<li>服务器<ul>
+<li>需要返回相应的响应头(比如 Access- Contro1-A11ow- Origin）</li>
+<li>告知浏览器这是一个允许跨域访问的请求</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h4><p><img src="/2021/10/01/network/image-20211014153728493.png" alt="image-20211014153728493"></p>
+<p>HTTP的每次请求都是独立的，与之前的请求没有直接联系。即之后的请求不知道之前的请求内容与情况，可能会出现，每个页面都要重新登录的情况。为解决这个问题，建立了会话跟踪机制。</p>
+<p>session：服务器保存用户的信息</p>
+<p>cookie：客户端保存用户的信息</p>
+<p>步骤：</p>
+<ol>
+<li>客户端登录成功，服务器端会创建session，保存path（在网站服务器生效的路径）和domain（IP与端口）</li>
+<li>服务器在返回客服端请求时会在相应头生成set-cookie命令，让客户端存储cookie值</li>
+<li>客户端再请求时，发现请求的网址时domain并且请求路径符合path，则会添加请求头：cookie。</li>
+<li>服务器端接收数据会，发现有cookie值，则与自己的session比对，发现依旧有效，则不必登录服务器，直接登录之前已经登录的账号。</li>
+</ol>
+<p>cookie默认存活半小时，浏览器一旦关闭就会清除，cookie只针对一个浏览器，其他浏览器无cookie值。</p>
+<h2 id="第十七天"><a href="#第十七天" class="headerlink" title="第十七天"></a>第十七天</h2><h3 id="代理服务器"><a href="#代理服务器" class="headerlink" title="代理服务器"></a>代理服务器</h3><ul>
+<li>正向代理<ul>
+<li><img src="/2021/10/01/network/image-20211015105931970.png" alt="image-20211015105931970"></li>
+</ul>
+</li>
+<li>反向代理<ul>
+<li><img src="/2021/10/01/network/image-20211015105947376.png" alt="image-20211015105947376"></li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211015110122670.png" alt="image-20211015110122670"></p>
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>利用最靠近每位户的服务器<br>更快可靠地将音乐、图片视频等资源文件（一般是静态）传递给用户<br><img src="/2021/10/01/network/image-20211015110213967.png" alt="image-20211015110213967"></p>
+<p><img src="/2021/10/01/network/image-20211015110230604.png" alt="image-20211015110230604"></p>
+<p><img src="/2021/10/01/network/image-20211015110250293.png" alt="image-20211015110250293"></p>
+<p><img src="/2021/10/01/network/image-20211015110302027.png" alt="image-20211015110302027"></p>
+<p><img src="/2021/10/01/network/image-20211015110313676.png" alt="image-20211015110313676"></p>
+<h3 id="安全威胁"><a href="#安全威胁" class="headerlink" title="安全威胁"></a>安全威胁</h3><ul>
+<li>截获：窃听通信内容</li>
+<li>中断：网络通信</li>
+<li>篡改：通信内容</li>
+<li>伪造：通信内容</li>
+</ul>
+<h4 id="ARP欺骗"><a href="#ARP欺骗" class="headerlink" title="ARP欺骗"></a>ARP欺骗</h4><ul>
+<li>可让攻击者获取局域网上的数据包甚至可篡改数据包</li>
+<li>可让网络上特定电脑之间无法正常通信（例如 网络执法官 这样的软件）</li>
+<li>让送至特定 IP 地址的流量被错误送到攻击者所取代方</li>
+</ul>
+<p><strong>步骤</strong></p>
+<p><img src="/2021/10/01/network/image-20211015110609783.png" alt="image-20211015110609783"></p>
+<p><strong>防护</strong></p>
+<ul>
+<li>静态 ARP</li>
+<li>DHCP Snooping</li>
+<li>网络设备可借由 DHCP 保留网络上各电脑的 MAC 地址，在伪造的 ARP 数据包发出时即可侦测到</li>
+<li>利用一些软件监听 ARP 的不正常变动</li>
+</ul>
+<h4 id="DoS"><a href="#DoS" class="headerlink" title="DoS"></a>DoS</h4><ul>
+<li>DoS 攻击（拒绝服务， Denial -of-Service attack）<ul>
+<li>使目标电脑的网络或系统资源耗尽，服务暂时中断停止导致其正常用户无法访问</li>
+</ul>
+</li>
+<li>DDoS 攻击（分布式拒绝服务， Distributed Denial -of-Service attack）<ul>
+<li>黑客使用网络上两个或以被攻陷的电脑作为“僵尸”向特定目标发动 DoS 攻击</li>
+<li>2018 年3月， GitHub 遭到迄今为止规模最大的 DDoS 攻击</li>
+</ul>
+</li>
+<li>DoS 攻击可以分为 2大类<ul>
+<li>带宽消耗型： UDP 洪水攻击、 ICMP 洪水攻击</li>
+<li>资源消耗型： SYN 洪水攻击、 LAND 攻击</li>
+</ul>
+</li>
+</ul>
+<p><strong>防御</strong></p>
+<ul>
+<li>防御方式通常为：入侵检测、流量过滤和多重验证<ul>
+<li>堵塞网络带宽的流量将被过滤，而正常可通</li>
+</ul>
+</li>
+<li>防火墙<ul>
+<li>防火墙可以设置规则，例如允许或拒绝特定通讯协议端口IP地址</li>
+<li>当攻击从少数不正常的 IP 地址发出时，可以简单的使用拒绝规则阻止一切从攻击源 IP 发出的通信</li>
+<li>复杂攻击难以用简单规则来阻止，例如 80 端口遭受攻击时不可能拒绝所有的通信，因为同会阻止合法流量</li>
+<li>防火墙可能处于网络架构中过后的位置，路由器在恶意流量达到前即被攻击影响</li>
+</ul>
+</li>
+<li>交换机 ：大多数交换机有一定的速度限制和访问控能力</li>
+<li>路由器 ：和交换机类似，路由器也有一定的速度限制访问控能力</li>
+<li>黑洞引导<ul>
+<li>将所有受攻击计算机的通信全部发送至一个“黑洞”（空接口或不存在地址）者足够能力处理洪流的网络设备商，以避免受到较大影响</li>
+</ul>
+</li>
+<li>流量清洗<ul>
+<li>当流量被送到 DDoS 防护清洗中心时，通过采用抗 DDoS 软件处理，将正常流量和恶意区分开</li>
+<li>正常的流量则回注客户网站</li>
+</ul>
+</li>
+</ul>
+<h5 id="SYN洪水攻击（传输层）"><a href="#SYN洪水攻击（传输层）" class="headerlink" title="SYN洪水攻击（传输层）"></a>SYN洪水攻击（传输层）</h5><ul>
+<li><p>SYN 洪水攻击（ SYN flooding attack attack）</p>
+<ul>
+<li>攻击者发送一系列的 SYN 请求到 目标，然后让因收不ACK（第 3次握手）而进行等待、消耗资源</li>
+</ul>
+</li>
+<li><p>攻击方法</p>
+<ul>
+<li>跳过发送最后的 ACK 信息</li>
+<li>修改源 IP 地址，让目标送 SYN -ACK 到伪造的 IP 地址，因此目标永不可能收到 ACK（第 3次握手）</li>
+</ul>
+</li>
+<li><p>防护</p>
+<ul>
+<li>参考： RFC 4987</li>
+</ul>
+</li>
+</ul>
+<h5 id="LAND攻击（传输层）"><a href="#LAND攻击（传输层）" class="headerlink" title="LAND攻击（传输层）"></a>LAND攻击（传输层）</h5><ul>
+<li>LAND 攻击（局域网拒绝服务， Local Area Network Denial attack）<ul>
+<li>通过持续发送 相同源地址 和目标的欺骗数据包，使目标试图与自己建立连接消耗系统资源直至崩溃</li>
+</ul>
+</li>
+<li>有些系统存在设计上的缺陷，允许备接受并响应来自网络、却宣称于身数据包导致循环答</li>
+<li>防护<ul>
+<li>大多数防火墙都能拦截类似的攻击包，以保护系统</li>
+<li>部分操作系统通过发布安全补丁修复了这一漏洞</li>
+<li>路由器应同时配置上行与下筛选，屏蔽所有源地址目标相的数据包</li>
+</ul>
+</li>
+</ul>
+<h5 id="DNS劫持（应用层）"><a href="#DNS劫持（应用层）" class="headerlink" title="DNS劫持（应用层）"></a>DNS劫持（应用层）</h5><ul>
+<li>DNS 劫持，又称为域名<ul>
+<li>攻击者篡改了某个域名的 解析结果，使得指向该IP 变成了另一个 IP</li>
+<li>导致对相应网址的访问被劫持到另一个不可达或者假冒</li>
+<li>从而实现非法窃取用户信息或者破坏正常网络服务的目的</li>
+</ul>
+</li>
+<li>为防止 DNS 劫持，可以考虑使用更靠谱的 DNS 服务器，比如： 114.114.114.114<ul>
+<li>谷歌： 8.8.8.8 、8.8.4.4</li>
+<li>微软： 4.2.2.1 、4.2.2.2</li>
+<li>百度： 180.76.76.76</li>
+<li>阿里： 223.5.5.5 、223.6.6.6</li>
+</ul>
+</li>
+<li>HTTP 劫持：对 HTTP 数据包进行拦截处理，比如插入 JS 代码<ul>
+<li>比如你访问某些网站时，在右下角多了个莫名其妙的弹窗广告</li>
+</ul>
+</li>
+</ul>
+<h4 id="HTTP协议的安全问题"><a href="#HTTP协议的安全问题" class="headerlink" title="HTTP协议的安全问题"></a>HTTP协议的安全问题</h4><p>常见的加密方式有</p>
+<ul>
+<li>不可逆<ul>
+<li>单向散列函数： MD5 、SHA 等</li>
+</ul>
+</li>
+<li>可逆<ul>
+<li>对称加密： DES 、3DES 、AES 等</li>
+<li>非对称加密： RSA 等</li>
+</ul>
+</li>
+<li>其它<ul>
+<li>混合密码系统</li>
+<li>数字签名</li>
+<li>证书</li>
+</ul>
+</li>
+</ul>
+<h5 id="单向散列函数"><a href="#单向散列函数" class="headerlink" title="单向散列函数"></a>单向散列函数</h5><p><img src="/2021/10/01/network/image-20211015111412458.png" alt="image-20211015111412458"></p>
+<p><strong>特点</strong></p>
+<ul>
+<li><p>根据任意长度的消息，计算出固定散列值</p>
+</li>
+<li><p>计算速度快，能出散列值</p>
+</li>
+<li><p>消息不同，散列值也不同</p>
+</li>
+<li><p>具备单向性</p>
+</li>
+</ul>
+<h2 id="第十八天"><a href="#第十八天" class="headerlink" title="第十八天"></a>第十八天</h2><h4 id="密钥配送问题"><a href="#密钥配送问题" class="headerlink" title="密钥配送问题"></a>密钥配送问题</h4><ul>
+<li>事先共享密钥</li>
+<li>密钥分配中心</li>
+<li>Diffie-Hellman密钥交换</li>
+<li>非对称加密</li>
+</ul>
+<hr>
+<p>对称加密：计算开销小，安全性差</p>
+<p>对称加密：计算开销大，安全性强</p>
+<hr>
+<h4 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h4><p>在数字签名技术中，有以下种行为</p>
+<ul>
+<li>生成签名<ul>
+<li>由消息的发送者完成，通过“签名密钥”生成</li>
+</ul>
+</li>
+<li>验证签名<ul>
+<li>由消息的接收者完成，通过“验证密钥”验证</li>
+</ul>
+</li>
+<li>如何能保证这个签名是消息发送者自己的？<ul>
+<li>用消息发送者的私钥进行签名</li>
+</ul>
+</li>
+</ul>
+<p>过程</p>
+<p><img src="/2021/10/01/network/image-20211015155127417.png" alt="image-20211015155127417"></p>
+<p>过程改进</p>
+<p><img src="/2021/10/01/network/image-20211015155150330.png" alt="image-20211015155150330"></p>
+<p><img src="/2021/10/01/network/image-20211015155201747.png" alt="image-20211015155201747"></p>
+<p><strong>疑问</strong></p>
+<ul>
+<li>如果有人篡改了消息内容或签名，会是什么结果？<ul>
+<li>签名验证失败，因为内容被篡改了</li>
+</ul>
+</li>
+<li>数字签名不能保证机密性？<ul>
+<li>数字签名的作用不是为了保证机密性，仅能够识别内容有没被篡改</li>
+</ul>
+</li>
+<li>数字签名的作用<ul>
+<li>确认消息的完整性</li>
+<li>识别消息是否被篡改</li>
+<li>防止消息发送人否认</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211015155320057.png" alt="image-20211015155320057"></p>
+<p><strong>为防止中间人攻击如何确保公钥的合法性</strong></p>
+<p>中间人攻击</p>
+<p><img src="/2021/10/01/network/image-20211015155409248.png" alt="image-20211015155409248"></p>
+<ul>
+<li>如何验证公钥的合法性？<ul>
+<li>证书</li>
+</ul>
+</li>
+</ul>
+<h5 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h5><ul>
+<li><p>密码学中的证书，全称叫公钥证书 （PublicPublic-key Certificate，PKC），跟驾驶证类似</p>
+<ul>
+<li>里面有姓名、邮箱等个人信息，以及此的公钥</li>
+<li>并由认证机构（ Certificate AuthorityAuthority，CA ）施加数字签名</li>
+</ul>
+</li>
+<li><p>CA 就是能够认定“公钥确实属于此人”并生成数字签名的个或者组织</p>
+<ul>
+<li>有国际性组织、政府设立的</li>
+<li>有通过提供认证服务来盈利的企业</li>
+<li>个人也可以成立认证机构</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211015155602641.png" alt="image-20211015155602641"></p>
+<p>证书注册与下载</p>
+<p><img src="/2021/10/01/network/image-20211015155622013.png" alt="image-20211015155622013"></p>
+<blockquote>
+<p>CA密钥，证书内置在浏览器或操作系统中，不必担心密钥证书在传输过程中被篡改。</p>
+</blockquote>
+<h2 id="第十九天"><a href="#第十九天" class="headerlink" title="第十九天"></a>第十九天</h2><h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p> HTTPS（HyperText Transfer Protocol Secure）译为：超文本传输安全协议</p>
+<p>常称为：HTTP over TLS等</p>
+<p>HTTPS默认端口号为443</p>
+<blockquote>
+<p>以百度为例，在浏览器输入baidu.com会默认请求HTTPS。</p>
+<p>在浏览器输入<a target="_blank" rel="noopener" href="http://baidu.com不会自动转换成https,而是由服务器返回一个307,重定向到https./">http://baidu.com不会自动转换成HTTPS，而是由服务器返回一个307，重定向到HTTPS。</a></p>
+</blockquote>
+<p><strong>SSL&#x2F;TLS</strong></p>
+<p>HTTPS是在HTTP的基础上使用SSL&#x2F;TLS来加密报文</p>
+<p>SSL&#x2F;TLS也可以用在其他协议上</p>
+<p>FTP	FTPS</p>
+<p>SMTP	SMTPS</p>
+<p>TLS（Transport Layer Secure）传输层安全性协议</p>
+<p>SSL（Secure Sockets Layer）安全套接层</p>
+<p>介于应用层和传输层之间</p>
+<p><img src="/2021/10/01/network/image-20211017193345015.png" alt="image-20211017193345015"></p>
+<p>OpenSSL是SSL的开源版本</p>
+<p>可以使用OpenSSL构建自己的CA，称为“自签名证书”</p>
+<hr>
+<p>HTTPS成本</p>
+<ul>
+<li>证书的费用</li>
+<li>加解密计算</li>
+<li>降低访问速度</li>
+<li>一些企业混合使用HTTP和HTTPS</li>
+</ul>
+<h5 id="HTTPS的通信过程"><a href="#HTTPS的通信过程" class="headerlink" title="HTTPS的通信过程"></a>HTTPS的通信过程</h5><p>三大阶段</p>
+<ol>
+<li>TCP的三次握手</li>
+<li>TLS的连接</li>
+<li>HTTP请求和响应</li>
+</ol>
+<p><img src="/2021/10/01/network/image-20211017194201253.png" alt="image-20211017194201253"></p>
+<p><strong>TLS1.2的连接</strong></p>
+<p><img src="/2021/10/01/network/image-20211017195301134.png" alt="image-20211017195301134"></p>
+<p>大概有10大步骤</p>
+<ol>
+<li>Client Hello<ul>
+<li>TLS的版本号</li>
+<li>支持的加密组件（Cipher Suite）列表<ul>
+<li>加密组件是指所使用的加密算法及密钥长度</li>
+</ul>
+</li>
+<li>一个随机数</li>
+</ul>
+</li>
+<li>Server Hello<ul>
+<li>TLS的版本号</li>
+<li>选择的加密组件<ul>
+<li>是从接收到的客户端加密组件列表中挑选出来的</li>
+</ul>
+</li>
+<li>一个随机数</li>
+</ul>
+</li>
+<li>Certificate<ul>
+<li>服务器的公钥证书</li>
+</ul>
+</li>
+<li>Server Key Exchange<ul>
+<li>用以实现ECDHE算法的其中一个参数<ul>
+<li>ECDHE是一种密钥交换算法</li>
+<li>为了防止伪造，Swever Params经过了服务器私钥签名</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Server Hello Done<ul>
+<li>告知客户端:协商部分结束部分结束</li>
+<li>目前为止，客户端和服务器之间通过明文共享了<ul>
+<li>Client Random 、Server Random 、Server Params</li>
+<li>客户端已经拿到服务器的公钥证书，接下来，客户端会验证证书的真实有效性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Client Key Exchange<ul>
+<li>用以实现ECDHE算法的另一个参数（client Params）</li>
+<li>目前为止，客户端和服务器都拥有了ECDHE算法需要的2个参数：Server Params、Client Params</li>
+<li>客户端、服务器都可以使用ECDHE算法<ul>
+<li>根据Server Params、Client Params 计算出一个新的随机密钥串：Pre- master secret</li>
+<li>然后结合Server Params、Client Params、Pre- master secret生成一个主密钥</li>
+<li>最后利用主密钥衍生出其他：客户端发送的会话、服务器等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Change Cipher Spec<ul>
+<li>告知服务器：之后的通信会采用计算出来的会话密钥进行加密</li>
+</ul>
+</li>
+<li>Finished<ul>
+<li>包含连接至今的全部报文的整体校验值（摘要），加密之后发送给服务器</li>
+<li>这次握手协商是否成功，要以服务器能否正确解密该报文作为判断准则</li>
+</ul>
+</li>
+<li>Change CIpher Spec</li>
+<li>Finished</li>
+</ol>
+<h2 id="第二十天"><a href="#第二十天" class="headerlink" title="第二十天"></a>第二十天</h2><h4 id="HTTP协议不足（HTTP-x2F-1-1）"><a href="#HTTP协议不足（HTTP-x2F-1-1）" class="headerlink" title="HTTP协议不足（HTTP&#x2F;1.1）"></a>HTTP协议不足（HTTP&#x2F;1.1）</h4><ul>
+<li>同一时间，一个连接只能对应一个请求<ul>
+<li>针对同一个域名，大多数浏览器允许同时最多6给并发连接</li>
+</ul>
+</li>
+<li>只允许客户端主动发起请求<ul>
+<li>一个请求只能对应一个相应</li>
+</ul>
+</li>
+<li>同一个会话的多次请求中，头信息会被重复传输<ul>
+<li>通常会给每个传输增加500~800字节的开销</li>
+<li>如果使用cookie，增加的开销有时会达到上前字节</li>
+</ul>
+</li>
+</ul>
+<h5 id="SPDY"><a href="#SPDY" class="headerlink" title="SPDY"></a>SPDY</h5><p>基于TCP的应用层协议，它强制要求使用SSL&#x2F;TLS</p>
+<p><strong>SPDY与HTTP的关系</strong></p>
+<ul>
+<li>SPDY并不取代HTTP，他只是修改了HTTP请求与相应的传输方式</li>
+<li>只需增加一个SPDY层，现有的所有服务器应用均不用做任何修改</li>
+<li>SPDY时HTTP&#x2F;2的前身</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211018105140694.png" alt="image-20211018105140694"></p>
+<h2 id="HTTP-x2F-2"><a href="#HTTP-x2F-2" class="headerlink" title="HTTP&#x2F;2"></a>HTTP&#x2F;2</h2><ul>
+<li>HTTP&#x2F;2在底层传输做了很多的改进和优化，但在语意上完全与HTTP&#x2F;1.1兼容<ul>
+<li>比如 请求方法（GET 、POST ）、 Status Code 、各种 Headers 等都没有改变</li>
+<li>因此，要想升级到 HTTP&#x2F;2<ul>
+<li>开发者不需要修改任何代码</li>
+<li>只需要升级服务器配置、浏览器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>HTTP&#x2F;2的特性-二进制格式</strong></p>
+<p><img src="/2021/10/01/network/image-20211018111413155.png" alt="image-20211018111413155"></p>
+<ul>
+<li>HTTP&#x2F;2 采用二进制格式传输数据，而非 HTTP&#x2F;1.1 的文本格式</li>
+<li>二进制格式在协议的解析和优化扩展上带来更多势可能</li>
+</ul>
+<p><strong>一些基本概念</strong></p>
+<ul>
+<li>数据流：已建立的连接内双向字节，可以承载一条或多消息<ul>
+<li>所有通信都在一个 TCP 连接上完成，此可以承载任意数量的双向据流</li>
+</ul>
+</li>
+<li>消息：与逻辑 HTTP 请求或响应消息对，由一系列帧组成</li>
+<li>帧： HTTP&#x2F;2 通信的最小单位，每个帧都包含头（会标识出当前所属数据流）<ul>
+<li>来自不同数据流的帧可以交错发送，然后再根每个头标识符重新组装</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211018132103802.png" alt="image-20211018132103802"></p>
+<p><img src="/2021/10/01/network/image-20211018132139318.png" alt="image-20211018132139318"></p>
+<p><strong>多路复用</strong></p>
+<ul>
+<li>客户端和服务器可以将 HTTP 消息分解为互不依赖的帧，然后交错发送最再在另一端把它们重新组装起来</li>
+<li>并行交错地发送多个请求，之间互不影响</li>
+<li>并行交错地发送多个响应，之间互不干扰</li>
+<li>使用一个连接并行发送多请求和响应</li>
+<li>不必再为绕过 HTTP&#x2F;1.1 限制而做很多工作<ul>
+<li>比如 image sprites 、合并 CSS \JS 、内嵌 CSS \JS \Base64 图片、域名分等</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211018135835639.png" alt="image-20211018135835639"></p>
+<blockquote>
+<p>正常访问一个图片需要向服务器发送一个请求，等待浏览器响应发回图片。使用Base64图片，将图片以Base64编码形式，以文本字节的形式发送，可节省一次请求。</p>
+</blockquote>
+<p>image sprites</p>
+<p>将多张小图合并成一张大图，通过CSS结合位置，尺寸进行精确定位</p>
+<p><strong>优先级</strong></p>
+<ul>
+<li><p>HTTP&#x2F;2 标准允许每个数据流都有一关联的权重和依赖系</p>
+<ul>
+<li>可以向每个数据流分配一介于 1至256 之间的整数</li>
+<li>每个数据流与其他之间可以存在显式依赖关系</li>
+</ul>
+</li>
+<li><p>客户端可以构建和传递“优先级树”，表明它倾向于如何接收响应</p>
+</li>
+<li><p>服务器可以使用此信息通过控制 CPU 、内存和其他资源的分配设定数据流处理优先级</p>
+<ul>
+<li>在资源数据可用之后，确保将高优先级响应以最方式传输至客户端</li>
+</ul>
+</li>
+<li><p>应尽可能先给父数据流分配资源</p>
+</li>
+<li><p>同级数据流（共享相父项）应按其权重比例分配资源</p>
+</li>
+</ul>
+<ol>
+<li>A、B依赖于隐式“根数据流”， A获得的资源比例是 12&#x2F;16 ，B获得的资源比例是 4&#x2F;16</li>
+<li>D依赖于根数据流，C依赖于D，D应先于C获得完整资源分配</li>
+<li>D应先于C获得完整资源分配，C应先于A和B获得完整资源分配，B获得的资源是A所获资源的1&#x2F;3</li>
+<li>D应先于 E和C获得完整资源分配， E和C应先于 A和B获得相同的资源分配， B获得的资源是 A所获资源的 1&#x2F;3</li>
+</ol>
+<p><img src="/2021/10/01/network/image-20211018140207988.png" alt="image-20211018140207988"></p>
+<p><strong>头部压缩</strong></p>
+<ul>
+<li>HTTP&#x2F;2 使用 HPACK 压缩请求头和响应<ul>
+<li>可以极大减少头部开销，进而提高性能</li>
+</ul>
+</li>
+<li>早期版本的 HTTP&#x2F;2 和SPDY 使用 zlib 压缩<ul>
+<li>可以将所传输头数据的大小 减85%~88%</li>
+<li>但在 2012 年夏天，被攻击导致会话劫持</li>
+<li>后被更安全的 HPACK 取代</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211018144051003.png" alt="image-20211018144051003"></p>
+<p>第一个帧，发送全部头部，随后的帧，只发送对应头部的编号和未发送过的头部，例如：path，浏览器记录了之前传输的数据头部。</p>
+<p><img src="/2021/10/01/network/image-20211018144205018.png" alt="image-20211018144205018"></p>
+<p><strong>服务器推送</strong></p>
+<ul>
+<li>服务器可以对一个客户端请求发送多响应</li>
+<li>除了对最初请求的响应外，服务器还可以向客户端推送额资源而无需明确地请求</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211018144453330.png" alt="image-20211018144453330"></p>
+<p><strong>队头阻塞</strong></p>
+<p><img src="/2021/10/01/network/image-20211018144531186.png" alt="image-20211018144531186"></p>
+<p>HTTP1.1使用TCP，所以如果队头丢失，则随后的数据包都不会上交给应用层，而是等待队头重传接收到后，再同一上交应用层。队头阻塞不怪HTTP怪TCP。</p>
+<p><img src="/2021/10/01/network/image-20211018144801687.png" alt="image-20211018144801687"></p>
+<p><img src="/2021/10/01/network/image-20211018144810681.png" alt="image-20211018144810681"></p>
+<p>HTTP&#x2F;2采用QUIC，队头丢失并不影响其他数据包的接收，因为QUIC采用的是UDP</p>
+<p><strong>握手延迟</strong></p>
+<p>由于之前HTTP用的TCP协议，需要多次握手，采用QUIC后由于使用的UDP所以，速度大大提高。</p>
+<p><img src="/2021/10/01/network/image-20211018145254915.png" alt="image-20211018145254915"></p>
+<p>RTT：往返时延，可简单理解为通信一来一回的时间</p>
+<p><img src="/2021/10/01/network/image-20211018145757824.png" alt="image-20211018145757824"></p>
+<p><strong>HTTP&#x2F;3</strong></p>
+<p><img src="/2021/10/01/network/image-20211018145820316.png" alt="image-20211018145820316"></p>
+<p>QUIC（Quick UDP Internet Connections ），译为：快速 UDP 网络连接，由 Google 开发，在 2013 年实现<br><strong>疑问</strong></p>
+<ul>
+<li>HTTP&#x2F;3 基于 UDP ，如何保证可靠传输？<ul>
+<li>由QUIC 来保证</li>
+<li>TCP的可靠传输是通过TCP头部的各种数据进行判断的</li>
+<li>QUIC则是根据UDP上交的数据进行判断是否传输可靠</li>
+</ul>
+</li>
+<li>为何 Google 不开发一个新的同于 TCP 、UDP 的传输层协议？<ul>
+<li>目前世界上的网络设备基本只认 TCP 、UDP</li>
+<li>如果要修改传输层，意味着操作系统的内核也</li>
+<li>另外，由 IETF 标准化的许多 TCP 新特性都因缺乏广泛支持而没有得到的部署或使用</li>
+<li>因此，要想开发并应用一个新的传输层协议是极其困难件事情</li>
+</ul>
+</li>
+</ul>
+<p><strong>连接迁移</strong></p>
+<ul>
+<li>TCP 基于 4要素（源 IP 、源端口、目标 IP 、目标端口）<ul>
+<li>切换网络时至少会有一个要素发生变化，导致连接发生变化</li>
+<li>当连接发生变化时，如果还使用原来的 TCP 连接，则会导致失败就得等原来的超时后重新建立</li>
+<li>所以我们有时候发现切换到一个新网络，即使状况良好但内容还是需要加载很久</li>
+<li>如果实现得好，当检测到网络变化时立刻建新的 TCP 连接，即使这样建立新的还是需要几百毫秒时间</li>
+</ul>
+</li>
+<li>QUIC 的连接不受 4要素的影响，当 4要素发生变化时，原连接依然维持<ul>
+<li>QUIC 连接不以 4要素作为标识，而是使用一组 Connection ID （连接 ID ）来标识一个连接</li>
+<li>即使 IP 或者端口发生变化，只要 Connection ID 没有变化，那么连接依然可以维持</li>
+<li>比如<ul>
+<li>当设备连接到 Wi -Fi 时，将进行中的 下载从蜂窝网络连接转移到更快速Wi -Fi 连接</li>
+<li>当Wi -Fi 连接不再可用时，将转移到蜂窝网络</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>HTTP3的问题-操作系统内核、CPU负载</strong></p>
+<ul>
+<li>据Google 和Facebook 称，与基于 TLS 的HTTP&#x2F;2 相比，它们大规模部署的 QUIC 需要近 2倍的 CPU 使用量<ul>
+<li>Linux 内核的 UDP 部分没有得到像 TCP 那样的优化，因为传统上没有使用 UDP 进行如此高速的信息传输</li>
+<li>TCP 和TLS 有硬件加速，而这对于 UDP 很罕见，对于 QUIC 则基本不存在</li>
+</ul>
+</li>
+<li>随着时间的推移，相信这个问题会逐步得到改善</li>
+</ul>
+<h2 id="第二十一天"><a href="#第二十一天" class="headerlink" title="第二十一天"></a>第二十一天</h2><h4 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h4><p><strong>HTTP请求特点</strong></p>
+<p>通信只能由客户端发起，早期为实现推送技术，所用的技术都是轮询，即浏览器每隔一段时间向服务器发起HTTP请求，服务器再响应客户端的请求。</p>
+<p>为了能更好的节省服务器资源和带宽， 并且够实时地进行通讯HTML5 规范中出现了 WebSocket 协议。</p>
+<p><img src="/2021/10/01/network/image-20211019155103302.png" alt="image-20211019155103302"></p>
+<ul>
+<li><p>WebSocket，是基于 TCP 的支持全双工通信的应用层协议</p>
+<ul>
+<li>在2011 年由 IETF 标准化为 RFC 6455 ，后由 RFC 7936 补充规范</li>
+<li>客户端、服务器，任何一方都可以主动发消息给对方</li>
+</ul>
+</li>
+<li><p>WebSocket 的应用场景很多</p>
+<ul>
+<li>社交订阅、股票基金报价体育实况更新多媒聊天玩家游戏等</li>
+</ul>
+</li>
+</ul>
+<p><strong>HTTP与WebSocket对比</strong></p>
+<ul>
+<li>WebSocket 和HTTP 属于平级关系，都是应用层的协议<ul>
+<li>其实 TCP 本身就是<strong>支持全双工通信</strong>的（客户端、服务器均可主动发消息给对方）</li>
+<li>只是 HTTP 的“请求 -应答模式”限制了 TCP 的能力</li>
+</ul>
+</li>
+<li>WebSocket 使用 80 （ws:&#x2F;&#x2F; ）、 443（wss:&#x2F;&#x2F;）端口，可以绕过大多数防火墙的限制<ul>
+<li>ws:&#x2F;&#x2F;example.com&#x2F;wsapi</li>
+<li>wss:&#x2F;&#x2F;secure.example.com&#x2F;wsapi</li>
+</ul>
+</li>
+<li>与HTTP 不同的是， WebSocket 需要先建立连接<ul>
+<li>这就使得 WebSocket 成为一种有状态的协议，之后通信时可以省略部分息</li>
+<li>而HTTP请求可能需要在每个都额外携带状态信息（如身份认证等）</li>
+</ul>
+</li>
+</ul>
+<p><strong>WebSocket建立连接</strong></p>
+<p>WebSocket 需要借助 HTTP 协议来建立连接（也叫作握手，Handshake），由客户端（浏览器）主动发出握手请求</p>
+<p>客户端请求</p>
+<p><img src="/2021/10/01/network/image-20211019160845343.png" alt="image-20211019160845343"></p>
+<p>服务器响应</p>
+<p><img src="/2021/10/01/network/image-20211019160909958.png" alt="image-20211019160909958"></p>
+<ul>
+<li>Connection 必须设置 Upgrade<ul>
+<li>表示客户端希望连接升级</li>
+</ul>
+</li>
+<li>Upgrade 必须设置 websocket<ul>
+<li>表示希望升级到 WebSocket 协议</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Connection和Upgrade是建立WebSocket连接固定格式</p>
+</blockquote>
+<ul>
+<li><p>Sec -WebSocket-Version</p>
+<ul>
+<li>表示支持的 Websocket 版本</li>
+<li>RFC 6455 要求使用的版本是 13</li>
+</ul>
+</li>
+<li><p>Sec -WebSocket-Key 是客户端生成的随机字符串，比如例子中dGh1IHNhbXbszsBub25j2Q&#x3D;&#x3D;</p>
+</li>
+<li><p>服务器接收到客户端的 Sec -WebSocket-Key 后，会进行以下操作</p>
+<ol>
+<li>Sec -WebSocket-Key 加上一个固定的 GUID 值（ 258EAFA5258EAFA5-E914E914-47DA47DA-95CA -C5AB0DC85B11C5AB0DC85B11）<ul>
+<li>dGh1IHNhbXbszsBub25j2Q&#x3D;&#x3D;258EAFA5258EAFA5-E914 -47DA47DA-95CA -C5AB0DC85B11</li>
+</ul>
+</li>
+<li>将①的结果进行 SHA -1摘要计算<ul>
+<li>b37a4f2cc0624f1690f64606cf385945b2bec4ea</li>
+</ul>
+</li>
+<li>将②的结果进行 Hex To Base64 编码<ul>
+<li>s3pPLMBiTxaQ9kYGzzhZRbK+xOo&#x3D;</li>
+</ul>
+</li>
+<li>将③的结果做为 Sec -WebSocket-Accept 响应头的值，返回给客户端</li>
+</ol>
+</li>
+<li><p>如此操作，可以尽量避免普通 HTTP 请求被误认为 WebSocket 协议</p>
+</li>
+</ul>
+<h4 id="WebService"><a href="#WebService" class="headerlink" title="WebService"></a>WebService</h4><p>Web服务，是一种跨编程语言和跨操作系统平台的远程调用技术标准</p>
+<ul>
+<li>应用场景<ul>
+<li>天气预报、手机归属地查询</li>
+</ul>
+</li>
+</ul>
+<p><strong>核心概念</strong></p>
+<ul>
+<li>SOAP：简单对象访问协议<ul>
+<li>很多时候，SOAP&#x3D;HTTP+XML</li>
+<li>WebService使用SOAP协议来封装传递数据</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211019201856588.png" alt="image-20211019201856588"></p>
+<ul>
+<li>WSDL：Web服务描述语言<ul>
+<li>一个XML文档，用以描述WebService接口的细节</li>
+<li>一般在Web Service的URL后面跟上?wsdl获取WSDL信息</li>
+</ul>
+</li>
+</ul>
+<h4 id="RESTful"><a href="#RESTful" class="headerlink" title="RESTful"></a>RESTful</h4><p>REST：表现层状态转移</p>
+<p>REST是一种互联网软件架构设计风格</p>
+<p>定义了一组用于创建Web服务的约束</p>
+<p>符合REST架构的Web服务，称为RESTful Web服务</p>
+<ul>
+<li>URL中使用名词（建议用复数形式），不使用动词<ul>
+<li>推荐：&#x2F;users、&#x2F;users&#x2F;6</li>
+<li>不推荐：&#x2F;listUsers、&#x2F;getUser？id&#x3D;6、&#x2F;user&#x2F;list、&#x2F;user&#x2F;get？id&#x3D;6</li>
+</ul>
+</li>
+<li>使用HTTP方法表示动作</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211019203420706.png" alt="image-20211019203420706"></p>
+<h4 id="HTTPDNS"><a href="#HTTPDNS" class="headerlink" title="HTTPDNS"></a>HTTPDNS</h4><p>HTTPSDNS是基于HTTP协议向DNS服务器发送余名解析请求</p>
+<ul>
+<li>可以避免Local DNS造成的域名劫持和跨网访问问题</li>
+<li>常用在移动互联网中</li>
+</ul>
+<h4 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h4><p>文件传输协议</p>
+<ul>
+<li>FTP有两种连接模式：主动和被动</li>
+<li>不管哪种模式，都需要建立两个连接<ul>
+<li>控制连接：用于传输状态信息（命令，cmd）</li>
+<li>数据连接：用于传输文件和目录信息（data）</li>
+</ul>
+</li>
+</ul>
+<p><strong>主动模式</strong></p>
+<p><img src="/2021/10/01/network/image-20211019210053900.png" alt="image-20211019210053900"></p>
+<ol>
+<li>客户端打开一个随机的命令端口<ul>
+<li>端口号大于1024，假设为N</li>
+<li>同时连接到服务器了的命令端口21</li>
+</ul>
+</li>
+<li>客户端开始监听N+1端口<ul>
+<li>同时向服务器发送一个Port命令给服务器的命令端口21</li>
+<li>此命令告诉服务器<ul>
+<li>客户端正在坚挺数据端口N+1</li>
+<li>并且已准备好从此端口接受数据</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>服务器打开20号数据端口，并且创建和客户端数据端口（N+1）的连接</li>
+</ol>
+<p><strong>被动模式</strong></p>
+<p><img src="/2021/10/01/network/image-20211019210128505.png" alt="image-20211019210128505"></p>
+<ul>
+<li>客户端通过两个随机的端口与服务器建立连接<ul>
+<li>命令端口N</li>
+<li>数据端口N+1</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>客户端的命令端口N用于连接服务器的命令端口21</li>
+<li>客户端通过命令端口N发送PASV命令给服务器的命令端口21</li>
+<li>服务器打开一个随机的数据端口P，并告知客户端该端口号P</li>
+<li>客户端数据端口N+1发起与服务器数据端口P的连接</li>
+</ol>
+<h4 id="邮件相关的协议"><a href="#邮件相关的协议" class="headerlink" title="邮件相关的协议"></a>邮件相关的协议</h4><ul>
+<li>SMTP：简单邮件传输协议（发送邮件用的协议）<ul>
+<li>基于TCP，默认端口25，SSL&#x2F;TLS使用465端口</li>
+</ul>
+</li>
+<li>POP：邮局协议（收邮件使用的协议）<ul>
+<li>基于TCP，默认端口110，SSL使用995端口</li>
+</ul>
+</li>
+<li>IMAP：因特网信息访问协议<ul>
+<li>基于TCP，默认143端口，SSL使用993端口</li>
+</ul>
+</li>
+</ul>
+<h2 id="第二十二天"><a href="#第二十二天" class="headerlink" title="第二十二天"></a>第二十二天</h2><h4 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h4><p>虚拟私人网络，实现在公共网络上建立专用网络，进行加密通讯</p>
+<p><img src="/2021/10/01/network/image-20211020093916196.png" alt="image-20211020093916196"></p>
+<p><img src="/2021/10/01/network/image-20211020093942989.png" alt="image-20211020093942989"></p>
+<p><strong>作用</strong></p>
+<ul>
+<li>提高上网的安全性</li>
+<li>保护公司内部资料</li>
+<li>隐藏上网者的身份</li>
+<li>突破网站的地域限制</li>
+<li>突破网络封锁</li>
+</ul>
+<p><strong>实现原理</strong></p>
+<ul>
+<li>隧道协议<ul>
+<li>PPTP：点对点隧道协议</li>
+<li>L2TP：第二层隧道协议</li>
+<li>IPsec：互联网安全协议</li>
+<li>SSL VPN（OpenVPN）</li>
+</ul>
+</li>
+</ul>
+<h4 id="网络爬虫"><a href="#网络爬虫" class="headerlink" title="网络爬虫"></a>网络爬虫</h4><p>模拟人类使用浏览器操作页面的行为，对页面进行相关的操作</p>
+<p>常用爬虫工具： Python 的Scrapy 框架</p>
+<p><strong>robot.txt</strong></p>
+<ul>
+<li>robots.txt 是存放于网站根目录下的文本件，比如 <a target="_blank" rel="noopener" href="https://www.baidu.com/robots.txt">https://www.baidu.com/robots.txt</a><ul>
+<li>用来告诉爬虫：哪些内容是不应被爬取的，那些是可以被爬取的</li>
+<li>因为一些系统中的 URL 是大小写敏感的，所以 robots.txt 的文件名应统一为小写</li>
+</ul>
+</li>
+<li>它并不是一个规范，而只约定俗成的所以能保证网站隐私<ul>
+<li>只能防君子，不小人</li>
+<li>无法阻止不讲“武德”的年轻爬虫取隐私信息</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211020100456346.png" alt="image-20211020100456346"></p>
+<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p>通常会缓存的是：GET请求+静态资源（HTML、CSS、JS、图片）</p>
+<p>Ctrl+F5：可以强制刷新缓存</p>
+<p><strong>响应头</strong></p>
+<ul>
+<li><p>Pragma：作用类似于 Cache -Control，HTTP&#x2F;1.0 的产物</p>
+</li>
+<li><p>ExpiresExpires：缓存的过期时间（ GMT 格式时间）， HTTP&#x2F;1.0 的产物</p>
+</li>
+<li><p>Cache -Control：设置缓存策略</p>
+<ul>
+<li>no -storage：不缓存数据到本地</li>
+<li>public ：允许用户、代理服务器缓存数据到本地</li>
+<li>private：只允许用户缓存数据到本地</li>
+<li>max -age ：缓存的有效时间（多长不过期），单位秒</li>
+<li>no -cache ：每次需要发请求给服务器询问缓存是否有变化，再来决定如何使用</li>
+</ul>
+</li>
+<li><p>优先级： Pragma &gt; Cache-Control &gt; Expires</p>
+</li>
+<li><p>Last -Modified ：资源的最后一次修改时间</p>
+</li>
+<li><p>ETag：资源的唯一标识（根据文件内容计算出来摘要值）</p>
+</li>
+<li><p>优先级： ETag &gt;Last-Modified&gt;If -None -Match</p>
+</li>
+<li><p>If-None-Match</p>
+<ul>
+<li>如果上一次的响应头中 有ETag，就会将 ETag 的值<br>作为请求头</li>
+<li>如果服务器发现资源的最新摘要值跟 If -None -Match 不匹配，就会返回新的资源（ 200 OK ）</li>
+<li>否则，就不会返回资源的具体数据（ 304 Not Modified Modified）</li>
+</ul>
+</li>
+<li><p>If -Modified -Since</p>
+<ul>
+<li>如果上一次的响应头中 没有 ETag，有 Last -Modified ，就会将 Last -Modified 的值作为请求头</li>
+<li>如果服务器发现资源的最后一次修改时间晚于 If -Modified -Since ，就会返回新的资源（ 200 OK）</li>
+<li>否则，就不会返回资源的具体数据（ 304 Not Modified Modified）</li>
+</ul>
+</li>
+</ul>
+<p><strong>Last-Modified和ETag</strong></p>
+<ul>
+<li>Last -Modified 的缺陷<ul>
+<li>只能精确到秒级别，如果资源在 1秒内被修改了，客户端将无法获取最新的资源数据</li>
+<li>如果某些资源被修改了（最后一次时间发生变化），但是内容并没有任何</li>
+<li>会导致相同数据重复传输，没有使用到缓存</li>
+</ul>
+</li>
+<li>ETag 可以办到<ul>
+<li>只要资源的内容没有变化，就不会重复传输数据</li>
+<li>只要资源的内容发生了变化，就会返回最新数据给客户端</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211020105359301.png" alt="image-20211020105359301"></p>
+<h4 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h4><ul>
+<li><p>IPv6 （Internet Protocol version 6），译为：网际协议第 6版</p>
+<ul>
+<li>用它来取代 IPv4 主要是为了解决 IPv4 地址枯竭问题，同时它也在其他方面对于 IPv4 有许多改进</li>
+<li>然而长期以来 IPv4 在互联网流量中仍占据主要地位， IPv6 的使用增长缓慢</li>
+<li>在2019 年12 月，通过 IPv6 使用 Google 服务的用户百分率首次超过 30%<ul>
+<li>因为需要设备、操作系统内核升级支持 IPv6</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>IPv6 采用 128 位的地址，而 IPv4 使用的是 32 位</p>
+<ul>
+<li>支持 2128（约 3.4∗1038）个地址</li>
+<li>就以地球人口 70 亿人计算，每平均可分得约 4.86∗1028个IPv6 地址</li>
+</ul>
+</li>
+<li><p>IPv6 地址为 128bit，每 16bit 一组，共 8组</p>
+</li>
+<li><p>每组以冒号“ :”隔开，每组以 4位十六进制方式表示</p>
+<ul>
+<li>例如 2001:0db8:86a3:08d3:1319:8a2e:0370:7344</li>
+</ul>
+</li>
+<li><p>类似于 IPv4 的点分十进制，同样也存在六写法</p>
+<ul>
+<li>2.0.0.1.0.d.b.8.8.5.a.3.0.8.d.3.1.3.1.9.8.a.2.e.0.3.7.0.7.3.4.4</li>
+</ul>
+</li>
+<li><p>每组前面连续的 0可以省略。下面的 IPv6 地址是等价的</p>
+<ul>
+<li>2001: 0db8 :02de :0000 :00000000:0000 :0000 :0e13</li>
+<li>2001: db8 :2de :0:0:0:0:e13</li>
+</ul>
+</li>
+<li><p>可以用双冒号“ ::” 表示一组 0或多组连续的 0，但只能出现一次。下面的 IPv6 地址是等价的</p>
+<ul>
+<li>2001:db8:2de 2de:0: e13</li>
+<li>2001:db8:2de 2de:: e13</li>
+</ul>
+</li>
+<li><p>2001::25de::cade 是非法的，因为双冒号出现了两次会造成歧义</p>
+<ul>
+<li>2001: 0000:0000:0000:0000 : 00000000:cade</li>
+<li>2001: 0000 : 0000:0000:0000:0000 0000:cade</li>
+</ul>
+</li>
+<li><p>::1 是本地环回址（ 0:1 ）</p>
+</li>
+</ul>
+<p><strong>首部格式</strong></p>
+<p><img src="/2021/10/01/network/image-20211020111032419.png" alt="image-20211020111032419"></p>
+<ul>
+<li>有40字节的固定首部</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211020111103491.png" alt="image-20211020111103491"></p>
+<ul>
+<li><p>Version（占 4bit ，0110 ）：版本号</p>
+</li>
+<li><p>Traffic Class（占 8bit ）：交通类别</p>
+<ul>
+<li>指示数据包的类别或优先级，可以帮助路由器根处理流量</li>
+<li>如果路由器发生拥塞，则优先级最低的数据包将被丢弃</li>
+</ul>
+</li>
+<li><p>Payload Length（占 16bit ）：有效负载长度</p>
+<ul>
+<li>最大值 65535 字节</li>
+<li>包括了扩展头部、上层（传输）数据的长度</li>
+</ul>
+</li>
+<li><p>Hop Limit（占 8bit ）：跳数限制</p>
+<ul>
+<li>与IPv4 数据包中的 TTL 相同</li>
+</ul>
+</li>
+<li><p>Source Address（占 128bit）：源 IPv6 地址</p>
+</li>
+<li><p>Destination Address（占 128bit ）：目的 IPv6 地址</p>
+</li>
+<li><p>Flow Label（占 20bit ）：流标签</p>
+<ul>
+<li>指示数据包属于哪个特定序列（流）</li>
+<li>用数据包的源地址、目的地址、流标签识一个流</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211020111243067.png" alt="image-20211020111243067"></p>
+<ul>
+<li>Next Header（占 8bit ）：下一个头部<ul>
+<li>指示扩展头部（如 果存在）的类型、上层数据包协议例TCP 、UDP 、ICMPv6 ）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2021/10/01/network/image-20211020111312594.png" alt="image-20211020111312594"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/network/" data-id="clfpez93u0003fcv5fzp5dkvw" data-title="计算机网络" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/10/01/docker/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          docker
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/10/01/NAT/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">NAT</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/01/ICMP/">ICMP</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/01/docker/">docker</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/01/network/">计算机网络</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

