@@ -63,21 +63,21 @@
 <li>网络诊断：ping、reaceroute。</li>
 </ul>
 <p>例如：主机A访问主机B，主机B无响应，ICMP返回目标不可达</p>
-<p><img src="/ICMP.assets/image-20211022160900430.png" alt="image-20211022160900430"></p>
-<h3 id="ICMP数据包的具体通知类型"><a href="#ICMP数据包的具体通知类型" class="headerlink" title="ICMP数据包的具体通知类型"></a>ICMP数据包的具体通知类型</h3><p><img src="/ICMP.assets/image-20211022161132003.png" alt="image-20211022161132003"></p>
+<p><img src="/2023/03/26/ICMP/image-20211022160900430.png" alt="image-20211022160900430"></p>
+<h3 id="ICMP数据包的具体通知类型"><a href="#ICMP数据包的具体通知类型" class="headerlink" title="ICMP数据包的具体通知类型"></a>ICMP数据包的具体通知类型</h3><p><img src="/2023/03/26/ICMP/image-20211022161132003.png" alt="image-20211022161132003"></p>
 <p><strong>ICMP通知类型</strong></p>
 <ul>
 <li>差错报文：有关IP数据报传递的ICMP报文</li>
 <li>信息类报文：信息采集和配置的ICMP报文</li>
 </ul>
-<h3 id="ICMP在IPv4和IPv6的封装"><a href="#ICMP在IPv4和IPv6的封装" class="headerlink" title="ICMP在IPv4和IPv6的封装"></a>ICMP在IPv4和IPv6的封装</h3><p><img src="/ICMP.assets/image-20211022161448054.png" alt="image-20211022161448054"></p>
-<p><img src="/ICMP.assets/image-20211022161501371.png" alt="image-20211022161501371"></p>
+<h3 id="ICMP在IPv4和IPv6的封装"><a href="#ICMP在IPv4和IPv6的封装" class="headerlink" title="ICMP在IPv4和IPv6的封装"></a>ICMP在IPv4和IPv6的封装</h3><p><img src="/2023/03/26/ICMP/image-20211022161448054.png" alt="image-20211022161448054"></p>
+<p><img src="/2023/03/26/ICMP/image-20211022161501371.png" alt="image-20211022161501371"></p>
 <p>除ICMP头部4字节一样外，其余字节都不同，ICMP头部包含了整个ICMP数据段的校验和</p>
-<p><img src="/ICMP.assets/image-20211022161645766.png" alt="image-20211022161645766"></p>
+<p><img src="/2023/03/26/ICMP/image-20211022161645766.png" alt="image-20211022161645766"></p>
 <p>所有的 ICMP 报文都以 8 位的类型(Type)和代码(Code) 字段开始，其后的 16 位校验和涵盖了整个报文，ICMPv4 和 ICMPv6 种的类型和代码字段是不同的。</p>
 <h3 id="ICMP的主要消息"><a href="#ICMP的主要消息" class="headerlink" title="ICMP的主要消息"></a>ICMP的主要消息</h3><ul>
 <li>目标不可达（类型3）<ul>
-<li><img src="/ICMP.assets/image-20211022162021558.png" alt="image-20211022162021558"></li>
+<li><img src="/2023/03/26/ICMP/image-20211022162021558.png" alt="image-20211022162021558"></li>
 </ul>
 </li>
 <li>重定向消息（类型5）<ul>
@@ -99,7 +99,7 @@
 </li>
 <li>原点抑制消息（类型4）<ul>
 <li>在使用低速率网络的情况下，网络通信可能会遇到网络拥堵的情况下，ICMP 的原点抑制就是为了应对这种情况的。当路由器向低速线路发送数据时，其发送队列的残存数据报变为 0 从而无法发送时，可以向 IP 数据报的源地址发送一个 <code>ICMP 原点抑制(ICMP Source Quench Message)</code> 消息，收到这个消息的主机了解到线路某处发生了拥堵，从而抑制 IP 数据报的发送。</li>
-<li><img src="/ICMP.assets/image-20211022162705492.png" alt="image-20211022162705492"></li>
+<li><img src="/2023/03/26/ICMP/image-20211022162705492.png" alt="image-20211022162705492"></li>
 </ul>
 </li>
 <li>路由器探索消息（类型9和类型10）<ul>
@@ -118,15 +118,15 @@
 <li>错误消息（0-127）</li>
 <li>信息消息（128-255）</li>
 </ul>
-<p><img src="/ICMP.assets/image-20211022163329802.png" alt="image-20211022163329802"></p>
+<p><img src="/2023/03/26/ICMP/image-20211022163329802.png" alt="image-20211022163329802"></p>
 <h3 id="ICMPv6的额外功能"><a href="#ICMPv6的额外功能" class="headerlink" title="ICMPv6的额外功能"></a>ICMPv6的额外功能</h3><ul>
 <li>ICMPv6邻居探索</li>
 <li>即插即用</li>
 </ul>
 <h4 id="ICMPv6邻居探索"><a href="#ICMPv6邻居探索" class="headerlink" title="ICMPv6邻居探索"></a>ICMPv6邻居探索</h4><p>邻居探索是 ICMPv6 非常重要的功能，主要表示的类型是 133 – 137 之间的消息叫做<code>邻居探索消息</code>。这种邻居探索消息对于 IPv6 通信起到举足轻重的作用。邻居请求消息用于查询 IPv6 地址于 MAC 地址的对应关系。邻居请求消息利用 IPv6 的多播地址实现传输。</p>
-<p><img src="/ICMP.assets/image-20211022163624421.png" alt="image-20211022163624421"></p>
+<p><img src="/2023/03/26/ICMP/image-20211022163624421.png" alt="image-20211022163624421"></p>
 <h4 id="即插即用"><a href="#即插即用" class="headerlink" title="即插即用"></a>即插即用</h4><p>在没有 <code>DHCP</code> 服务器的环境下也能实现 IP 地址的自动获取。如果是一个没有路由器的网络，就使用 MAC 地址作为链路本地单播地址。如果在一个有路由器的网络环境中，可以从路由器获得 IPv6 地址的前面部分，后面部分使用 MAC 地址进行设置。此时可以利用路由器请求消息和路由器公告消息进行设置。</p>
-<p><img src="/ICMP.assets/image-20211022163841222.png" alt="image-20211022163841222"></p>
+<p><img src="/2023/03/26/ICMP/image-20211022163841222.png" alt="image-20211022163841222"></p>
 <h3 id="ICMPv6-的组播收听发现协议"><a href="#ICMPv6-的组播收听发现协议" class="headerlink" title="ICMPv6 的组播收听发现协议"></a>ICMPv6 的组播收听发现协议</h3><p><code>组播收听发现协议（MLD，Multicast Listener Discovery）</code>由子网内的组播成员管理。MLD 协议定义了3条ICMPv6 消息：</p>
 <ul>
 <li>组播收听查询消息：组播路由器向子网内的组播收听者发送此消息，以获取组播收听者的状态。</li>

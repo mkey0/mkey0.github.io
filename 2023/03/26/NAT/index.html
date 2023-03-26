@@ -60,7 +60,7 @@
     <h1 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h1><blockquote>
 <p>由于IPv4数量不够，所以开始推行IPv6，因为IPv4紧张，不可能每个人都有公网IP，为了节约公网IP，使用NAT技术，多台电脑使用同一个公网IP，且可以使用多层NAT技术，达到节约IP地址的目的。</p>
 </blockquote>
-<p><img src="/NAT.assets/image-20211022093025872.png" alt="image-20211022093025872"></p>
+<p><img src="/2023/03/26/NAT/image-20211022093025872.png" alt="image-20211022093025872"></p>
 <p>基本NAT类型</p>
 <ul>
 <li>静态NAT（公网IP与私网IP一对一）</li>
@@ -100,22 +100,22 @@
 <h3 id="NAT类型"><a href="#NAT类型" class="headerlink" title="NAT类型"></a>NAT类型</h3><ul>
 <li>完全圆锥形NAT<ul>
 <li>同一个内部地址(iAddr:iPort)只会映射相同的外部地址(eAddr:ePort)，映射完成后，目标IP端口都无限制。</li>
-<li><img src="/NAT.assets/image-20211022144144726.png" alt="image-20211022144144726"></li>
+<li><img src="/2023/03/26/NAT/image-20211022144144726.png" alt="image-20211022144144726"></li>
 </ul>
 </li>
 <li>受限圆锥形NAT<ul>
 <li>同一个内部地址(iAddr:iPort)只会映射相同的外部地址(eAddr:ePort)，映射完成后，必须先发一个包给目标，然后才能收到目标回发的包，目标端口无限制。</li>
-<li><img src="/NAT.assets/image-20211022144305761.png" alt="image-20211022144305761"></li>
+<li><img src="/2023/03/26/NAT/image-20211022144305761.png" alt="image-20211022144305761"></li>
 </ul>
 </li>
 <li>端口受限圆锥形NAT<ul>
 <li>同一个内部地址(iAddr:iPort)只会映射相同的外部地址(eAddr:ePort)，映射完成后，必须先发一个包给目标(tAddr:tPort)，然后才能收到目标(tAddr:tPort)回发的包，有目标端口限制。</li>
-<li><img src="/NAT.assets/image-20211022144350871.png" alt="image-20211022144350871"></li>
+<li><img src="/2023/03/26/NAT/image-20211022144350871.png" alt="image-20211022144350871"></li>
 </ul>
 </li>
 <li>对称NAT<ul>
 <li>同一个内部地址(iAddr:iPort)对不同目标(tAddr1:tPort1)(tAddr2:tPort2)会映射出不同的外部地址(eAddr1:ePort1)(eAddr2:ePort2)，必须先发一个包给目标(iAddr:iPort)-&gt;(eAddr1:ePort1)-&gt;(tAddr1:tPort1)，才能收到回发的包(tAddr1:tPort1)-&gt;(eAddr1:ePort1)-&gt;(iAddr:iPort1)。</li>
-<li><img src="/NAT.assets/image-20211022144418110.png" alt="image-20211022144418110"></li>
+<li><img src="/2023/03/26/NAT/image-20211022144418110.png" alt="image-20211022144418110"></li>
 </ul>
 </li>
 </ul>
