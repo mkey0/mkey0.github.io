@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>极验滑块 | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="极验滑块 记录第一次跟踪极验滑块滑动模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="极验滑块">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2022/01/01/%E6%9E%81%E9%AA%8C%E6%BB%91%E5%9D%971/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="极验滑块 记录第一次跟踪极验滑块滑动模式">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-26T13:41:20.022Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-极验滑块1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/01/01/%E6%9E%81%E9%AA%8C%E6%BB%91%E5%9D%971/" class="article-date">
+  <time class="dt-published" datetime="2021-12-31T16:00:00.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      极验滑块
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="极验滑块"><a href="#极验滑块" class="headerlink" title="极验滑块"></a>极验滑块</h1><blockquote>
+<p>记录第一次跟踪极验滑块<br><a target="_blank" rel="noopener" href="https://www.geetest.com/demo/slide-float.html">滑动模式</a></p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="进入js"><a href="#进入js" class="headerlink" title="进入js"></a>进入js</h3><p>进入网站，打开开发者工具，查看网络。发现测试极验滑块后，浏览器会发送一个script类型的包。<br>查看数据包内容，发现请求体中有一个w值，疑似滑动位置信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gt: 019924a82c70bb123aae90d483087f94</span><br><span class="line">challenge: 4e548047fc867885a858d5d81a605d548f</span><br><span class="line">lang: zh-cn</span><br><span class="line">$_BBF: 0</span><br><span class="line">client_type: web</span><br><span class="line">w: &quot;6d6P0wB7IeBNw4vnd45FyBnCnBHCZp3le6mJwQNfcWNzUI(yjO(pGgAsDNA0hQRlcgp8QrvB7XzqK0ZusBudkqY4SR6hhaCeT2IZSOLEW1YFpBzXodZkBOx)vfT(9RyRDxXG9wSopyGayhzH9wl7uqsVdXsz9ntm1CjdXqndb30LT9Fo)RNupYGKYvFeNr0E7kGa31iyTdhmRMSkBiHMOLbNh6yfBz8fZLAoDkIAaprpF)MH(spsLW47mjzvGfKeLsFPki8HLA6j58XIMW7tVv2DL2DtK9xaUvs2fRF1NtapabtR4MmxVRnBs8HjmoZjQXBH3AOlncRrDYylMW9VOQVi3ialOhBn)rXaE59h6cNUvkZYlLCUMiyec0LgxTn1AxQuJsEOJ8rlJeX7dRi2(ekVZ3iPb0V6EbkQr3KyiRkT)qYKmYl51APtqgaprlQZpqlqvLJTV2zWL)0tSnCRxN3j8cSxfoR7R1JXdTs1yzpot2CK)1knBGGPVMw8AQHOZl7eBwuCV4)OShV((ii4Icl5Jm5f4s4EyyAt5rZFnuX)dUM3vc5cuOTnA5yNc6kGq)xWf)xv0nqNGdabnsl)2WN6Tidth6w2JG69F8nc9ZBRdRZjNJOhPVMbDrUO)kpZAdkR5cXBZJ)vq3KNqpmXSQ)(AtduTsN)9UroMR0dN9ZBwoxDDAYQEjysN7DqwH5VUn9BUSeX4UjBv)8lZPZahZBMeIRN)eFVq8MXGPalQFbQ2NqZVoPSIDz9a)ZPBa8bGLIyjK3Ct2dVtmcKUFo)9xruaFxa8fi3fdDlgZzxVDOa3(MTCd46D9pP50ZftR)z3572485e4ad9467b61ab9f24414433db1937405dca34c9b4a78104bbcf931aa2adb3d54ae0f7b32b1f436a28503a736b854f4eae30cfa383beafe992b6a107f2a072700a4c37e7cc58eb0314dc80792a14cccc4eb4edbd1dbb404a4c754711c3da8f269936e19d86d4fb760a330b602a1e544de95f05e4b77456482f10ce590e&quot;</span><br><span class="line">callback: geetest_1642053003122</span><br></pre></td></tr></table></figure>
+<p>进入该包的发起流程，即发包的程序位置。查看w值。</p>
+<h3 id="查找w值位置"><a href="#查找w值位置" class="headerlink" title="查找w值位置"></a>查找w值位置</h3><p>进入js后，对js进行格式化。发现在触发发包的位置存在断点。即w值在发包之前已经计算出来，寻找w值的位置。<br>通过调用堆栈，查找w值。<br>在上一个堆栈中发现参数s，包含请求包信息，有w值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s=&quot;https://api.geetest.com/ajax.php?gt=019924a82c70bb123aae90d483087f94&amp;challenge=d8f938382a32d9d431cbda3ff0baeb96aw&amp;lang=zh-cn&amp;%24_BBF=0&amp;client_type=web&amp;w=6d6P0wB7IeBNw4vnd45FyBnCnBHCZp3le6mJwQNfcWNzUI(yjO(pGgAsDNA0hQRlcgp8QrvB7XzqK0ZusBudkqY4SR6hhaCeT2IZSOLEW1YFpBzXodZkBOx)vfT(9RyRDxXG9wSopyGayhzH9wl7uqsVdXsz9ntm1CjdXqndb30LT9Fo)RNupYGKYvFeNr0E7kGa31iyTdhmRMSkBiHMOLbNh6yfBz8fZLAoDkIAaprpF)MH(spsLW47mjzvGfKeLsFPki8HLA6j58XIMW7tVv2DL2DtK9xaUvs2fRF1NtapabtR4MmxVRnBs8HjmoZjQXBH3AOlncRrDYylMW9VOQVi3ialOhBn)rXaE59h6cNUvkZYlLCUMiyec0LgxTn1AxQuJsEOJ8rlJeX7dRi2(ekVZ3iPb0V6EbkQr3KyiRkT)qYKmYl51APtqgaprlQZpqlqvLJTV2zWL)0tSnCRxN3j8cSxfoR7R1JXdTs1yzpot2CK)1knBGGPVMw8AQHOZl7eBwuCV4)OShV((ii4Icl5Jm5f4s4EyyAt5rZFnuX)dUM3vc5cuOTnA5yNc6kGq)xWf)xv0nqNGdabnsl)2WN6Tidth6w2JG69F8nc9ZBRdRZjNJOhPVMbDrUO)kpZAdkR5cXBZJ)vq3KNqpmXSQ)(AtduTsN)9UroMR0dN9ZBwoxDDAYQEjysN7DqwH5VUn9BUSeX4UjBv)8lZPZahZBMeIRN)eFVq8MXGPalQFbQ2NqZVoPSIDz9a)ZPBa8bGLIyjK3Ct2dVtmcKUFo)9xruaFxa8fi3fdDlgZzxVDOa3(MTCd46D9pP50ZftR)z3572485e4ad9467b61ab9f24414433db1937405dca34c9b4a78104bbcf931aa2adb3d54ae0f7b32b1f436a28503a736b854f4eae30cfa383beafe992b6a107f2a072700a4c37e7cc58eb0314dc80792a14cccc4eb4edbd1dbb404a4c754711c3da8f269936e19d86d4fb760a330b602a1e544de95f05e4b77456482f10ce590e&amp;callback=geetest_1642055644982&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p>继续向前查看堆栈，发现参数o，包含请求体，包含w值，证明w值在此之前已经生成，继续向前查找。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object</span><br><span class="line">$_BBF: 0</span><br><span class="line">callback: &quot;geetest_1642055644982&quot;</span><br><span class="line">challenge: &quot;d8f938382a32d9d431cbda3ff0baeb96aw&quot;</span><br><span class="line">client_type: &quot;web&quot;</span><br><span class="line">gt: &quot;019924a82c70bb123aae90d483087f94&quot;</span><br><span class="line">lang: &quot;zh-cn&quot;</span><br><span class="line">w: &quot;6d6P0wB7IeBNw4vnd45FyBnCnBHCZp3le6mJwQNfcWNzUI(yjO(pGgAsDNA0hQRlcgp8QrvB7XzqK0ZusBudkqY4SR6hhaCeT2IZSOLEW1YFpBzXodZkBOx)vfT(9RyRDxXG9wSopyGayhzH9wl7uqsVdXsz9ntm1CjdXqndb30LT9Fo)RNupYGKYvFeNr0E7kGa31iyTdhmRMSkBiHMOLbNh6yfBz8fZLAoDkIAaprpF)MH(spsLW47mjzvGfKeLsFPki8HLA6j58XIMW7tVv2DL2DtK9xaUvs2fRF1NtapabtR4MmxVRnBs8HjmoZjQXBH3AOlncRrDYylMW9VOQVi3ialOhBn)rXaE59h6cNUvkZYlLCUMiyec0LgxTn1AxQuJsEOJ8rlJeX7dRi2(ekVZ3iPb0V6EbkQr3KyiRkT)qYKmYl51APtqgaprlQZpqlqvLJTV2zWL)0tSnCRxN3j8cSxfoR7R1JXdTs1yzpot2CK)1knBGGPVMw8AQHOZl7eBwuCV4)OShV((ii4Icl5Jm5f4s4EyyAt5rZFnuX)dUM3vc5cuOTnA5yNc6kGq)xWf)xv0nqNGdabnsl)2WN6Tidth6w2JG69F8nc9ZBRdRZjNJOhPVMbDrUO)kpZAdkR5cXBZJ)vq3KNqpmXSQ)(AtduTsN)9UroMR0dN9ZBwoxDDAYQEjysN7DqwH5VUn9BUSeX4UjBv)8lZPZahZBMeIRN)eFVq8MXGPalQFbQ2NqZVoPSIDz9a)ZPBa8bGLIyjK3Ct2dVtmcKUFo)9xruaFxa8fi3fdDlgZzxVDOa3(MTCd46D9pP50ZftR)z3572485e4ad9467b61ab9f24414433db1937405dca34c9b4a78104bbcf931aa2adb3d54ae0f7b32b1f436a28503a736b854f4eae30cfa383beafe992b6a107f2a072700a4c37e7cc58eb0314dc80792a14cccc4eb4edbd1dbb404a4c754711c3da8f269936e19d86d4fb760a330b602a1e544de95f05e4b77456482f10ce590e&quot;</span><br><span class="line">[[Prototype]]: Object</span><br></pre></td></tr></table></figure>
+<p>经过不断地向前查找，在堆栈中终于找到w值的生成，w值由h+s组成。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;\u0077&quot;就是w的uft8编码，&quot;\u0077&quot;是特征码，u、l、h等，变量名、函数名都是可变的。</span><br><span class="line">&quot;\u0077&quot;: h + u</span><br><span class="line">var u = r[$_CAGEe(750)]()</span><br><span class="line">  , l = V[$_CAGEe(342)](gt[$_CAGEe(209)](o), r[$_CAGEe(742)]())</span><br><span class="line">  , h = m[$_CAGEe(733)](l)</span><br></pre></td></tr></table></figure>
+
+<h3 id="跟踪u值"><a href="#跟踪u值" class="headerlink" title="跟踪u值"></a>跟踪u值</h3><p>对u、l、h的赋值下断点后，跳转进u值的函数。<br>发现u值的赋值函数为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;\u0024\u005f\u0043\u0042\u0045\u0045&quot;: function(t) &#123;</span><br><span class="line">	var $_CBEDU = lTloj.$_CX</span><br><span class="line">  , $_CBECg = [&#x27;$_CBEGr&#x27;].concat($_CBEDU)</span><br><span class="line">  , $_CBEEc = $_CBECg[1];</span><br><span class="line">	$_CBECg.shift();</span><br><span class="line">	var $_CBEFV = $_CBECg[0];</span><br><span class="line">	var e = new X()[$_CBEEc(342)](this[$_CBEEc(742)](t));</span><br><span class="line">	while (!e || 256 !== e[$_CBEEc(182)])</span><br><span class="line">	e = new X()[$_CBEDU(342)](this[$_CBEDU(742)](!0));</span><br><span class="line">return e;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>e值为返回的u值。经过查看e的赋值情况，可知<code>$_CBEEc(342)</code>为”encrypt”,由此推断<code>this[$_CBEEc(742)](t)</code>为明文，<code>new X()[$_CBEEc(342)]</code>为加密函数</p>
+<p>首先查看明文由来：<br>明文:4722a6d98dd9f29b<br>进入明文函数中，发现明文数字已经出现，该函数用于混淆，并没有对明文进行操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;\u0024\u005f\u0043\u0042\u0046\u0047&quot;: (Ot = rt(),</span><br><span class="line">function(t) &#123;</span><br><span class="line">	var $_CBDIs = lTloj.$_CX</span><br><span class="line">	  , $_CBDHp = [&#x27;$_CBEBa&#x27;].concat($_CBDIs)</span><br><span class="line">	  , $_CBDJA = $_CBDHp[1];</span><br><span class="line">	$_CBDHp.shift();</span><br><span class="line">	var $_CBEAd = $_CBDHp[0];</span><br><span class="line">	return !0 === t &amp;&amp; (Ot = rt()),</span><br><span class="line">	Ot;</span><br><span class="line">&#125;</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
+<p>Ot已经产生明文，进入rt函数查看。发现rt函数才是真正产生明文的函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var rt = function() &#123;</span><br><span class="line">	var $_BFBDL = lTloj.$_CX</span><br><span class="line">	  , $_BFBCi = [&#x27;$_BFBGO&#x27;].concat($_BFBDL)</span><br><span class="line">	  , $_BFBEt = $_BFBCi[1];</span><br><span class="line">	$_BFBCi.shift();</span><br><span class="line">	var $_BFBFk = $_BFBCi[0];</span><br><span class="line">	function t() &#123;</span><br><span class="line">		var $_DBFAh = lTloj.$_DP()[0][4];</span><br><span class="line">		for (; $_DBFAh !== lTloj.$_DP()[2][3]; ) &#123;</span><br><span class="line">			switch ($_DBFAh) &#123;</span><br><span class="line">			case lTloj.$_DP()[0][4]:</span><br><span class="line">				return (65536 * (1 + Math[$_BFBDL(75)]()) | 0)[$_BFBDL(396)](16)[$_BFBDL(476)](1);</span><br><span class="line">				break;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return function() &#123;</span><br><span class="line">		var $_BFBIl = lTloj.$_CX</span><br><span class="line">		  , $_BFBHs = [&#x27;$_BFCBY&#x27;].concat($_BFBIl)</span><br><span class="line">		  , $_BFBJq = $_BFBHs[1];</span><br><span class="line">		$_BFBHs.shift();</span><br><span class="line">		var $_BFCAQ = $_BFBHs[0];</span><br><span class="line">		return t() + t() + t() + t();</span><br><span class="line">	&#125;</span><br><span class="line">	;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+<p>明文由四个t相加组成，t函数返回的数据是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">return (65536 * (1 + Math[$_BFBDL(75)]()) | 0)[$_BFBDL(396)](16)[$_BFBDL(476)](1);</span><br><span class="line"></span><br><span class="line">$_BFBDL(75)=&quot;random&quot;</span><br><span class="line">$_BFBDL(396)=&quot;toString&quot;</span><br><span class="line">$_BFBDL(476)=&quot;substring&quot;</span><br><span class="line"></span><br><span class="line">return (65536 * (1 + Math[&quot;random&quot;]()) | 0)[&quot;toString&quot;](16)[&quot;substring&quot;](1);</span><br></pre></td></tr></table></figure>
+
+<p>重构明文函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function m() &#123;</span><br><span class="line">	data = &quot;&quot;;</span><br><span class="line">	for(var a=0;a&lt;4;a++)</span><br><span class="line">		data += (65536 * (1 + Math[&quot;random&quot;]()) | 0)[&quot;toString&quot;](16)[&quot;substring&quot;](1);</span><br><span class="line">	return data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有两种方法破解加密：</p>
+<ol>
+<li>扣加密函数</li>
+<li>扣加密密钥<br>加密函数：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">E[$_HHIO(261)][$_HHJn(342)] = function lt(t) &#123;</span><br><span class="line">	var $_JJI_ = lTloj.$_CX</span><br><span class="line">	  , $_JJHt = [&#x27;$_BAABI&#x27;].concat($_JJI_)</span><br><span class="line">	  , $_JJJB = $_JJHt[1];</span><br><span class="line">	$_JJHt.shift();</span><br><span class="line">	var $_BAAAC = $_JJHt[0];</span><br><span class="line">	var e = function a(t, e) &#123;</span><br><span class="line">		var $_BAADI = lTloj.$_CX</span><br><span class="line">		  , $_BAACi = [&#x27;$_BAAGL&#x27;].concat($_BAADI)</span><br><span class="line">		  , $_BAAEP = $_BAACi[1];</span><br><span class="line">		$_BAACi.shift();</span><br><span class="line">		var $_BAAFA = $_BAACi[0];</span><br><span class="line">		if (e &lt; t[$_BAAEP(182)] + 11)</span><br><span class="line">			return console &amp;&amp; console[$_BAADI(6)] &amp;&amp; console[$_BAADI(6)]($_BAADI(312)),</span><br><span class="line">			null;</span><br><span class="line">		var n = []</span><br><span class="line">		  , r = t[$_BAADI(182)] - 1;</span><br><span class="line">		while (0 &lt;= r &amp;&amp; 0 &lt; e) &#123;</span><br><span class="line">			var i = t[$_BAADI(137)](r--);</span><br><span class="line">			i &lt; 128 ? n[--e] = i : 127 &lt; i &amp;&amp; i &lt; 2048 ? (n[--e] = 63 &amp; i | 128,</span><br><span class="line">			n[--e] = i &gt;&gt; 6 | 192) : (n[--e] = 63 &amp; i | 128,</span><br><span class="line">			n[--e] = i &gt;&gt; 6 &amp; 63 | 128,</span><br><span class="line">			n[--e] = i &gt;&gt; 12 | 224);</span><br><span class="line">		&#125;</span><br><span class="line">		n[--e] = 0;</span><br><span class="line">		var o = new l()</span><br><span class="line">		  , s = [];</span><br><span class="line">		while (2 &lt; e) &#123;</span><br><span class="line">			s[0] = 0;</span><br><span class="line">			while (0 == s[0])</span><br><span class="line">				o[$_BAADI(276)](s);</span><br><span class="line">			n[--e] = s[0];</span><br><span class="line">		&#125;</span><br><span class="line">		return n[--e] = 2,</span><br><span class="line">		n[--e] = 0,</span><br><span class="line">		new y(n);</span><br><span class="line">	&#125;(t, this[$_JJJB(310)][$_JJI_(353)]() + 7 &gt;&gt; 3);</span><br><span class="line">	if (null == e)</span><br><span class="line">		return null;</span><br><span class="line">	var n = this[$_JJJB(388)](e);</span><br><span class="line">	if (null == n)</span><br><span class="line">		return null;</span><br><span class="line">	var r = n[$_JJJB(396)](16);</span><br><span class="line">	return 0 == (1 &amp; r[$_JJJB(182)]) ? r : $_JJJB(44) + r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>选中<code>new x()</code>加密函数，发现存在参数setpublic，跟踪进入设置公钥的函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">E[$_HHJn(261)][$_HHIO(349)] = function ut(t, e) &#123;</span><br><span class="line">	var $_JIId = lTloj.$_CX</span><br><span class="line">	  , $_JIHf = [&#x27;$_JJBk&#x27;].concat($_JIId)</span><br><span class="line">	  , $_JIJy = $_JIHf[1];</span><br><span class="line">	$_JIHf.shift();</span><br><span class="line">	var $_JJAX = $_JIHf[0];</span><br><span class="line">	null != t &amp;&amp; null != e &amp;&amp; 0 &lt; t[$_JIJy(182)] &amp;&amp; 0 &lt; e[$_JIId(182)] ? (this[$_JIId(310)] = function n(t, e) &#123;</span><br><span class="line">		var $_JJDX = lTloj.$_CX</span><br><span class="line">		  , $_JJCE = [&#x27;$_JJGq&#x27;].concat($_JJDX)</span><br><span class="line">		  , $_JJEo = $_JJCE[1];</span><br><span class="line">		$_JJCE.shift();</span><br><span class="line">		var $_JJFy = $_JJCE[0];</span><br><span class="line">		return new y(t,e);</span><br><span class="line">	&#125;(t, 16),</span><br><span class="line">	this[$_JIJy(319)] = parseInt(e, 16)) : console &amp;&amp; console[$_JIJy(6)] &amp;&amp; console[$_JIId(6)]($_JIId(348));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过初步判断：t为密钥，e为模。但是t的长度为258，所以加密函数进行了封装，无法直接使用密钥进行加密。</p>
+<p>经过字符串验证：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$_HHJn(261) = &#x27;prototype&#x27;</span><br><span class="line">$_HHIO(349) = &#x27;setPublic&#x27;</span><br><span class="line">$_JIJy(319) = &#x27;e&#x27;</span><br><span class="line">$_JIJy(6)   = &#x27;error&#x27;</span><br><span class="line">$_JIJy(348) = &#x27;Invalid RSA puglic key&#x27;</span><br><span class="line">$_HHJn(342) = &#x27;encrypt&#x27;</span><br><span class="line">$_BAAEP(182)= &#x27;length&#x27;</span><br><span class="line">$_BAADI(6)  = &#x27;error&#x27;</span><br><span class="line">$_BAADI(312)= &#x27;Message too long for RSA&#x27;</span><br><span class="line">$_BAADI(137)= &#x27;charCodeAt&#x27;</span><br><span class="line">$_BAADI(276)= &#x27;nextBytes&#x27;</span><br><span class="line">$_JJJB(310) = &#x27;n&#x27;</span><br><span class="line">$_JJI_(353) = &#x27;bitLength&#x27;</span><br><span class="line">$_JJJB(388) = &#x27;doPublic&#x27;</span><br><span class="line">$_JJJB(396) = &#x27;toString&#x27;</span><br><span class="line">$_JJJB(182) = &#x27;length&#x27;</span><br><span class="line">$_JJJB(44)  = &#x27;0&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>将x函数扣出，创建新的x对象导入明文函数m()，<code>new X()[&#39;encrypt&#39;](m())</code>，得出u值。</p>
+<p>跟踪l值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l = V[$_CAGEe(342)](gt[$_CAGEe(209)](o), r[$_CAGEe(742)]())</span><br><span class="line">l = V[&#x27;encrypt&#x27;](gt[&#x27;stringify](o)&#x27;, r[&#x27;$_CBFG&#x27;]())</span><br></pre></td></tr></table></figure>
+<p><code>stringify</code>是json的一个方法，将json变为字符串。<br>经测试<code>gt[&#39;stringify&#39;]</code>确实是将json变为字符串。</p>
+<p>跟踪进入<code>r[&#39;$_CBFG&#39;]</code>发现该函数其实就是u生成明文的函数,可用自己构造的m()函数替代。</p>
+<p>查看o值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">aa: &quot;V(!Q!Bxsussussstussstss(!!($)4m8111C101502099@8$*G&quot;</span><br><span class="line">ep: &#123;v: &#x27;7.8.6&#x27;, $_BHR: false, me: true, tm: &#123;a: 1642398626123,b: 0,c: 0,d: 0,e: 0,f: 1642398626143,g: 1642398626173,h: 1642398626173,i: 1642398626173,j: 1642398626241,k: 1642398626173,l: 1642398626241,m: 1642398626386,n: 1642398626392,o: 1642398626398,p: 1642398627158,q: 1642398627158,r: 1642398627201,s: 1642398628757,t: 1642398628757,u: 1642398628757&#125;, td: -1&#125;</span><br><span class="line">g9gz: &quot;1278515553&quot;</span><br><span class="line">imgload: 81</span><br><span class="line">lang: &quot;zh-cn&quot;</span><br><span class="line">passtime: 446</span><br><span class="line">rp: &quot;4dfb967f62692058422b321e12b30787&quot;</span><br><span class="line">userresponse: &quot;e5f55ff5fefef0d3d4b&quot;</span><br></pre></td></tr></table></figure>
+<p>经过刷新比较发现：改变的值只有三个：aa、rp、userresponse。<br>由于拖动的轨迹长度不同，aa值的长度也跟随变化，判断aa值为轨迹值。<br>aa值是参数传入的，因此通过栈查看上一个函数，是否有aa值。<br>进入上一个栈之后发现，aa值由l计算得出。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var l = n[$_CJJIW(1078)][$_CJJJd(1069)](n[$_CJJIW(1078)][$_CJJJd(1051)](), n[$_CJJJd(13)][$_CJJIW(1045)], n[$_CJJIW(13)][$_CJJIW(307)]);</span><br><span class="line">var l = n[&#x27;$_CIBw&#x27;][&#x27;$_BBCA&#x27;](n[&#x27;$_CIBw&#x27;][&#x27;$_GEy&#x27;](), n[&#x27;$_CIY&#x27;][&#x27;c&#x27;], n[&#x27;$_CIY&#x27;][&#x27;s&#x27;]);</span><br><span class="line"></span><br><span class="line">n[&#x27;$_CIY&#x27;][&#x27;c&#x27;] = [12, 58, 98, 36, 43, 95, 62, 15, 12]</span><br><span class="line">n[&#x27;$_CIY&#x27;][&#x27;s&#x27;] = &#x27;70524a38&#x27;</span><br><span class="line">以上两个值都是在https://api.geetest.com/get.php中请求获得的参数</span><br><span class="line"></span><br><span class="line">n[&#x27;$_CIBw&#x27;][&#x27;$_GEy&#x27;]()每次运算得出的值都一样，判断是轨迹</span><br></pre></td></tr></table></figure>
+<p>进入<code>n[&#39;$_CIBw&#39;][&#39;$_GEy&#39;]()</code>函数，查看发现函数中存在t值，为鼠标移动值。</p>
+<p>生成轨迹的方法是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">r[$_BEGJJ(444)]($_BEGIH(33)) + $_BEGIH(407) + i[$_BEGIH(444)]($_BEGJJ(33)) + $_BEGIH(407) + o[$_BEGIH(444)]($_BEGIH(33));</span><br><span class="line"></span><br><span class="line">r[&#x27;join&#x27;](&#x27;&#x27;) + &#x27;!!&#x27; + i[&#x27;join&#x27;](&#x27;&#x27;) + &#x27;!!&#x27; + o[&#x27;join&#x27;](&#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">$_BEHJy(140) = &#x27;push&#x27;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2022/01/01/%E6%9E%81%E9%AA%8C%E6%BB%91%E5%9D%971/" data-id="clfpg8ztu0015vwv5dv9ucmci" data-title="极验滑块" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/01/01/JavaScript-reverse/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          JavaScript-逆向
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/12/01/XSS/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">XSS</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/Log4j/">Log4j</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/OWASP/">OWASP TOP 10</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/kali/">kali</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

