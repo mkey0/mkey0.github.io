@@ -6,12 +6,12 @@
   
   <title>小迪安全 | Mkey的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="小迪安全第一天基础名词域名1234域名：二级域名：域名对于安全测试的意义：	多级域名的情况下如果测试的域名没有发现漏洞，可以通过测试同域名下的其他网站，来曲线救国，通过其他网站攻击进入服务器获取权限，再来攻击该网站。  DNS12345678910什么是DNS：	DNS将数名解析成IP地址HOST与DNS的关系:	本地HOST重定向域名地址	在解析IP地址前首先检测HOST，当HOST没有时，才访">
+  <meta name="description" content="小迪安全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="小迪安全">
 <meta property="og:url" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/index.html">
 <meta property="og:site_name" content="Mkey的博客">
-<meta property="og:description" content="小迪安全第一天基础名词域名1234域名：二级域名：域名对于安全测试的意义：	多级域名的情况下如果测试的域名没有发现漏洞，可以通过测试同域名下的其他网站，来曲线救国，通过其他网站攻击进入服务器获取权限，再来攻击该网站。  DNS12345678910什么是DNS：	DNS将数名解析成IP地址HOST与DNS的关系:	本地HOST重定向域名地址	在解析IP地址前首先检测HOST，当HOST没有时，才访">
+<meta property="og:description" content="小迪安全">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210906091716474.png">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/image-20210906151400324.png">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/jwt%E7%AD%BE%E5%90%8D.png">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/jwt%E4%BC%A0%E8%BE%93.png">
 <meta property="article:published_time" content="2021-09-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-26T13:06:18.687Z">
+<meta property="article:modified_time" content="2023-03-26T13:11:56.623Z">
 <meta property="article:author" content="HOU">
 <meta property="article:tag" content="web-security">
 <meta name="twitter:card" content="summary">
@@ -117,7 +117,9 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="小迪安全"><a href="#小迪安全" class="headerlink" title="小迪安全"></a>小迪安全</h1><h2 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h2><h3 id="基础名词"><a href="#基础名词" class="headerlink" title="基础名词"></a>基础名词</h3><h4 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">域名：</span><br><span class="line">二级域名：</span><br><span class="line">域名对于安全测试的意义：</span><br><span class="line">	多级域名的情况下如果测试的域名没有发现漏洞，可以通过测试同域名下的其他网站，来曲线救国，通过其他网站攻击进入服务器获取权限，再来攻击该网站。</span><br></pre></td></tr></table></figure>
+        <h1 id="小迪安全"><a href="#小迪安全" class="headerlink" title="小迪安全"></a>小迪安全</h1><span id="more"></span>
+
+<h2 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h2><h3 id="基础名词"><a href="#基础名词" class="headerlink" title="基础名词"></a>基础名词</h3><h4 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">域名：</span><br><span class="line">二级域名：</span><br><span class="line">域名对于安全测试的意义：</span><br><span class="line">	多级域名的情况下如果测试的域名没有发现漏洞，可以通过测试同域名下的其他网站，来曲线救国，通过其他网站攻击进入服务器获取权限，再来攻击该网站。</span><br></pre></td></tr></table></figure>
 
 <h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">什么是DNS：</span><br><span class="line">	DNS将数名解析成IP地址</span><br><span class="line">HOST与DNS的关系:</span><br><span class="line">	本地HOST重定向域名地址</span><br><span class="line">	在解析IP地址前首先检测HOST，当HOST没有时，才访问DNS</span><br><span class="line">CDN：</span><br><span class="line">	缓存节点，根据地区接近给一个节点，主要降低通讯时间，相应时间。</span><br><span class="line">常见的dns攻击：</span><br><span class="line">	恶意解析（域名劫持），dns服务器被黑后，请求被指向恶意地址</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
 
@@ -737,7 +739,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/" data-id="clfpez940000efcv57bwx5jbv" data-title="小迪安全" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/" data-id="clfpf6ctq0003vcv57jffcj7u" data-title="小迪安全" class="article-share-link">分享</a>
       
       
       
@@ -749,15 +751,20 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/10/01/NAT/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/10/01/ICMP/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前一篇</strong>
       <div class="article-nav-title">
         
-          NAT
+          ICMP
         
       </div>
     </a>
   
+  
+    <a href="/2021/10/01/NAT/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">NAT</div>
+    </a>
   
 </nav>
 
@@ -820,11 +827,11 @@
           </li>
         
           <li>
-            <a href="/2021/10/01/docker/">docker</a>
+            <a href="/2021/10/01/xiaodi1/">小迪安全</a>
           </li>
         
           <li>
-            <a href="/2021/10/01/network/">计算机网络</a>
+            <a href="/2021/10/01/NAT/">NAT</a>
           </li>
         
       </ul>

@@ -6,12 +6,12 @@
   
   <title>NAT | Mkey的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="NAT 由于IPv4数量不够，所以开始推行IPv6，因为IPv4紧张，不可能每个人都有公网IP，为了节约公网IP，使用NAT技术，多台电脑使用同一个公网IP，且可以使用多层NAT技术，达到节约IP地址的目的。   基本NAT类型  静态NAT（公网IP与私网IP一对一） 动态NAT（公网IP与私网IP一对多）  动态NAT 客户端请求服务器，报文发送至网关地址的路由器 路由器接收到报文后，检查NA">
+  <meta name="description" content="NAT 由于IPv4数量不够，所以开始推行IPv6，因为IPv4紧张，不可能每个人都有公网IP，为了节约公网IP，使用NAT技术，多台电脑使用同一个公网IP，且可以使用多层NAT技术，达到节约IP地址的目的。   基本NAT类型  静态NAT（公网IP与私网IP一对一） 动态NAT（公网IP与私网IP一对多）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NAT">
 <meta property="og:url" content="https://monkeyh0ck.github.io/2021/10/01/NAT/index.html">
 <meta property="og:site_name" content="Mkey的博客">
-<meta property="og:description" content="NAT 由于IPv4数量不够，所以开始推行IPv6，因为IPv4紧张，不可能每个人都有公网IP，为了节约公网IP，使用NAT技术，多台电脑使用同一个公网IP，且可以使用多层NAT技术，达到节约IP地址的目的。   基本NAT类型  静态NAT（公网IP与私网IP一对一） 动态NAT（公网IP与私网IP一对多）  动态NAT 客户端请求服务器，报文发送至网关地址的路由器 路由器接收到报文后，检查NA">
+<meta property="og:description" content="NAT 由于IPv4数量不够，所以开始推行IPv6，因为IPv4紧张，不可能每个人都有公网IP，为了节约公网IP，使用NAT技术，多台电脑使用同一个公网IP，且可以使用多层NAT技术，达到节约IP地址的目的。   基本NAT类型  静态NAT（公网IP与私网IP一对一） 动态NAT（公网IP与私网IP一对多）">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/NAT/image-20211022093025872.png">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/NAT/image-20211022144144726.png">
@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/NAT/image-20211022144350871.png">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/10/01/NAT/image-20211022144418110.png">
 <meta property="article:published_time" content="2021-09-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-26T13:06:17.445Z">
+<meta property="article:modified_time" content="2023-03-26T13:11:39.421Z">
 <meta property="article:author" content="HOU">
 <meta property="article:tag" content="web-security">
 <meta name="twitter:card" content="summary">
@@ -111,6 +111,8 @@
 <li>静态NAT（公网IP与私网IP一对一）</li>
 <li>动态NAT（公网IP与私网IP一对多）</li>
 </ul>
+<span id="more"></span>
+
 <h3 id="动态NAT"><a href="#动态NAT" class="headerlink" title="动态NAT"></a>动态NAT</h3><ol>
 <li>客户端请求服务器，报文发送至网关地址的路由器</li>
 <li>路由器接收到报文后，检查NAT地址池，找到第一个可用公网IP，将数据包的源地址换成可用的公网地址，路由器同时在NAT表中添加一个表项，记录私有地址到公有地址的映射。路由器将转换完的报文发出</li>
@@ -178,7 +180,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/NAT/" data-id="clfpez93z000bfcv5fgcbecaq" data-title="NAT" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/NAT/" data-id="clfpf6ctq0004vcv51p1lfkgu" data-title="NAT" class="article-share-link">分享</a>
       
       
       
@@ -190,19 +192,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/10/01/network/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/10/01/xiaodi1/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前一篇</strong>
       <div class="article-nav-title">
         
-          计算机网络
+          小迪安全
         
       </div>
     </a>
   
   
-    <a href="/2021/10/01/xiaodi1/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/10/01/network/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">小迪安全</div>
+      <div class="article-nav-title">计算机网络</div>
     </a>
   
 </nav>
@@ -266,11 +268,11 @@
           </li>
         
           <li>
-            <a href="/2021/10/01/docker/">docker</a>
+            <a href="/2021/10/01/xiaodi1/">小迪安全</a>
           </li>
         
           <li>
-            <a href="/2021/10/01/network/">计算机网络</a>
+            <a href="/2021/10/01/NAT/">NAT</a>
           </li>
         
       </ul>
