@@ -1,63 +1,97 @@
 <!DOCTYPE html>
 <html>
-  <!DOCTYPE html>
-<html lang="zh-CN">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta charset="utf-8">
+  
   
   <title>Mkey的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="NAT 由于IPv4数量不够，所以开始推行IPv6，因为IPv4紧张，不可能每个人都有公网IP，为了节约公网IP，使用NAT技术，多台电脑使用同一个公网IP，且可以使用多层NAT技术，达到节约IP地址的目的。   基本NAT类型  静态NAT（公网IP与私网IP一对一） 动态NAT（公网IP与私网IP一对多）  动态NAT 客户端请求服务器，报文发送至网关地址的路由器 路由器接收到报文后，检查NA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mkey的博客">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2023/03/26/NAT/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="NAT 由于IPv4数量不够，所以开始推行IPv6，因为IPv4紧张，不可能每个人都有公网IP，为了节约公网IP，使用NAT技术，多台电脑使用同一个公网IP，且可以使用多层NAT技术，达到节约IP地址的目的。   基本NAT类型  静态NAT（公网IP与私网IP一对一） 动态NAT（公网IP与私网IP一对多）  动态NAT 客户端请求服务器，报文发送至网关地址的路由器 路由器接收到报文后，检查NA">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/03/26/NAT/image-20211022093025872.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/03/26/NAT/image-20211022144144726.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/03/26/NAT/image-20211022144305761.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/03/26/NAT/image-20211022144350871.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/03/26/NAT/image-20211022144418110.png">
+<meta property="article:published_time" content="2023-03-26T12:47:08.013Z">
+<meta property="article:modified_time" content="2022-04-24T08:40:24.007Z">
+<meta property="article:author" content="HOU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2023/03/26/NAT/image-20211022093025872.png">
   
-  <meta name="keywords" content=生活,博客,前端,游戏>
-  
-    <meta name="description" content="学习与记录">
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
   
   
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.02">
+    <link rel="shortcut icon" href="/favicon.png">
   
   
-    <link rel="alternate" href="/atom.xml " title="Mkey的博客" type="application/atom+xml">
-  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
+  
   
 <link rel="stylesheet" href="/css/style.css">
 
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
 <meta name="generator" content="Hexo 6.3.0"></head>
-  <body>
-    <div class="container">
-      <header class="header">
-  <div class="blog-title">
-    <a href="/" class="logo">Mkey的博客</a>
-    <div class="subtitle"></div>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
   </div>
-  <nav class="navbar">
-    <ul class="menu">
-      
-        <li class="menu-item">
-          <a href="/" class="menu-item-link">主页</a>
-        </li>
-      
-        <li class="menu-item">
-          <a href="/archives" class="menu-item-link">归档</a>
-        </li>
-      
-        <li class="menu-item">
-          <a href="/about" class="menu-item-link">关于</a>
-        </li>
-      
-    </ul>
-  </nav>
 </header>
-<article class="post">
-  <div class="post-title">
-    <h1 class="article-title"></h1>
+
+      <div class="outer">
+        <section id="main"><article id="post-NAT" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/03/26/NAT/" class="article-date">
+  <time class="dt-published" datetime="2023-03-26T12:47:08.013Z" itemprop="datePublished">2023-03-26</time>
+</a>
+    
   </div>
-   <div class="post-meta">
-    <span class="post-time">2023-03-26</span>
-  </div>
-  <div class="post-content">
-    <h1 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h1><blockquote>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h1><blockquote>
 <p>由于IPv4数量不够，所以开始推行IPv6，因为IPv4紧张，不可能每个人都有公网IP，为了节约公网IP，使用NAT技术，多台电脑使用同一个公网IP，且可以使用多层NAT技术，达到节约IP地址的目的。</p>
 </blockquote>
 <p><img src="/2023/03/26/NAT/image-20211022093025872.png" alt="image-20211022093025872"></p>
@@ -130,19 +164,148 @@
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86759357">NAT穿透 - 知乎 (zhihu.com)</a></p>
 </blockquote>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2023/03/26/NAT/" data-id="clfpem55t0001wsv5dezr29w8" data-title="" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
   </div>
-  <div class="post-footer">
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/03/26/ICMP/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/03/26/docker/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
     
 
-    <a href="#top" class="top">返回顶部</a>
-  </div>
-</article>
-<footer>
-  &copy; 2023
-  <span class="author">
-    HOU
-  </span>
-</footer>
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
     </div>
-  </body>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/26/xiaodi1/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/26/ICMP/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/26/NAT/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/26/docker/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/24/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
 </html>
