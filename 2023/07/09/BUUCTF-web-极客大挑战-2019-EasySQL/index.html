@@ -6,18 +6,18 @@
   
   <title>BUUCTF-web-[极客大挑战 2019]EasySQL | Mkey的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="题目：BUUCTF-web-[极客大挑战 2019]EasySQL解题观察题目打开靶机后界面如下：  需要用户进行登录：既需要进行sql查询，诸如类型为字符串注入 需测试sql语句的字符串的闭合方式 在用户名和密码输入admin并提交 123456789GET &#x2F;check.php?username&#x3D;admin&amp;password&#x3D;admin HTTP&#x2F;1.1Host: 9611ca2f-3">
+  <meta name="description" content="题目：BUUCTF-web-[极客大挑战 2019]EasySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BUUCTF-web-[极客大挑战 2019]EasySQL">
 <meta property="og:url" content="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/index.html">
 <meta property="og:site_name" content="Mkey的博客">
-<meta property="og:description" content="题目：BUUCTF-web-[极客大挑战 2019]EasySQL解题观察题目打开靶机后界面如下：  需要用户进行登录：既需要进行sql查询，诸如类型为字符串注入 需测试sql语句的字符串的闭合方式 在用户名和密码输入admin并提交 123456789GET &#x2F;check.php?username&#x3D;admin&amp;password&#x3D;admin HTTP&#x2F;1.1Host: 9611ca2f-3">
+<meta property="og:description" content="题目：BUUCTF-web-[极客大挑战 2019]EasySQL">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/1.jpg">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/2.png">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/3.png">
 <meta property="article:published_time" content="2023-07-09T02:31:04.000Z">
-<meta property="article:modified_time" content="2023-07-09T03:01:33.190Z">
+<meta property="article:modified_time" content="2023-07-09T03:35:15.871Z">
 <meta property="article:author" content="HOU">
 <meta property="article:tag" content="web-security">
 <meta property="article:tag" content="ctf">
@@ -101,9 +101,11 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="题目：BUUCTF-web-极客大挑战-2019-EasySQL"><a href="#题目：BUUCTF-web-极客大挑战-2019-EasySQL" class="headerlink" title="题目：BUUCTF-web-[极客大挑战 2019]EasySQL"></a>题目：BUUCTF-web-<strong><strong>[极客大挑战 2019]EasySQL</strong></strong></h1><h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><h3 id="观察题目"><a href="#观察题目" class="headerlink" title="观察题目"></a>观察题目</h3><p>打开靶机后界面如下：</p>
+        <h1 id="题目：BUUCTF-web-极客大挑战-2019-EasySQL"><a href="#题目：BUUCTF-web-极客大挑战-2019-EasySQL" class="headerlink" title="题目：BUUCTF-web-[极客大挑战 2019]EasySQL"></a>题目：BUUCTF-web-<strong><strong>[极客大挑战 2019]EasySQL</strong></strong></h1><span id="more"></span>
+
+<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><h3 id="观察题目"><a href="#观察题目" class="headerlink" title="观察题目"></a>观察题目</h3><p>打开靶机后界面如下：</p>
 <p><img src="/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/1.jpg" alt="image-1"></p>
-<p>需要用户进行登录：既需要进行sql查询，诸如类型为字符串注入</p>
+<p>需要用户进行登录：既需要进行sql查询，注入类型为字符串注入</p>
 <p>需测试sql语句的字符串的闭合方式</p>
 <p>在用户名和密码输入admin并提交</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET /check.php?username=admin&amp;password=admin HTTP/1.1</span><br><span class="line">Host: 9611ca2f-3862-48f6-9c53-dccd9eefbf33.node4.buuoj.cn:81</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: close</span><br><span class="line">Referer: http://9611ca2f-3862-48f6-9c53-dccd9eefbf33.node4.buuoj.cn:81/</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br></pre></td></tr></table></figure>
@@ -133,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/" data-id="cljuunh650001g8v5fkfu61sh" data-title="BUUCTF-web-[极客大挑战 2019]EasySQL" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL/" data-id="cljuvufsb0001ggv54b2o96pm" data-title="BUUCTF-web-[极客大挑战 2019]EasySQL" class="article-share-link">分享</a>
       
       
       
