@@ -15,7 +15,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/12/01/webSecurity/image-20211201092213763.png">
 <meta property="article:published_time" content="2021-11-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-26T13:33:13.323Z">
+<meta property="article:modified_time" content="2023-07-23T10:01:23.792Z">
 <meta property="article:author" content="HOU">
 <meta property="article:tag" content="web-security">
 <meta name="twitter:card" content="summary">
@@ -288,7 +288,7 @@
 <p>   allwo_url_fopen &#x3D; off<br>   Allow_url_include &#x3D; off<br>   magic_quotes_gpc &#x3D; on<br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4. 白名单策略</span><br><span class="line"></span><br><span class="line">## 不安全的文件下载与上传</span><br><span class="line"></span><br><span class="line">文件下载功能设计不当，会导致攻击者可以构造文件路径，获取后台服务器上的其他敏感文件（任意文件下载）</span><br><span class="line"></span><br><span class="line">### 防范措施</span><br><span class="line"></span><br><span class="line">1. 对传入的文件名进行严格的过滤和限定</span><br><span class="line">2. 对文件下载的目录进行严格的限定</span><br><span class="line"></span><br><span class="line">### 不安全文件上传漏洞—服务端验证</span><br><span class="line"></span><br><span class="line">#### MIME</span><br><span class="line"></span><br><span class="line">多用途互联网邮件扩展楼型。</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>例如<br>.html  text&#x2F;html<br>.txt	application&#x2F;rtf<br>.gif	image&#x2F;gif<br>.jpg	image&#x2F;jpeg</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>$_FILES()<br>用来获取通过 POST 方法上传文件的相关信息。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![image-20211203162546562](webSecurity.assets/image-20211203162546562.png)</span><br><span class="line"></span><br><span class="line">#### gitimagesize()</span><br><span class="line"></span><br><span class="line">文件头2个字节同类型相同。</span><br><span class="line"></span><br><span class="line">木马制作</span><br><span class="line"></span><br><span class="line">1. 直接伪造头部GIF89A</span><br><span class="line">2. CMD：`copy /b test.png + muma.php ccc.png`</span><br><span class="line">3. 使用GIMP，通过添加备注，写入执行命令</span><br><span class="line"></span><br><span class="line">#### 文件上传漏洞防范措施</span><br><span class="line"></span><br><span class="line">- 不在前端js实施上传限制策略</span><br><span class="line">- 通过服务器对上传文件进行限制</span><br><span class="line">  - 多条件组合限制：大小、路径、扩展名、文件类型、文件完整性</span><br><span class="line">  - 对上传的文件在服务器上存储时进行重命名</span><br><span class="line">  - 对服务器端上传文件的目录进行权限控制，限制执行权限带来的危害</span><br><span class="line"></span><br><span class="line">## 越权漏洞</span><br><span class="line"></span><br><span class="line">低权限账号完成高权限账号的操作</span><br><span class="line"></span><br><span class="line">- 平行越权：A用户和B用户属于同一级用户</span><br><span class="line">- 垂直越权：A用户权限高于B用户</span><br><span class="line"></span><br><span class="line">越权漏洞属于逻辑漏洞，是权限校验逻辑不够严谨导致</span><br><span class="line"></span><br><span class="line">## php反序列化</span><br><span class="line"></span><br><span class="line">**序列化serialize()**</span><br><span class="line">序列化说通俗点就是把一个对象变成可以传输的字符串,比如下面是一个对象:            </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![image-20211203162546562](webSecurity/image-20211203162546562.png)</span><br><span class="line"></span><br><span class="line">#### gitimagesize()</span><br><span class="line"></span><br><span class="line">文件头2个字节同类型相同。</span><br><span class="line"></span><br><span class="line">木马制作</span><br><span class="line"></span><br><span class="line">1. 直接伪造头部GIF89A</span><br><span class="line">2. CMD：`copy /b test.png + muma.php ccc.png`</span><br><span class="line">3. 使用GIMP，通过添加备注，写入执行命令</span><br><span class="line"></span><br><span class="line">#### 文件上传漏洞防范措施</span><br><span class="line"></span><br><span class="line">- 不在前端js实施上传限制策略</span><br><span class="line">- 通过服务器对上传文件进行限制</span><br><span class="line">  - 多条件组合限制：大小、路径、扩展名、文件类型、文件完整性</span><br><span class="line">  - 对上传的文件在服务器上存储时进行重命名</span><br><span class="line">  - 对服务器端上传文件的目录进行权限控制，限制执行权限带来的危害</span><br><span class="line"></span><br><span class="line">## 越权漏洞</span><br><span class="line"></span><br><span class="line">低权限账号完成高权限账号的操作</span><br><span class="line"></span><br><span class="line">- 平行越权：A用户和B用户属于同一级用户</span><br><span class="line">- 垂直越权：A用户权限高于B用户</span><br><span class="line"></span><br><span class="line">越权漏洞属于逻辑漏洞，是权限校验逻辑不够严谨导致</span><br><span class="line"></span><br><span class="line">## php反序列化</span><br><span class="line"></span><br><span class="line">**序列化serialize()**</span><br><span class="line">序列化说通俗点就是把一个对象变成可以传输的字符串,比如下面是一个对象:            </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <pre><code>class S&#123;
     public $test=&quot;pikachu&quot;;
 &#125;
@@ -338,11 +338,11 @@ echo $u-&gt;test; //得到的结果为pikachu
 <pre><code>
 ## XXE(xml external entity-injection)
 
-![image-20211205110135519](webSecurity.assets/image-20211205110135519.png)
+![image-20211205110135519](webSecurity/image-20211205110135519.png)
 
 #### DTD：文档类型定义
 
-![image-20211205110235897](webSecurity.assets/image-20211205110235897.png)
+![image-20211205110235897](webSecurity/image-20211205110235897.png)
 
 ##### 外部应用
 
@@ -366,7 +366,7 @@ php解析xml用libxml库，在2.9.0版本之后，默认禁止解析xml外部实
 
 &gt; https://www.cnblogs.com/sunny11/p/13753754.html
 
-![image-20220411085144467](webSecurity.assets/image-20220411085144467.png)
+![image-20220411085144467](webSecurity/image-20220411085144467.png)
 
 ### 危害
 
@@ -399,7 +399,7 @@ RSS订阅、支持输入URL功能、嵌入远程图片、PFD文档解析功能�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/12/01/webSecurity/" data-id="clkf71h8u0018i4v54uf1f2g7" data-title="webSecurity" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/webSecurity/" data-id="clkf9sao70015cwv50kn7442a" data-title="webSecurity" class="article-share-link">分享</a>
       
       
       
@@ -411,19 +411,19 @@ RSS订阅、支持输入URL功能、嵌入远程图片、PFD文档解析功能�
     
 <nav id="article-nav">
   
-    <a href="/2021/12/01/networkSecurity/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/12/01/XSS/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前一篇</strong>
       <div class="article-nav-title">
         
-          网络安全训练营
+          XSS
         
       </div>
     </a>
   
   
-    <a href="/2021/11/01/SQLInject/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/12/01/networkSecurity/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">SQL注入</div>
+      <div class="article-nav-title">网络安全训练营</div>
     </a>
   
 </nav>
