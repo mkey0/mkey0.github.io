@@ -73,6 +73,111 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-burp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/01/burp/" class="article-date">
+  <time class="dt-published" datetime="2021-10-31T16:00:00.000Z" itemprop="datePublished">2021-11-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/01/burp/">burpsuite</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="burpsuite"><a href="#burpsuite" class="headerlink" title="burpsuite"></a>burpsuite</h1><h2 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h2><h4 id="实现手机代理"><a href="#实现手机代理" class="headerlink" title="实现手机代理"></a>实现手机代理</h4><p><img src="/2021/11/01/burp/image-20211102110518594.png" alt="image-20211102110518594"></p>
+<p>按上图设施，将代理地址设置为任意地址，则将手机上网代理设置为burp主机的地址和端口就可以实现手机代理</p>
+<h4 id="对请求和响应的过滤"><a href="#对请求和响应的过滤" class="headerlink" title="对请求和响应的过滤"></a>对请求和响应的过滤</h4><p>过滤匹配是从上往下依次过滤</p>
+<p><img src="/2021/11/01/burp/image-20211102110857724.png" alt="image-20211102110857724"></p>
+<p><img src="/2021/11/01/burp/image-20211102110908183.png" alt="image-20211102110908183"></p>
+<p>and代表必须包含该匹配</p>
+<p>or代表可以包含该匹配</p>
+<h4 id="求改响应"><a href="#求改响应" class="headerlink" title="求改响应"></a>求改响应</h4><p><img src="/2021/11/01/burp/image-20211102111043915.png" alt="image-20211102111043915"></p>
+<h4 id="剔除js脚本"><a href="#剔除js脚本" class="headerlink" title="剔除js脚本"></a>剔除js脚本</h4><p>两种方法</p>
+<ul>
+<li>burp</li>
+</ul>
+<p><img src="/2021/11/01/burp/image-20211102133359955.png" alt="image-20211102133359955"></p>
+<ul>
+<li>手动F12删除js脚本</li>
+</ul>
+<h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><h4 id="target作用域scope介绍"><a href="#target作用域scope介绍" class="headerlink" title="target作用域scope介绍"></a>target作用域scope介绍</h4><p><img src="/2021/11/01/burp/image-20211102134023507.png" alt="image-20211102134023507"></p>
+<p>添加到scope后，会根据域名，主机名去拦截内容，也可以指定拦截一个网站的特定目录下的请求。</p>
+<h4 id="site-map"><a href="#site-map" class="headerlink" title="site map"></a>site map</h4><p><img src="/2021/11/01/burp/image-20211102134613096.png" alt="image-20211102134613096"></p>
+<p>左边显示访问的url，按网站的层级深度，树形展示整个应用系统的结构和关联其他域的url情况。</p>
+<p>右边显示url被访问的明细列表，共访问那些url，请求和应答内容。</p>
+<p>可以对代理抓取的target的网站进行分析与比对</p>
+<h2 id="spider"><a href="#spider" class="headerlink" title="spider"></a>spider</h2><p>spider设置抓取设置、抓取代理设置、表单提交设置、应用登录设置、蜘蛛引擎设置、请求消息头设置</p>
+<p><img src="/2021/11/01/burp/1-7%20Burpsuite%20%E7%88%AC%E8%99%AB%E4%BB%8B%E7%BB%8D.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_333.jpg" alt="1-7 Burpsuite 爬虫介绍.pcwl_视频截图_333"></p>
+<p>被动抓取功能</p>
+<p>表单提交功能：自动匹配提交表单的内容</p>
+<h2 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h2><p>自动检测web系统的各种漏洞</p>
+<p>可以设置探测漏洞的类型，频率等<img src="/2021/11/01/burp/image-20211102143311901.png" alt="image-20211102143311901"></p>
+<p><img src="/2021/11/01/burp/image-20211102143420886.png" alt="image-20211102143420886"></p>
+<p>设定探测位置</p>
+<p><img src="/2021/11/01/burp/image-20211102143336828.png" alt="image-20211102143336828"></p>
+<p>设置静态代码分析</p>
+<p><img src="/2021/11/01/burp/image-20211102143427859.png" alt="image-20211102143427859"></p>
+<p>scanner针对主动扫描漏洞还可以出具一份漏洞报告</p>
+<h2 id="intruder"><a href="#intruder" class="headerlink" title="intruder"></a>intruder</h2><p>intruder在原始请求数据的基础上，通过修改各种请求参数，以获取不同的请求应答。每一次请求中，intruder通常会携带一个或多个有效攻击载荷，在不同的位置进行攻击重放，通过对比应答数据来分析获得需要的特征数据。</p>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li>标识符枚举：web应用程序经常使用标识符来引用用户、账户、资产等数据信息</li>
+<li>提取有用的数据：在某些场景下，而不是简单地识别有效标识符，需要通过简单标识符提取一些其他的数据</li>
+<li>模糊测试：很多输入性的漏洞，如SQL注入，跨站脚本和文件路径遍历可以通过请求参数提交各种测试字符串，并分析错误消息和其他异常情况，来对应程序进行检测。</li>
+</ul>
+<h4 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h4><p><img src="/2021/11/01/burp/image-20211102144753635.png" alt="image-20211102144753635"></p>
+<h4 id="暴力破解用户名密码"><a href="#暴力破解用户名密码" class="headerlink" title="暴力破解用户名密码"></a>暴力破解用户名密码</h4><p>使用intruder跑字典，根据响应包的长度判断那个爆破成功</p>
+<h4 id="目录扫描"><a href="#目录扫描" class="headerlink" title="目录扫描"></a>目录扫描</h4><p>使用intruder跑字典，根据响应的状态码判断那个目论存在</p>
+<h4 id="Position"><a href="#Position" class="headerlink" title="Position"></a>Position</h4><p>针对HTTP某个位置或几个位置进行模糊测试，需要选择不同位置与Attack Type</p>
+<p>Attack Type：</p>
+<ul>
+<li>Sniper：狙击枪模式，只针对一个位置进行探测</li>
+<li>Battering ram：攻城锤模式，针对多个位置使用一个payload</li>
+<li>Pitchfork：单叉模式，针对多个位置使用不同的多个payload，每组payload在payload组中的位置相同。</li>
+<li>Cluster Bomb：激素炮模式，针对多个位置，全部组合</li>
+</ul>
+<h4 id="option"><a href="#option" class="headerlink" title="option"></a>option</h4><ul>
+<li>设置request请求内容</li>
+<li>Attack result设置</li>
+<li>Grep - Match设置：标出符合特定表达式的结果</li>
+<li>Grep - Exact设置：从结果中榨取有用信息</li>
+<li>Reflection设置</li>
+</ul>
+<h2 id="Repeater"><a href="#Repeater" class="headerlink" title="Repeater"></a>Repeater</h2><p>一款手工验证HTTP消息的测试工具，通常用于多次重放请求响应和手工修改请求消息的修改后对服务器端响应的消息分析</p>
+<h2 id="Sequencer"><a href="#Sequencer" class="headerlink" title="Sequencer"></a>Sequencer</h2><p>用于检测数据样本随机性质量的工具，通常用于检测访问令牌是否课预测、密码重置令牌是否可预测等场景，通过Sequencer的数据样本分析，能降低关键数据被伪造的风险</p>
+<h2 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h2><p>对字符串进行加解密操作</p>
+<h2 id="Comparer"><a href="#Comparer" class="headerlink" title="Comparer"></a>Comparer</h2><p>针对两个不同的HTTP请求进行比较</p>
+<h2 id="burp-sqlmap"><a href="#burp-sqlmap" class="headerlink" title="burp+sqlmap"></a>burp+sqlmap</h2><p>安装gason.jar插件</p>
+<p>安装sqlmap插件</p>
+<p><img src="/2021/11/01/burp/2-1%20%E7%AC%AC%E4%B8%80%E8%8A%82%20Burpsuite+Sqlmap%E6%B5%8B%E8%AF%95SQL%E6%B3%A8%E5%85%A5.pcwl_%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE_530.jpg" alt="2-1 第一节 Burpsuite+Sqlmap测试SQL注入.pcwl_视频截图_530"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/burp/" data-id="clkf71h8q000ui4v5hcrb5tus" data-title="burpsuite" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-sqlInject_raoguo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/11/01/sqlInject_raoguo/" class="article-date">
@@ -163,7 +268,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlInject_raoguo/" data-id="clk0yrxmx000z30v5cvqq4yve" data-title="SQL注入绕过技巧" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlInject_raoguo/" data-id="clkf71h8r000yi4v5387zcdvl" data-title="SQL注入绕过技巧" class="article-share-link">分享</a>
       
       
       
@@ -208,7 +313,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" data-id="clk0yrxmy001530v5h04q5zzb" data-title="信息收集" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" data-id="clkf71h8t0014i4v55di2e6dp" data-title="信息收集" class="article-share-link">分享</a>
       
       
       
@@ -432,52 +537,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/" data-id="clk0yrxmz001b30v5b2tl49tp" data-title="sqlilabs" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-ICMP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/10/01/ICMP/" class="article-date">
-  <time class="dt-published" datetime="2021-09-30T16:00:00.000Z" itemprop="datePublished">2021-10-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/10/01/ICMP/">ICMP</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h1><p>ICMP 的全称是 <code>Internet Control Message Protocol(互联网控制协议)</code>，它是一种互联网套件，它用于<strong>IP 协议中发送控制消息</strong>。也就是说，ICMP 是依靠 IP 协议来完成信息发送的，它是 IP 的主要部分，但是从体系结构上来讲，它位于 IP 之上，因为 ICMP 报文是承载在 IP 分组中的，就和 TCP 与 UDP 报文段作为 IP 有效载荷被承载那样。</p>
-        
-          <p class="article-more-link">
-            <a href="/2021/10/01/ICMP/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/ICMP/" data-id="clk0yrxmj000330v5cn2f4b49" data-title="ICMP" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/" data-id="clkf71h8t0016i4v5c9knglqq" data-title="sqlilabs" class="article-share-link">分享</a>
       
       
       
@@ -530,7 +590,52 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/NAT/" data-id="clk0yrxmp000d30v572vn24l5" data-title="NAT" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/NAT/" data-id="clkf71h8j000ai4v5diah48rg" data-title="NAT" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-ICMP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/01/ICMP/" class="article-date">
+  <time class="dt-published" datetime="2021-09-30T16:00:00.000Z" itemprop="datePublished">2021-10-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/01/ICMP/">ICMP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h1><p>ICMP 的全称是 <code>Internet Control Message Protocol(互联网控制协议)</code>，它是一种互联网套件，它用于<strong>IP 协议中发送控制消息</strong>。也就是说，ICMP 是依靠 IP 协议来完成信息发送的，它是 IP 的主要部分，但是从体系结构上来讲，它位于 IP 之上，因为 ICMP 报文是承载在 IP 分组中的，就和 TCP 与 UDP 报文段作为 IP 有效载荷被承载那样。</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/10/01/ICMP/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/ICMP/" data-id="clkf71h8l000di4v5e2nsdnoc" data-title="ICMP" class="article-share-link">分享</a>
       
       
       
@@ -576,7 +681,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/docker/" data-id="clk0yrxmw000x30v5dltt5h5d" data-title="docker" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/docker/" data-id="clkf71h8r000wi4v5f0sh2zpt" data-title="docker" class="article-share-link">分享</a>
       
       
       
@@ -621,7 +726,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/network/" data-id="clk0yrxn0001d30v5ayip2jkn" data-title="计算机网络" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/network/" data-id="clkf71h8s0010i4v53fw3aeak" data-title="计算机网络" class="article-share-link">分享</a>
       
       
       
@@ -666,7 +771,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/" data-id="clk0yrxn2001n30v54mim59ot" data-title="小迪安全" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/10/01/xiaodi1/" data-id="clkf71h8v001ci4v5dcfc9715" data-title="小迪安全" class="article-share-link">分享</a>
       
       
       
@@ -730,11 +835,15 @@
       <ul>
         
           <li>
-            <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/">BUUCTF-web-第一周</a>
+            <a href="/2023/07/22/BUUCTF-web-%E7%AC%AC%E4%B8%89%E5%91%A8/">BUUCTF-web-第三周</a>
           </li>
         
           <li>
-            <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/">BUUCTF-web-第一周</a>
+            <a href="/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/">BUUCTF-web-第二周</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/">BUUCTF-web-第一周</a>
           </li>
         
           <li>
@@ -743,10 +852,6 @@
         
           <li>
             <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-          </li>
-        
-          <li>
-            <a href="/2022/03/01/Log4j/">Log4j</a>
           </li>
         
       </ul>

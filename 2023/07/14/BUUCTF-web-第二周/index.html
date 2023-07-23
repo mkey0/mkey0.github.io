@@ -4,23 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>BUUCTF-web-第一周 | Mkey的博客</title>
+  <title>BUUCTF-web-第二周 | Mkey的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="[极客大挑战 2019]LoveSQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BUUCTF-web-第一周">
-<meta property="og:url" content="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/index.html">
+<meta property="og:title" content="BUUCTF-web-第二周">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/index.html">
 <meta property="og:site_name" content="Mkey的博客">
 <meta property="og:description" content="[极客大挑战 2019]LoveSQL">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/image-20230713171813690.png">
-<meta property="article:published_time" content="2023-07-09T02:31:04.000Z">
-<meta property="article:modified_time" content="2023-07-13T09:44:12.293Z">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/image-20230713171813690.png">
+<meta property="article:published_time" content="2023-07-14T02:31:04.000Z">
+<meta property="article:modified_time" content="2023-07-22T01:33:21.012Z">
 <meta property="article:author" content="HOU">
 <meta property="article:tag" content="web-security">
 <meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/image-20230713171813690.png">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/image-20230713171813690.png">
   
     <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
   
@@ -79,8 +79,8 @@
       <div class="outer">
         <section id="main"><article id="post-BUUCTF-web-第二周" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/" class="article-date">
-  <time class="dt-published" datetime="2023-07-09T02:31:04.000Z" itemprop="datePublished">2023-07-09</time>
+    <a href="/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-07-14T02:31:04.000Z" itemprop="datePublished">2023-07-14</time>
 </a>
     
   </div>
@@ -91,7 +91,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      BUUCTF-web-第一周
+      BUUCTF-web-第二周
     </h1>
   
 
@@ -102,7 +102,7 @@
         <h1 id="极客大挑战-2019-LoveSQL"><a href="#极客大挑战-2019-LoveSQL" class="headerlink" title="[极客大挑战 2019]LoveSQL"></a>[极客大挑战 2019]LoveSQL</h1><span id="more"></span>
 
 <h1 id="极客大挑战-2019-LoveSQL-1"><a href="#极客大挑战-2019-LoveSQL-1" class="headerlink" title="[极客大挑战 2019]LoveSQL"></a>[极客大挑战 2019]LoveSQL</h1><h2 id="观察题目"><a href="#观察题目" class="headerlink" title="观察题目"></a>观察题目</h2><p>打开题目，页面和第一周的[极客大挑战 2019]EasySQL 非常相似</p>
-<p><img src="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/image-20230713171813690.png" alt="image-20230713171813690"></p>
+<p><img src="/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/image-20230713171813690.png" alt="image-20230713171813690"></p>
 <h4 id="判断字符串闭合方式"><a href="#判断字符串闭合方式" class="headerlink" title="判断字符串闭合方式"></a>判断字符串闭合方式</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">http://fd520b3c-2425-4ea9-89b0-366028dff17e.node4.buuoj.cn:81/check.php?username=admin%27&amp;password=admin</span><br><span class="line"></span><br><span class="line">用户名：admin&#x27;</span><br><span class="line"></span><br><span class="line">返回报错</span><br><span class="line">You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#x27;admin&#x27;&#x27; at line 1</span><br></pre></td></tr></table></figure>
 
 <p>得出字符串由<code>&#39;</code>闭合</p>
@@ -127,7 +127,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/" data-id="clk0yrxmp000f30v591uz4ctl" data-title="BUUCTF-web-第一周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/" data-id="clkf71h860000i4v5cqauge9b" data-title="BUUCTF-web-第二周" class="article-share-link">分享</a>
       
       
       
@@ -139,19 +139,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2023/07/22/BUUCTF-web-%E7%AC%AC%E4%B8%89%E5%91%A8/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前一篇</strong>
       <div class="article-nav-title">
         
-          BUUCTF-web-第一周
+          BUUCTF-web-第三周
         
       </div>
     </a>
   
   
-    <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">反弹shell</div>
+      <div class="article-nav-title">BUUCTF-web-第一周</div>
     </a>
   
 </nav>
@@ -203,11 +203,15 @@
       <ul>
         
           <li>
-            <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/">BUUCTF-web-第一周</a>
+            <a href="/2023/07/22/BUUCTF-web-%E7%AC%AC%E4%B8%89%E5%91%A8/">BUUCTF-web-第三周</a>
           </li>
         
           <li>
-            <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/">BUUCTF-web-第一周</a>
+            <a href="/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/">BUUCTF-web-第二周</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/">BUUCTF-web-第一周</a>
           </li>
         
           <li>
@@ -216,10 +220,6 @@
         
           <li>
             <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-          </li>
-        
-          <li>
-            <a href="/2022/03/01/Log4j/">Log4j</a>
           </li>
         
       </ul>
