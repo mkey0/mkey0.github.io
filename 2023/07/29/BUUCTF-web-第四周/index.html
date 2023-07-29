@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>BUUCTF-web-第四周 | Mkey的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="[ACTF2020 新生赛]Include  [ACTF2020 新生赛]Include观察题目打开靶机后，看到只有一个超链接，没其他信息，那就打开看看喽  打开超链接后，页面没其他信息，按F12查看源码，也没有其他信息  注意到在url中存在参数file&#x3D;flag.php。没有其他信息，初步判断flag在flag.php文件中，应该是注释之类，导致页面中没有显示。该题目是文件包含漏洞。 解题通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUUCTF-web-第四周">
+<meta property="og:url" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/index.html">
+<meta property="og:site_name" content="Mkey的博客">
+<meta property="og:description" content="[ACTF2020 新生赛]Include  [ACTF2020 新生赛]Include观察题目打开靶机后，看到只有一个超链接，没其他信息，那就打开看看喽  打开超链接后，页面没其他信息，按F12查看源码，也没有其他信息  注意到在url中存在参数file&#x3D;flag.php。没有其他信息，初步判断flag在flag.php文件中，应该是注释之类，导致页面中没有显示。该题目是文件包含漏洞。 解题通过">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230729191013926.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230729191105676.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/30b963c25bea48dcbc496cffb05d9989.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110135324804.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4737e3fbbbae4ebda4d419264e9e556c.png">
+<meta property="article:published_time" content="2023-07-29T11:04:09.000Z">
+<meta property="article:modified_time" content="2023-07-29T13:07:02.550Z">
+<meta property="article:author" content="HOU">
+<meta property="article:tag" content="web-security">
+<meta property="article:tag" content="ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230729191013926.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mkey的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mkey的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://monkeyh0ck.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-BUUCTF-web-第四周" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-07-29T11:04:09.000Z" itemprop="datePublished">2023-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      BUUCTF-web-第四周
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h1><!--mone-->
+
+<h1 id="ACTF2020-新生赛-Include-1"><a href="#ACTF2020-新生赛-Include-1" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h1><h3 id="观察题目"><a href="#观察题目" class="headerlink" title="观察题目"></a>观察题目</h3><p>打开靶机后，看到只有一个超链接，没其他信息，那就打开看看喽</p>
+<p><img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230729191013926.png" alt="image-20230729191013926"></p>
+<p>打开超链接后，页面没其他信息，按F12查看源码，也没有其他信息</p>
+<p><img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230729191105676.png" alt="image-20230729191105676"></p>
+<p>注意到在url中存在参数<code>file=flag.php</code>。没有其他信息，初步判断flag在flag.php文件中，应该是注释之类，导致页面中没有显示。该题目是<strong>文件包含漏洞</strong>。</p>
+<h3 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h3><p>通过其他方法获取flag.php的源码。使用payload：<code>?file=php:*//filter/read=convert.base64-encode/resource=flag.php*</code></p>
+<p>返回结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PD9waHAKZWNobyAiQ2FuIHlvdSBmaW5kIG91dCB0aGUgZmxhZz8iOwovL2ZsYWd7Y2JhMTY3MTUtMTAxOS00YWViLTgxNDktZTY3NDE1NzRjN2YzfQo=</span><br><span class="line"></span><br><span class="line">base64解码：</span><br><span class="line">&lt;?php</span><br><span class="line">echo &quot;Can you find out the flag?&quot;;</span><br><span class="line">//flag&#123;5ec282e9-0d6d-4a94-8855-8253a51e2fcc&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由此可知，flag确实是被注释掉了</p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h3><p>文件包含漏洞是一种注入型漏洞，将脚本保存在文件中，让服务器执行该文件，达到执行脚本的目的，实现攻击。</p>
+<h4 id="php中常用的文件包含函数"><a href="#php中常用的文件包含函数" class="headerlink" title="php中常用的文件包含函数"></a>php中常用的文件包含函数</h4><ul>
+<li>require():找不到被包含的文件会<strong>产生致命错误</strong>，并<strong>停止脚本运行</strong></li>
+<li>include():找不到被包含的文件<strong>只会产生警告</strong>，<strong>脚本继续执行</strong></li>
+<li>require_once()与require()类似:唯一的区别是如果该文件的代码已经被包含，则<strong>不会再次包含</strong></li>
+<li>include_once()与include()类似:唯一的区别是如果该文件的代码已经被包含，则<strong>不会再次包含</strong></li>
+</ul>
+<h4 id="本地文件包含漏洞（LFI）"><a href="#本地文件包含漏洞（LFI）" class="headerlink" title="本地文件包含漏洞（LFI）"></a>本地文件包含漏洞（LFI）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">一些常见的敏感目录信息路径:</span><br><span class="line">Windows系统:</span><br><span class="line"></span><br><span class="line">C:\boot.ini //查看系统版本</span><br><span class="line">C:\windows\system32\inetsrv\MetaBase.xml //IIS配置文件</span><br><span class="line">C:\windows\repair\sam //存储Windows系统初次安装的密码</span><br><span class="line">C:\ProgramFiles\mysql\my.ini //Mysql配置</span><br><span class="line">C:\ProgramFiles\mysql\data\mysql\user.MYD //MySQL root密码</span><br><span class="line">C:\windows\php.ini //php配置信息</span><br><span class="line">Linux/Unix系统:</span><br><span class="line"></span><br><span class="line">/etc/password //账户信息</span><br><span class="line">/etc/shadow //账户密码信息</span><br><span class="line">/usr/local/app/apache2/conf/httpd.conf //Apache2默认配置文件</span><br><span class="line">/usr/local/app/apache2/conf/extra/httpd-vhost.conf //虚拟网站配置</span><br><span class="line">/usr/local/app/php5/lib/php.ini //PHP相关配置</span><br><span class="line">/etc/httpd/conf/httpd.conf //Apache配置文件</span><br><span class="line">/etc/my.conf //mysql配置文件</span><br></pre></td></tr></table></figure>
+
+<p><strong>技巧</strong></p>
+<ul>
+<li>配合文件上传使用<ul>
+<li>上传图片码等</li>
+</ul>
+</li>
+<li>包含apache日志文件<ul>
+<li>将php代码作为请求url，存储到日志文件，再通过文件包含，执行相关代码</li>
+</ul>
+</li>
+<li>包含session文件</li>
+<li>包含临时文件</li>
+</ul>
+<h4 id="远程文件包含（RFI）"><a href="#远程文件包含（RFI）" class="headerlink" title="远程文件包含（RFI）"></a>远程文件包含（RFI）</h4><p>php中需要设置如下配置，则inlude&#x2F;require函数可以加载远程文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen = On</span><br><span class="line">allow_url_include = On</span><br></pre></td></tr></table></figure>
+
+<h4 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h4><p><img src="https://img-blog.csdnimg.cn/30b963c25bea48dcbc496cffb05d9989.png" alt="在这里插入图片描述"></p>
+<ol>
+<li><p>file</p>
+<ul>
+<li><strong>file:&#x2F;&#x2F;</strong> 用于访问本地文件系统，在CTF中通常用来读取本地文件的且不受allow_url_fopen与allow_url_include的影响</li>
+</ul>
+</li>
+<li><p>php</p>
+<ul>
+<li>php:&#x2F;&#x2F; 访问各个输入&#x2F;输出流（I&#x2F;O streams），在CTF中经常使用的是<code>php://filter</code>和<code>php://input</code></li>
+<li><strong>php:&#x2F;&#x2F;filter用于读取源码</strong>。</li>
+<li><strong>php:&#x2F;&#x2F;input用于执行php代码</strong>。</li>
+<li><strong>php:&#x2F;&#x2F;filter</strong> 读取源代码并进行<strong>base64编码</strong>输出，不然会直接当做php代码执行就看不到源代码内容了。</li>
+<li><code>php://filter/convert.base64-encode/resource=文件路径</code></li>
+<li>php:&#x2F;&#x2F;filter 协议<br>  <img src="https://img-blog.csdnimg.cn/20210110135324804.png" alt="在这里插入图片描述"></li>
+</ul>
+<ol>
+<li><p>是格式</p>
+</li>
+<li><p>是可选参数，有read和write，字面意思就是读和写</p>
+</li>
+<li><p>是过滤器。主要有四种：字符串过滤器，转换过滤器，压缩过滤器，加密过滤器。filter里可以用一或多个过滤器（中间用<code>|</code>隔开），这也为解题提供了多种方法，灵活运用过滤器是解题的关键。这里的过滤器是把文件<code>flag.php</code>里的代码转换（convert）为base64编码（encode）</p>
+</li>
+<li><p>是必选参数，后面写你要处理的文件名</p>
+</li>
+</ol>
+</li>
+<li><p>ZIP:&#x2F;&#x2F;协议</p>
+<ul>
+<li><p><strong>zip:&#x2F;&#x2F;</strong> 可以访问压缩包里面的文件。当它与包含函数结合时，zip:&#x2F;&#x2F;流会被当作php文件执行。从而实现任意代码执行。</p>
+<ul>
+<li><p>zip:&#x2F;&#x2F;中只能传入绝对路径。</p>
+</li>
+<li><p>要用#分割压缩包和压缩包里的内容，并且#要用url编码成%23(即下述POC中#要用%23替换）</p>
+</li>
+<li><p>只需要是zip的压缩包即可，后缀名可以任意更改。</p>
+</li>
+<li><p>相同的类型还有zlib:&#x2F;&#x2F;和bzip2:&#x2F;&#x2F;</p>
+</li>
+<li><p><code>zip://[压缩包绝对路径]#[压缩包内文件]?file=zip://D:\1.zip%23phpinfo.txt</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>data:&#x2F;&#x2F;协议</p>
+<ul>
+<li><strong>data:&#x2F;&#x2F;</strong> 同样类似与php:&#x2F;&#x2F;input，可以让用户来控制输入流，当它与包含函数结合时，用户输入的data:&#x2F;&#x2F;流会被当作php文件执行。从而导致任意代码执行。</li>
+<li>利用data:&#x2F;&#x2F; 伪协议可以直接达到执行php代码的效果，例如执行phpinfo()函数：</li>
+<li><code>data://text/plain;base64,PD9waHAgcGhwaW5mbygpPz4=</code></li>
+</ul>
+</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/4737e3fbbbae4ebda4d419264e9e556c.png" alt="在这里插入图片描述"></p>
+<h4 id="文件包含漏洞防护"><a href="#文件包含漏洞防护" class="headerlink" title="文件包含漏洞防护"></a>文件包含漏洞防护</h4><p>1、使用<strong>str_replace</strong>等方法过滤掉危险字符</p>
+<p>2、配置open_basedir，防止目录遍历（<strong>open_basedir 将php所能打开的文件限制在指定的目录树中</strong>）</p>
+<p>3、php版本升级，防止%00截断</p>
+<p>4、对上传的文件进行重命名，防止被读取</p>
+<p>5、对于动态包含的文件可以设置一个白名单，不读取非白名单的文件。</p>
+<p>6、做好管理员权限划分，做好文件的权限管理，<strong>allow_url_include和allow_url_fopen最小权限化</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" data-id="clko11m5x0004h8v50t7egj8i" data-title="BUUCTF-web-第四周" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/" rel="tag">ctf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/07/22/BUUCTF-web-%E7%AC%AC%E4%B8%89%E5%91%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">BUUCTF-web-第三周</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/" rel="tag">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/web-security/" style="font-size: 20px;">web-security</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/">BUUCTF-web-第四周</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/22/BUUCTF-web-%E7%AC%AC%E4%B8%89%E5%91%A8/">BUUCTF-web-第三周</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/">BUUCTF-web-第二周</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/">BUUCTF-web-第一周</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 HOU<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

