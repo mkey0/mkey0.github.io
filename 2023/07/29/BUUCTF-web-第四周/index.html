@@ -15,11 +15,11 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230729191013926.png">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230729191105676.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/30b963c25bea48dcbc496cffb05d9989.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110135324804.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/4737e3fbbbae4ebda4d419264e9e556c.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170536862.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170617427.png">
+<meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170648662.png">
 <meta property="article:published_time" content="2023-07-29T11:04:09.000Z">
-<meta property="article:modified_time" content="2023-07-29T13:07:02.550Z">
+<meta property="article:modified_time" content="2023-07-30T09:07:06.784Z">
 <meta property="article:author" content="HOU">
 <meta property="article:tag" content="web-security">
 <meta property="article:tag" content="ctf">
@@ -140,7 +140,7 @@
 <h4 id="远程文件包含（RFI）"><a href="#远程文件包含（RFI）" class="headerlink" title="远程文件包含（RFI）"></a>远程文件包含（RFI）</h4><p>php中需要设置如下配置，则inlude&#x2F;require函数可以加载远程文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen = On</span><br><span class="line">allow_url_include = On</span><br></pre></td></tr></table></figure>
 
-<h4 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h4><p><img src="https://img-blog.csdnimg.cn/30b963c25bea48dcbc496cffb05d9989.png" alt="在这里插入图片描述"></p>
+<h4 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h4><p><img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170536862.png" alt="image-20230730170536862"></p>
 <ol>
 <li><p>file</p>
 <ul>
@@ -154,7 +154,7 @@
 <li><strong>php:&#x2F;&#x2F;input用于执行php代码</strong>。</li>
 <li><strong>php:&#x2F;&#x2F;filter</strong> 读取源代码并进行<strong>base64编码</strong>输出，不然会直接当做php代码执行就看不到源代码内容了。</li>
 <li><code>php://filter/convert.base64-encode/resource=文件路径</code></li>
-<li>php:&#x2F;&#x2F;filter 协议<br>  <img src="https://img-blog.csdnimg.cn/20210110135324804.png" alt="在这里插入图片描述"></li>
+<li>php:&#x2F;&#x2F;filter 协议<br>  <img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170617427.png" alt="image-20230730170617427"></li>
 </ul>
 <ol>
 <li><p>是格式</p>
@@ -193,7 +193,7 @@
 </ul>
 </li>
 </ol>
-<p><img src="https://img-blog.csdnimg.cn/4737e3fbbbae4ebda4d419264e9e556c.png" alt="在这里插入图片描述"></p>
+<p><img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170648662.png" alt="image-20230730170648662"></p>
 <h4 id="文件包含漏洞防护"><a href="#文件包含漏洞防护" class="headerlink" title="文件包含漏洞防护"></a>文件包含漏洞防护</h4><p>1、使用<strong>str_replace</strong>等方法过滤掉危险字符</p>
 <p>2、配置open_basedir，防止目录遍历（<strong>open_basedir 将php所能打开的文件限制在指定的目录树中</strong>）</p>
 <p>3、php版本升级，防止%00截断</p>
@@ -204,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" data-id="clko11m5x0004h8v50t7egj8i" data-title="BUUCTF-web-第四周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" data-id="clkp7xfc30003r0v5ht9h4esc" data-title="BUUCTF-web-第四周" class="article-share-link">分享</a>
       
       
       
@@ -287,7 +287,7 @@
           </li>
         
           <li>
-            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
           </li>
         
       </ul>

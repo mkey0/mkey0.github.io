@@ -132,7 +132,7 @@
 <h4 id="远程文件包含（RFI）"><a href="#远程文件包含（RFI）" class="headerlink" title="远程文件包含（RFI）"></a>远程文件包含（RFI）</h4><p>php中需要设置如下配置，则inlude&#x2F;require函数可以加载远程文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen = On</span><br><span class="line">allow_url_include = On</span><br></pre></td></tr></table></figure>
 
-<h4 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h4><p><img src="https://img-blog.csdnimg.cn/30b963c25bea48dcbc496cffb05d9989.png" alt="在这里插入图片描述"></p>
+<h4 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h4><p><img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170536862.png" alt="image-20230730170536862"></p>
 <ol>
 <li><p>file</p>
 <ul>
@@ -146,7 +146,7 @@
 <li><strong>php:&#x2F;&#x2F;input用于执行php代码</strong>。</li>
 <li><strong>php:&#x2F;&#x2F;filter</strong> 读取源代码并进行<strong>base64编码</strong>输出，不然会直接当做php代码执行就看不到源代码内容了。</li>
 <li><code>php://filter/convert.base64-encode/resource=文件路径</code></li>
-<li>php:&#x2F;&#x2F;filter 协议<br>  <img src="https://img-blog.csdnimg.cn/20210110135324804.png" alt="在这里插入图片描述"></li>
+<li>php:&#x2F;&#x2F;filter 协议<br>  <img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170617427.png" alt="image-20230730170617427"></li>
 </ul>
 <ol>
 <li><p>是格式</p>
@@ -185,7 +185,7 @@
 </ul>
 </li>
 </ol>
-<p><img src="https://img-blog.csdnimg.cn/4737e3fbbbae4ebda4d419264e9e556c.png" alt="在这里插入图片描述"></p>
+<p><img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170648662.png" alt="image-20230730170648662"></p>
 <h4 id="文件包含漏洞防护"><a href="#文件包含漏洞防护" class="headerlink" title="文件包含漏洞防护"></a>文件包含漏洞防护</h4><p>1、使用<strong>str_replace</strong>等方法过滤掉危险字符</p>
 <p>2、配置open_basedir，防止目录遍历（<strong>open_basedir 将php所能打开的文件限制在指定的目录树中</strong>）</p>
 <p>3、php版本升级，防止%00截断</p>
@@ -196,7 +196,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" data-id="clko11m5x0004h8v50t7egj8i" data-title="BUUCTF-web-第四周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" data-id="clkp7xfc30003r0v5ht9h4esc" data-title="BUUCTF-web-第四周" class="article-share-link">分享</a>
       
       
       
@@ -241,7 +241,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/22/BUUCTF-web-%E7%AC%AC%E4%B8%89%E5%91%A8/" data-id="clko11m600008h8v5bt2q9eeb" data-title="BUUCTF-web-第三周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/22/BUUCTF-web-%E7%AC%AC%E4%B8%89%E5%91%A8/" data-id="clkp7xfbw0000r0v5h292ahhl" data-title="BUUCTF-web-第三周" class="article-share-link">分享</a>
       
       
       
@@ -286,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/" data-id="clko11m5w0003h8v5aobg8rl5" data-title="BUUCTF-web-第二周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/" data-id="clkp7xfc40005r0v5cj3n6ooq" data-title="BUUCTF-web-第二周" class="article-share-link">分享</a>
       
       
       
@@ -331,56 +331,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/" data-id="clko11m5u0001h8v5aqosbzmw" data-title="BUUCTF-web-第一周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/" data-id="clkp7xfc60009r0v5285ge00m" data-title="BUUCTF-web-第一周" class="article-share-link">分享</a>
       
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/" rel="tag">ctf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-逻辑漏洞" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="article-date">
-  <time class="dt-published" datetime="2022-05-31T16:00:00.000Z" itemprop="datePublished">2022-06-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a>逻辑漏洞</h1>
-        
-          <p class="article-more-link">
-            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" data-id="clko11m6e001qh8v5d4gr4e89" data-title="逻辑漏洞" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
 
     </footer>
   </div>
@@ -423,7 +378,52 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E5%8F%8D%E5%BC%B9shell/" data-id="clko11m6f001uh8v550xf9ivq" data-title="反弹shell" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E5%8F%8D%E5%BC%B9shell/" data-id="clkp7xfch0017r0v5gmkfbahm" data-title="反弹shell" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-逻辑漏洞" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="article-date">
+  <time class="dt-published" datetime="2022-05-31T16:00:00.000Z" itemprop="datePublished">2022-06-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a>逻辑漏洞</h1>
+        
+          <p class="article-more-link">
+            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" data-id="clkp7xfcl001tr0v59787ehry" data-title="逻辑漏洞" class="article-share-link">分享</a>
       
       
       
@@ -468,7 +468,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/Log4j/" data-id="clko11m62000eh8v5b0y2d0hp" data-title="Log4j" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/Log4j/" data-id="clkp7xfc8000cr0v5a5ymfez8" data-title="Log4j" class="article-share-link">分享</a>
       
       
       
@@ -520,7 +520,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/OWASP/" data-id="clko11m63000hh8v5991b04e2" data-title="OWASP TOP 10" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/OWASP/" data-id="clkp7xfcb000jr0v5hc2i61il" data-title="OWASP TOP 10" class="article-share-link">分享</a>
       
       
       
@@ -565,7 +565,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/kali/" data-id="clko11m68000yh8v54aop6aac" data-title="kali" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/kali/" data-id="clkp7xfcg0011r0v58c7k5832" data-title="kali" class="article-share-link">分享</a>
       
       
       
@@ -610,7 +610,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" data-id="clko11m6d001ih8v5hbyq9b2i" data-title="OWASP TOP 10" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" data-id="clkp7xfci001br0v52x9r7uli" data-title="OWASP TOP 10" class="article-share-link">分享</a>
       
       
       
@@ -655,7 +655,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/" data-id="clko11m6e001oh8v5fuf0f26t" data-title="缓冲区溢出" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/" data-id="clkp7xfci001dr0v58yi986wx" data-title="缓冲区溢出" class="article-share-link">分享</a>
       
       
       
@@ -700,7 +700,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/" data-id="clko11m6f001sh8v5ayqyetdw" data-title="面试情况记录" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/" data-id="clkp7xfcl001rr0v511448sdz" data-title="面试情况记录" class="article-share-link">分享</a>
       
       
       
@@ -748,7 +748,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/02/01/JAVA/" data-id="clko11m61000ah8v56o334u1j" data-title="JAVA" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/02/01/JAVA/" data-id="clkp7xfc50008r0v5ek1qajeq" data-title="JAVA" class="article-share-link">分享</a>
       
       
       
@@ -805,7 +805,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/01/01/AST/" data-id="clko11m5q0000h8v55ihtg32y" data-title="AST" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/01/01/AST/" data-id="clkp7xfc00001r0v51e8nekkh" data-title="AST" class="article-share-link">分享</a>
       
       
       
@@ -861,7 +861,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/01/01/JavaScript-reverse/" data-id="clko11m62000ch8v52ajc7x92" data-title="JavaScript-逆向" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/01/01/JavaScript-reverse/" data-id="clkp7xfc9000er0v57uhx2ucu" data-title="JavaScript-逆向" class="article-share-link">分享</a>
       
       
       
@@ -908,7 +908,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/01/01/%E6%9E%81%E9%AA%8C%E6%BB%91%E5%9D%971/" data-id="clko11m6g001wh8v5f1uv9304" data-title="极验滑块" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/01/01/%E6%9E%81%E9%AA%8C%E6%BB%91%E5%9D%971/" data-id="clkp7xfch0019r0v5c5yg7bm7" data-title="极验滑块" class="article-share-link">分享</a>
       
       
       
@@ -953,52 +953,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/12/01/XSS/" data-id="clko11m65000oh8v5bkqtg0xi" data-title="XSS" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-networkSecurity" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/12/01/networkSecurity/" class="article-date">
-  <time class="dt-published" datetime="2021-11-30T16:00:00.000Z" itemprop="datePublished">2021-12-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/12/01/networkSecurity/">网络安全训练营</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="网络安全训练营"><a href="#网络安全训练营" class="headerlink" title="网络安全训练营"></a>网络安全训练营</h1>
-        
-          <p class="article-more-link">
-            <a href="/2021/12/01/networkSecurity/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/" data-id="clko11m690014h8v50v1bcwgb" data-title="网络安全训练营" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/XSS/" data-id="clkp7xfcc000mr0v50i663apj" data-title="XSS" class="article-share-link">分享</a>
       
       
       
@@ -1043,7 +998,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/12/01/webSecurity/" data-id="clko11m6c001hh8v57t0i2d2m" data-title="webSecurity" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/webSecurity/" data-id="clkp7xfci001fr0v5b073430x" data-title="webSecurity" class="article-share-link">分享</a>
       
       
       
@@ -1057,9 +1012,54 @@
 
 
   
-    <article id="post-SQLInject" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-networkSecurity" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/11/01/SQLInject/" class="article-date">
+    <a href="/2021/12/01/networkSecurity/" class="article-date">
+  <time class="dt-published" datetime="2021-11-30T16:00:00.000Z" itemprop="datePublished">2021-12-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/12/01/networkSecurity/">网络安全训练营</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="网络安全训练营"><a href="#网络安全训练营" class="headerlink" title="网络安全训练营"></a>网络安全训练营</h1>
+        
+          <p class="article-more-link">
+            <a href="/2021/12/01/networkSecurity/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/" data-id="clkp7xfcl001qr0v57ycx5521" data-title="网络安全训练营" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-burp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/01/burp/" class="article-date">
   <time class="dt-published" datetime="2021-10-31T16:00:00.000Z" itemprop="datePublished">2021-11-01</time>
 </a>
     
@@ -1071,7 +1071,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/01/SQLInject/">SQL注入</a>
+      <a class="p-name article-title" href="/2021/11/01/burp/">burpsuite</a>
     </h1>
   
 
@@ -1079,29 +1079,16 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p><img src="/2021/11/01/SQLInject/SQLInject.png" alt="SQLInject"></p>
-<h2 id="sql注入介绍"><a href="#sql注入介绍" class="headerlink" title="sql注入介绍"></a>sql注入介绍</h2><p>传入非加密数据的地方可能存在注入点</p>
-<p>什么是SQL注入</p>
-<ul>
-<li>sql注入也是正常的web端口访问</li>
-<li>只是转入的参数值并非程序设计者所希望的，而是传入了嵌套SQL代码的参数值</li>
-<li>参数值利用程序处理注入者的逻辑，按注入者的期望执行数据库查询</li>
-<li>甚至页面呈现按SQL注入者期望的显示</li>
-<li><strong>通过应用程序把带有SQL代码的参数传递给数据库引擎</strong></li>
-</ul>
-<p>SQL注入漏洞的根本原因</p>
-<ul>
-<li>应用程序的问题而不是系统和数据库的问题</li>
-</ul>
+        <h1 id="burpsuite"><a href="#burpsuite" class="headerlink" title="burpsuite"></a>burpsuite</h1>
         
           <p class="article-more-link">
-            <a href="/2021/11/01/SQLInject/#more">Read More</a>
+            <a href="/2021/11/01/burp/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/SQLInject/" data-id="clko11m65000mh8v50vmmd21u" data-title="SQL注入" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/11/01/burp/" data-id="clkp7xfcc000or0v54oeudy8i" data-title="burpsuite" class="article-share-link">分享</a>
       
       
       
@@ -1181,7 +1168,7 @@
           </li>
         
           <li>
-            <a href="/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
           </li>
         
       </ul>
