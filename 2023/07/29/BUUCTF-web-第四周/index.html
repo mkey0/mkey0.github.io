@@ -6,20 +6,20 @@
   
   <title>BUUCTF-web-第四周 | Mkey的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="[ACTF2020 新生赛]Include  [ACTF2020 新生赛]Include观察题目打开靶机后，看到只有一个超链接，没其他信息，那就打开看看喽  打开超链接后，页面没其他信息，按F12查看源码，也没有其他信息  注意到在url中存在参数file&#x3D;flag.php。没有其他信息，初步判断flag在flag.php文件中，应该是注释之类，导致页面中没有显示。该题目是文件包含漏洞。 解题通过">
+  <meta name="description" content="[ACTF2020 新生赛]Include">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BUUCTF-web-第四周">
 <meta property="og:url" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/index.html">
 <meta property="og:site_name" content="Mkey的博客">
-<meta property="og:description" content="[ACTF2020 新生赛]Include  [ACTF2020 新生赛]Include观察题目打开靶机后，看到只有一个超链接，没其他信息，那就打开看看喽  打开超链接后，页面没其他信息，按F12查看源码，也没有其他信息  注意到在url中存在参数file&#x3D;flag.php。没有其他信息，初步判断flag在flag.php文件中，应该是注释之类，导致页面中没有显示。该题目是文件包含漏洞。 解题通过">
+<meta property="og:description" content="[ACTF2020 新生赛]Include">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230729191013926.png">
 <meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230729191105676.png">
-<meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170536862.png">
-<meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170617427.png">
-<meta property="og:image" content="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170648662.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/30b963c25bea48dcbc496cffb05d9989.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110135324804.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4737e3fbbbae4ebda4d419264e9e556c.png">
 <meta property="article:published_time" content="2023-07-29T11:04:09.000Z">
-<meta property="article:modified_time" content="2023-07-30T09:07:06.784Z">
+<meta property="article:modified_time" content="2023-08-23T07:16:13.728Z">
 <meta property="article:author" content="HOU">
 <meta property="article:tag" content="web-security">
 <meta property="article:tag" content="ctf">
@@ -103,7 +103,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h1><!--mone-->
+        <h1 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h1><span id="more"></span>
 
 <h1 id="ACTF2020-新生赛-Include-1"><a href="#ACTF2020-新生赛-Include-1" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h1><h3 id="观察题目"><a href="#观察题目" class="headerlink" title="观察题目"></a>观察题目</h3><p>打开靶机后，看到只有一个超链接，没其他信息，那就打开看看喽</p>
 <p><img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230729191013926.png" alt="image-20230729191013926"></p>
@@ -140,7 +140,7 @@
 <h4 id="远程文件包含（RFI）"><a href="#远程文件包含（RFI）" class="headerlink" title="远程文件包含（RFI）"></a>远程文件包含（RFI）</h4><p>php中需要设置如下配置，则inlude&#x2F;require函数可以加载远程文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen = On</span><br><span class="line">allow_url_include = On</span><br></pre></td></tr></table></figure>
 
-<h4 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h4><p><img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170536862.png" alt="image-20230730170536862"></p>
+<h4 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h4><p><img src="https://img-blog.csdnimg.cn/30b963c25bea48dcbc496cffb05d9989.png" alt="在这里插入图片描述"></p>
 <ol>
 <li><p>file</p>
 <ul>
@@ -154,7 +154,7 @@
 <li><strong>php:&#x2F;&#x2F;input用于执行php代码</strong>。</li>
 <li><strong>php:&#x2F;&#x2F;filter</strong> 读取源代码并进行<strong>base64编码</strong>输出，不然会直接当做php代码执行就看不到源代码内容了。</li>
 <li><code>php://filter/convert.base64-encode/resource=文件路径</code></li>
-<li>php:&#x2F;&#x2F;filter 协议<br>  <img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170617427.png" alt="image-20230730170617427"></li>
+<li>php:&#x2F;&#x2F;filter 协议<br>  <img src="https://img-blog.csdnimg.cn/20210110135324804.png" alt="在这里插入图片描述"></li>
 </ul>
 <ol>
 <li><p>是格式</p>
@@ -193,7 +193,7 @@
 </ul>
 </li>
 </ol>
-<p><img src="/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/image-20230730170648662.png" alt="image-20230730170648662"></p>
+<p><img src="https://img-blog.csdnimg.cn/4737e3fbbbae4ebda4d419264e9e556c.png" alt="在这里插入图片描述"></p>
 <h4 id="文件包含漏洞防护"><a href="#文件包含漏洞防护" class="headerlink" title="文件包含漏洞防护"></a>文件包含漏洞防护</h4><p>1、使用<strong>str_replace</strong>等方法过滤掉危险字符</p>
 <p>2、配置open_basedir，防止目录遍历（<strong>open_basedir 将php所能打开的文件限制在指定的目录树中</strong>）</p>
 <p>3、php版本升级，防止%00截断</p>
@@ -204,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" data-id="clkzas1ms0008aov5akjqg2j5" data-title="BUUCTF-web-第四周" class="article-share-link">分享</a>
+      <a data-url="https://monkeyh0ck.github.io/2023/07/29/BUUCTF-web-%E7%AC%AC%E5%9B%9B%E5%91%A8/" data-id="cllngd65l000cs4v57ot8cio6" data-title="BUUCTF-web-第四周" class="article-share-link">分享</a>
       
       
       
@@ -280,6 +280,10 @@
       <ul>
         
           <li>
+            <a href="/2023/08/23/BUUCTF-web-%E7%AC%AC%E5%85%AD%E5%91%A8/">BUUCTF-web-第六周</a>
+          </li>
+        
+          <li>
             <a href="/2023/08/05/BUUCTF-web-%E7%AC%AC%E4%BA%94%E5%91%A8/">BUUCTF-web-第五周</a>
           </li>
         
@@ -293,10 +297,6 @@
         
           <li>
             <a href="/2023/07/14/BUUCTF-web-%E7%AC%AC%E4%BA%8C%E5%91%A8/">BUUCTF-web-第二周</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/09/BUUCTF-web-%E7%AC%AC%E4%B8%80%E5%91%A8/">BUUCTF-web-第一周</a>
           </li>
         
       </ul>
